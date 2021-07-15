@@ -1,20 +1,16 @@
 package view;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class OfficeEscapeView extends JFrame implements MouseListener {
 
-
     private JFrame myFrame;
-
     public OfficeEscapeView() throws
             ClassNotFoundException,
             InstantiationException,
@@ -23,6 +19,8 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         setupUI();
         setupFrame();
 //        addGamePanel();
+        addMenuPanel();
+        myFrame.setVisible(true);
 
     }
 
@@ -57,7 +55,6 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
 
     private void setupFrame() throws IOException, FontFormatException {
 
-
         BufferedImage image;
 //        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office1.jpg")));
 
@@ -67,7 +64,6 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         myFrame.setLocation(100, 150);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setResizable(false);
-        myFrame.setVisible(true);
 
     }
 
@@ -77,9 +73,7 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
     }
 
     private void addGamePanel() {
-
         myFrame.add(new GamePanel());
-
     }
 
     @Override

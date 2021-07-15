@@ -1,7 +1,7 @@
 1001Fonts Free For Commercial Use License (FFC)
 
 Preamble
-In this license, 'Expansiva' refers to the given .zip file, which may contain one or numerous fonts. These fonts can be of any type (.ttf, .otf, ...) and together they form a 'font family' or in short a 'typeface'.
+In this license, 'Expansiva' refers to the given .zip file, which may contain one or numerous res.images.fonts. These res.images.fonts can be of any type (.ttf, .otf, ...) and together they form a 'font family' or in short a 'typeface'.
 
 1. Copyright
 Expansiva is the intellectual property of its respective author, provided it is original, and is protected by copyright laws in many parts of the world.

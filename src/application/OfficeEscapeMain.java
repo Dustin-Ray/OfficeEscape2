@@ -1,4 +1,5 @@
-import View.OfficeEscapeView;
+package application;
+import view.OfficeEscapeView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +8,6 @@ import java.io.IOException;
 public class OfficeEscapeMain {
 
     public static void main(String[] theArgs) {
-
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -19,10 +19,6 @@ public class OfficeEscapeMain {
                 }
             }
         });
-        System.out.println("Test");
+        System.out.println("Succeeds to this point");
     }
-
-
-
-
 }

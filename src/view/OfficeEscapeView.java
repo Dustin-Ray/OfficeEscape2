@@ -1,15 +1,16 @@
-package View;
+package view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Objects;
 
-public class OfficeEscapeView extends JFrame {
+public class OfficeEscapeView extends JFrame implements MouseListener {
 
 
     private JFrame myFrame;
@@ -21,7 +22,8 @@ public class OfficeEscapeView extends JFrame {
             UnsupportedLookAndFeelException, IOException, FontFormatException {
         setupUI();
         setupFrame();
-        setupLabels();
+        addGamePanel();
+//        setupLabels();
     }
 
     /**
@@ -61,17 +63,11 @@ public class OfficeEscapeView extends JFrame {
     private void setupFrame() throws IOException, FontFormatException {
 
 
-        BufferedImage image = new BufferedImage(1920, 1280,
-                BufferedImage.TYPE_INT_ARGB);
-        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/office1.jpg")));
-
-
-
-
-
+        BufferedImage image;
+//        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office1.jpg")));
 
         myFrame = new JFrame("Office Escape v9");
-        myFrame.setContentPane(new ImagePanel(image));
+//        myFrame.setContentPane(new ImagePanel(image));
         myFrame.setSize(1250, 650);
         myFrame.setLocation(100, 150);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,9 +77,7 @@ public class OfficeEscapeView extends JFrame {
     }
 
     public void setupLabels() throws IOException, FontFormatException {
-        final JLabel plsHelp = new JLabel("Please help");
-        plsHelp.setBounds(20, 400, 170, 20);
-        myFrame.add(plsHelp);
+
 
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("fonts/expansiva/Expansiva.otf")));
         fontTest = fontTest.deriveFont(Font.PLAIN, 38);
@@ -100,13 +94,74 @@ public class OfficeEscapeView extends JFrame {
         newGame.setBounds(1000, 100, 600, 50);
         myFrame.add(newGame);
 
+        newGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                GamePanel gp = new GamePanel();
+            }
+        });
+
+
+
         final JLabel loadGame = new JLabel("load: ");
         loadGame.setFont(fontTest);
         loadGame.setForeground(Color.black);
         loadGame.setBounds(1000, 150, 600, 50);
         myFrame.add(loadGame);
 
+        loadGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                loadGame.setText("escape");
+                loadGame.setForeground(Color.magenta);
 
+                BufferedImage image = new BufferedImage(1920, 1280,
+                        BufferedImage.TYPE_INT_ARGB);
+
+                try {
+                    image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office2.jpg")));
+                    myFrame.setContentPane(new ImagePanel(image));
+                    setupLabels();
+                } catch (IOException | FontFormatException ioException) {
+                    ioException.printStackTrace();
+                }
+                final JLabel plsHelp = new JLabel("Please help");
+                plsHelp.setBounds(20, 400, 170, 20);
+                myFrame.add(plsHelp);
+            }
+        });
+
+
+    }
+
+    private void addGamePanel() {
+
+        myFrame.add(new GamePanel());
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }

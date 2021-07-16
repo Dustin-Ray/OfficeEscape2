@@ -37,7 +37,7 @@ public final class FileLoader {
             result = new GamePanel(readGrid(input));
             input.close();
         } catch (final IOException ioe) {
-            JOptionPane.showMessageDialog(theFrame, "Could not read city map file " + file.getName()
+            JOptionPane.showMessageDialog(theFrame, "failed to load a resource file somewhere, check paths " + file.getName()
                             + ":\n\n" + ioe.getMessage(), "I/O Error",
                     JOptionPane.ERROR_MESSAGE);
         }

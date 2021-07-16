@@ -1,27 +1,21 @@
 package view;
 
-import javax.imageio.ImageIO;
+import model.Icons;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class UserProfile {
 
 
     private int x;
     private int y;
-    private BufferedImage img;
+    private final BufferedImage img;
     private int speedKeyX, speedKeyY;
 
-    public UserProfile(){ }
 
-    public UserProfile(String fileLoc, int x, int y){
-        try{
-            this.img = ImageIO.read(new File(fileLoc));
-        } catch (IOException e){
-            System.out.println("Can't load file!");
-        }
+
+    public UserProfile(int x, int y){
+        this.img = Icons.PLAYER_SPRITE;
 
         this.x = x;
         this.y = y;

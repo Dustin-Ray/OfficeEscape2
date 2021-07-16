@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class Icons {
 
-
-
     public BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_2.png"));
     public BufferedImage FLOOR_2 = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_47.png"));
     public BufferedImage BOTTOM_WALL = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_59.png"));
@@ -24,7 +22,15 @@ public class Icons {
     public BufferedImage PLANT = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_99.png"));
     public BufferedImage PRINTER = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/32x32/Modern_Office_Singles_32x32_178.png"));
 
+    public static BufferedImage PLAYER_SPRITE;
 
+    static {
+        try {
+            PLAYER_SPRITE = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_111.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public Icons() throws IOException {

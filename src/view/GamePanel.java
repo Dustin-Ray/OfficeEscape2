@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void Initialize() {
-        usrProf = new UserProfile("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_111.png", 0, 0);
+        usrProf = new UserProfile(0, 0);
     }
 
     public void paintComponent(Graphics g) {

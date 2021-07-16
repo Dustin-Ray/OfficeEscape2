@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /*
-     * create a inner class to handle key inputs via the CoinSprite class
+     * create a inner class to handle key inputs
      */
     private class InputHandler extends KeyAdapter {
         public void keyPressed(KeyEvent e) {

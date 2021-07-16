@@ -10,7 +10,10 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
+/**
+ * Main GUI class
+ * @author Dustin Ray
+ */
 public class OfficeEscapeView extends JFrame implements MouseListener {
 
     private JFrame myFrame;

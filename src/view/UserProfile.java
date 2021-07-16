@@ -4,6 +4,9 @@ import model.Icons;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+/**
+ * The main user profile for the player. Will contain details like character name, etc.
+ */
 public class UserProfile {
 
 

@@ -5,6 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A class to contain all image assets for use in GUI.
+ * @author Dustin Ray
+ */
 public class Icons {
 
     public BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_2.png"));

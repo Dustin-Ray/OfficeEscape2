@@ -3,40 +3,33 @@ package model;
 
 
 public enum Terrain {
-    /**
-     * Grass.
-     */
-    FLOOR('-'),
 
-    /**
-     * Street.
-     */
-    STREET('|'),
 
-    /**
-     * Light.
-     */
-    LIGHT('+'),
+    BOTTOM_WALL('B'),
+    TOP_WALL('T'),
+    TOP_LEFT_CORNER('('),
+    TOP_RIGHT_CORNER(')'),
+    BOTTOM_LEFT_CORNER('['),
+    BOTTOM_RIGHT_CORNER(']'),
+    LEFT_WALL('L'),
+    RIGHT_WALL('R'),
+    COMPUTER('C'),
+    LAMP('L'),
+    PRINTER('P'),
+    COMPUTER_DESK('D'),
+    FLOOR_1('|'),
+    FLOOR_2('.'),
+    PLANT('%');
 
-    /**
-     * Wall.
-     */
-    WALL('X'),
 
-    /**
-     * Trail.
-     */
-    TRAIL('.'),
 
-    /**
-     * Trail.
-     */
-    CROSSWALK('#');
+
+
 
     /**
      * The character corresponding to a particular value of the enumeration.
      */
-    private char myLetter;
+    private final char myLetter;
 
     // Constructor
 
@@ -59,7 +52,7 @@ public enum Terrain {
      *         Terrain is represented by the given letter.
      */
     public static Terrain valueOf(final char theLetter) {
-        Terrain result = FLOOR;
+        Terrain result = FLOOR_2;
 
         for (final Terrain terrain : Terrain.values()) {
             if (terrain.myLetter == theLetter) {

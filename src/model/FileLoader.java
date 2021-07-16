@@ -3,16 +3,15 @@ package model;
 import view.GamePanel;
 
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public final class FileLoader {
 
-    /**
-     * The filename of the city map.
-     */
-    private static final String CITY_FILE = "city_map1.txt";
+
 
     /**
      * A private constructor, to prevent external instantiation.
@@ -27,18 +26,18 @@ public final class FileLoader {
      * @return the RoadRagePanel based on the city text file.
      */
     public static GamePanel readCity(final JFrame theFrame) {
+
+        File file = new File("src/res/city_map1.txt");
+        System.out.println(file.length());
         GamePanel result = null;
-        try (Scanner input = new Scanner(new File("src/res/city_map1.txt"))) {
+
+        try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
 
             // First, we read the map description
-            // Then, we read where the initial vehicles are
-
             result = new GamePanel(readGrid(input));
-
             input.close();
-
         } catch (final IOException ioe) {
-            JOptionPane.showMessageDialog(theFrame, "Could not read city map file " + CITY_FILE
+            JOptionPane.showMessageDialog(theFrame, "Could not read city map file " + file.getName()
                             + ":\n\n" + ioe.getMessage(), "I/O Error",
                     JOptionPane.ERROR_MESSAGE);
         }

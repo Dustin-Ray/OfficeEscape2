@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -74,7 +75,7 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         myFrame.add(new MenuPanel());
     }
 
-    private void addGamePanel() {
+    private void addGamePanel() throws FileNotFoundException {
 
         GamePanel gp = FileLoader.readCity(myFrame);
         myFrame.add(gp);

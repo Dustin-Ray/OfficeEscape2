@@ -1,17 +1,17 @@
 package view;
 
+import model.Icons;
 import model.Terrain;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
 
     private UserProfile usrProf;
-
-
 
     /**
      * The size in pixels of a side of one "square" on the grid.
@@ -21,7 +21,9 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * The terrain grid for the simulation.
      */
-    private Terrain[][] myGrid;
+    private final Terrain[][] myGrid;
+
+    private final Icons imgLibrary;
 
 
     /**
@@ -32,14 +34,13 @@ public class GamePanel extends JPanel implements Runnable {
             new float[] {2, 2, 2, 2}, 0);
 
 
-    public GamePanel(final Terrain[][] theGrid) {
+    public GamePanel(final Terrain[][] theGrid) throws IOException {
 
+        imgLibrary = new Icons();
         this.myGrid = theGrid.clone();
-
         setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new InputHandler());
-
         Initialize();
         Thread animate = new Thread(this);
         animate.start();
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
+
     public void drawMap(final Graphics2D theGraphics) {
 
         for (int y = 0; y < myGrid.length; y++) {
@@ -72,10 +74,52 @@ public class GamePanel extends JPanel implements Runnable {
                 final int leftx = x * SQUARE_SIZE;
 
                 switch (myGrid[y][x]) {
-                    case FLOOR:
-                        theGraphics.setPaint(Color.LIGHT_GRAY);
-                        theGraphics.fillRect(leftx, topy, SQUARE_SIZE, SQUARE_SIZE);
+
+
+
+                    case FLOOR_2:
+                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
                         break;
+                    case FLOOR_1:
+                        theGraphics.drawImage(imgLibrary.FLOOR_1, leftx , topy, null);
+                        break;
+
+
+
+
+
+                    case BOTTOM_WALL:
+                        theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx , topy, null);
+                        break;
+                    case TOP_WALL:
+                        theGraphics.drawImage(imgLibrary.TOP_WALL, leftx , topy, null);
+                        break;
+
+                    case LEFT_WALL:
+                        theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx , topy, null);
+                        break;
+                    case PLANT:
+                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
+                        theGraphics.drawImage(imgLibrary.PLANT, leftx , topy, null);
+                        break;
+                    case RIGHT_WALL:
+                        theGraphics.drawImage(imgLibrary.RIGHT_WALL, leftx , topy, null);
+                        break;
+
+                    case COMPUTER:
+                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
+                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK, leftx , topy, null);
+                        break;
+                    case COMPUTER_DESK:
+                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK, leftx , topy, null);
+                        theGraphics.drawImage(imgLibrary.PRINTER, leftx , topy, null);
+
+                        break;
+                    case PRINTER:
+                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK_LEGS, leftx , topy, null);
+                        theGraphics.drawImage(imgLibrary.PRINTER, leftx , topy, null);
+                        break;
+
                 }
             }
         }

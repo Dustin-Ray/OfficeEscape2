@@ -13,16 +13,20 @@ public class UserProfile {
     private int y;
     private BufferedImage img;
     private int speedKeyX, speedKeyY;
+    private int myXDim;
+    private int myYDim;
 
     public UserProfile(){ }
 
-    public UserProfile(String fileLoc, int x, int y){
+    public UserProfile(String fileLoc, int x, int y, int theXDim, int theYDim){
         try{
             this.img = ImageIO.read(new File(fileLoc));
         } catch (IOException e){
             System.out.println("Can't load file!");
         }
 
+        myXDim = theXDim;
+        myYDim = theYDim;
         this.x = x;
         this.y = y;
     }
@@ -30,16 +34,17 @@ public class UserProfile {
     /*
      * move the sprite based on key inputs
      */
-    public void move2() {
+    public void move() {
         this.x += this.speedKeyX;
         this.y += this.speedKeyY;
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if(e.getKeyCode() == KeyEvent.VK_LEFT ) {
             speedKeyX = -10; //when move is, called change the speed
         }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && this.getX() < 1200) {
+            System.out.println(this.getX());
             speedKeyX = 10;
         }
 

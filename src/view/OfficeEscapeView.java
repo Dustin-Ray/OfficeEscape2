@@ -18,8 +18,8 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
             UnsupportedLookAndFeelException, IOException, FontFormatException {
         setupUI();
         setupFrame();
-//        addGamePanel();
-        addMenuPanel();
+        addGamePanel();
+//        addMenuPanel();
         myFrame.setVisible(true);
 
     }
@@ -73,7 +73,8 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
     }
 
     private void addGamePanel() {
-        myFrame.add(new GamePanel());
+        myFrame.add(new GamePanel(1250,650));
+
     }
 
     @Override

@@ -62,7 +62,7 @@ public class GameFrame extends JFrame {
 
 
     private void addGamePanel() {
-        myFrame.add(new GamePanel());
+        myFrame.add(new GamePanel(1250, 650));
     }
 
 }

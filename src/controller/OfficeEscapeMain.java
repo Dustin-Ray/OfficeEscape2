@@ -1,4 +1,4 @@
-package application;
+package controller;
 import view.OfficeEscapeView;
 
 import javax.swing.*;

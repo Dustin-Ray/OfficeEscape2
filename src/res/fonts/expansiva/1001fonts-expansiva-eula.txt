@@ -31,7 +31,7 @@ Expansiva may be converted to other formats such as WOFF, SVG or EOT webfonts, a
 While Expansiva may freely be copied and passed along to other individuals for private use as its original downloadable zip-file, it may not be sold or published without written permission by its respective author.
 
 6. Embedding
-Expansiva may be embedded into an application such as a web- or mobile app, independant of the number of the application users, as long as the application does not distribute Expansiva, such as offering it as a download.
+Expansiva may be embedded into an controller such as a web- or mobile app, independant of the number of the controller users, as long as the controller does not distribute Expansiva, such as offering it as a download.
 
 7. Disclaimer
 Expansiva is offered 'as is' without any warranty. 1001fonts.com and the respective author of Expansiva shall not be liable for any damage derived from using this typeface. By using Expansiva you agree to the terms of this license.

@@ -13,20 +13,16 @@ public class UserProfile {
     private int y;
     private BufferedImage img;
     private int speedKeyX, speedKeyY;
-    private int myXDim;
-    private int myYDim;
 
     public UserProfile(){ }
 
-    public UserProfile(String fileLoc, int x, int y, int theXDim, int theYDim){
+    public UserProfile(String fileLoc, int x, int y){
         try{
             this.img = ImageIO.read(new File(fileLoc));
         } catch (IOException e){
             System.out.println("Can't load file!");
         }
 
-        myXDim = theXDim;
-        myYDim = theYDim;
         this.x = x;
         this.y = y;
     }
@@ -35,16 +31,29 @@ public class UserProfile {
      * move the sprite based on key inputs
      */
     public void move() {
-        this.x += this.speedKeyX;
-        this.y += this.speedKeyY;
+
+        if(this.getX() >= 0 && this.getX() < 1200) {
+            this.x += this.speedKeyX;
+        } else if (this.getX() < 0) {
+            this.x = 0;
+        } else if (this.getX() > 1160) {
+            this.x = 1160;
+        }
+        if(this.getY() >= 0 && this.getY() < 490) {
+            this.y += this.speedKeyY;
+        } else if (this.getY() < 0) {
+            this.y = 0;
+        } else if (this.getY() > 460) {
+            this.y = 450;
+        }
     }
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_LEFT ) {
             speedKeyX = -10; //when move is, called change the speed
         }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT && this.getX() < 1200) {
-            System.out.println(this.getX());
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            System.out.println("x position: " + this.getX());
             speedKeyX = 10;
         }
 
@@ -53,6 +62,7 @@ public class UserProfile {
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN) {
             speedKeyY = 10;
+            System.out.println("y position: " + this.getY());
         }
     }
 

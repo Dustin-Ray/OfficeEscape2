@@ -1,5 +1,7 @@
 package view;
 
+import model.FileLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -73,7 +75,9 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
     }
 
     private void addGamePanel() {
-        myFrame.add(new GamePanel(1250,650));
+
+        GamePanel gp = FileLoader.readCity(myFrame);
+        myFrame.add(gp);
 
     }
 

@@ -64,6 +64,41 @@ public class Graph<V> {
             adjacencyList.put(from, set);
         }
         numEdges += 1;
+        numVertices += 2;
+    }
+
+
+    /**
+     * Returns the outgoing edges from a given vertex.
+     *
+     * @param vertex The vertex to get the outgoing edges of.
+     * @return The outgoing edges of from
+     */
+    public Set<Edge<V>> edgesFrom(final V vertex) {
+        if (vertex == null) {
+            throw new IllegalArgumentException();
+        }
+        return Collections.unmodifiableSet(adjacencyList.get(vertex));
+    }
+
+
+    /**
+     * Returns a list of all edges in this Graph.
+     *
+     * @return A list of all edges in this Graph.
+     */
+    public List<Edge<V>> allEdges() {
+        return Collections.unmodifiableList(edges);
+    }
+
+
+    /**
+     * Returns a set of all vertices in this Graph.
+     *
+     * @return A set of all vertices in this Graph.
+     */
+    public Set<V> allVertices() {
+        return Collections.unmodifiableSet(adjacencyList.keySet());
     }
 
 

@@ -1,4 +1,4 @@
-package model;
+package model.graph;
 
 
 import java.util.*;
@@ -8,7 +8,7 @@ import java.util.*;
  *
  * @author Reuben Keller
  */
-public class Graph<V> {
+public class AdjacencyListGraph<V>{
 
     /** The adjacency list representation of this Graph. **/
     private final Map<V, Set<Edge<V>>> adjacencyList;
@@ -26,7 +26,7 @@ public class Graph<V> {
     /**
      * Constructs a new Graph.
      */
-    public Graph() {
+    public AdjacencyListGraph() {
         adjacencyList = new HashMap<>();
         edges = new ArrayList<>();
         numVertices = 0;

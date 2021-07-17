@@ -1,20 +1,19 @@
-package model;
+package model.graph;
 
 import java.util.Objects;
 
-
 /**
- * Implements a weighted Edge in a Graph.
+ * Implements a weighted edge for a Graph.
  *
  * @author Reuben Keller
  */
-public class Edge<T> {
+public class Edge<V> {
 
     /** The vertex a in an edge (a, b). */
-    private final T myFrom;
+    private final V myFrom;
 
     /** The vertex b in an edge (a, b). */
-    private final T myTo;
+    private final V myTo;
 
     /** The weight of this edge. */
     private final double myWeight;
@@ -26,7 +25,7 @@ public class Edge<T> {
      * @param theFrom The vertex a in an edge (a, b).
      * @param theTo The vertex b in an edge (a, b).
      */
-    public Edge(final T theFrom, final T theTo) {
+    public Edge(final V theFrom, final V theTo) {
         this(theFrom, theTo, 0.0);
     }
 
@@ -38,7 +37,7 @@ public class Edge<T> {
      * @param theTo The vertex b in an edge (a, b).
      * @param theWeight The weight of the edge.
      */
-    public Edge(T theFrom, T theTo, double theWeight) {
+    public Edge(V theFrom, V theTo, double theWeight) {
         myFrom = theFrom;
         myTo = theTo;
         myWeight = theWeight;
@@ -50,7 +49,7 @@ public class Edge<T> {
      *
      * @return The vertex this edge is coming from.
      */
-    public T from() {
+    public V from() {
         return myFrom;
     }
 
@@ -60,7 +59,7 @@ public class Edge<T> {
      *
      * @return The vertex this Edge is going to.
      */
-    public T to() {
+    public V to() {
         return myTo;
     }
 
@@ -80,7 +79,7 @@ public class Edge<T> {
      *
      * @return The reverse of this Edge.
      */
-    public Edge<T> reverse() {
+    public Edge<V> reverse() {
         return new Edge<>(myTo, myFrom, myWeight);
     }
 
@@ -95,7 +94,7 @@ public class Edge<T> {
     public boolean equals(final Object other) {
         boolean result = false;
         if ((other != null) && (other.getClass().equals(this.getClass()))) {
-            Edge<T> o = (Edge<T>) other;
+            Edge<V> o = (Edge<V>) other;
             result = (this.myWeight == o.myWeight
                     && (Objects.equals(this.myFrom, o.myFrom))
                     && (Objects.equals(this.myTo, o.myTo)));

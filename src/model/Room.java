@@ -25,6 +25,7 @@ public class Room extends JPanel implements Runnable {
 
     public Room(final Terrain[][] theGrid) throws IOException {
 
+        this.setLayout(null);
         imgLibrary = new Icons();
         this.myGrid = theGrid.clone();
         setBackground(Color.BLACK);
@@ -58,43 +59,18 @@ public class Room extends JPanel implements Runnable {
 
             for (int x = 0; x < myGrid[y].length; x++) {
                 final int leftx = x * SQUARE_SIZE;
-
                 switch (myGrid[y][x]) {
-                    case FLOOR_2:
-                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
-                        break;
-                    case FLOOR_1:
-                        theGraphics.drawImage(imgLibrary.FLOOR_1, leftx , topy, null);
-                        break;
-                    case BOTTOM_WALL:
-                        theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx , topy, null);
-                        break;
-
-                    case LEFT_WALL:
-                        theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx , topy, null);
-                        break;
-                    case RIGHT_WALL:
-                        theGraphics.drawImage(imgLibrary.RIGHT_WALL, leftx , topy, null);
-                        break;
-                    case TOP_LEFT_CORNER:
-                        theGraphics.drawImage(imgLibrary.TOP_LEFT_CORNER, leftx , topy, null);
-                        break;
-                    case TOP_RIGHT_CORNER:
-                        theGraphics.drawImage(imgLibrary.TOP_RIGHT_CORNER, leftx , topy, null);
-                        break;
-                    case BOTTOM_LEFT_CORNER:
-                        theGraphics.drawImage(imgLibrary.BOTTOM_LEFT_CORNER, leftx , topy, null);
-                        break;
-                    case BOTTOM_RIGHT_CORNER:
-                        theGraphics.drawImage(imgLibrary.BOTTOM_RIGHT_CORNER, leftx , topy, null);
-                        break;
-                    case TOP_WALL:
-                        theGraphics.drawImage(imgLibrary.TOP_WALL, leftx , topy, null);
-                        break;
-                    case DESK_FACING_RIGHT:
-                        theGraphics.drawImage(imgLibrary.DESK_FACING_RIGHT, leftx , topy, null);
-                        break;
-
+                    case FLOOR_2 -> theGraphics.drawImage(imgLibrary.FLOOR_2, leftx, topy, null);
+                    case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
+                    case BOTTOM_WALL -> theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx, topy, null);
+                    case LEFT_WALL -> theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx, topy, null);
+                    case RIGHT_WALL -> theGraphics.drawImage(imgLibrary.RIGHT_WALL, leftx, topy, null);
+                    case TOP_LEFT_CORNER -> theGraphics.drawImage(imgLibrary.TOP_LEFT_CORNER, leftx, topy, null);
+                    case TOP_RIGHT_CORNER -> theGraphics.drawImage(imgLibrary.TOP_RIGHT_CORNER, leftx, topy, null);
+                    case BOTTOM_LEFT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_LEFT_CORNER, leftx, topy, null);
+                    case BOTTOM_RIGHT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_RIGHT_CORNER, leftx, topy, null);
+                    case TOP_WALL -> theGraphics.drawImage(imgLibrary.TOP_WALL, leftx, topy, null);
+                    case DESK_FACING_RIGHT -> theGraphics.drawImage(imgLibrary.DESK_FACING_RIGHT, leftx, topy, null);
                 }
             }
         }
@@ -137,7 +113,7 @@ public class Room extends JPanel implements Runnable {
 
     public void advance() {
         final Map<Direction, Terrain> neighbors = generateNeighbors(usrProf);
-        System.out.println(neighbors.toString());
+//        System.out.println(neighbors.toString());
         if (usrProf.canPass(neighbors.get(usrProf.getDirection()))) {
             usrProf.setX(usrProf.getX() + usrProf.speedKeyX);
             usrProf.setY(usrProf.getY() + usrProf.speedKeyY);

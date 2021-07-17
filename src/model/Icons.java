@@ -21,17 +21,11 @@ public class Icons {
     public BufferedImage BOTTOM_RIGHT_CORNER = ImageIO.read(new File("src/res/assets/bottom_right_corner.png"));
     public BufferedImage LEFT_WALL = ImageIO.read(new File("src/res/assets/left_wall.png"));
     public BufferedImage RIGHT_WALL = ImageIO.read(new File("src/res/assets/right_wall.png"));
+    public BufferedImage DESK_FACING_RIGHT = ImageIO.read(new File("src/res/assets/desk_facing_right.png"));
 
 
-    public static BufferedImage PLAYER_SPRITE;
 
-    static {
-        try {
-            PLAYER_SPRITE = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_111.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
     public Icons() throws IOException {

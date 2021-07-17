@@ -1,7 +1,5 @@
 package model;
 
-import view.GamePanel;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,16 +28,16 @@ public final class FileLoader {
      * @param theFrame the Frame containing the panel. Needed for error output.
      * @return the RoadRagePanel based on the city text file.
      */
-    public static GamePanel readCity(final JFrame theFrame) {
+    public static Room readCity(final JFrame theFrame) {
 
-        File file = new File("src/res/city_map1.txt");
+        File file = new File("src/res/floor_map.txt");
         System.out.println(file.length());
-        GamePanel result = null;
+        Room result = null;
 
         try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
 
             // First, we read the map description
-            result = new GamePanel(readGrid(input));
+            result = new Room(readGrid(input));
             input.close();
         } catch (final IOException ioe) {
             JOptionPane.showMessageDialog(theFrame, "failed to load a resource file somewhere, check paths " + file.getName()

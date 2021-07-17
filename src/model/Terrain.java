@@ -13,9 +13,9 @@ public enum Terrain {
     BOTTOM_RIGHT_CORNER(']'),
     LEFT_WALL('L'),
     RIGHT_WALL('R'),
-    FLOOR_1('|'),
-    FLOOR_2('.');
-
+    FLOOR_1('F'),
+    FLOOR_2('F'),
+    DESK_FACING_RIGHT('1');
 
 
 

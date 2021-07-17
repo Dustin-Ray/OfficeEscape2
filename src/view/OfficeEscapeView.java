@@ -1,6 +1,7 @@
 package view;
 
 import model.FileLoader;
+import model.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,17 +17,20 @@ import java.io.IOException;
  */
 public class OfficeEscapeView extends JFrame implements MouseListener {
 
-    private JFrame myFrame;
+    
     public OfficeEscapeView() throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
             UnsupportedLookAndFeelException, IOException, FontFormatException {
+
+
+        super("Office Escape v9");
         setupUI();
         setupFrame();
         addRoom();
 //        addMenuPanel();
-        myFrame.setVisible(true);
+        this.setVisible(true);
 
     }
 
@@ -64,24 +68,24 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         BufferedImage image;
 //        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office1.jpg")));
 
-        myFrame = new JFrame("Office Escape v9");
-//        myFrame.setContentPane(new ImagePanel(image));
-        myFrame.setSize(1250, 768);
-        myFrame.setLocation(100, 150);
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setResizable(false);
+
+//        this.setContentPane(new ImagePanel(image));
+        this.setSize(1250, 800);
+        this.setLocation(0, 0);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
 
     }
 
 
     private void addMenuPanel() throws IOException, FontFormatException {
-        myFrame.add(new MenuPanel());
+        this.add(new MenuPanel());
     }
 
     private void addRoom() throws FileNotFoundException {
 
-        GamePanel room = FileLoader.readCity(myFrame);
-        myFrame.add(room);
+        Room room = FileLoader.readCity(this);
+        this.add(room);
 
     }
 

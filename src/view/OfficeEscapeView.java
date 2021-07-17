@@ -24,7 +24,7 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
             UnsupportedLookAndFeelException, IOException, FontFormatException {
         setupUI();
         setupFrame();
-        addGamePanel();
+        addRoom();
 //        addMenuPanel();
         myFrame.setVisible(true);
 
@@ -66,7 +66,7 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
 
         myFrame = new JFrame("Office Escape v9");
 //        myFrame.setContentPane(new ImagePanel(image));
-        myFrame.setSize(1250, 650);
+        myFrame.setSize(1250, 768);
         myFrame.setLocation(100, 150);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setResizable(false);
@@ -78,10 +78,10 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         myFrame.add(new MenuPanel());
     }
 
-    private void addGamePanel() throws FileNotFoundException {
+    private void addRoom() throws FileNotFoundException {
 
-        GamePanel gp = FileLoader.readCity(myFrame);
-        myFrame.add(gp);
+        GamePanel room = FileLoader.readCity(myFrame);
+        myFrame.add(room);
 
     }
 

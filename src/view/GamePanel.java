@@ -74,51 +74,37 @@ public class GamePanel extends JPanel implements Runnable {
                 final int leftx = x * SQUARE_SIZE;
 
                 switch (myGrid[y][x]) {
-
-
-
                     case FLOOR_2:
                         theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
                         break;
                     case FLOOR_1:
                         theGraphics.drawImage(imgLibrary.FLOOR_1, leftx , topy, null);
                         break;
-
-
-
-
-
                     case BOTTOM_WALL:
                         theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx , topy, null);
                         break;
                     case TOP_WALL:
                         theGraphics.drawImage(imgLibrary.TOP_WALL, leftx , topy, null);
                         break;
-
                     case LEFT_WALL:
                         theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx , topy, null);
-                        break;
-                    case PLANT:
-                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
-                        theGraphics.drawImage(imgLibrary.PLANT, leftx , topy, null);
                         break;
                     case RIGHT_WALL:
                         theGraphics.drawImage(imgLibrary.RIGHT_WALL, leftx , topy, null);
                         break;
+                    case TOP_LEFT_CORNER:
+                        theGraphics.drawImage(imgLibrary.TOP_LEFT_CORNER, leftx , topy, null);
+                        break;
+                    case TOP_RIGHT_CORNER:
+                        theGraphics.drawImage(imgLibrary.TOP_RIGHT_CORNER, leftx , topy, null);
+                        break;
+                    case BOTTOM_LEFT_CORNER:
+                        theGraphics.drawImage(imgLibrary.BOTTOM_LEFT_CORNER, leftx , topy, null);
+                        break;
+                    case BOTTOM_RIGHT_CORNER:
+                        theGraphics.drawImage(imgLibrary.BOTTOM_RIGHT_CORNER, leftx , topy, null);
+                        break;
 
-                    case COMPUTER:
-                        theGraphics.drawImage(imgLibrary.FLOOR_2, leftx , topy, null);
-                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK, leftx , topy, null);
-                        break;
-                    case COMPUTER_DESK:
-                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK, leftx , topy, null);
-                        theGraphics.drawImage(imgLibrary.PRINTER, leftx , topy, null);
-
-                        break;
-                    case PRINTER:
-                        theGraphics.drawImage(imgLibrary.COMPUTER_DESK_LEGS, leftx , topy, null);
-                        theGraphics.drawImage(imgLibrary.PRINTER, leftx , topy, null);
-                        break;
 
                 }
             }

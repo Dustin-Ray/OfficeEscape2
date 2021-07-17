@@ -21,7 +21,7 @@ public class MenuPanel extends JPanel{
 
     public void setupPanel() {
         myPanel = new JPanel();
-        myPanel.setSize(1250, 650);
+        myPanel.setSize(1250, 768);
 
 
     }

@@ -1,14 +1,17 @@
-13 24
-(TTTTTTTTTTTTTTTTTTTTTT)
-L|||+|||||||+||+|||||||R
-L|FF|FFFFFFF#FFF|FLDP%|R
-L|FF+.......|FFF|FF.FF|R
-L|..|FFFFFFF|FFF#FF.FF|R
-L|FF|||||||||||||FF.FF|R
-L|FF|FFF.FFF|FFF|FF.FF|R
-L|||+|||||||+...|||||||R
-L|FF|FFFFFFF|FFFFFF|FF|R
-L+||||||||#|+|||#|||..|R
-L|F%FF|FF.FFFFFFFFF#FFFR
-L||||||||||||||+||%|FFFR
-[BBBBBBBBBBBBBBBBBBBBBB]
+16 16
+(TTTTTTTTTTTTTT)
+L|||+|||||||+||R
+L|FF|FFFFFFF#FFR
+L|FF+.......|FFR
+L|..|FFFFFFF|FFR
+L|FF|||||||||||R
+L|FF|FFF.FFF|FFR
+L|||+|||||||+..R
+L|FF|FFFFFFF|FFR
+L+||||||||#|+||R
+L|F%FF|FF.FFFFFR
+L||||||||||||||R
+L+||||||||#|+||R
+L|F%FF|FF.FFFFFR
+L||||||||||||||R
+[BBBBBBBBBBBBBB]

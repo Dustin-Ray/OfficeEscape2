@@ -13,13 +13,9 @@ public enum Terrain {
     BOTTOM_RIGHT_CORNER(']'),
     LEFT_WALL('L'),
     RIGHT_WALL('R'),
-    COMPUTER('C'),
-    LAMP('L'),
-    PRINTER('P'),
-    COMPUTER_DESK('D'),
     FLOOR_1('|'),
-    FLOOR_2('.'),
-    PLANT('%');
+    FLOOR_2('.');
+
 
 
 

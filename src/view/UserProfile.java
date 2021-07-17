@@ -29,18 +29,18 @@ public class UserProfile {
      */
     public void move() {
 
-        if(this.getX() >= 0 && this.getX() < 1200) {
+        if(this.getX() >= 0 && this.getX() < 768) {
             this.x += this.speedKeyX;
         } else if (this.getX() < 0) {
             this.x = 0;
-        } else if (this.getX() > 1160) {
+        } else if (this.getX() > 768) {
             this.x = 1160;
         }
-        if(this.getY() >= 0 && this.getY() < 490) {
+        if(this.getY() >= 0 && this.getY() < 768) {
             this.y += this.speedKeyY;
         } else if (this.getY() < 0) {
             this.y = 0;
-        } else if (this.getY() > 460) {
+        } else if (this.getY() > 768) {
             this.y = 450;
         }
     }

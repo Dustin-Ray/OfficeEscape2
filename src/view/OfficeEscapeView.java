@@ -3,11 +3,14 @@ package view;
 import model.FileLoader;
 import model.Room;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 
 /**
  * Main GUI class
@@ -27,6 +30,7 @@ public class OfficeEscapeView extends JFrame {
         myCurrentRoom = FileLoader.readCity(this);
         setupUI();
         setupFrame();
+//        addRoom();
         addMenuPanel();
         this.setVisible(true);
 
@@ -63,22 +67,17 @@ public class OfficeEscapeView extends JFrame {
 
     private void setupFrame() throws IOException, FontFormatException {
 
-        BufferedImage image;
-//        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office1.jpg")));
-
-
-//        this.setContentPane(new ImagePanel(image));
+        BufferedImage image = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
+        this.setContentPane(new ImagePanel(image));
         this.setSize(1250, 800);
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-
     }
 
 
     private void addMenuPanel() throws IOException, FontFormatException {
         final JMenuBar menubar = new JMenuBar();
-
         final JMenu fileMenu = new JMenu("File");
         final JMenuItem mainMenu = new JMenuItem("Main Menu");
         final JMenuItem newGame = new JMenuItem("New Game");
@@ -111,12 +110,16 @@ public class OfficeEscapeView extends JFrame {
         });
         closeGame.addActionListener(e -> exitGame());
         mainMenu.addActionListener(e -> mainMenu());
-
         this.setJMenuBar(menubar);
     }
 
     private void addRoom() throws FileNotFoundException {
+
         this.add(myCurrentRoom);
+        this.repaint();
+        myCurrentRoom.requestFocusInWindow();
+        myCurrentRoom.setBounds(0, 0, 1250, 768);
+        myCurrentRoom.setFocusable(true);
     }
     /**Returns to main menu. */
     private void mainMenu() {

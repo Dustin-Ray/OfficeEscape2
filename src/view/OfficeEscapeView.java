@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 
 
 /**
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class OfficeEscapeView extends JFrame {
 
     Room myCurrentRoom;
+    NewGameTextMenu myCurrentNewGameText;
 
     public OfficeEscapeView() throws
             ClassNotFoundException,
@@ -27,12 +29,41 @@ public class OfficeEscapeView extends JFrame {
             UnsupportedLookAndFeelException, IOException, FontFormatException {
 
         super("Office Escape v9");
+
         myCurrentRoom = FileLoader.readCity(this);
+        myCurrentNewGameText = new NewGameTextMenu();
         setupUI();
         setupFrame();
-//        addRoom();
         addMenuPanel();
+        addNewGameTextMenu();
         this.setVisible(true);
+
+    }
+
+    private void addNewGameTextMenu() throws IOException, FontFormatException {
+
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        fontTest = fontTest.deriveFont(Font.PLAIN, 34);
+
+        final JLabel newGame = new JLabel("New Game");
+        final JLabel loadGame = new JLabel("Load Game");
+
+        newGame.setVisible(true);
+        newGame.setForeground(Color.WHITE);
+        newGame.setBounds(815, 100, 300, 40);
+        newGame.setLayout(null);
+        newGame.setFont(fontTest);
+
+        loadGame.setVisible(true);
+        loadGame.setForeground(Color.WHITE);
+        loadGame.setBounds(815, 160, 300, 40);
+        loadGame.setLayout(null);
+        loadGame.setFont(fontTest);
+
+
+
+        this.add(newGame);
+        this.add(loadGame);
 
     }
 
@@ -65,7 +96,7 @@ public class OfficeEscapeView extends JFrame {
     }
 
 
-    private void setupFrame() throws IOException, FontFormatException {
+    private void setupFrame() throws IOException {
 
         BufferedImage image = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         this.setContentPane(new ImagePanel(image));
@@ -76,7 +107,7 @@ public class OfficeEscapeView extends JFrame {
     }
 
 
-    private void addMenuPanel() throws IOException, FontFormatException {
+    private void addMenuPanel() throws IOException {
         final JMenuBar menubar = new JMenuBar();
         final JMenu fileMenu = new JMenu("File");
         final JMenuItem mainMenu = new JMenuItem("Main Menu");

@@ -1,9 +1,6 @@
 package model;
 
-
-
 public enum Terrain {
-
 
     BOTTOM_WALL('B'),
     TOP_WALL('T'),
@@ -18,16 +15,11 @@ public enum Terrain {
     DESK_FACING_RIGHT('1');
 
 
-
-
-
-
     /**
      * The character corresponding to a particular value of the enumeration.
      */
     private final char myLetter;
 
-    // Constructor
 
     /**
      * Constructs a new Terrain with the specified letter.
@@ -38,7 +30,6 @@ public enum Terrain {
         myLetter = theLetter;
     }
 
-    // Instance Methods
 
     /**
      * Returns the Terrain represented by the given letter.
@@ -71,4 +62,3 @@ public enum Terrain {
     }
 }
 
-// end of class Terrain

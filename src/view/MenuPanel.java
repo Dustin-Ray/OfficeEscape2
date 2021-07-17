@@ -7,23 +7,14 @@ import java.io.IOException;
 
 public class MenuPanel extends JPanel{
 
-    public JPanel myPanel;
-
     public MenuPanel() throws IOException, FontFormatException {
-
-
-        myPanel = new JPanel();
 
         setupPanel();
         setupLabels();
-        myPanel.setVisible(true);
+        this.setVisible(true);
     }
-
     public void setupPanel() {
-        myPanel = new JPanel();
-        myPanel.setSize(1250, 768);
-
-
+        this.setSize(1250, 768);
     }
 
     /**
@@ -43,20 +34,20 @@ public class MenuPanel extends JPanel{
 //        title1.setFont(fontTest);
         title1.setForeground(Color.white);
 
-        title1.setBounds(350, 350,600, 50);
-        myPanel.add(title1);
+        title1.setBounds(500, 350,600, 50);
+        this.add(title1);
 
         final JLabel newGame = new JLabel("new: ");
 //        newGame.setFont(fontTest);
         newGame.setForeground(Color.white);
         newGame.setBounds(1000, 100, 600, 50);
-        myPanel.add(newGame);
+        this.add(newGame);
 
         final JLabel loadGame = new JLabel("load: ");
 //        loadGame.setFont(fontTest);
         loadGame.setForeground(Color.white);
         loadGame.setBounds(1000, 150, 600, 50);
-        myPanel.add(loadGame);
+        this.add(loadGame);
     }
 
 }

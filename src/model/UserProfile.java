@@ -1,11 +1,9 @@
 package model;
 
 import javax.imageio.ImageIO;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import static model.Terrain.*;
 
@@ -27,9 +25,7 @@ public class UserProfile {
 
 
     public UserProfile(int x, int y, final Direction theDir) throws IOException {
-
         myDir = theDir;
-
         this.img = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
         this.chair_down = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
         this.chair_up = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
@@ -48,26 +44,7 @@ public class UserProfile {
         myDir = theDirection;
     }
 
-    public Direction chooseDirection(final Map<Direction, Terrain> theNeighbors) {
-        Direction result = Direction.random();
-        if (theNeighbors.get(this.getDirection()) == FLOOR_1) {
-            result = this.getDirection();
-        }
-    return result;
-    }
-
-//    /*
-//     * move the sprite based on key inputs
-//     */
-//    public void move() {
-//            this.x += this.speedKeyX;
-//            this.y += this.speedKeyY;
-//    }
-
-
-
     public boolean canPass(final Terrain theTerrain) {
-
         return !(theTerrain == BOTTOM_WALL ||
                 theTerrain == TOP_WALL||
                 theTerrain == LEFT_WALL||
@@ -77,7 +54,6 @@ public class UserProfile {
                 theTerrain == BOTTOM_LEFT_CORNER||
                 theTerrain == BOTTOM_RIGHT_CORNER);
     }
-
 
 
     //GETTERS

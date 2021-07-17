@@ -29,7 +29,7 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
         setupUI();
         setupFrame();
         addRoom();
-//        addMenuPanel();
+        addMenuPanel();
         this.setVisible(true);
 
     }

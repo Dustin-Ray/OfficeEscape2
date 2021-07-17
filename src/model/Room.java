@@ -33,6 +33,7 @@ public class Room extends JPanel implements Runnable {
         Initialize();
         Thread animate = new Thread(this);
         animate.start();
+        this.setBounds(0,0,768, 768);
     }
 
     public void Initialize() throws IOException {
@@ -136,7 +137,7 @@ public class Room extends JPanel implements Runnable {
 
     public void advance() {
         final Map<Direction, Terrain> neighbors = generateNeighbors(usrProf);
-
+        System.out.println(neighbors.toString());
         if (usrProf.canPass(neighbors.get(usrProf.getDirection()))) {
             usrProf.setX(usrProf.getX() + usrProf.speedKeyX);
             usrProf.setY(usrProf.getY() + usrProf.speedKeyY);

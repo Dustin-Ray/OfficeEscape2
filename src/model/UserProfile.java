@@ -12,7 +12,6 @@ import static model.Terrain.*;
  */
 public class UserProfile {
 
-
     private int x;
     private int y;
     public BufferedImage img;

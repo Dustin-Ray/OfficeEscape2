@@ -5,8 +5,6 @@ import model.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,20 +13,20 @@ import java.io.IOException;
  * Main GUI class
  * @author Dustin Ray
  */
-public class OfficeEscapeView extends JFrame implements MouseListener {
+public class OfficeEscapeView extends JFrame {
 
-    
+    Room myCurrentRoom;
+
     public OfficeEscapeView() throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
             UnsupportedLookAndFeelException, IOException, FontFormatException {
 
-
         super("Office Escape v9");
+        myCurrentRoom = FileLoader.readCity(this);
         setupUI();
         setupFrame();
-        addRoom();
         addMenuPanel();
         this.setVisible(true);
 
@@ -79,38 +77,57 @@ public class OfficeEscapeView extends JFrame implements MouseListener {
 
 
     private void addMenuPanel() throws IOException, FontFormatException {
-        this.add(new MenuPanel());
+        final JMenuBar menubar = new JMenuBar();
+
+        final JMenu fileMenu = new JMenu("File");
+        final JMenuItem mainMenu = new JMenuItem("Main Menu");
+        final JMenuItem newGame = new JMenuItem("New Game");
+        final JMenuItem loadGame = new JMenuItem("Load Game");
+        final JMenuItem saveGame = new JMenuItem("Save Game");
+        final JMenuItem closeGame = new JMenuItem("Exit Game");
+
+        fileMenu.add(mainMenu);
+        fileMenu.add(newGame);
+        fileMenu.add(loadGame);
+        fileMenu.add(saveGame);
+        fileMenu.add(closeGame);
+
+        final JMenu aboutMenu = new JMenu("About");
+        final JMenuItem howToPlay = new JMenuItem("How To Play");
+        aboutMenu.add(howToPlay);
+
+        final JMenu highScores = new JMenu("High Scores");
+
+        menubar.add(fileMenu);
+        menubar.add(aboutMenu);
+        menubar.add(highScores);
+
+        newGame.addActionListener(e -> {
+            try {
+                addRoom();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
+        closeGame.addActionListener(e -> exitGame());
+        mainMenu.addActionListener(e -> mainMenu());
+
+        this.setJMenuBar(menubar);
     }
 
     private void addRoom() throws FileNotFoundException {
-
-        Room room = FileLoader.readCity(this);
-        this.add(room);
-
+        this.add(myCurrentRoom);
+    }
+    /**Returns to main menu. */
+    private void mainMenu() {
+        this.getContentPane().remove(myCurrentRoom);
+        this.repaint();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    /**
+     * Closes the current process.
+     */
+    private void exitGame() {
+        System.exit(0);
     }
 }

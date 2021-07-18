@@ -35,11 +35,8 @@ public class OfficeEscapeView extends JFrame {
         myMainMenuPanel = new MainMenuPanel();
         setupUI();
         setupFrame();
-
-
         addMenuPanel();
         addMainMenuPanel();
-        addNewGameTextMenu();
         this.setVisible(true);
 
     }
@@ -50,35 +47,6 @@ public class OfficeEscapeView extends JFrame {
         myMainMenuPanel.setFocusable(true);
     }
 
-
-
-
-
-    private void addNewGameTextMenu() throws IOException, FontFormatException {
-
-        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
-        fontTest = fontTest.deriveFont(Font.PLAIN, 30);
-
-        final JLabel newGame = new JLabel("New Game");
-        final JLabel loadGame = new JLabel("Load Game");
-
-        newGame.setVisible(true);
-        newGame.setForeground(Color.WHITE);
-        newGame.setBounds(815, 100, 300, 40);
-        newGame.setLayout(null);
-        newGame.setFont(fontTest);
-
-        loadGame.setVisible(true);
-        loadGame.setForeground(Color.WHITE);
-        loadGame.setBounds(815, 190, 300, 40);
-        loadGame.setLayout(null);
-        loadGame.setFont(fontTest);
-
-        this.add(newGame);
-        this.add(loadGame);
-        myCurrentNewGameText.setFocusable(true);
-
-    }
 
     /**
      * Attempts to set look and feel to system defaults. Reverts to
@@ -108,7 +76,6 @@ public class OfficeEscapeView extends JFrame {
         }
     }
 
-
     private void setupFrame() throws IOException {
         this.setSize(1250, 800);
         this.setLocation(0, 0);
@@ -134,6 +101,7 @@ public class OfficeEscapeView extends JFrame {
 
     private void addRoom() throws FileNotFoundException {
 
+        this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.repaint();
         myCurrentRoomPanel.requestFocusInWindow();

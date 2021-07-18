@@ -19,7 +19,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
     BufferedImage myBackground1;
     BufferedImage myBackground2;
 
-    public MainMenuPanel() throws IOException {
+    public MainMenuPanel() throws IOException, FontFormatException {
 
         this.setLayout(null);
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
@@ -29,6 +29,29 @@ public class MainMenuPanel extends JPanel implements Runnable {
         Thread animate = new Thread(this);
         animate.start();
         this.setPreferredSize(new Dimension(1200, 768));
+
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        fontTest = fontTest.deriveFont(Font.PLAIN, 30);
+
+        final JLabel newGame = new JLabel("New Game");
+        final JLabel loadGame = new JLabel("Load Game");
+
+        newGame.setVisible(true);
+        newGame.setForeground(Color.WHITE);
+        newGame.setBounds(815, 100, 300, 40);
+        newGame.setLayout(null);
+        newGame.setFont(fontTest);
+
+        loadGame.setVisible(true);
+        loadGame.setForeground(Color.WHITE);
+        loadGame.setBounds(815, 190, 300, 40);
+        loadGame.setLayout(null);
+        loadGame.setFont(fontTest);
+
+        this.add(newGame);
+        this.add(loadGame);
+
+
     }
 
     @Override

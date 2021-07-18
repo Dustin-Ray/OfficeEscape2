@@ -12,7 +12,7 @@ import java.util.Map;
 public class OfficeEscapeMain {
 
     public static void main(String[] theArgs) {
-        Map<Integer, List<Integer>> connectedRooms = getConnectedRooms();
+        Map<Integer, List<Integer>> connectedRooms = getConnectedRooms(4, 4);
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -27,8 +27,8 @@ public class OfficeEscapeMain {
         System.out.println("Succeeds to this point");
     }
 
-    public static Map<Integer, List<Integer>> getConnectedRooms() {
-        GraphManager manager = new GraphManager(3, 3);
+    public static Map<Integer, List<Integer>> getConnectedRooms(final int rows,  final int cols) {
+        GraphManager manager = new GraphManager(rows, cols);
         return manager.getConnectedRoomsMap();
     }
 

@@ -1,7 +1,6 @@
 package view;
 
 import model.FileLoader;
-import model.Room;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Objects;
 
 
 /**
@@ -19,7 +17,7 @@ import java.util.Objects;
  */
 public class OfficeEscapeView extends JFrame {
 
-    Room myCurrentRoom;
+    RoomPanel myCurrentRoomPanel;
     NewGameTextMenu myCurrentNewGameText;
 
     public OfficeEscapeView() throws
@@ -30,7 +28,7 @@ public class OfficeEscapeView extends JFrame {
 
         super("Office Escape v9");
 
-        myCurrentRoom = FileLoader.readCity(this);
+        myCurrentRoomPanel = FileLoader.readCity(this);
         myCurrentNewGameText = new NewGameTextMenu();
         setupUI();
         setupFrame();
@@ -152,15 +150,15 @@ public class OfficeEscapeView extends JFrame {
 
     private void addRoom() throws FileNotFoundException {
 
-        this.add(myCurrentRoom);
+        this.add(myCurrentRoomPanel);
         this.repaint();
-        myCurrentRoom.requestFocusInWindow();
-        myCurrentRoom.setBounds(0, 0, 1250, 768);
-        myCurrentRoom.setFocusable(true);
+        myCurrentRoomPanel.requestFocusInWindow();
+        myCurrentRoomPanel.setBounds(0, 0, 1250, 768);
+        myCurrentRoomPanel.setFocusable(true);
     }
     /**Returns to main menu. */
     private void mainMenu() {
-        this.getContentPane().remove(myCurrentRoom);
+        this.getContentPane().remove(myCurrentRoomPanel);
         this.repaint();
     }
 

@@ -1,8 +1,4 @@
-package controller;
-
-import model.graph.AdjacencyListGraph;
-import model.graph.Edge;
-import model.graph.KruskalMSTFinder;
+package model.graph;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +28,6 @@ public class GraphManager {
 
     /** A Random object for generating pseudo-random edge weights. */
     private final Random rand;
-
 
 
 

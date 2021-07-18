@@ -26,6 +26,11 @@ public class Door {
         isUnlocked = false;
     }
 
+    public Door(final boolean valid, final boolean unlocked) {
+        isValid = valid;
+        isUnlocked = unlocked;
+    }
+
 
     /**
      * Sets the validity of this Door. A Door is valid if it can be used to pass

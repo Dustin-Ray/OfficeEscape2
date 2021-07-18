@@ -4,8 +4,10 @@ import model.graph.AdjacencyListGraph;
 import model.graph.Edge;
 import model.graph.KruskalMSTFinder;
 
-import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Manages a graph representation of the maze.
@@ -24,10 +26,14 @@ public class GraphManager {
     private final int myNumRooms;
 
     /** The Graph to manage. */
-    private AdjacencyListGraph<Integer> graph;
+    private final AdjacencyListGraph<Integer> graph;
+
+    private KruskalMSTFinder<Integer> mstFinder;
 
     /** A Random object for generating pseudo-random edge weights. */
     private final Random rand;
+
+
 
 
     /**
@@ -43,25 +49,25 @@ public class GraphManager {
         myNumRooms = theRows * theCols;
         graph = new AdjacencyListGraph<>();
         rand = new Random();
+        generateGraph();
+        generateMST();
     }
 
 
     /**
      * Generates the Graph for this GraphManager.
      */
-    public void generateGraph() {
+    private void generateGraph() {
         for (int j = 0; j < myNumRooms; j++) {
             // horizontal edges
             if ((j + 1) % myRows != 0) {
                 double weight = rand.nextDouble();
                 graph.addEdge(j, j + 1, weight);
-                // graph.addEdge(j + 1, j, weight);
             }
             // vertical edges
             if (j + myCols < myNumRooms) {
                 double weight = rand.nextDouble();
                 graph.addEdge(j, j + myCols, weight);
-                // graph.addEdge(j + myCols, j, weight);
             }
         }
     }
@@ -70,10 +76,26 @@ public class GraphManager {
     /**
      * Generates the MST of the Graph of this GraphManager.
      */
-    public void generateMST() {
-        KruskalMSTFinder mst = new KruskalMSTFinder(graph);
-        HashSet<Edge> mstEdges = mst.findMST();
-        System.out.println(mstEdges);
+    private void generateMST() {
+        mstFinder = new KruskalMSTFinder<>(graph);
     }
-}
+
+    /**
+     * Returns the MST of the Graph of this GraphManager.
+     *
+     * @return The MST of the Graph of this GraphManager.
+     */
+    public Set<Edge<Integer>> getMST() {
+        return mstFinder.getMST();
+    }
+
+    /**
+     * Returns the a mapping of connected rooms
+     *
+     * @return A mapping between connected rooms.
+     */
+    public Map<Integer, List<Integer>> getConnectedRoomsMap() {
+        return mstFinder.getVertexMap();
+    }
+ }
 

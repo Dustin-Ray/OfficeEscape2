@@ -1,9 +1,6 @@
 package model.graph;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Generates a minimum-spanning-tree (MST).
@@ -15,6 +12,10 @@ public class KruskalMSTFinder<V> {
     /** The Graph to find a Kruskal MST of. */
     private final AdjacencyListGraph<V> myGraph;
 
+    private final Set<Edge<V>> mst;
+
+    private final Map<V, List<V>> vertexMap;
+
 
     /**
      * Constructs a Kruskal MST finder for the given graph.
@@ -23,16 +24,16 @@ public class KruskalMSTFinder<V> {
      */
     public KruskalMSTFinder(final AdjacencyListGraph<V> theGraph) {
         myGraph = theGraph;
+        mst = new HashSet<>();
+        vertexMap = new HashMap<>();
         findMST();
     }
 
 
     /**
      * Finds and returns a MST of the weighted graph.
-     *
-     * @return The MST of the weighted graph.
      */
-    public HashSet<Edge<V>> findMST() {
+    private void findMST() {
         // sort edges in the graph by weight in ascending order
         List<Edge<V>> edges = new ArrayList<>(myGraph.allEdges());
         edges.sort(Comparator.comparingDouble(Edge::weight));
@@ -45,7 +46,6 @@ public class KruskalMSTFinder<V> {
             numVertices += 1;
         }
 
-        HashSet<Edge<V>> mst = new HashSet<>();
         // iterate through ordered edges to find a potential MST
         for (Edge<V> edge : edges) {
             // stop iterating early if |E| = |V| - 1
@@ -64,10 +64,27 @@ public class KruskalMSTFinder<V> {
             if (fromMST != toMST) {
                 // IDs don't match (i.e., the vertices are from different sets)
                 mst.add(edge);
+                //
+                if (vertexMap.get(from) == null) {
+                    vertexMap.put(from, new ArrayList<>());
+                }
+                vertexMap.get(from).add(to);
+                if (vertexMap.get(to) == null) {
+                    vertexMap.put(to,new ArrayList<>());
+                }
+                vertexMap.get(to).add(from);
+                //
                 disjointSets.union(from, to);
             }
         }
+    }
+
+    public Set<Edge<V>> getMST() {
         return mst;
+    }
+
+    public Map<V, List<V>> getVertexMap () {
+        return vertexMap;
     }
 
 }

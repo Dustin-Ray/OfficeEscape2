@@ -16,11 +16,8 @@ public class AdjacencyListGraph<V>{
     /** A list of all edges in this Graph. **/
     private final List<Edge<V>> edges;
 
-    /** The total number of vertices in this Graph. **/
-    private int numVertices;
-
-    /** The total number of edges in this Graph. **/
-    private int numEdges;
+    /** A lit of all vertices in this Graph. **/
+    private final Set<V> vertices;
 
 
     /**
@@ -29,8 +26,7 @@ public class AdjacencyListGraph<V>{
     public AdjacencyListGraph() {
         adjacencyList = new HashMap<>();
         edges = new ArrayList<>();
-        numVertices = 0;
-        numEdges = 0;
+        vertices = new HashSet<>();
     }
 
 
@@ -54,17 +50,26 @@ public class AdjacencyListGraph<V>{
     public void addEdge(final V from, final V to, final double weight) {
         Edge<V> edge = new Edge<>(from, to, weight);
         edges.add(edge);
-        if (adjacencyList.get(from) == null) {
-            HashSet<Edge<V>> set = new HashSet<>();
-            set.add(edge);
-            adjacencyList.put(from, set);
-        } else {
-            Set<Edge<V>> set = adjacencyList.get(from);
-            set.add(edge);
-            adjacencyList.put(from, set);
+        vertices.add(to);
+        vertices.add(from);
+        if (adjacencyList.get(from) == null && adjacencyList.get(to) == null) {
+            HashSet<Edge<V>> set1 = new HashSet<>();
+            set1.add(edge);
+            adjacencyList.put(from, set1);
+
+            HashSet<Edge<V>> set2 = new HashSet<>();
+            set2.add(edge.reverse());
+            adjacencyList.put(to, set2);
+
+        } else if (adjacencyList.get(from) != null && adjacencyList.get(to) != null) {
+            Set<Edge<V>> set1 = adjacencyList.get(from);
+            set1.add(edge);
+            adjacencyList.put(from, set1);
+
+            Set<Edge<V>> set2 = adjacencyList.get(to);
+            set2.add(edge);
+            adjacencyList.put(to, set2);
         }
-        numEdges += 1;
-        numVertices += 2;
     }
 
 
@@ -98,7 +103,7 @@ public class AdjacencyListGraph<V>{
      * @return A set of all vertices in this Graph.
      */
     public Set<V> allVertices() {
-        return Collections.unmodifiableSet(adjacencyList.keySet());
+        return Collections.unmodifiableSet(vertices);
     }
 
 
@@ -108,7 +113,7 @@ public class AdjacencyListGraph<V>{
      * @return The number of vertices in this Graph.
      */
     public int numVertices() {
-        return numVertices;
+        return vertices.size();
     }
 
 
@@ -118,7 +123,8 @@ public class AdjacencyListGraph<V>{
      * @return The number of edges in this Graph.
      */
     public int numEdges() {
-        return numEdges;
+        return edges.size();
     }
 
 }
+

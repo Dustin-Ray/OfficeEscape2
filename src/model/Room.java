@@ -103,45 +103,6 @@ public class Room {
         return northDoor;
     }
 
-    public Door getSouthDoor() {
-        return southDoor;
-    }
-
-    public Door getEastDoor() {
-        return eastDoor;
-    }
-
-    public Door getWestDoor() {
-        return westDoor;
-    }
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(room=");
-        sb.append(myID + ", ");
-        sb.append("neighbors=[");
-        if (northIsValid()) {
-            sb.append("North: " + northRoom.getRoomID() + ", ");
-        }
-        if (southIsValid()) {
-
-            sb.append("South: " + southRoom.getRoomID() + ", ");
-        }
-        if (eastIsValid()) {
-            sb.append("East: " + eastRoom.getRoomID() + ", ");
-        }
-        if (westIsValid()) {
-            sb.append("West: " + westRoom.getRoomID() + ", ");
-        }
-        String result = sb.toString();
-        result = result.substring(0, result.length() - 2);
-        result += "])";
-        return result;
-    }
-
-
 
     /** returns a list of doors for this room */
     public void getDoors() {
@@ -152,5 +113,7 @@ public class Room {
     public void setDoors(final int roomNumber) {
 
     }
+
+
 
 }

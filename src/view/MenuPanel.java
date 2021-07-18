@@ -4,17 +4,24 @@ import javax.swing.*;
 
 public class MenuPanel extends JMenuBar {
 
+    final JMenuBar menubar;
+    public final JMenu fileMenu;
+    public final JMenuItem mainMenu;
+    public final JMenuItem newGame;
+    public final JMenuItem loadGame;
+    public final JMenuItem saveGame;
+    public final JMenuItem closeGame;
 
-    public final JMenu fileMenu = new JMenu("File");
-    public final JMenuItem mainMenu = new JMenuItem("Main Menu");
-    public final JMenuItem newGame = new JMenuItem("New Game");
-    public final JMenuItem loadGame = new JMenuItem("Load Game");
-    public final JMenuItem saveGame = new JMenuItem("Save Game");
-    public final JMenuItem closeGame = new JMenuItem("Exit Game");
+    public MenuPanel() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-    public MenuPanel() {
-
-        final JMenuBar menubar = new JMenuBar();
+        setupUI();
+        menubar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        mainMenu = new JMenuItem("Main Menu");
+        newGame = new JMenuItem("New Game");
+        loadGame = new JMenuItem("Load Game");
+        saveGame = new JMenuItem("Save Game");
+        closeGame = new JMenuItem("Exit Game");
 
         fileMenu.add(mainMenu);
         fileMenu.add(newGame);
@@ -25,15 +32,32 @@ public class MenuPanel extends JMenuBar {
         final JMenu aboutMenu = new JMenu("About");
         final JMenuItem howToPlay = new JMenuItem("How To Play");
         aboutMenu.add(howToPlay);
-
         final JMenu highScores = new JMenu("High Scores");
 
         menubar.add(fileMenu);
         menubar.add(aboutMenu);
         menubar.add(highScores);
+        menubar.setVisible(true);
 
     }
 
+    private void setupUI() throws
 
+            ClassNotFoundException,
+            InstantiationException,
+            IllegalAccessException,
+            UnsupportedLookAndFeelException {
+        try {
+            // Set System L&F
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (final UnsupportedLookAndFeelException
+                | IllegalAccessException
+                | InstantiationException
+                | ClassNotFoundException e) {
+            UIManager.setLookAndFeel(
+                    UIManager.getCrossPlatformLookAndFeelClassName());
+        }
+    }
 
 }

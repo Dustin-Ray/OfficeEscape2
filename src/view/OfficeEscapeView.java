@@ -16,7 +16,6 @@ import java.io.IOException;
 public class OfficeEscapeView extends JFrame {
 
     RoomPanel myCurrentRoomPanel;
-    NewGameTextMenu myCurrentNewGameText;
     MenuPanel myCurrentMenuPanel;
     MainMenuPanel myMainMenuPanel;
 
@@ -30,7 +29,7 @@ public class OfficeEscapeView extends JFrame {
         super("Office Escape v9");
 
         myCurrentRoomPanel = FileLoader.readCity(this);
-        myCurrentNewGameText = new NewGameTextMenu();
+
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();
         setupUI();

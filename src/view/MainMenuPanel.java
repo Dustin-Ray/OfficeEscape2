@@ -24,6 +24,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         this.setLayout(null);
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         myBackground2 = ImageIO.read(new File("src/res/backgrounds/mainmenu2.png"));
+        this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new InputHandler());
         Thread animate = new Thread(this);

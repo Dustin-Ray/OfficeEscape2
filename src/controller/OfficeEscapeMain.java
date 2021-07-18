@@ -27,9 +27,9 @@ public class OfficeEscapeMain {
         /*
         System.out statements only here temporarily for testing.
          */
-        System.out.println(connectedRooms);
+        System.out.println(connectedRooms.toString());
         System.out.println();
-        System.out.println(extractedRooms);
+        System.out.println(extractedRooms.toString());
         //
 
         run();

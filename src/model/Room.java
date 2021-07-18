@@ -144,13 +144,7 @@ public class Room {
 
 
     /** returns a list of doors for this room */
-    public void getDoors() {
-    }
-
-
-    /**Sets desired door to the room number passed in*/
-    public void setDoors(final int roomNumber) {
+    public void getDoors() {}
+    public void setDoors(final int roomNumber) {}
 
     }
-
-}

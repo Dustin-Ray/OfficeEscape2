@@ -152,12 +152,7 @@ public class RoomPanel extends JPanel implements Runnable {
         }
     }
 
-    /**Returns a list of doors for this room.  */
-    public void setDoors() {
 
-
-
-    }
 
     /*
      * create a inner class to handle key inputs

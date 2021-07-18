@@ -45,7 +45,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
 
         loadGame.setVisible(true);
         loadGame.setForeground(Color.WHITE);
-        loadGame.setBounds(815, 190, 300, 40);
+        loadGame.setBounds(815, 150, 300, 40);
         loadGame.setLayout(null);
         loadGame.setFont(fontTest);
 
@@ -67,7 +67,6 @@ public class MainMenuPanel extends JPanel implements Runnable {
     public void setX(int x) {
         this.x = x;
     }
-
     public void setY(int y) {
         this.y = y;
     }
@@ -77,14 +76,10 @@ public class MainMenuPanel extends JPanel implements Runnable {
             this.setY(this.y + this.speedKeyY);
     }
 
-
-
     @Override
     public void run() {
         long beforeTime, timeDiff, sleep;
-
         beforeTime = System.currentTimeMillis();
-
         while (true) {
             advance();
             repaint();
@@ -139,5 +134,3 @@ public class MainMenuPanel extends JPanel implements Runnable {
         }
     }
 }
-
-

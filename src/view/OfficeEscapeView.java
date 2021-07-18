@@ -110,6 +110,7 @@ public class OfficeEscapeView extends JFrame {
     /**Returns to main menu. */
     private void returnToMainMenu() {
         this.getContentPane().remove(myCurrentRoomPanel);
+        this.add(myMainMenuPanel);
         this.repaint();
     }
 

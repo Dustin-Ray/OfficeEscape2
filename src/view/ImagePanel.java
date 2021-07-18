@@ -9,6 +9,8 @@ public class ImagePanel extends JComponent {
     public ImagePanel(Image image) {
         this.image = image;
     }
+
+    public void setImage(Image img) {this.image = img; }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

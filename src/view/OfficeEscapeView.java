@@ -43,7 +43,7 @@ public class OfficeEscapeView extends JFrame {
     private void addNewGameTextMenu() throws IOException, FontFormatException {
 
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
-        fontTest = fontTest.deriveFont(Font.PLAIN, 34);
+        fontTest = fontTest.deriveFont(Font.PLAIN, 30);
 
         final JLabel newGame = new JLabel("New Game");
         final JLabel loadGame = new JLabel("Load Game");
@@ -56,7 +56,7 @@ public class OfficeEscapeView extends JFrame {
 
         loadGame.setVisible(true);
         loadGame.setForeground(Color.WHITE);
-        loadGame.setBounds(815, 160, 300, 40);
+        loadGame.setBounds(815, 190, 300, 40);
         loadGame.setLayout(null);
         loadGame.setFont(fontTest);
 
@@ -99,7 +99,13 @@ public class OfficeEscapeView extends JFrame {
     private void setupFrame() throws IOException {
 
         BufferedImage image = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
-        this.setContentPane(new ImagePanel(image));
+        BufferedImage image2 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
+
+        ImagePanel imgPanel = new ImagePanel(image);
+
+        imgPanel.setImage(image2);
+        this.setContentPane(imgPanel);
+
         this.setSize(1250, 800);
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

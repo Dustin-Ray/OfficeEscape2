@@ -24,7 +24,7 @@ public class OfficeEscapeMain {
                 }
             }
         });
-        System.out.println("Succeeds to this point");
+        System.out.println(getConnectedRooms(4, 4));
     }
 
     public static Map<Integer, List<Integer>> getConnectedRooms(final int rows,  final int cols) {

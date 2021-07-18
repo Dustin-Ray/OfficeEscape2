@@ -1,5 +1,10 @@
 package model;
 
+// Trivia manager will make Trivia objects using the database and fill them
+// into an ArrayList. When we select a Trivia to ask the user, we will
+// swap that Trivia with the last Trivia and remove it from the end since
+// it is constant access.
+
 /**
  * Creates trivia objects.
  * @author Raz Consta

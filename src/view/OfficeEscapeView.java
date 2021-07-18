@@ -26,7 +26,7 @@ public class OfficeEscapeView extends JFrame {
             IllegalAccessException,
             UnsupportedLookAndFeelException, IOException, FontFormatException {
 
-        super("Office Escape v9");
+        super("Office Escape 9: The Story Continues");
 
         myCurrentRoomPanel = FileLoader.readCity(this);
 

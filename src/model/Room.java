@@ -7,13 +7,13 @@ package model;
  */
 public class Room {
 
-    private final Door northDoor;
+    private Door northDoor;
 
-    private final Door southDoor;
+    private Door southDoor;
 
-    private final Door eastDoor;
+    private Door eastDoor;
 
-    private final Door westDoor;
+    private Door westDoor;
 
     private Room northRoom;
 
@@ -31,10 +31,6 @@ public class Room {
 
 
     public Room(final int theID, final int theRows, final int theCols) {
-        northDoor = new Door();
-        southDoor = new Door();
-        eastDoor = new Door();
-        westDoor = new Door();
         myID = theID;
         myRows = theRows;
         myCols = theCols;
@@ -44,59 +40,40 @@ public class Room {
         return myID;
     }
 
-    public boolean northIsValid(final int id) {
-        return myID - myCols == id;
+    public void setNorthRoom(final Room room) {
+        northRoom = room;
+        northDoor = new Door(true, false);
     }
 
-    public boolean northIsValid() {
-        return roomIsValid(northRoom);
+    public void setSouthRoom(final Room room) {
+        southRoom = room;
+        southDoor = new Door(true, false);
     }
 
-    public boolean southIsValid(final int id) {
-        return myID + myCols == id;
+    public void setWestRoom(final Room room) {
+        westRoom = room;
+        westDoor = new Door(true, false);
     }
 
-    public boolean southIsValid() {
-        return roomIsValid(southRoom);
+    public void setEastRoom(final Room room) {
+        eastRoom = room;
+        eastDoor = new Door(true, false);
     }
 
-    public boolean eastIsValid(final int id) {
-        return myID - 1 == id;
+    public Room getNorthRoom() {
+        return northRoom;
     }
 
-    public boolean eastIsValid() {
-        return roomIsValid(eastRoom);
+    public Room getSouthRoom() {
+        return southRoom;
     }
 
-    public boolean westIsValid(final int id) {
-        return myID + 1 == id;
+    public Room getWestRoom() {
+        return westRoom;
     }
 
-    public boolean westIsValid() {
-        return roomIsValid(westRoom);
-    }
-
-    private boolean roomIsValid(final Room room) {
-        return room != null;
-    }
-
-    public void setValid(final int id) {
-        if (northIsValid(id)) {
-            northDoor.setDoor(true);
-            northRoom = new Room(id, myRows, myCols);
-        }
-        if (southIsValid(id)) {
-            southDoor.setDoor(true);
-            southRoom = new Room(id, myRows, myCols);
-        }
-        if (eastIsValid(id)) {
-            eastDoor.setDoor(true);
-            eastRoom = new Room(id, myRows, myCols);
-        }
-        if (westIsValid(id)) {
-            westDoor.setDoor(true);
-            westRoom = new Room(id, myRows, myCols);
-        }
+    public Room getEastRoom() {
+        return eastRoom;
     }
 
     public Door getNorthDoor() {
@@ -115,36 +92,99 @@ public class Room {
         return westDoor;
     }
 
+    public boolean northRoomValid() {
+        return roomIsValid(northRoom);
+    }
+
+    public boolean eastRoomValid() {
+        return roomIsValid(eastRoom);
+    }
+
+    public boolean southRoomValid() {
+        return roomIsValid(southRoom);
+    }
+
+    public boolean westRoomValid() {
+        return roomIsValid(westRoom);
+    }
+
+    private boolean roomIsValid(final Room room) {
+        return room != null;
+    }
+
+    /**
+     * Checks if the Room with the given id is north of this Room.
+     *
+     * @param id The integer representing the Room to check.
+     * @return true if the Room with id is north of this Room.
+     */
+    public boolean isValidNorth(final int id) {
+        return myID - myCols == id;
+    }
+
+
+    /**
+     * Checks if the Room with the given id is south of this Room.
+     *
+     * @param id The integer representing the Room to check.
+     * @return true if the Room with id is south of this Room.
+     */
+    public boolean isValidSouth(final int id) {
+        return myID + myCols == id;
+    }
+
+
+    /**
+     * Checks if the Room with the given id is east of this Room.
+     *
+     * @param id The integer representing the Room to check.
+     * @return true if the Room with id is east of this Room.
+     */
+    public boolean isValidEast(final int id) {
+        return myID + 1 == id;
+    }
+
+    /**
+     * Checks if the Room with the given id is west of this Room.
+     *
+     * @param id The integer representing the Room to check.
+     * @return true if the Room with id is west of this Room.
+     */
+    public boolean isValidWest(final int id) {
+        return myID - 1 == id;
+    }
 
     @Override
     public String toString() {
+        // (N, S, W, E)
         StringBuilder sb = new StringBuilder();
-        sb.append("(room=");
-        sb.append(myID + ", ");
-        sb.append("neighbors=[");
-        if (northIsValid()) {
-            sb.append("North: " + northRoom.getRoomID() + ", ");
+        sb.append(myID);
+        sb.append(" = (");
+        sb.append("north = ");
+        if (northRoomValid()) {
+            sb.append(northRoom.getRoomID() + ", ");
+        } else {
+            sb.append("null, ");
         }
-        if (southIsValid()) {
-
-            sb.append("South: " + southRoom.getRoomID() + ", ");
+        sb.append("south = ");
+        if (southRoomValid()) {
+            sb.append(southRoom.getRoomID() + ", ");
+        } else {
+            sb.append("null, ");
         }
-        if (eastIsValid()) {
-            sb.append("East: " + eastRoom.getRoomID() + ", ");
+        sb.append("west = ");
+        if (westRoomValid()) {
+            sb.append(westRoom.getRoomID() + ", ");
+        } else {
+            sb.append("null, ");
         }
-        if (westIsValid()) {
-            sb.append("West: " + westRoom.getRoomID() + ", ");
+        sb.append("east = ");
+        if (eastRoomValid()) {
+            sb.append(eastRoom.getRoomID());
+        } else {
+            sb.append("null");
         }
-        String result = sb.toString();
-        result = result.substring(0, result.length() - 2);
-        result += "])";
-        return result;
+        sb.append(")");
+        return sb.toString();
     }
-
-
-
-    /** returns a list of doors for this room */
-    public void getDoors() {}
-    public void setDoors(final int roomNumber) {}
-
-    }
+}

@@ -3,11 +3,15 @@ package view;
 import model.FileLoader;
 import model.Room;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
+
 
 /**
  * Main GUI class
@@ -16,6 +20,7 @@ import java.io.IOException;
 public class OfficeEscapeView extends JFrame {
 
     Room myCurrentRoom;
+    NewGameTextMenu myCurrentNewGameText;
 
     public OfficeEscapeView() throws
             ClassNotFoundException,
@@ -24,11 +29,41 @@ public class OfficeEscapeView extends JFrame {
             UnsupportedLookAndFeelException, IOException, FontFormatException {
 
         super("Office Escape v9");
+
         myCurrentRoom = FileLoader.readCity(this);
+        myCurrentNewGameText = new NewGameTextMenu();
         setupUI();
         setupFrame();
         addMenuPanel();
+        addNewGameTextMenu();
         this.setVisible(true);
+
+    }
+
+    private void addNewGameTextMenu() throws IOException, FontFormatException {
+
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        fontTest = fontTest.deriveFont(Font.PLAIN, 34);
+
+        final JLabel newGame = new JLabel("New Game");
+        final JLabel loadGame = new JLabel("Load Game");
+
+        newGame.setVisible(true);
+        newGame.setForeground(Color.WHITE);
+        newGame.setBounds(815, 100, 300, 40);
+        newGame.setLayout(null);
+        newGame.setFont(fontTest);
+
+        loadGame.setVisible(true);
+        loadGame.setForeground(Color.WHITE);
+        loadGame.setBounds(815, 160, 300, 40);
+        loadGame.setLayout(null);
+        loadGame.setFont(fontTest);
+
+
+
+        this.add(newGame);
+        this.add(loadGame);
 
     }
 
@@ -61,24 +96,19 @@ public class OfficeEscapeView extends JFrame {
     }
 
 
-    private void setupFrame() throws IOException, FontFormatException {
+    private void setupFrame() throws IOException {
 
-        BufferedImage image;
-//        image = ImageIO.read(Objects.requireNonNull(OfficeEscapeView.class.getResource("/images/backgrounds/office1.jpg")));
-
-
-//        this.setContentPane(new ImagePanel(image));
+        BufferedImage image = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
+        this.setContentPane(new ImagePanel(image));
         this.setSize(1250, 800);
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-
     }
 
 
-    private void addMenuPanel() throws IOException, FontFormatException {
+    private void addMenuPanel() throws IOException {
         final JMenuBar menubar = new JMenuBar();
-
         final JMenu fileMenu = new JMenu("File");
         final JMenuItem mainMenu = new JMenuItem("Main Menu");
         final JMenuItem newGame = new JMenuItem("New Game");
@@ -111,12 +141,16 @@ public class OfficeEscapeView extends JFrame {
         });
         closeGame.addActionListener(e -> exitGame());
         mainMenu.addActionListener(e -> mainMenu());
-
         this.setJMenuBar(menubar);
     }
 
     private void addRoom() throws FileNotFoundException {
+
         this.add(myCurrentRoom);
+        this.repaint();
+        myCurrentRoom.requestFocusInWindow();
+        myCurrentRoom.setBounds(0, 0, 1250, 768);
+        myCurrentRoom.setFocusable(true);
     }
     /**Returns to main menu. */
     private void mainMenu() {

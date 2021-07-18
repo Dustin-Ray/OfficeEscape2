@@ -19,7 +19,7 @@ public class OfficeEscapeView extends JFrame {
     NewGameTextMenu myCurrentNewGameText;
     MenuPanel myCurrentMenuPanel;
     MainMenuPanel myMainMenuPanel;
-    SecretMainMenuPanel mySecretMainMenuPanel;
+
 
     public OfficeEscapeView() throws
             ClassNotFoundException,
@@ -33,13 +33,11 @@ public class OfficeEscapeView extends JFrame {
         myCurrentNewGameText = new NewGameTextMenu();
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();
-        mySecretMainMenuPanel = new SecretMainMenuPanel();
         setupUI();
         setupFrame();
 
 
         addMenuPanel();
-        addSecretMainMenuPanel();
         addMainMenuPanel();
         addNewGameTextMenu();
         this.setVisible(true);
@@ -53,12 +51,7 @@ public class OfficeEscapeView extends JFrame {
     }
 
 
-    private void addSecretMainMenuPanel() {
 
-        this.add(mySecretMainMenuPanel);
-        myMainMenuPanel.setBounds(0, 0, 1250, 768);
-        myMainMenuPanel.setFocusable(true);
-    }
 
 
     private void addNewGameTextMenu() throws IOException, FontFormatException {

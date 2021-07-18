@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Manages a collection of Rooms.
@@ -23,13 +21,37 @@ public class RoomManager {
         myCols = theCols;
     }
 
+
     public List<Room> extractRooms() {
         List<Room> extractedRooms = new ArrayList<>();
-        for (Integer room : myRooms.keySet()) {
-            Room curr = new Room(room, myRows, myCols);
-            for (Integer perimeterRoom : myRooms.get(room)) {
-                curr.setValid(perimeterRoom);
+        HashMap<Integer, Room> idToRoom = new HashMap<>();
+        Set<Integer> handled  = new HashSet<>();
+        for (Integer currID : myRooms.keySet()) {
+            Room curr = new Room(currID, myRows, myCols);
+            if (idToRoom.containsKey(currID)) {
+                curr = idToRoom.get(currID);
             }
+            for (Integer neighborID : myRooms.get(currID)) {
+                if (!handled.contains(neighborID)) {
+                    Room neighbor = new Room(neighborID, myRows, myCols);
+                    if (curr.isValidWest(neighborID)) {
+                        curr.setWestRoom(neighbor);
+                        neighbor.setEastRoom(curr);
+                    } else if (curr.isValidEast(neighborID)) {
+                        curr.setEastRoom(neighbor);
+                        neighbor.setWestRoom(curr);
+                    } else if (curr.isValidNorth(neighborID)) {
+                        curr.setNorthRoom(neighbor);
+                        neighbor.setSouthRoom(curr);
+                    } else if (curr.isValidSouth(neighborID)) {
+                        curr.setSouthRoom(neighbor);
+                        neighbor.setNorthRoom(curr);
+                    }
+                    idToRoom.put(neighborID, neighbor);
+                }
+            }
+            handled.add(currID);
+            idToRoom.put(currID, curr);
             extractedRooms.add(curr);
         }
         return extractedRooms;

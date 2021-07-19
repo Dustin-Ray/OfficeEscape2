@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class MainMenuPanel extends JPanel implements Runnable {
 
-    private int x;
+    private int x = 700;
     private int y;
     public int speedKeyX, speedKeyY;
 
@@ -25,7 +25,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         myBackground2 = ImageIO.read(new File("src/res/backgrounds/mainmenu2.png"));
         this.setBackground(Color.BLACK);
-        this.setFocusable(true);
+
         this.addKeyListener(new InputHandler());
         Thread animate = new Thread(this);
         animate.start();
@@ -34,8 +34,12 @@ public class MainMenuPanel extends JPanel implements Runnable {
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 24);
 
-        final JLabel newGame = new JLabel("New Game");
-        final JLabel loadGame = new JLabel("Load Game");
+
+
+        final JLabel newGame = new JLabel("new game");
+        final JLabel loadGame = new JLabel("load game");
+
+
 
         newGame.setVisible(true);
         newGame.setForeground(Color.WHITE);
@@ -52,7 +56,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
 
         this.add(newGame);
         this.add(loadGame);
-
+        this.setFocusable(true);
 
     }
 
@@ -104,7 +108,6 @@ public class MainMenuPanel extends JPanel implements Runnable {
     private class InputHandler extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                System.out.println(x);
                 speedKeyX = -10; //when move is, called change the speed
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {

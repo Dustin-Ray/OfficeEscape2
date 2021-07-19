@@ -41,9 +41,10 @@ public class OfficeEscapeView extends JFrame {
     }
 
     private void addMainMenuPanel() {
+        myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
         myMainMenuPanel.setBounds(0, 0, 1250, 768);
-        myMainMenuPanel.setFocusable(true);
+
     }
 
 
@@ -99,18 +100,19 @@ public class OfficeEscapeView extends JFrame {
     }
 
     private void addRoom() throws FileNotFoundException {
-
+        myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.repaint();
         myCurrentRoomPanel.requestFocusInWindow();
         myCurrentRoomPanel.setBounds(0, 0, 1250, 768);
-        myCurrentRoomPanel.setFocusable(true);
+
     }
     /**Returns to main menu. */
     private void returnToMainMenu() {
+        myCurrentRoomPanel.setFocusable(false);
         this.getContentPane().remove(myCurrentRoomPanel);
-        this.add(myMainMenuPanel);
+        addMainMenuPanel();
         this.repaint();
     }
 

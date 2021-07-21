@@ -1,9 +1,9 @@
 package view;
 
-import model.Direction;
-import res.Icons;
-import model.room.Terrain;
 import controller.UserController;
+import model.Direction;
+import model.room.Terrain;
+import res.Icons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,9 +44,9 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-        g2d.drawImage(userControls.getPlayerSprite().getImage(),
-                userControls.getPlayerSprite().getX(),
-                userControls.getPlayerSprite().getY(),
+        g2d.drawImage(userControls.getPlayer().getImage(),
+                userControls.getPlayer().getX(),
+                userControls.getPlayer().getY(),
                 this);
     }
 
@@ -71,7 +71,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
     public void resetUserProfile() throws IOException {
-        this.userControls.getPlayerSprite().reset();
+        this.userControls.getPlayer().reset();
     }
 
     public void drawMap(final Graphics2D theGraphics) {

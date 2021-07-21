@@ -5,18 +5,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class PlayerSprite {
+public class Player {
 
     public BufferedImage img;
     public final BufferedImage chair_down;
     public final BufferedImage chair_up;
     public final BufferedImage chair_left;
     public final BufferedImage chair_right;
-
+    private Direction myDir;
     private int myX;
     private int myY;
-    public PlayerSprite(int theX,
-                        int theY) throws IOException {
+    public Player(int theX,
+                  int theY) throws IOException {
 
         this.img = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
         this.chair_down = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
@@ -28,6 +28,10 @@ public class PlayerSprite {
         this.myY = theY;
 
     }
+    public void setDirection(final Direction theDirection) {myDir = theDirection;}
+
+    public Direction getDirection() {return myDir;}
+
 
     public int getX(){ return this.myX; }
     public int getY(){ return this.myY; }

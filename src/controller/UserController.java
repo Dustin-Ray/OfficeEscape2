@@ -1,15 +1,17 @@
 package controller;
 
 import model.Direction;
-import model.PlayerSprite;
+import model.Player;
 import model.room.Terrain;
+
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static model.room.Terrain.*;
+import static model.room.Terrain.DOOR_CLOSED;
+import static model.room.Terrain.DOOR_OPEN;
 
 /**
  * The main user profile for the player. Will contain details like character name, etc.
@@ -17,9 +19,9 @@ import static model.room.Terrain.*;
 public class UserController {
 
     private static final int MOVEMENT_SPEED = 5;
-    private final PlayerSprite playerSprite;
+    private final Player player;
     public int dx, dy;
-    private Direction myDir;
+
     /** The terrain grid for the simulation. */
     private final Terrain[][] myGrid;
 
@@ -28,45 +30,37 @@ public class UserController {
                           final Direction theDir,
                           final Terrain[][] theGrid) throws IOException {
         this.myGrid = theGrid.clone();
-        myDir = theDir;
-        playerSprite = new PlayerSprite(theX, theY);
-
+        player = new Player(theX, theY);
+        player.setDirection(theDir);
     }
 
     public void move() {
-        playerSprite.setX(playerSprite.getX() + dx);
-        playerSprite.setY(playerSprite.getY() + dy);
+        player.setX(player.getX() + dx);
+        player.setY(player.getY() + dy);
     }
 
 
-    public PlayerSprite getPlayerSprite() {
-        return playerSprite;
-    }
+    public Player getPlayer() {return player;}
 
 
-    public Direction getDirection() {
-        return myDir;
-    }
-
-    public void setDirection(final Direction theDirection) {myDir = theDirection;}
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
-            this.setDirection(Direction.WEST);
-            this.playerSprite.img = playerSprite.chair_left;
+            player.setDirection(Direction.WEST);
+            this.player.img = player.chair_left;
             dx = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_RIGHT) {
-            this.setDirection(Direction.EAST);
-            this.playerSprite.img = playerSprite.chair_right;
+            player.setDirection(Direction.EAST);
+            this.player.img = player.chair_right;
             dx = MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_UP) {
-            this.setDirection(Direction.NORTH);
-            this.playerSprite.img = playerSprite.chair_up;
+            player.setDirection(Direction.NORTH);
+            this.player.img = player.chair_up;
             dy = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_DOWN) {
-            this.setDirection(Direction.SOUTH);
-            this.playerSprite.img = playerSprite.chair_down;
+            player.setDirection(Direction.SOUTH);
+            this.player.img = player.chair_down;
             dy = MOVEMENT_SPEED;}
     }
 
@@ -80,8 +74,8 @@ public class UserController {
 
 
     public void advance() {
-        final Map<Direction, Terrain> neighbors = generateNeighbors(playerSprite);
-        if(this.canPass(neighbors.get(this.getDirection()))) {
+        final Map<Direction, Terrain> neighbors = generateNeighbors(player);
+        if(this.canPass(neighbors.get(player.getDirection()))) {
             this.move();
         }
     }
@@ -91,7 +85,7 @@ public class UserController {
                 && 0 <= theX && theX < myGrid[theY].length;
     }
 
-    private Map<Direction, Terrain> generateNeighbors(final PlayerSprite theMover) {
+    private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
         final int x = theMover.getX();
         final int y = theMover.getY();
         final Map<Direction, Terrain> result = new HashMap<>();
@@ -110,7 +104,4 @@ public class UserController {
         return !(theTerrain == DOOR_OPEN ||
                 theTerrain == DOOR_CLOSED);
     }
-
-
-
 }

@@ -51,10 +51,6 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
 
-
-
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         userControls.advance();

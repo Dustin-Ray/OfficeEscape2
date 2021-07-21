@@ -29,7 +29,6 @@ public class OfficeEscapeView extends JFrame {
         super("Office Escape 9: The Story Continues");
 
         myCurrentRoomPanel = new Room(0, 4, 4).getRoomPanel();
-
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();
         setupUI();
@@ -89,7 +88,7 @@ public class OfficeEscapeView extends JFrame {
         myCurrentMenuPanel.setVisible(true);
         myCurrentMenuPanel.newGame.addActionListener(e -> {
             try {
-                addRoom();
+                addRoom(0);
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
@@ -99,7 +98,9 @@ public class OfficeEscapeView extends JFrame {
 
     }
 
-    private void addRoom() throws FileNotFoundException {
+    private void addRoom(final int theRoomID) throws FileNotFoundException {
+
+        myCurrentRoomPanel = new Room(theRoomID, 4, 4).getRoomPanel();
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);

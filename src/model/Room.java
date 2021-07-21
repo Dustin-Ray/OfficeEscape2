@@ -8,29 +8,21 @@ package model;
 public class Room extends AbstractRoom {
 
     private Door northDoor;
-
     private Door southDoor;
-
     private Door eastDoor;
-
     private Door westDoor;
-
     private Room northRoom;
-
     private Room southRoom;
-
     private Room eastRoom;
-
     private Room westRoom;
 
     private final int myID;
-
     private final int myRows;
-
     private final int myCols;
 
-
-    public Room(final int theID, final int theRows, final int theCols) {
+    public Room(final int theID,
+                final int theRows,
+                final int theCols) {
         super(theID, theRows, theCols);
         myID = theID;
         myRows = theRows;
@@ -40,7 +32,6 @@ public class Room extends AbstractRoom {
     public int getRoomID() {
         return myID;
     }
-
     public void setNorthRoom(final Room room) {
         northRoom = room;
         northDoor = new Door(true, false);
@@ -61,34 +52,29 @@ public class Room extends AbstractRoom {
         eastDoor = new Door(true, false);
     }
 
+
+
     public Room getNorthRoom() {
         return northRoom;
     }
-
     public Room getSouthRoom() {
         return southRoom;
     }
-
     public Room getWestRoom() {
         return westRoom;
     }
-
     public Room getEastRoom() {
         return eastRoom;
     }
-
     public Door getNorthDoor() {
         return northDoor;
     }
-
     public Door getSouthDoor() {
         return southDoor;
     }
-
     public Door getEastDoor() {
         return eastDoor;
     }
-
     public Door getWestDoor() {
         return westDoor;
     }
@@ -96,19 +82,15 @@ public class Room extends AbstractRoom {
     public boolean northRoomValid() {
         return roomIsValid(northRoom);
     }
-
     public boolean eastRoomValid() {
         return roomIsValid(eastRoom);
     }
-
     public boolean southRoomValid() {
         return roomIsValid(southRoom);
     }
-
     public boolean westRoomValid() {
         return roomIsValid(westRoom);
     }
-
     private boolean roomIsValid(final Room room) {
         return room != null;
     }

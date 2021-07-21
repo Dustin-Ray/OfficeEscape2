@@ -34,19 +34,14 @@ public class MainMenuPanel extends JPanel implements Runnable {
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 24);
 
-
-
         final JLabel newGame = new JLabel("new game");
         final JLabel loadGame = new JLabel("load game");
-
-
 
         newGame.setVisible(true);
         newGame.setForeground(Color.WHITE);
         newGame.setBounds(180, 220, 300, 40);
         newGame.setLayout(null);
         newGame.setFont(fontTest);
-
 
         loadGame.setVisible(true);
         loadGame.setForeground(Color.WHITE);

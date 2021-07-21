@@ -14,7 +14,10 @@ abstract class AbstractRoom {
     private final int myID;
     private final RoomPanel myRoomPanel;
 
-    public AbstractRoom(final int theID, final int theRows, final int theCols) {
+    public AbstractRoom(final int theID,
+                        final int theRows,
+                        final int theCols) {
+
         myID = theID;
         myRoomPanel = readMapFile();
     }
@@ -30,14 +33,16 @@ abstract class AbstractRoom {
         RoomPanel result = null;
 
         try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
-
             // First, we read the map description
             result = new RoomPanel(readGrid(input));
-            input.close();
         } catch (final IOException ioe) {
             System.out.println("Error loading resource, check all externally loaded file paths. ");
         }
         return result;
+    }
+
+    public void resetRoom() {
+        readMapFile();
     }
 
     /**

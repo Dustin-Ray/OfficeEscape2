@@ -2,6 +2,7 @@ package view;
 
 
 import model.Room;
+import model.UserProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class OfficeEscapeView extends JFrame {
     RoomPanel myCurrentRoomPanel;
     MenuPanel myCurrentMenuPanel;
     MainMenuPanel myMainMenuPanel;
-
+    Room testRoom;
 
     public OfficeEscapeView() throws
             ClassNotFoundException,
@@ -26,8 +27,10 @@ public class OfficeEscapeView extends JFrame {
             IllegalAccessException,
             UnsupportedLookAndFeelException, IOException, FontFormatException {
 
+
         super("Office Escape 9: The Story Continues");
 
+        testRoom = new Room(0, 4, 4);
         myCurrentRoomPanel = new Room(0, 4, 4).getRoomPanel();
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();
@@ -89,7 +92,7 @@ public class OfficeEscapeView extends JFrame {
         myCurrentMenuPanel.newGame.addActionListener(e -> {
             try {
                 addRoom(0);
-            } catch (FileNotFoundException fileNotFoundException) {
+            } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
         });
@@ -98,9 +101,11 @@ public class OfficeEscapeView extends JFrame {
 
     }
 
-    private void addRoom(final int theRoomID) throws FileNotFoundException {
+    private void addRoom(final int theRoomID) throws IOException {
 
-        myCurrentRoomPanel = new Room(theRoomID, 4, 4).getRoomPanel();
+        testRoom.resetRoom();
+        myCurrentRoomPanel.resetUserProfile();
+        myCurrentRoomPanel = testRoom.getRoomPanel();
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);

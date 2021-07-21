@@ -13,9 +13,11 @@ public class RoomManager {
     private final int myRows;
     private final int myCols;
 
+
     public RoomManager(final Map<Integer, List<Integer>> theRooms,
                        final int theRows,
                        final int theCols) {
+
         myRooms = theRooms;
         myRows = theRows;
         myCols = theCols;

@@ -78,7 +78,7 @@ public class OfficeEscapeView extends JFrame {
 
     private void setupFrame() throws IOException {
         this.setSize(1250, 800);
-        this.setLocation(0, 0);
+        this.setLocation(150, 150);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }

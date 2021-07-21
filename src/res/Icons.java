@@ -29,7 +29,7 @@ public class Icons {
     public BufferedImage DESK_1 = ImageIO.read(new File("src/res/assets/desk_1.png"));
     public BufferedImage DESK_2 = ImageIO.read(new File("src/res/assets/desk_2.png"));
     public BufferedImage DESK_3 = ImageIO.read(new File("src/res/assets/desk_3.png"));
-    public BufferedImage DEAD_CHAIR = ImageIO.read(new File("src/res/assets/dead_chair.png"));
+    public BufferedImage DEAD_CHAIR = ImageIO.read(new File("src/res/assets/chair/dead_chair.png"));
     public BufferedImage PLANT_CHAIR = ImageIO.read(new File("src/res/assets/plant_chair.png"));
 
 

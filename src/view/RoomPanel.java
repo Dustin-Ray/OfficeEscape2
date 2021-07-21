@@ -3,7 +3,7 @@ package view;
 import model.Direction;
 import res.Icons;
 import model.room.Terrain;
-import model.UserProfile;
+import controller.UserController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +15,20 @@ import java.io.IOException;
 
 public class RoomPanel extends JPanel implements ActionListener {
 
-    private final UserProfile usrProf;
+    private final UserController userControls;
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 96;
     /** The terrain grid for the simulation. */
     private final Terrain[][] myGrid;
     private final Icons imgLibrary;
 
+
     public RoomPanel(final Terrain[][] theGrid) throws IOException {
-        usrProf = new UserProfile(503,590, Direction.EAST);
+//        usrProf = new UserProfile(503,590, Direction.EAST, theGrid);
+        this.myGrid = theGrid.clone();
+        userControls = new UserController(100,100, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
-        this.myGrid = theGrid.clone();
         setBackground(Color.BLACK);
         this.setFocusable(true);
         this.setBounds(0,0,768, 768);
@@ -42,25 +44,34 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-        g2d.drawImage(usrProf.getImage(), usrProf.getMyX(), usrProf.getMyY(), this);
+        g2d.drawImage(userControls.getPlayerSprite().getImage(),
+                userControls.getPlayerSprite().getX(),
+                userControls.getPlayerSprite().getY(),
+                this);
     }
+
+
+
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        usrProf.move();
+        userControls.advance();
         repaint();
     }
 
     private class TAdapter extends KeyAdapter {
         @Override
-        public void keyReleased(KeyEvent e) {usrProf.keyReleased(e);}
+        public void keyReleased(KeyEvent e) {
+            userControls.keyReleased(e);}
         @Override
-        public void keyPressed(KeyEvent e) {usrProf.keyPressed(e);}
+        public void keyPressed(KeyEvent e) {
+            userControls.keyPressed(e);}
     }
 
     public void resetUserProfile() throws IOException {
-        this.usrProf.reset();
+        this.userControls.getPlayerSprite().reset();
     }
 
     public void drawMap(final Graphics2D theGraphics) {

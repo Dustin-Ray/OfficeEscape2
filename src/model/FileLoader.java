@@ -32,7 +32,7 @@ public final class FileLoader {
      */
     public static RoomPanel readCity(final JFrame theFrame) {
 
-        File file = new File("src/res/floor_map.txt");
+        File file = new File("src/res/floor_map_0.txt");
         System.out.println(file.length());
         RoomPanel result = null;
 

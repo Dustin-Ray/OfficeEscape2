@@ -1,6 +1,7 @@
 package view;
 
 import model.FileLoader;
+import model.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,7 @@ public class OfficeEscapeView extends JFrame {
 
         super("Office Escape 9: The Story Continues");
 
-        myCurrentRoomPanel = FileLoader.readCity(this);
+        myCurrentRoomPanel = new Room(0, 4, 4).getRoomPanel();
 
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();

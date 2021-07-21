@@ -5,7 +5,7 @@ package model;
  *
  * @author Reuben Keller
  */
-public class Room {
+public class Room extends AbstractRoom {
 
     private Door northDoor;
 
@@ -31,6 +31,7 @@ public class Room {
 
 
     public Room(final int theID, final int theRows, final int theCols) {
+        super(theID, theRows, theCols);
         myID = theID;
         myRows = theRows;
         myCols = theCols;

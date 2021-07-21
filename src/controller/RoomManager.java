@@ -1,4 +1,6 @@
-package model.room;
+package controller;
+
+import model.room.Room;
 
 import java.util.*;
 

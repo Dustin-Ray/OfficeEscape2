@@ -1,4 +1,4 @@
-package model.trivia;
+package controller;
 
 public class TriviaManager {
 }

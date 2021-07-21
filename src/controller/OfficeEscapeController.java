@@ -2,7 +2,6 @@ package controller;
 
 
 import model.room.Room;
-import model.room.RoomManager;
 import model.graph.GraphManager;
 import view.OfficeEscapeView;
 

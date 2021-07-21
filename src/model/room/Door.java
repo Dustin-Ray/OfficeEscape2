@@ -1,4 +1,4 @@
-package model;
+package model.room;
 
 /**
  * Maintains Door information. A Door is valid if it can be used to pass

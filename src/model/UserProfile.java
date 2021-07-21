@@ -1,12 +1,14 @@
 package model;
 
+import model.room.Terrain;
+
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static model.Terrain.*;
+import static model.room.Terrain.*;
 
 /**
  * The main user profile for the player. Will contain details like character name, etc.

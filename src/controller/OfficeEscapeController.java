@@ -1,10 +1,8 @@
 package controller;
 
 
-import model.Direction;
-import model.Room;
-import model.RoomManager;
-import model.UserProfile;
+import model.room.Room;
+import model.room.RoomManager;
 import model.graph.GraphManager;
 import view.OfficeEscapeView;
 

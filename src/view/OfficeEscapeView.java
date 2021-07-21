@@ -1,12 +1,10 @@
 package view;
 
 
-import model.Room;
-import model.UserProfile;
+import model.room.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 

@@ -1,8 +1,8 @@
 package view;
 
 import model.Direction;
-import model.Icons;
-import model.Terrain;
+import res.Icons;
+import model.room.Terrain;
 import model.UserProfile;
 
 import javax.swing.*;

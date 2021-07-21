@@ -1,4 +1,4 @@
-package model;
+package model.trivia;
 
 // Trivia manager will make Trivia objects using the database and fill them
 // into an ArrayList. When we select a Trivia to ask the user, we will

@@ -1,11 +1,10 @@
 package view;
 
-import model.FileLoader;
+
 import model.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

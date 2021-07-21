@@ -2,7 +2,6 @@ package model;
 
 import view.RoomPanel;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

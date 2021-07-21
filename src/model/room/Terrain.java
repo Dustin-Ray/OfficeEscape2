@@ -12,8 +12,14 @@ public enum Terrain {
     RIGHT_WALL('R'),
     FLOOR_1('F'),
     FLOOR_2('F'),
-    DESK_FACING_RIGHT('1');
-
+    DOOR_CLOSED('D'),
+    DOOR_OPEN('O'),
+    WHITE_BOARD('!'),
+    WARHOL('@'),
+    VENDING_MACHINE('#'),
+    DESK_1('1'),
+    DESK_2('2'),
+    DEAD_CHAIR('$');
 
     /**
      * The character corresponding to a particular value of the enumeration.

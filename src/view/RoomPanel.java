@@ -23,7 +23,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     private final Icons imgLibrary;
 
     public RoomPanel(final Terrain[][] theGrid) throws IOException {
-        usrProf = new UserProfile(0,0, Direction.EAST);
+        usrProf = new UserProfile(503,590, Direction.EAST);
         this.setLayout(null);
         imgLibrary = new Icons();
         this.myGrid = theGrid.clone();
@@ -71,6 +71,11 @@ public class RoomPanel extends JPanel implements ActionListener {
             for (int x = 0; x < myGrid[y].length; x++) {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
+                    case DOOR_CLOSED -> theGraphics.drawImage(imgLibrary.DOOR_CLOSED, leftx, topy, null);
+                    case DOOR_OPEN -> theGraphics.drawImage(imgLibrary.DOOR_OPEN, leftx, topy, null);
+                    case WHITE_BOARD -> theGraphics.drawImage(imgLibrary.WHITE_BOARD, leftx, topy, null);
+                    case WARHOL -> theGraphics.drawImage(imgLibrary.WARHOL, leftx, topy, null);
+                    case VENDING_MACHINE -> theGraphics.drawImage(imgLibrary.VENDING_MACHINE, leftx, topy, null);
                     case FLOOR_2 -> theGraphics.drawImage(imgLibrary.FLOOR_2, leftx, topy, null);
                     case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
                     case BOTTOM_WALL -> theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx, topy, null);
@@ -81,7 +86,9 @@ public class RoomPanel extends JPanel implements ActionListener {
                     case BOTTOM_LEFT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_LEFT_CORNER, leftx, topy, null);
                     case BOTTOM_RIGHT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_RIGHT_CORNER, leftx, topy, null);
                     case TOP_WALL -> theGraphics.drawImage(imgLibrary.TOP_WALL, leftx, topy, null);
-                    case DESK_FACING_RIGHT -> theGraphics.drawImage(imgLibrary.DESK_FACING_RIGHT, leftx, topy, null);
+                    case DESK_1 -> theGraphics.drawImage(imgLibrary.DESK_1, leftx, topy, null);
+                    case DESK_2 -> theGraphics.drawImage(imgLibrary.DESK_2, leftx, topy, null);
+                    case DEAD_CHAIR -> theGraphics.drawImage(imgLibrary.DEAD_CHAIR, leftx, topy, null);
                 }
             }
         }

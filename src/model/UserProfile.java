@@ -13,8 +13,9 @@ import static model.room.Terrain.*;
 /**
  * The main user profile for the player. Will contain details like character name, etc.
  */
-public class    UserProfile {
+public class UserProfile {
 
+    private static final int MOVEMENT_SPEED = 10;
     private int myX;
     private int myY;
     public BufferedImage img;
@@ -27,7 +28,7 @@ public class    UserProfile {
 
     public UserProfile(int theX, int theY, final Direction theDir) throws IOException {
         myDir = theDir;
-        this.img = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
+        this.img = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
         this.chair_down = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
         this.chair_up = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
         this.chair_left = ImageIO.read(new File("src/res/assets/chair/chair_left.png"));
@@ -55,19 +56,20 @@ public class    UserProfile {
         if (key == KeyEvent.VK_LEFT) {
             this.setDirection(Direction.WEST);
             this.img = chair_left;
-            dx = -3;}
+            dx = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_RIGHT) {
             this.setDirection(Direction.EAST);
             this.img = chair_right;
-            dx = 3;}
+            dx = MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_UP) {
             this.setDirection(Direction.NORTH);
             this.img = chair_up;
-            dy = -3;}
+            dy = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_DOWN) {
             this.setDirection(Direction.SOUTH);
+            System.out.println(this.getMyY());
             this.img = chair_down;
-            dy = 3;}
+            dy = MOVEMENT_SPEED;}
     }
 
     public void keyReleased(KeyEvent e) {
@@ -91,9 +93,9 @@ public class    UserProfile {
     }
 
     public void reset() throws IOException {
-        this.img = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
-        this.myX = 0;
-        this.myY = 0;
+        this.img = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
+        this.myX = 500;
+        this.myY = 585;
     }
 
 }

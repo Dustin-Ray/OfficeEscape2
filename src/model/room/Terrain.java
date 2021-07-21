@@ -19,7 +19,9 @@ public enum Terrain {
     VENDING_MACHINE('#'),
     DESK_1('1'),
     DESK_2('2'),
-    DEAD_CHAIR('$');
+    DESK_3('3'),
+    DEAD_CHAIR('$'),
+    PLANT_CHAIR('%');
 
     /**
      * The character corresponding to a particular value of the enumeration.

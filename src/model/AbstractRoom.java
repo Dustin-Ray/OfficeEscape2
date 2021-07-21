@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AbstractRoom {
+abstract class AbstractRoom {
 
 
     private final int myID;
@@ -26,7 +26,7 @@ public class AbstractRoom {
      */
     public RoomPanel readMapFile() {
 
-        File file = new File("src/res/floor_map_" + myID + ".txt");
+        File file = new File("src/res/floor_maps/floor_map_" + myID + ".txt");
         RoomPanel result = null;
 
         try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {

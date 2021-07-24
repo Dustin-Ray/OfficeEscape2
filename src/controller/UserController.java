@@ -10,8 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static model.room.Terrain.DOOR_CLOSED;
-import static model.room.Terrain.DOOR_OPEN;
+import static model.room.Terrain.*;
 
 /**
  * The main user profile for the player. Will contain details like character name, etc.
@@ -85,18 +84,22 @@ public class UserController {
 
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
+
+        final int div = 100;
         final int x = theMover.getX();
         final int y = theMover.getY();
         final Map<Direction, Terrain> result = new HashMap<>();
-        for (final Direction dir : Direction.values()) {
-                result.put(dir, myGrid[y / 96][x / 96]);
+        for (int i = 0; i < Direction.values().length; i++) {
+            result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
+            result.put(Direction.SOUTH, myGrid[(y / div) + 1][(x / div)]);
+            result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div)]);
+            result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
         }
         System.out.println(result);
         return Collections.unmodifiableMap(result);
     }
 
     public boolean canPass(final Terrain theTerrain) {
-        return !(theTerrain == DOOR_OPEN ||
-                theTerrain == DOOR_CLOSED);
+        return (theTerrain == FLOOR_1);
     }
 }

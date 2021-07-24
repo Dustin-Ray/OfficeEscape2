@@ -10,6 +10,7 @@ public class Player {
     public BufferedImage img;
     public final BufferedImage chair_down;
     public final BufferedImage chair_up;
+    public final BufferedImage chair_up_question;
     public final BufferedImage chair_left;
     public final BufferedImage chair_right;
     private Direction myDir;
@@ -21,6 +22,7 @@ public class Player {
         this.img = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
         this.chair_down = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
         this.chair_up = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
+        this.chair_up_question = ImageIO.read(new File("src/res/assets/chair/chair_up_question.png"));
         this.chair_left = ImageIO.read(new File("src/res/assets/chair/chair_left.png"));
         this.chair_right = ImageIO.read(new File("src/res/assets/chair/chair_right.png"));
 
@@ -31,6 +33,16 @@ public class Player {
     public void setDirection(final Direction theDirection) {myDir = theDirection;}
 
     public Direction getDirection() {return myDir;}
+
+    public void setImg(final String theImage) {
+
+        if (theImage.equals("UP")) {this.img = chair_up;}
+        if (theImage.equals("UP?")) {this.img = chair_up_question;}
+        if (theImage.equals("DOWN")) {this.img = chair_down;}
+        if (theImage.equals("LEFT")) {this.img = chair_left;}
+        if (theImage.equals("RIGHT")) {this.img = chair_right;}
+
+    }
 
 
     public int getX(){ return this.myX; }

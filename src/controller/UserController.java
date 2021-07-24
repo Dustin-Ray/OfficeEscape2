@@ -85,7 +85,7 @@ public class UserController {
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 
-        final int div = 100;
+        final int div = 96;
         final int x = theMover.getX();
         final int y = theMover.getY();
         final Map<Direction, Terrain> result = new HashMap<>();

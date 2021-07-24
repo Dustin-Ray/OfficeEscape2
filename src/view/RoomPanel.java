@@ -24,9 +24,8 @@ public class RoomPanel extends JPanel implements ActionListener {
 
 
     public RoomPanel(final Terrain[][] theGrid) throws IOException {
-//        usrProf = new UserProfile(503,590, Direction.EAST, theGrid);
         this.myGrid = theGrid.clone();
-        userControls = new UserController(100,100, Direction.EAST, myGrid);
+        userControls = new UserController(384,384, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);

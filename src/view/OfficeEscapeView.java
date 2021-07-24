@@ -17,7 +17,7 @@ public class OfficeEscapeView extends JFrame {
     RoomPanel myCurrentRoomPanel;
     MenuPanel myCurrentMenuPanel;
     MainMenuPanel myMainMenuPanel;
-    Room testRoom;
+//    Room testRoom;
 
     public OfficeEscapeView() throws
             ClassNotFoundException,
@@ -28,7 +28,7 @@ public class OfficeEscapeView extends JFrame {
 
         super("Office Escape 9: The Story Continues");
 
-        testRoom = new Room(0, 4, 4);
+//        testRoom = new Room(0, 4, 4);
         myCurrentRoomPanel = new Room(0, 4, 4).getRoomPanel();
         myCurrentMenuPanel = new MenuPanel();
         myMainMenuPanel = new MainMenuPanel();
@@ -101,9 +101,9 @@ public class OfficeEscapeView extends JFrame {
 
     private void addRoom(final int theRoomID) throws IOException {
 
-        testRoom.resetRoom();
-        myCurrentRoomPanel.resetUserProfile();
-        myCurrentRoomPanel = testRoom.getRoomPanel();
+//        testRoom.resetRoom();
+//        myCurrentRoomPanel.resetUserProfile();
+//        myCurrentRoomPanel = testRoom.getRoomPanel();
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);

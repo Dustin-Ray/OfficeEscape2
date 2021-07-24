@@ -17,9 +17,9 @@ public class OfficeEscapeController {
     private static final int DEFAULT_COL_DIM = 4;
 
     public OfficeEscapeController() throws IOException {
-        Map<Integer, List<Integer>> connectedRooms;
-        connectedRooms = getConnectedRooms();
-        List<Room> extractedRooms = getExtractedRooms(connectedRooms);
+//        Map<Integer, List<Integer>> connectedRooms;
+//        connectedRooms = getConnectedRooms();
+//        List<Room> extractedRooms = getExtractedRooms(connectedRooms);
         run();
 //        System.out statements only here temporarily for testing.
 //        System.out.println(connectedRooms);
@@ -45,14 +45,14 @@ public class OfficeEscapeController {
     }
 
 
-    public Map<Integer, List<Integer>> getConnectedRooms() {
-        GraphManager manager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
-        return manager.getConnectedRoomsMap();
-    }
-
-    public List<Room> getExtractedRooms(final Map<Integer, List<Integer>> connectedRooms) {
-        RoomManager manager = new RoomManager(connectedRooms, DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
-        return manager.extractRooms();
-    }
+//    public Map<Integer, List<Integer>> getConnectedRooms() {
+//        GraphManager manager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
+//        return manager.getConnectedRoomsMap();
+//    }
+//
+//    public List<Room> getExtractedRooms(final Map<Integer, List<Integer>> connectedRooms) {
+//        RoomManager manager = new RoomManager(connectedRooms, DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
+//        return manager.extractRooms();
+//    }
 
 }

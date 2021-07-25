@@ -96,7 +96,7 @@ public class OfficeEscapeView extends JFrame {
 
     private void setupFrame() throws IOException {
         this.setSize(1248, 828);
-        this.setLocation(150, 150);
+        this.setLocation(500, 100);
         this.setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -125,6 +125,7 @@ public class OfficeEscapeView extends JFrame {
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
+        myCurrentRoomPanel.resetUserProfile();
         this.repaint();
         myCurrentRoomPanel.requestFocusInWindow();
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);

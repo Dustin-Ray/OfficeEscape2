@@ -16,7 +16,7 @@ public class ConsolePanel extends JPanel {
     public void setupText() throws IOException, FontFormatException {
 
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
-        fontTest = fontTest.deriveFont(Font.PLAIN, 12);
+        fontTest = fontTest.deriveFont(Font.PLAIN, 32);
 
         final JLabel testLabel = new JLabel("this is a test...");
 

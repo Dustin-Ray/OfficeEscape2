@@ -19,12 +19,12 @@ public class Player {
     public Player(int theX,
                   int theY) throws IOException {
 
-        this.img = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
-        this.chair_down = ImageIO.read(new File("src/res/assets/chair/chair_down.png"));
-        this.chair_up = ImageIO.read(new File("src/res/assets/chair/chair_up.png"));
-        this.chair_up_question = ImageIO.read(new File("src/res/assets/chair/chair_up_question.png"));
-        this.chair_left = ImageIO.read(new File("src/res/assets/chair/chair_left.png"));
-        this.chair_right = ImageIO.read(new File("src/res/assets/chair/chair_right.png"));
+        this.img = ImageIO.read(new File("src/res/assets/chair/testing/chair_up_testing.png"));
+        this.chair_down = ImageIO.read(new File("src/res/assets/chair/testing/chair_down_testing.png"));
+        this.chair_up = ImageIO.read(new File("src/res/assets/chair/testing/chair_up_testing.png"));
+        this.chair_up_question = ImageIO.read(new File("src/res/assets/chair/testing/chair_up_testing_question.png"));
+        this.chair_left = ImageIO.read(new File("src/res/assets/chair/testing/chair_left_testing.png"));
+        this.chair_right = ImageIO.read(new File("src/res/assets/chair/testing/chair_right_testing.png"));
 
         this.myX = theX;
         this.myY = theY;

@@ -2,18 +2,24 @@ package model.room;
 
 public enum Terrain {
 
+
+
     BOTTOM_WALL('B'),
     TOP_WALL('T'),
     TOP_LEFT_CORNER('('),
     TOP_RIGHT_CORNER(')'),
     BOTTOM_LEFT_CORNER('['),
     BOTTOM_RIGHT_CORNER(']'),
+
+    /**Letters represent textures for walls and stuff */
     LEFT_WALL('L'),
     RIGHT_WALL('R'),
     FLOOR_1('F'),
     FLOOR_2('F'),
     DOOR_CLOSED('D'),
     DOOR_OPEN('O'),
+
+    /**Symbols represent decorations and objects */
     WHITE_BOARD('!'),
     WARHOL('@'),
     VENDING_MACHINE('#'),
@@ -22,6 +28,9 @@ public enum Terrain {
     DESK_3('3'),
     DEAD_CHAIR('$'),
     PLANT_CHAIR('%');
+
+
+
 
     /**
      * The character corresponding to a particular value of the enumeration.

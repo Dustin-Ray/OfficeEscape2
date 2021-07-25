@@ -31,7 +31,6 @@ public class OfficeEscapeView extends JFrame {
 
         super("Office Escape 9: The Story Continues");
 
-
         myCurrentRoomPanel = new RoomPanel(theRoomsList.get(0).getTerrain());
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();

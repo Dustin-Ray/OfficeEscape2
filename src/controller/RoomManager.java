@@ -5,6 +5,11 @@ import model.room.Room;
 
 import java.util.*;
 
+
+
+
+
+
 /**
  * Uses a graph representation to generate a mapping of each Room to connected
  * Rooms.
@@ -23,6 +28,10 @@ public class RoomManager {
     private final int myRows;
 
 
+
+
+
+
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
      *
@@ -34,6 +43,11 @@ public class RoomManager {
         myGraphRep = theGraphRep;
         myRows = theRows;
     }
+
+
+
+
+
 
 
     /**
@@ -60,19 +74,19 @@ public class RoomManager {
                 if (!s.contains(neighborRoom)) {
                     Door door = new Door(true, false);
                     if (currID - myRows == neighborID) {
-                        // neighbor is north of curr
+                        // neighbor is north of curr (north = A)
                         currRoom.setNorth(neighborRoom, door);
                         neighborRoom.setSouth(currRoom, door);
                     } else if (currID + myRows == neighborID) {
-                        // neighbor is south of curr
+                        // neighbor is south of curr (south = B)
                         currRoom.setSouth(neighborRoom, door);
                         neighborRoom.setNorth(currRoom, door);
                     } else if (currID + 1 == neighborID) {
-                        // neighbor is east of curr
+                        // neighbor is east of curr  (east = C)
                         currRoom.setEast(neighborRoom, door);
                         neighborRoom.setWest(currRoom, door);
                     } else if (currID - 1 == neighborID) {
-                        // neighbor is west of curr
+                        // neighbor is west of curr  (west = D)
                         currRoom.setWest(neighborRoom, door);
                         neighborRoom.setEast(currRoom, door);
                     }
@@ -83,5 +97,6 @@ public class RoomManager {
         }
         return rooms;
     }
+
 
 }

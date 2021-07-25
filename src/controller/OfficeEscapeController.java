@@ -1,7 +1,6 @@
 package controller;
 
 
-import model.graph.GraphManager;
 import model.room.Room;
 import view.OfficeEscapeView;
 
@@ -13,8 +12,8 @@ import java.util.*;
 
 public class OfficeEscapeController {
 
-    private static final int DEFAULT_ROW_DIM = 2;
-    private static final int DEFAULT_COL_DIM = 2;
+    private static final int DEFAULT_ROW_DIM = 4;
+    private static final int DEFAULT_COL_DIM = 4;
 
     public OfficeEscapeController() throws IOException {
         HashMap<Room, HashSet<Room>> rooms = getExtractedRooms(getConnectedRooms());

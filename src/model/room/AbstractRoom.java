@@ -34,7 +34,7 @@ public abstract class AbstractRoom {
 
     private final int myID;
 
-    private final RoomPanel myRoomPanel;
+    private Terrain[][] myTerrain;
 
 
     /**
@@ -44,27 +44,24 @@ public abstract class AbstractRoom {
      */
     public AbstractRoom(final int theID) {
         myID = theID;
-        myRoomPanel = readMapFile();
+        readMapFile();
     }
 
 
     /**
      * Reads the map text file corresponding to this Rooms ID and builds this
      * Room's RoomPanel.
-     *
-     * @return The RoomPanel for this Room.
      */
-    private RoomPanel readMapFile() {
+    private void readMapFile() {
         File file = new File("src/res/floor_maps/floor_map_" + myID + ".txt");
         RoomPanel result = null;
 
         try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
             // First, we read the map description
-            result = new RoomPanel(readGrid(input));
+            readGrid(input);
         } catch (final IOException ioe) {
             System.out.println("Error loading resource, check all externally loaded file paths. ");
         }
-        return result;
     }
 
 
@@ -72,30 +69,23 @@ public abstract class AbstractRoom {
      * Reads the grid portion of the map file.
      *
      * @param theInput The input scanner.
-     * @return the map of the terrains.
      */
-    private Terrain[][] readGrid(final Scanner theInput) {
+    private void readGrid(final Scanner theInput) {
         final int numRows = theInput.nextInt();
         final int numColumns = theInput.nextInt();
         theInput.nextLine();
-        final Terrain[][] grid = new Terrain[numRows][numColumns];
+        myTerrain = new Terrain[numRows][numColumns];
         for (int row = 0; row < numRows; row++) {
             final String line = theInput.nextLine();
             for (int column = 0; column < numColumns; column++) {
-                grid[row][column] = Terrain.valueOf(line.charAt(column));
+                myTerrain[row][column] = Terrain.valueOf(line.charAt(column));
             }
         }
-        return grid;
     }
 
 
-    /**
-     * Returns the RoomPanel for this Room.
-     *
-     * @return The RoomPanel for this Room.
-     */
-    public RoomPanel getRoomPanel() {
-            return myRoomPanel;
+    public Terrain[][] getTerrain() {
+        return myTerrain;
     }
 
 

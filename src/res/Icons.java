@@ -26,10 +26,6 @@ public class Icons {
     public BufferedImage PLANT_CHAIR = ImageIO.read(new File("src/res/assets/plant_chair.png"));
 
 
-
-
-
-
     public Icons() throws IOException {
 
     }

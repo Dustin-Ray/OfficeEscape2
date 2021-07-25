@@ -42,9 +42,8 @@ public class OfficeEscapeView extends JFrame {
         myConsolePanel = new ConsolePanel();
         setupUI();
         setupFrame();
-
         addToolbarPanel();
-
+//        addConsolePanel();
         addMainMenuPanel();
         this.setVisible(true);
 
@@ -55,6 +54,7 @@ public class OfficeEscapeView extends JFrame {
         this.add(myConsolePanel);
         myConsolePanel.setBackground(Color.BLACK);
         myConsolePanel.setBounds(768, 0, 480, 768);
+        repaint();
     }
 
     private void addMainMenuPanel() {
@@ -108,7 +108,8 @@ public class OfficeEscapeView extends JFrame {
         myCurrentToolbarMenu.setVisible(true);
         myCurrentToolbarMenu.newGame.addActionListener(e -> {
             try {
-                addRoom(0);
+                repaint();
+                loadRoom(0);
             } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
@@ -118,7 +119,7 @@ public class OfficeEscapeView extends JFrame {
 
     }
 
-    private void addRoom(final int theRoomID) throws IOException {
+    private void loadRoom(final int theRoomID) throws IOException {
 
 
         myCurrentRoomPanel.setFocusable(true);
@@ -126,11 +127,12 @@ public class OfficeEscapeView extends JFrame {
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
-        addConsolePanel();
-        this.repaint();
-        myCurrentRoomPanel.requestFocusInWindow();
-        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
 
+
+        myCurrentRoomPanel.requestFocusInWindow();
+        addConsolePanel();
+        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
+        this.repaint();
     }
     /**Returns to main menu. */
     private void returnToMainMenu() {

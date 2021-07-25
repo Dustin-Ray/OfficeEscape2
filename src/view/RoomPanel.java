@@ -46,6 +46,7 @@ public class RoomPanel extends JPanel implements ActionListener {
                 userControls.getPlayer().getX(),
                 userControls.getPlayer().getY(),
                 this);
+        repaint();
     }
 
 
@@ -58,10 +59,12 @@ public class RoomPanel extends JPanel implements ActionListener {
     private class TAdapter extends KeyAdapter {
         @Override
         public void keyReleased(KeyEvent e) {
-            userControls.keyReleased(e);}
+            userControls.keyReleased(e);
+            repaint();}
         @Override
         public void keyPressed(KeyEvent e) {
-            userControls.keyPressed(e);}
+            userControls.keyPressed(e);
+            repaint();}
     }
 
     public void resetUserProfile() throws IOException {

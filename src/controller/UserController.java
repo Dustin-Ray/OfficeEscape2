@@ -24,10 +24,15 @@ public class UserController {
     private final Player player;
     /**Values uses to represent change in x and y positioning during key
      * pressed/released event. */
-    public int dx, dy;
+    private int dx, dy;
+
+    /**Triggers option for trivia event if true. */
+    private boolean myNextToDoor;
 
     /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
     private final Terrain[][] myGrid;
+
+
 
     /**
      * Constructor.
@@ -41,6 +46,7 @@ public class UserController {
                           int theY,
                           final Direction theDir,
                           final Terrain[][] theGrid) throws IOException {
+        myNextToDoor = false;
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
         player.setDirection(theDir);
@@ -106,10 +112,14 @@ public class UserController {
                 neighbors.get(Direction.NORTH) == DOOR_CLOSED_B ||
                 neighbors.get(Direction.NORTH) == DOOR_CLOSED_C ||
                 neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
-                    player.setImg("UP?");
+                myNextToDoor = true;
+                player.setImg("UP?");
+            } else {
+                myNextToDoor = false;
             }
             //create a boolean value to be used as a test as whether to open a trivia question
         }
+        System.out.println("Am I next to a door? " + myNextToDoor);
     }
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
@@ -128,7 +138,7 @@ public class UserController {
             result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
 
         }
-        System.out.println(result);
+//        System.out.println(result);
         return Collections.unmodifiableMap(result);
     }
 

@@ -13,9 +13,9 @@ public enum Terrain {
 
     /**Letters represent textures for walls and stuff */
     LEFT_WALL('L'),
-    RIGHT_WALL('R'),
+    RIGHT_WALL('G'),
     FLOOR_1('F'),
-    FLOOR_2('G'),
+    RED_ZONE('R'),
     DOOR_CLOSED_A('A'),
     DOOR_CLOSED_B('B'),
     DOOR_CLOSED_C('C'),
@@ -59,7 +59,7 @@ public enum Terrain {
      *         Terrain is represented by the given letter.
      */
     public static Terrain valueOf(final char theLetter) {
-        Terrain result = FLOOR_2;
+        Terrain result = RED_ZONE;
 
         for (final Terrain terrain : Terrain.values()) {
             if (terrain.myLetter == theLetter) {

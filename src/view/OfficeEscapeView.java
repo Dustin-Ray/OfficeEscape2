@@ -126,10 +126,11 @@ public class OfficeEscapeView extends JFrame {
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
+        addConsolePanel();
         this.repaint();
         myCurrentRoomPanel.requestFocusInWindow();
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
-        addConsolePanel();
+
     }
     /**Returns to main menu. */
     private void returnToMainMenu() {

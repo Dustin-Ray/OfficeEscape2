@@ -25,7 +25,7 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     public RoomPanel(final Terrain[][] theGrid) throws IOException {
         this.myGrid = theGrid.clone();
-        userControls = new UserController(384,288, Direction.EAST, myGrid);
+        userControls = new UserController(192,384, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);
@@ -81,7 +81,7 @@ public class RoomPanel extends JPanel implements ActionListener {
                     case WHITE_BOARD -> theGraphics.drawImage(imgLibrary.WHITE_BOARD, leftx, topy, null);
                     case WARHOL -> theGraphics.drawImage(imgLibrary.WARHOL, leftx, topy, null);
                     case VENDING_MACHINE -> theGraphics.drawImage(imgLibrary.VENDING_MACHINE, leftx, topy, null);
-                    case FLOOR_2 -> theGraphics.drawImage(imgLibrary.FLOOR_2, leftx, topy, null);
+                    case RED_ZONE -> theGraphics.drawImage(imgLibrary.RED_ZONE, leftx, topy, null);
                     case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
                     case BOTTOM_WALL -> theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx, topy, null);
                     case LEFT_WALL -> theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx, topy, null);

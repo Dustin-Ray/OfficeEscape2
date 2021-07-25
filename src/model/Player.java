@@ -55,8 +55,8 @@ public class Player {
     public BufferedImage getImage(){ return this.img; }
     public void reset() throws IOException {
         this.img = chair_up;
-        this.setX(500);
-        this.setY(585);
+        this.setX(288);
+        this.setY(384);
     }
 
 }

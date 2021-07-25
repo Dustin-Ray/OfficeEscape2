@@ -17,7 +17,7 @@ public class Icons {
     public BufferedImage WHITE_BOARD = ImageIO.read(new File("src/res/assets/top_wall_whiteboard.png"));
     public BufferedImage WARHOL = ImageIO.read(new File("src/res/assets/top_wall_warhol.png"));
     public BufferedImage VENDING_MACHINE = ImageIO.read(new File("src/res/assets/top_wall_vending_machine.png"));
-    public BufferedImage FLOOR_2 = ImageIO.read(new File("src/res/icons/4_Modern_Office_singles/48x48/Modern_Office_Singles_48x48_47.png"));
+    public BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
     public BufferedImage BOTTOM_WALL = ImageIO.read(new File("src/res/assets/bottom_wall.png"));
     public BufferedImage TOP_WALL = ImageIO.read(new File("src/res/assets/top_wall.png"));
     public BufferedImage TOP_LEFT_CORNER = ImageIO.read(new File("src/res/assets/top_left_corner.png"));

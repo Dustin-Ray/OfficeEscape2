@@ -120,11 +120,15 @@ public class UserController {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
+
             result.put(Direction.SOUTH, myGrid[(y / div) + 1][(x / div)]);
-            result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div)]);
+
+            result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div) + 1]);
+
             result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
+            System.out.println((x / div));
         }
-        System.out.println(result);
+
         return Collections.unmodifiableMap(result);
     }
 

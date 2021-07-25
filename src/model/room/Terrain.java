@@ -4,7 +4,7 @@ public enum Terrain {
 
 
 
-    BOTTOM_WALL('B'),
+    BOTTOM_WALL('W'),
     TOP_WALL('T'),
     TOP_LEFT_CORNER('('),
     TOP_RIGHT_CORNER(')'),
@@ -16,7 +16,10 @@ public enum Terrain {
     RIGHT_WALL('R'),
     FLOOR_1('F'),
     FLOOR_2('G'),
-    DOOR_CLOSED('D'),
+    DOOR_CLOSED_A('A'),
+    DOOR_CLOSED_B('B'),
+    DOOR_CLOSED_C('C'),
+    DOOR_CLOSED_D('D'),
     DOOR_OPEN('O'),
 
     /**Symbols represent decorations and objects */

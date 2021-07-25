@@ -102,7 +102,12 @@ public class UserController {
         final Map<Direction, Terrain> neighbors = generateNeighbors(player);
         if(this.canPass(neighbors.get(player.getDirection()))) {
             this.move(player.getDirection());
-            if(neighbors.get(Direction.NORTH) == DOOR_CLOSED) {player.setImg("UP?");}
+            if(neighbors.get(Direction.NORTH) == DOOR_CLOSED_A ||
+                neighbors.get(Direction.NORTH) == DOOR_CLOSED_B ||
+                neighbors.get(Direction.NORTH) == DOOR_CLOSED_C ||
+                neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
+                    player.setImg("UP?");
+            }
             //create a boolean value to be used as a test as whether to open a trivia question
         }
     }

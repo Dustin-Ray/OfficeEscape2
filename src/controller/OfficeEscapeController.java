@@ -29,7 +29,7 @@ public class OfficeEscapeController {
 
         EventQueue.invokeLater(() -> {
             try {
-                new OfficeEscapeView(roomsList.get(0));
+                new OfficeEscapeView(roomsList, roomsMap);
             } catch (final ClassNotFoundException
                     | InstantiationException
                     | IllegalAccessException

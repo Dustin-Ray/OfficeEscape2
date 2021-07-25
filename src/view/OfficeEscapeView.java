@@ -6,6 +6,9 @@ import model.room.Room;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -19,7 +22,7 @@ public class OfficeEscapeView extends JFrame {
     MainMenuPanel myMainMenuPanel;
 //    Room testRoom;
 
-    public OfficeEscapeView(final Room theRoom) throws
+    public OfficeEscapeView(List<Room> theRoomsList, HashMap<Room, HashSet<Room>> roomsMap) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
@@ -28,8 +31,8 @@ public class OfficeEscapeView extends JFrame {
 
         super("Office Escape 9: The Story Continues");
 
-//        testRoom = new Room(0, 4, 4);
-        myCurrentRoomPanel = new RoomPanel(theRoom.getTerrain());
+
+        myCurrentRoomPanel = new RoomPanel(theRoomsList.get(0).getTerrain());
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         setupUI();

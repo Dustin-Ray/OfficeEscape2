@@ -19,6 +19,7 @@ public class OfficeEscapeView extends JFrame {
     RoomPanel myCurrentRoomPanel;
     ToolbarMenu myCurrentToolbarMenu;
     MainMenuPanel myMainMenuPanel;
+    ConsolePanel myConsolePanel;
     List<Room> myRoomList;
 
 
@@ -38,18 +39,29 @@ public class OfficeEscapeView extends JFrame {
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(0).getTerrain());
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
+        myConsolePanel = new ConsolePanel();
         setupUI();
         setupFrame();
-        addMenuPanel();
+
+        addToolbarPanel();
+
         addMainMenuPanel();
         this.setVisible(true);
 
     }
 
+    /** */
+    private void addConsolePanel() {
+        this.add(myConsolePanel);
+        myConsolePanel.setBackground(Color.BLACK);
+        myConsolePanel.setBounds(768, 0, 480, 768);
+    }
+
     private void addMainMenuPanel() {
         myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
-        myMainMenuPanel.setBounds(0, 0, 1250, 768);
+        myMainMenuPanel.setBackground(Color.BLACK);
+        myMainMenuPanel.setBounds(0, 0, 1248, 768);
 
     }
 
@@ -83,13 +95,14 @@ public class OfficeEscapeView extends JFrame {
     }
 
     private void setupFrame() throws IOException {
-        this.setSize(1250, 828);
+        this.setSize(1248, 828);
         this.setLocation(150, 150);
+        this.setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }
 
-    private void addMenuPanel() throws IOException {
+    private void addToolbarPanel() throws IOException {
 
         this.setJMenuBar(myCurrentToolbarMenu.menubar);
         myCurrentToolbarMenu.setVisible(true);
@@ -111,10 +124,11 @@ public class OfficeEscapeView extends JFrame {
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
+        this.setBackground(Color.BLACK);
         this.repaint();
         myCurrentRoomPanel.requestFocusInWindow();
-        myCurrentRoomPanel.setBounds(0, 0, 1250, 800);
-
+        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
+        addConsolePanel();
     }
     /**Returns to main menu. */
     private void returnToMainMenu() {

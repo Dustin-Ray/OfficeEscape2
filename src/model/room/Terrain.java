@@ -15,7 +15,7 @@ public enum Terrain {
     LEFT_WALL('L'),
     RIGHT_WALL('R'),
     FLOOR_1('F'),
-    FLOOR_2('F'),
+    FLOOR_2('G'),
     DOOR_CLOSED('D'),
     DOOR_OPEN('O'),
 

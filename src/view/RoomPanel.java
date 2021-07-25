@@ -30,7 +30,6 @@ public class RoomPanel extends JPanel implements ActionListener {
         imgLibrary = new Icons();
         setBackground(Color.BLACK);
         this.setFocusable(true);
-        this.setBounds(0,0,768, 768);
         int DELAY = 10;
         Timer timer = new Timer(DELAY, this);
         timer.start();

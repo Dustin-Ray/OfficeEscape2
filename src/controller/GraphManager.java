@@ -1,4 +1,8 @@
-package model.graph;
+package controller;
+
+import model.graph.AdjacencyListGraph;
+import model.graph.Edge;
+import model.graph.KruskalMSTFinder;
 
 import java.util.List;
 import java.util.Map;
@@ -75,6 +79,7 @@ public class GraphManager {
         mstFinder = new KruskalMSTFinder<>(graph);
     }
 
+
     /**
      * Returns the MST of the Graph of this GraphManager.
      *
@@ -83,6 +88,7 @@ public class GraphManager {
     public Set<Edge<Integer>> getMST() {
         return mstFinder.getMST();
     }
+
 
     /**
      * Returns the a mapping of connected rooms

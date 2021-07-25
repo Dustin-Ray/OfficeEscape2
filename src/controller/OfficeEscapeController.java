@@ -16,15 +16,20 @@ public class OfficeEscapeController {
     private static final int DEFAULT_COL_DIM = 4;
 
     public OfficeEscapeController() throws IOException {
-        HashMap<Room, HashSet<Room>> rooms = getExtractedRooms(getConnectedRooms());
+
         run();
     }
 
 
     public void run() {
+
+        HashMap<Room, HashSet<Room>> rooms = getExtractedRooms(getConnectedRooms());
+        List<Room> roomArray = rooms.keySet().stream().toList();
+
+
         EventQueue.invokeLater(() -> {
             try {
-                new OfficeEscapeView();
+                new OfficeEscapeView(roomArray.get(0));
             } catch (final ClassNotFoundException
                     | InstantiationException
                     | IllegalAccessException

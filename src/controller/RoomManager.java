@@ -28,10 +28,6 @@ public class RoomManager {
     private final int myRows;
 
 
-
-
-
-
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
      *
@@ -45,18 +41,13 @@ public class RoomManager {
     }
 
 
-
-
-
-
-
     /**
      * Builds and returns a mapping of each Room to connected Rooms.
      * Sets valid doors between rooms in the process.
      *
      * @return A mapping of each Room to connected Rooms.
      */
-    public HashMap<Room, HashSet<Room>> extractRooms() {
+    public HashMap<Room, HashSet<Room>> extractRoomsMap() {
         rooms = new HashMap<>();
         Set<Integer> handled = new HashSet<>();
         HashMap<Integer, Room> idToRoom = new HashMap<>();
@@ -99,4 +90,9 @@ public class RoomManager {
     }
 
 
+    public List<Room> extractRoomsList() {
+        List<Room> list = new ArrayList<>(rooms.keySet());
+        list.sort(Comparator.comparingInt(Room::getRoomID));
+        return list;
+    }
 }

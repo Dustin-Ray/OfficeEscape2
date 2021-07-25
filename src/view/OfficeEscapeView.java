@@ -1,6 +1,5 @@
 package view;
 
-
 import model.room.Room;
 
 import javax.swing.*;
@@ -20,18 +19,23 @@ public class OfficeEscapeView extends JFrame {
     RoomPanel myCurrentRoomPanel;
     ToolbarMenu myCurrentToolbarMenu;
     MainMenuPanel myMainMenuPanel;
-//    Room testRoom;
+    List<Room> myRoomList;
 
-    public OfficeEscapeView(List<Room> theRoomsList, HashMap<Room, HashSet<Room>> roomsMap) throws
+
+    public OfficeEscapeView(List<Room> theRoomsList,
+                            HashMap<Room, HashSet<Room>> roomsMap) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
-            UnsupportedLookAndFeelException, IOException, FontFormatException {
+            UnsupportedLookAndFeelException,
+            IOException,
+            FontFormatException {
 
 
         super("Office Escape 9: The Story Continues");
 
-        myCurrentRoomPanel = new RoomPanel(theRoomsList.get(0).getTerrain());
+        myRoomList = theRoomsList;
+        myCurrentRoomPanel = new RoomPanel(myRoomList.get(0).getTerrain());
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         setupUI();

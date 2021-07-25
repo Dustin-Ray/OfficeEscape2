@@ -13,17 +13,30 @@ import java.util.Map;
 import static model.room.Terrain.*;
 
 /**
- * The main user profile for the player. Will contain details like character name, etc.
+ * Controls attributes for player character. Communicates with RoomPanel via key listener.
+ * @author Dustin Ray
  */
 public class UserController {
 
+    /** Movement speed of player sprite. */
     private static final int MOVEMENT_SPEED = 5;
+    /** Object representing player character. */
     private final Player player;
+    /**Values uses to represent change in x and y positing during key
+     * pressed/released event. */
     public int dx, dy;
 
-    /** The terrain grid for the simulation. */
+    /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
     private final Terrain[][] myGrid;
 
+    /**
+     * Constructor.
+     * @param theX starting x value for player object.
+     * @param theY starting y value for player object.
+     * @param theDir starting facing direction for player object.
+     * @param theGrid is the terrain that the player object will interact with.
+     * @throws IOException if player object cannot load a given resource.
+     */
     public UserController(int theX,
                           int theY,
                           final Direction theDir,
@@ -34,19 +47,30 @@ public class UserController {
         System.out.println("Grid length: " + myGrid.length + " " + myGrid[0].length);
     }
 
+    /**
+     * Gets player object for this class.
+     * @return Current player object for this class.
+     */
+    public Player getPlayer() {return player;}
+
+    /**
+     * Moves the player object on the grid and sets direction according to
+     * current key press.
+     * @param theDir direction that the player object should be oriented in
+     *               according to current key press.
+     */
     public void move(final Direction theDir) {
         player.setDirection(theDir);
         player.setX(player.getX() + dx);
         player.setY(player.getY() + dy);
     }
 
-
-    public Player getPlayer() {return player;}
-
-
-
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
+    /**
+     * Handles key pressed event.
+     * @param theKeyEvent is an int value of the current key event value.
+     */
+    public void keyPressed(KeyEvent theKeyEvent) {
+        int key = theKeyEvent.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
             player.setDirection(Direction.WEST);
             this.player.img = player.chair_left;
@@ -82,8 +106,6 @@ public class UserController {
             //create a boolean value to be used as a test as whether to open a trivia question
         }
     }
-
-
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 

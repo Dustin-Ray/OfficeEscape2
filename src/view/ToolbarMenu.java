@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-public class MenuPanel extends JMenuBar {
+public class ToolbarMenu extends JMenuBar {
 
     final JMenuBar menubar;
     public final JMenu fileMenu;
@@ -12,7 +12,11 @@ public class MenuPanel extends JMenuBar {
     public final JMenuItem saveGame;
     public final JMenuItem closeGame;
 
-    public MenuPanel() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public ToolbarMenu() throws
+            UnsupportedLookAndFeelException,
+            ClassNotFoundException,
+            InstantiationException,
+            IllegalAccessException {
 
         setupUI();
         menubar = new JMenuBar();

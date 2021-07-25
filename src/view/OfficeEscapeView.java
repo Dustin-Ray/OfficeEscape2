@@ -15,7 +15,7 @@ import java.io.IOException;
 public class OfficeEscapeView extends JFrame {
 
     RoomPanel myCurrentRoomPanel;
-    MenuPanel myCurrentMenuPanel;
+    ToolbarMenu myCurrentToolbarMenu;
     MainMenuPanel myMainMenuPanel;
 //    Room testRoom;
 
@@ -29,8 +29,8 @@ public class OfficeEscapeView extends JFrame {
         super("Office Escape 9: The Story Continues");
 
 //        testRoom = new Room(0, 4, 4);
-        myCurrentRoomPanel = new Room(0, 4, 4).getRoomPanel();
-        myCurrentMenuPanel = new MenuPanel();
+        myCurrentRoomPanel = new Room(0).getRoomPanel();
+        myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         setupUI();
         setupFrame();
@@ -85,17 +85,17 @@ public class OfficeEscapeView extends JFrame {
 
     private void addMenuPanel() throws IOException {
 
-        this.setJMenuBar(myCurrentMenuPanel.menubar);
-        myCurrentMenuPanel.setVisible(true);
-        myCurrentMenuPanel.newGame.addActionListener(e -> {
+        this.setJMenuBar(myCurrentToolbarMenu.menubar);
+        myCurrentToolbarMenu.setVisible(true);
+        myCurrentToolbarMenu.newGame.addActionListener(e -> {
             try {
                 addRoom(0);
             } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
         });
-        myCurrentMenuPanel.closeGame.addActionListener(e -> exitGame());
-        myCurrentMenuPanel.mainMenu.addActionListener(e -> returnToMainMenu());
+        myCurrentToolbarMenu.closeGame.addActionListener(e -> exitGame());
+        myCurrentToolbarMenu.mainMenu.addActionListener(e -> returnToMainMenu());
 
     }
 

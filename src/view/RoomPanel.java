@@ -83,13 +83,6 @@ public class RoomPanel extends JPanel implements ActionListener {
                     case VENDING_MACHINE -> theGraphics.drawImage(imgLibrary.VENDING_MACHINE, leftx, topy, null);
                     case RED_ZONE -> theGraphics.drawImage(imgLibrary.RED_ZONE, leftx, topy, null);
                     case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
-                    case BOTTOM_WALL -> theGraphics.drawImage(imgLibrary.BOTTOM_WALL, leftx, topy, null);
-                    case LEFT_WALL -> theGraphics.drawImage(imgLibrary.LEFT_WALL, leftx, topy, null);
-                    case RIGHT_WALL -> theGraphics.drawImage(imgLibrary.RIGHT_WALL, leftx, topy, null);
-                    case TOP_LEFT_CORNER -> theGraphics.drawImage(imgLibrary.TOP_LEFT_CORNER, leftx, topy, null);
-                    case TOP_RIGHT_CORNER -> theGraphics.drawImage(imgLibrary.TOP_RIGHT_CORNER, leftx, topy, null);
-                    case BOTTOM_LEFT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_LEFT_CORNER, leftx, topy, null);
-                    case BOTTOM_RIGHT_CORNER -> theGraphics.drawImage(imgLibrary.BOTTOM_RIGHT_CORNER, leftx, topy, null);
                     case TOP_WALL -> theGraphics.drawImage(imgLibrary.TOP_WALL, leftx, topy, null);
                     case DESK_1 -> theGraphics.drawImage(imgLibrary.DESK_1, leftx, topy, null);
                     case DESK_2 -> theGraphics.drawImage(imgLibrary.DESK_2, leftx, topy, null);

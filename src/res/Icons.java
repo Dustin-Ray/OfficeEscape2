@@ -18,14 +18,7 @@ public class Icons {
     public BufferedImage WARHOL = ImageIO.read(new File("src/res/assets/top_wall_warhol.png"));
     public BufferedImage VENDING_MACHINE = ImageIO.read(new File("src/res/assets/top_wall_vending_machine.png"));
     public BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
-    public BufferedImage BOTTOM_WALL = ImageIO.read(new File("src/res/assets/bottom_wall.png"));
     public BufferedImage TOP_WALL = ImageIO.read(new File("src/res/assets/top_wall.png"));
-    public BufferedImage TOP_LEFT_CORNER = ImageIO.read(new File("src/res/assets/top_left_corner.png"));
-    public BufferedImage TOP_RIGHT_CORNER = ImageIO.read(new File("src/res/assets/top_right_corner.png"));
-    public BufferedImage BOTTOM_LEFT_CORNER = ImageIO.read(new File("src/res/assets/bottom_left_corner.png"));
-    public BufferedImage BOTTOM_RIGHT_CORNER = ImageIO.read(new File("src/res/assets/bottom_right_corner.png"));
-    public BufferedImage LEFT_WALL = ImageIO.read(new File("src/res/assets/left_wall.png"));
-    public BufferedImage RIGHT_WALL = ImageIO.read(new File("src/res/assets/right_wall.png"));
     public BufferedImage DESK_1 = ImageIO.read(new File("src/res/assets/desk_1.png"));
     public BufferedImage DESK_2 = ImageIO.read(new File("src/res/assets/desk_2.png"));
     public BufferedImage DESK_3 = ImageIO.read(new File("src/res/assets/desk_3.png"));

@@ -19,10 +19,10 @@ import static model.room.Terrain.*;
 public class UserController {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 5;
+    private static final int MOVEMENT_SPEED = 8;
     /** Object representing player character. */
     private final Player player;
-    /**Values uses to represent change in x and y positing during key
+    /**Values uses to represent change in x and y positioning during key
      * pressed/released event. */
     public int dx, dy;
 
@@ -126,9 +126,9 @@ public class UserController {
             result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div) + 1]);
 
             result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
-            System.out.println((x / div));
-        }
 
+        }
+        System.out.println(result);
         return Collections.unmodifiableMap(result);
     }
 

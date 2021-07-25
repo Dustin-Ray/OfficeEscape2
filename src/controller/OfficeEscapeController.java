@@ -9,23 +9,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OfficeEscapeController {
 
-    private static final int DEFAULT_ROW_DIM = 4;
-    private static final int DEFAULT_COL_DIM = 4;
+    private static final int DEFAULT_ROW_DIM = 2;
+    private static final int DEFAULT_COL_DIM = 2;
 
     public OfficeEscapeController() throws IOException {
-//        Map<Integer, List<Integer>> connectedRooms;
-//        connectedRooms = getConnectedRooms();
-//        List<Room> extractedRooms = getExtractedRooms(connectedRooms);
+        HashMap<Room, HashSet<Room>> rooms = getExtractedRooms(getConnectedRooms());
         run();
-//        System.out statements only here temporarily for testing.
-//        System.out.println(connectedRooms);
-//        System.out.println();
-//        System.out.println(extractedRooms);
-
     }
 
 
@@ -45,14 +38,14 @@ public class OfficeEscapeController {
     }
 
 
-//    public Map<Integer, List<Integer>> getConnectedRooms() {
-//        GraphManager manager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
-//        return manager.getConnectedRoomsMap();
-//    }
-//
-//    public List<Room> getExtractedRooms(final Map<Integer, List<Integer>> connectedRooms) {
-//        RoomManager manager = new RoomManager(connectedRooms, DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
-//        return manager.extractRooms();
-//    }
+    public Map<Integer, List<Integer>> getConnectedRooms() {
+        GraphManager manager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
+        return manager.getConnectedRoomsMap();
+    }
+
+    public HashMap<Room, HashSet<Room>> getExtractedRooms(final Map<Integer, List<Integer>> connectedRooms) {
+        RoomManager manager = new RoomManager(connectedRooms, DEFAULT_ROW_DIM);
+        return manager.extractRooms();
+    }
 
 }

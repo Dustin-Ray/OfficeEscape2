@@ -1,63 +1,87 @@
-//package controller;
-//
-//import model.room.Room;
-//
-//import java.util.*;
-//
-///**
-// * Manages a collection of Rooms.
-// *
-// * @author Reuben Keller
-// */
-//public class RoomManager {
-//
-//    private final Map<Integer, List<Integer>> myRooms;
-//    private final int myRows;
-//    private final int myCols;
-//
-//
-//    public RoomManager(final Map<Integer, List<Integer>> theRooms,
-//                       final int theRows,
-//                       final int theCols) {
-//
-//        myRooms = theRooms;
-//        myRows = theRows;
-//        myCols = theCols;
-//    }
-//
-//
-//    public List<Room> extractRooms() {
-//        List<Room> extractedRooms = new ArrayList<>();
-//        HashMap<Integer, Room> idToRoom = new HashMap<>();
-//        Set<Integer> handled  = new HashSet<>();
-//        for (Integer currID : myRooms.keySet()) {
-//            Room curr = new Room(currID, myRows, myCols);
-//            if (idToRoom.containsKey(currID)) {
-//                curr = idToRoom.get(currID);
-//            }
-//            for (Integer neighborID : myRooms.get(currID)) {
-//                if (!handled.contains(neighborID)) {
-//                    Room neighbor = new Room(neighborID, myRows, myCols);
-//                    if (curr.isValidWest(neighborID)) {
-//                        curr.setWestRoom(neighbor);
-//                        neighbor.setEastRoom(curr);
-//                    } else if (curr.isValidEast(neighborID)) {
-//                        curr.setEastRoom(neighbor);
-//                        neighbor.setWestRoom(curr);
-//                    } else if (curr.isValidNorth(neighborID)) {
-//                        curr.setNorthRoom(neighbor);
-//                        neighbor.setSouthRoom(curr);
-//                    } else if (curr.isValidSouth(neighborID)) {
-//                        curr.setSouthRoom(neighbor);
-//                        neighbor.setNorthRoom(curr);
-//                    }
-//                    idToRoom.put(neighborID, neighbor);
-//                }
-//            }
-//            handled.add(currID);
-//            idToRoom.put(currID, curr);
-//            extractedRooms.add(curr);
-//        }
-//        return extractedRooms;
-//    }
-//}
+package controller;
+
+import model.room.Door;
+import model.room.Room;
+
+import java.util.*;
+
+/**
+ * Uses a graph representation to generate a mapping of each Room to connected
+ * Rooms.
+ *
+ * @author Reuben Keller
+ */
+public class RoomManager {
+
+    /** The graph representation of the maze. */
+    private final Map<Integer, List<Integer>> myGraphRep;
+
+    /** Stores a mapping of each Room to its connected Rooms. */
+    private HashMap<Room, HashSet<Room>> rooms;
+
+    /** The number of rows in the graph representation. */
+    private final int myRows;
+
+
+    /**
+     * Constructs a RoomManager for a given graph representation of Rooms.
+     *
+     * @param theGraphRep The graph representation of connected Rooms.
+     * @param theRows The number of rows in the graph representation.
+     */
+    public RoomManager(final Map<Integer, List<Integer>> theGraphRep,
+                       final int theRows) {
+        myGraphRep = theGraphRep;
+        myRows = theRows;
+    }
+
+
+    /**
+     * Builds and returns a mapping of each Room to connected Rooms.
+     * Sets valid doors between rooms in the process.
+     *
+     * @return A mapping of each Room to connected Rooms.
+     */
+    public HashMap<Room, HashSet<Room>> extractRooms() {
+        rooms = new HashMap<>();
+        Set<Integer> handled = new HashSet<>();
+        HashMap<Integer, Room> idToRoom = new HashMap<>();
+
+        for (Integer currID : myGraphRep.keySet()) {
+
+            Room currRoom = new Room(currID);
+            HashSet<Room> s = new HashSet<>();
+            if (rooms.containsKey(currRoom)) {
+                s = rooms.get(currRoom);
+            }
+
+            for (Integer neighborID : myGraphRep.get(currID)) {
+                Room neighborRoom = new Room(neighborID);
+                if (!s.contains(neighborRoom)) {
+                    Door door = new Door(true, false);
+                    if (currID - myRows == neighborID) {
+                        // neighbor is north of curr
+                        currRoom.setNorth(neighborRoom, door);
+                        neighborRoom.setSouth(currRoom, door);
+                    } else if (currID + myRows == neighborID) {
+                        // neighbor is south of curr
+                        currRoom.setSouth(neighborRoom, door);
+                        neighborRoom.setNorth(currRoom, door);
+                    } else if (currID + 1 == neighborID) {
+                        // neighbor is east of curr
+                        currRoom.setEast(neighborRoom, door);
+                        neighborRoom.setWest(currRoom, door);
+                    } else if (currID - 1 == neighborID) {
+                        // neighbor is west of curr
+                        currRoom.setWest(neighborRoom, door);
+                        neighborRoom.setEast(currRoom, door);
+                    }
+                    s.add(neighborRoom);
+                }
+            }
+            rooms.put(currRoom, s);
+        }
+        return rooms;
+    }
+
+}

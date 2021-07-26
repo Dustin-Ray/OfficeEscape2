@@ -46,7 +46,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         super();
         loadRoom(theRoom);
         userControls = new UserController(288,384, Direction.EAST, myGrid);
-        this.setLayout(null);
+//        this.setLayout(null);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -79,11 +79,18 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
+
+        //draw doors if they exist
+        if (myCurrentRoom.hasRoomA()) {g2d.drawImage(myCurrentRoom.getDoorA().myDoorImg, 0, 0, this); }
+        if (myCurrentRoom.hasRoomB()) {g2d.drawImage(myCurrentRoom.getDoorB().myDoorImg, 96, 0, this);}
+        if (myCurrentRoom.hasRoomC()) {g2d.drawImage(myCurrentRoom.getDoorC().myDoorImg, 288, 0, this);}
+        if (myCurrentRoom.hasRoomD()) {g2d.drawImage(myCurrentRoom.getDoorD().myDoorImg, 480, 0, this);}
+
         g2d.drawImage(userControls.getPlayer().getImage(),
                 userControls.getPlayer().getX(),
                 userControls.getPlayer().getY(),
                 this);
-        repaint();
+
     }
 
     /** Method to move player sprite when keys are pressed or released. */

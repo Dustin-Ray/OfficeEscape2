@@ -144,9 +144,6 @@ public abstract class AbstractRoom {
     }
 
 
-
-
-
     /**
      * Returns the door between this Room and the north Room.
      *
@@ -155,7 +152,7 @@ public abstract class AbstractRoom {
      */
     public Door getDoorA() {
         if (!hasRoomA()) {
-            throw new NullPointerException("north Room is null (i.e., not connected)");
+            throw new NullPointerException("Room A is null (i.e., not connected)");
         }
         return DoorA;
     }
@@ -169,7 +166,7 @@ public abstract class AbstractRoom {
      */
     public Door getDoorB() {
         if (!hasRoomB()) {
-            throw new NullPointerException("south Room is null (i.e., not connected)");
+            throw new NullPointerException("Room B is null (i.e., not connected)");
         }
         return DoorB;
     }
@@ -183,7 +180,7 @@ public abstract class AbstractRoom {
      */
     public Door getDoorC() {
         if (!hasRoomC()) {
-            throw new NullPointerException("east Room is null (i.e., not connected)");
+            throw new NullPointerException("Room C is null (i.e., not connected)");
         }
         return DoorC;
     }
@@ -197,7 +194,7 @@ public abstract class AbstractRoom {
      */
     public Door getDoorD() {
         if (!hasRoomD()) {
-            throw new NullPointerException("west Room is null (i.e., not connected)");
+            throw new NullPointerException("Room D is null (i.e., not connected)");
         }
         return DoorD;
     }
@@ -229,7 +226,7 @@ public abstract class AbstractRoom {
      * @return The Room west of this Room.
      */
     public Room getRoomC() {
-        return RoomD;
+        return RoomC;
     }
 
 
@@ -239,7 +236,7 @@ public abstract class AbstractRoom {
      * @return The Room east of this Room.
      */
     public Room getRoomD() {
-        return RoomC;
+        return RoomD;
     }
 
 

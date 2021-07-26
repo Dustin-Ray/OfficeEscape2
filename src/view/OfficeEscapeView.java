@@ -171,6 +171,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomA() != null &&
                 myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
                     try {
+                        myCurrentRoomPanel.myCurrentRoom.getDoorA().unlockDoor();
                         loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomA());
                     }
                     catch (IOException e) {e.printStackTrace();}
@@ -179,21 +180,27 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             case PROPERTY_PROXIMITY_DOOR_B -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomB() != null &&
                         myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
-                    try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomB());}
+                    try {
+                        myCurrentRoomPanel.myCurrentRoom.getDoorB().unlockDoor();
+                        loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomB());}
                     catch (IOException e) {e.printStackTrace();}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomC() != null &&
                         myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
-                    try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomC());}
+                    try {
+                        myCurrentRoomPanel.myCurrentRoom.getDoorC().unlockDoor();
+                        loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomC());}
                     catch (IOException e) {e.printStackTrace();}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomD() != null &&
                         myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
-                    try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomD());}
+                    try {
+                        myCurrentRoomPanel.myCurrentRoom.getDoorD().unlockDoor();
+                        loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomD());}
                     catch (IOException e) {e.printStackTrace();}
                 }
             }

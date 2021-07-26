@@ -26,8 +26,8 @@ public class Door {
 
     private ArrayList<Trivia> myTriviaQuestions;
 
+    public BufferedImage myDoorImg;
     public BufferedImage myOpenDoor;
-
     public BufferedImage myClosedDoor;
 
 
@@ -39,6 +39,7 @@ public class Door {
 
     public Door(final boolean valid, final boolean unlocked) throws IOException {
 
+        myDoorImg = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
         myOpenDoor = ImageIO.read(new File("src/res/assets/door_north_open.png"));
         myClosedDoor = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
         isValid = valid;
@@ -58,10 +59,15 @@ public class Door {
     }
 
      /** Unlocks this Door. */
-    public void unlockDoor() {isUnlocked = true;}
+    public void unlockDoor() {
+        myDoorImg = myOpenDoor;
+        isUnlocked = true;
+    }
 
     /** Locks this Door. */
-    public void lockDoor() {isUnlocked = false; }
+    public void lockDoor() {
+        myDoorImg = myClosedDoor;
+        isUnlocked = false; }
 
 
     /**

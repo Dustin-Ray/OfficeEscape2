@@ -1,13 +1,5 @@
 package model.room;
 
-import model.trivia.Trivia;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 /**
  * Maintains Door information. A Door is valid if it can be used to pass
  * between two Rooms after being unlocked. A Door is unlocked if a user
@@ -19,16 +11,11 @@ public class Door {
 
     //TODO: Assign a Trivia object to the Door
 
-    /** A boolean field to track whether this Door is valid or invalid. */
+    /** A boolean variable to track whether this Door is valid or invalid. */
     private boolean isValid;
+
     /** A boolean variable to track whether this Door is locked or unlocked. */
     private boolean isUnlocked;
-
-    private ArrayList<Trivia> myTriviaQuestions;
-
-    public BufferedImage myDoorImg;
-    public BufferedImage myOpenDoor;
-    public BufferedImage myClosedDoor;
 
 
     /** Constructs a Door. */
@@ -37,14 +24,11 @@ public class Door {
         isUnlocked = false;
     }
 
-    public Door(final boolean valid, final boolean unlocked) throws IOException {
-
-        myDoorImg = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
-        myOpenDoor = ImageIO.read(new File("src/res/assets/door_north_open.png"));
-        myClosedDoor = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
+    public Door(final boolean valid, final boolean unlocked) {
         isValid = valid;
         isUnlocked = unlocked;
     }
+
 
 
     /**
@@ -60,14 +44,13 @@ public class Door {
 
      /** Unlocks this Door. */
     public void unlockDoor() {
-        myDoorImg = myOpenDoor;
         isUnlocked = true;
     }
 
     /** Locks this Door. */
     public void lockDoor() {
-        myDoorImg = myClosedDoor;
-        isUnlocked = false; }
+        isUnlocked = false;
+    }
 
 
     /**

@@ -33,6 +33,10 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** The current room being rendered. */
     public Room myCurrentRoom;
 
+    public int myRoomID;
+
+
+
     /**
      * Constructor for class.
      * @param theRoom Current room to load into the panel.
@@ -50,15 +54,24 @@ public class RoomPanel extends JPanel implements ActionListener {
         Timer timer = new Timer(DELAY, this);
         timer.start();
         addKeyListener(new TAdapter());
+        myRoomID = myCurrentRoom.getRoomID();
         repaint();
+
     }
 
     /** Helper method that can be called externally to switch rooms.  */
     public void loadRoom(final Room theRoom) {
         myCurrentRoom = theRoom;
+        myRoomID = myCurrentRoom.getRoomID();
         this.myGrid = theRoom.getTerrain();
         repaint();
     }
+
+    public int getCurrentRoomID() {
+        return myRoomID;
+    }
+
+
 
     /** Overrides swing paintComponent to draw GUI elements. */
     @Override

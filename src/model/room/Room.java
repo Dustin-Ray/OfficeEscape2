@@ -28,4 +28,9 @@ public class Room extends AbstractRoom {
     public int hashCode() {
         return Objects.hash(this.getRoomID());
     }
+
+    @Override
+    public String toString() {
+        return "Room " + getRoomID();
+    }
 }

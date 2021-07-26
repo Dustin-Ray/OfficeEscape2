@@ -130,7 +130,7 @@ public class RoomPanel extends JPanel implements ActionListener {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
                     case DOOR_CLOSED_A, DOOR_CLOSED_B, DOOR_CLOSED_C, DOOR_CLOSED_D -> theGraphics.drawImage(imgLibrary.DOOR_CLOSED, leftx, topy, null);
-                    case DOOR_OPEN -> theGraphics.drawImage(imgLibrary.DOOR_OPEN, leftx, topy, null);
+                    case DOOR_OPEN -> theGraphics.drawImage(imgLibrary.DOOR_PLACEHOLDER, leftx, topy, null);
                     case WHITE_BOARD -> theGraphics.drawImage(imgLibrary.WHITE_BOARD, leftx, topy, null);
                     case WARHOL -> theGraphics.drawImage(imgLibrary.WARHOL, leftx, topy, null);
                     case VENDING_MACHINE -> theGraphics.drawImage(imgLibrary.VENDING_MACHINE, leftx, topy, null);

@@ -168,25 +168,31 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
-                if (myCurrentRoomPanel.myCurrentRoom.getRoomA() != null) {
-                    try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomA());}
+                if (myCurrentRoomPanel.myCurrentRoom.getRoomA() != null &&
+                myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
+                    try {
+                        loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomA());
+                    }
                     catch (IOException e) {e.printStackTrace();}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
-                if (myCurrentRoomPanel.myCurrentRoom.getRoomB() != null) {
+                if (myCurrentRoomPanel.myCurrentRoom.getRoomB() != null &&
+                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
                     try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomB());}
                     catch (IOException e) {e.printStackTrace();}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
-                if (myCurrentRoomPanel.myCurrentRoom.getRoomC() != null) {
+                if (myCurrentRoomPanel.myCurrentRoom.getRoomC() != null &&
+                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
                     try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomC());}
                     catch (IOException e) {e.printStackTrace();}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
-                if (myCurrentRoomPanel.myCurrentRoom.getRoomD() != null) {
+                if (myCurrentRoomPanel.myCurrentRoom.getRoomD() != null &&
+                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
                     try {loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomD());}
                     catch (IOException e) {e.printStackTrace();}
                 }

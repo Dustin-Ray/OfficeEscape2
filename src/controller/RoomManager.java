@@ -3,6 +3,7 @@ package controller;
 import model.room.Door;
 import model.room.Room;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -47,7 +48,7 @@ public class RoomManager {
      *
      * @return A mapping of each Room to connected Rooms.
      */
-    public HashMap<Room, HashSet<Room>> extractRoomsMap() {
+    public HashMap<Room, HashSet<Room>> extractRoomsMap() throws IOException {
         rooms = new HashMap<>();
         Set<Integer> handled = new HashSet<>();
         HashMap<Integer, Room> idToRoom = new HashMap<>();

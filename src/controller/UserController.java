@@ -36,7 +36,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
     private final PropertyChangeSupport myPcs;
 
-
+    /** A value used to determine if the player wants to enter the next room. */
+    private boolean myLoadGameFlag;
 
 
     /**
@@ -57,7 +58,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
         player.setDirection(theDir);
-        System.out.println("User controller generated");
     }
 
     /**
@@ -100,6 +100,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
             player.setDirection(Direction.SOUTH);
             this.player.myPlayerSprite = player.chair_down;
             dy = MOVEMENT_SPEED;}
+        if (key == KeyEvent.VK_E) {
+            myLoadGameFlag = true;}
     }
 
     public void keyReleased(KeyEvent e) {
@@ -108,6 +110,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
         if (key == KeyEvent.VK_RIGHT) {dx = 0;}
         if (key == KeyEvent.VK_UP) {dy = 0;}
         if (key == KeyEvent.VK_DOWN) {dy = 0;}
+        if (key == KeyEvent.VK_E) {
+            myLoadGameFlag = false;}
     }
 
 
@@ -142,6 +146,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
         }
     }
 
+
+    public boolean getMyLoadGameFlag() {return myLoadGameFlag;}
 
     private void fireProximityChangeDoor(final String thePropertyChange) {
         myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);

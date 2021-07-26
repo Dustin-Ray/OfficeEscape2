@@ -12,8 +12,8 @@ import java.io.IOException;
 public class Icons {
 
     public BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/floor_gray.png"));
-    public BufferedImage DOOR_CLOSED = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
-    public BufferedImage DOOR_OPEN = ImageIO.read(new File("src/res/assets/door_north_open.png"));
+    public BufferedImage DOOR_CLOSED = ImageIO.read(new File("src/res/assets/black_square.png"));
+    public BufferedImage DOOR_PLACEHOLDER = ImageIO.read(new File("src/res/assets/door_north_open.png"));
     public BufferedImage WHITE_BOARD = ImageIO.read(new File("src/res/assets/top_wall_whiteboard.png"));
     public BufferedImage WARHOL = ImageIO.read(new File("src/res/assets/top_wall_warhol.png"));
     public BufferedImage VENDING_MACHINE = ImageIO.read(new File("src/res/assets/top_wall_vending_machine.png"));

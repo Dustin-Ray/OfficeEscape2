@@ -23,7 +23,7 @@ public class OfficeEscapeController {
     /**
      * Probably instantiate trivia manager here.
      */
-    public void run() {
+    public void run() throws IOException {
 
         GraphManager graphManager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
         RoomManager roomManager = new RoomManager(graphManager.getConnectedRoomsMap(), DEFAULT_ROW_DIM);

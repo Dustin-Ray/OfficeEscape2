@@ -2,6 +2,10 @@ package model.room;
 
 import model.trivia.Trivia;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +26,10 @@ public class Door {
 
     private ArrayList<Trivia> myTriviaQuestions;
 
+    public BufferedImage myOpenDoor;
+
+    public BufferedImage myClosedDoor;
+
 
     /** Constructs a Door. */
     public Door() {
@@ -29,7 +37,10 @@ public class Door {
         isUnlocked = false;
     }
 
-    public Door(final boolean valid, final boolean unlocked) {
+    public Door(final boolean valid, final boolean unlocked) throws IOException {
+
+        myOpenDoor = ImageIO.read(new File("src/res/assets/door_north_open.png"));
+        myClosedDoor = ImageIO.read(new File("src/res/assets/door_north_closed.png"));
         isValid = valid;
         isUnlocked = unlocked;
     }

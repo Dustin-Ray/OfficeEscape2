@@ -137,12 +137,15 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      */
     public void loadRoom(final Room theRoom) throws IOException {
 
+        //reset and remove
         myCurrentRoomPanel.userControls.removePropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.userControls.removePropertyChangeListener(this);
         myCurrentRoomPanel.setFocusable(false);
         myCurrentRoomPanel.setVisible(false);
         this.remove(myCurrentRoomPanel);
         this.remove(myConsolePanel);
+
+        //load and add new room
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
         this.add(myCurrentRoomPanel);
         myCurrentRoomPanel.setVisible(true);

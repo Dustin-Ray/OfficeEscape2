@@ -4,17 +4,21 @@ import model.room.Room;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_A;
 
 
 /**
  * Main GUI class
  * @author Dustin Ray
  */
-public class OfficeEscapeView extends JFrame {
+public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
     RoomPanel myCurrentRoomPanel;
     ToolbarMenu myCurrentToolbarMenu;
@@ -35,15 +39,13 @@ public class OfficeEscapeView extends JFrame {
         super("Office Escape 9: The Story Continues");
 
         myRoomList = theRoomsList;
-
-
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();
         setupUI();
         setupFrame();
         addToolbarPanel();
-        loadRoom(0);
+        setupRoomPanel(0);
         addConsolePanel();
         this.setVisible(true);
     }
@@ -107,11 +109,12 @@ public class OfficeEscapeView extends JFrame {
         myConsolePanel.setVisible(false);
     }
 
-    private void loadRoom(final int theRoomID) throws IOException {
+    private void setupRoomPanel(final int theRoomID) throws IOException {
 
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoomID));
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
@@ -134,5 +137,19 @@ public class OfficeEscapeView extends JFrame {
      */
     private void exitGame() {
         System.exit(0);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        switch (evt.getPropertyName()) {
+            case PROPERTY_PROXIMITY_DOOR_A -> {
+                try {
+                    setupRoomPanel(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

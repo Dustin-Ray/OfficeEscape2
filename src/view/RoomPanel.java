@@ -12,7 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+
+import static controller.PropertyChangeEnabledUserControls.*;
 
 public class RoomPanel extends JPanel implements ActionListener {
 
@@ -20,13 +24,15 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 96;
     /** The terrain grid for the simulation. */
-    private final Terrain[][] myGrid;
+    private Terrain[][] myGrid;
     private final Icons imgLibrary;
+    private Room myCurrentRoom;
 
 
     public RoomPanel(final Room theRoom) throws IOException {
         super();
-        this.myGrid = loadRoom(theRoom);
+        myCurrentRoom = theRoom;
+        loadRoom(myCurrentRoom);
         userControls = new UserController(192,384, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
@@ -39,7 +45,11 @@ public class RoomPanel extends JPanel implements ActionListener {
         repaint();
     }
 
-    public Terrain[][] loadRoom(final Room theRoom) {return theRoom.getTerrain();}
+    public void loadRoom(final Room theRoom) {
+        myCurrentRoom = theRoom;
+        this.myGrid = theRoom.getTerrain();
+        repaint();
+    }
 
     @Override
     public void paintComponent(Graphics g) {
@@ -70,8 +80,6 @@ public class RoomPanel extends JPanel implements ActionListener {
             userControls.keyPressed(e);
             repaint();}
     }
-
-
 
     public void resetUserProfile() throws IOException {
         this.userControls.getPlayer().reset();

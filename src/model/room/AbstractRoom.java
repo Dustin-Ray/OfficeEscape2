@@ -208,7 +208,7 @@ public abstract class AbstractRoom {
      *
      * @return The Room north of this Room.
      */
-    public Room getNorthRoom() {
+    public Room getRoomA() {
         return northRoom;
     }
 
@@ -218,7 +218,7 @@ public abstract class AbstractRoom {
      *
      * @return The Room south of this Room.
      */
-    public Room getSouthRoom() {
+    public Room getRoomB() {
         return southRoom;
     }
 
@@ -228,7 +228,7 @@ public abstract class AbstractRoom {
      *
      * @return The Room west of this Room.
      */
-    public Room getWestRoom() {
+    public Room getRoomC() {
         return westRoom;
     }
 
@@ -238,7 +238,7 @@ public abstract class AbstractRoom {
      *
      * @return The Room east of this Room.
      */
-    public Room getEastRoom() {
+    public Room getRoomD() {
         return eastRoom;
     }
 

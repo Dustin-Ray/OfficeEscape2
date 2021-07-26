@@ -57,7 +57,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
         player.setDirection(theDir);
-        System.out.println("Grid length: " + myGrid.length + " " + myGrid[0].length);
+        System.out.println("User controller generated");
     }
 
     /**
@@ -150,8 +150,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 
         final int div = 96;
-        final int x = theMover.getX();
-        final int y = theMover.getY();
+        final int x = Math.abs(theMover.getX());
+        final int y = Math.abs(theMover.getY());
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);

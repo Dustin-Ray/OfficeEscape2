@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class ToolbarMenu extends JMenuBar {
 

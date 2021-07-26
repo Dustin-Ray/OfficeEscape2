@@ -12,11 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-import static controller.PropertyChangeEnabledUserControls.*;
+
 
 public class RoomPanel extends JPanel implements ActionListener {
 
@@ -26,7 +24,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
     private final Icons imgLibrary;
-    private Room myCurrentRoom;
+    public Room myCurrentRoom;
 
 
     public RoomPanel(final Room theRoom) throws IOException {

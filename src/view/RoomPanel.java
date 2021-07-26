@@ -6,7 +6,6 @@ import model.room.Terrain;
 import res.Icons;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY;
+import static controller.PropertyChangeEnabledUserControls.*;
 
 public class RoomPanel extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -76,10 +75,22 @@ public class RoomPanel extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-            case PROPERTY_PROXIMITY:
-                System.out.println("Next to door property change fired.");
+            case PROPERTY_PROXIMITY_DOOR_A -> {
+                System.out.println("Property change fired: next to door A");
                 repaint();
-                break;
+            }
+            case PROPERTY_PROXIMITY_DOOR_B -> {
+                System.out.println("Property change fired: next to door B");
+                repaint();
+            }
+            case PROPERTY_PROXIMITY_DOOR_C -> {
+                System.out.println("Property change fired: next to door C");
+                repaint();
+            }
+            case PROPERTY_PROXIMITY_DOOR_D -> {
+                System.out.println("Property change fired: next to door D");
+                repaint();
+            }
         }
     }
 

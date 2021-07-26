@@ -15,7 +15,9 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 /**
- * Panel that contains all elements necessary to render a room.
+ * Panel that contains all elements necessary to render a room. Contains a key listener
+ * which communicates with user controller to position the sprite on the screen and allow
+ * interaction with panel elements.
  * @author Dustin Ray
  * @version Summer 2021
  */

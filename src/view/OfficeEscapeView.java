@@ -125,7 +125,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Loads a given room into the room panel. Used for room traversal. Possibly contains redundant code.
+     * Loads a given room into the room panel. Used for room traversal. Removes
+     * all currently displayed elements and property change listeners.
+     * Possibly contains redundant code.
      * @param theRoom is the new room to be loaded into the panel.
      * @throws IOException if any resource cannot be loaded.
      */
@@ -152,7 +154,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     /**
      * Property change listener. Loads a new room into the current room panel
      * if user controller positions a sprite within proximity to a door.
-     * @param evt
+     * @param evt is the received property change.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

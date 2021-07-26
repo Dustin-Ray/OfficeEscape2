@@ -20,7 +20,9 @@ public class OfficeEscapeController {
         run();
     }
 
-
+    /**
+     * Probably instantiate trivia manager here.
+     */
     public void run() {
 
         GraphManager graphManager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);

@@ -86,19 +86,19 @@ public class UserController implements PropertyChangeEnabledUserControls {
         int key = theKeyEvent.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
             player.setDirection(Direction.WEST);
-            this.player.img = player.chair_left;
+            this.player.myPlayerSprite = player.chair_left;
             dx = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_RIGHT) {
             player.setDirection(Direction.EAST);
-            this.player.img = player.chair_right;
+            this.player.myPlayerSprite = player.chair_right;
             dx = MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_UP) {
             player.setDirection(Direction.NORTH);
-            this.player.img = player.chair_up;
+            this.player.myPlayerSprite = player.chair_up;
             dy = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_DOWN) {
             player.setDirection(Direction.SOUTH);
-            this.player.img = player.chair_down;
+            this.player.myPlayerSprite = player.chair_down;
             dy = MOVEMENT_SPEED;}
     }
 
@@ -118,21 +118,21 @@ public class UserController implements PropertyChangeEnabledUserControls {
             if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_A) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-                player.setImg("UP?");
+                player.setMyPlayerSprite("UP?");
             } else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_B) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-                player.setImg("UP?");
+                player.setMyPlayerSprite("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_C) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-                player.setImg("UP?");
+                player.setMyPlayerSprite("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-                player.setImg("UP?");
+                player.setMyPlayerSprite("UP?");
             }
 
             else {

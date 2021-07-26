@@ -17,23 +17,19 @@ public class Door {
 
     /** A boolean field to track whether this Door is valid or invalid. */
     private boolean isValid;
-
     /** A boolean variable to track whether this Door is locked or unlocked. */
     private boolean isUnlocked;
 
     private ArrayList<Trivia> myTriviaQuestions;
 
 
-    /**
-     * Constructs a Door.
-     */
+    /** Constructs a Door. */
     public Door() {
         isValid = false;
         isUnlocked = false;
     }
 
     public Door(final boolean valid, final boolean unlocked) {
-
         isValid = valid;
         isUnlocked = unlocked;
     }
@@ -50,21 +46,11 @@ public class Door {
         isValid = theValue;
     }
 
+     /** Unlocks this Door. */
+    public void unlockDoor() {isUnlocked = true;}
 
-    /**
-     * Unlocks this Door.
-     */
-    public void unlockDoor() {
-        isUnlocked = true;
-    }
-
-
-    /**
-     * Locks this Door.
-     */
-    public void lockDoor() {
-        isUnlocked = false;
-    }
+    /** Locks this Door. */
+    public void lockDoor() {isUnlocked = false; }
 
 
     /**

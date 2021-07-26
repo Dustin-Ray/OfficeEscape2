@@ -66,20 +66,20 @@ public class RoomManager {
                     Door door = new Door(true, false);
                     if (currID - myRows == neighborID) {
                         // neighbor is north of curr (north = A)
-                        currRoom.setNorth(neighborRoom, door);
-                        neighborRoom.setSouth(currRoom, door);
+                        currRoom.setDoorA(neighborRoom, door);
+                        neighborRoom.setDoorB(currRoom, door);
                     } else if (currID + myRows == neighborID) {
                         // neighbor is south of curr (south = B)
-                        currRoom.setSouth(neighborRoom, door);
-                        neighborRoom.setNorth(currRoom, door);
+                        currRoom.setDoorB(neighborRoom, door);
+                        neighborRoom.setDoorA(currRoom, door);
                     } else if (currID + 1 == neighborID) {
                         // neighbor is east of curr  (east = C)
-                        currRoom.setEast(neighborRoom, door);
-                        neighborRoom.setWest(currRoom, door);
+                        currRoom.setDoorC(neighborRoom, door);
+                        neighborRoom.setDoorD(currRoom, door);
                     } else if (currID - 1 == neighborID) {
                         // neighbor is west of curr  (west = D)
-                        currRoom.setWest(neighborRoom, door);
-                        neighborRoom.setEast(currRoom, door);
+                        currRoom.setDoorD(neighborRoom, door);
+                        neighborRoom.setDoorC(currRoom, door);
                     }
                     s.add(neighborRoom);
                 }

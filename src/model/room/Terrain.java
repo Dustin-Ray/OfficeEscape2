@@ -1,19 +1,14 @@
 package model.room;
 
+/**
+ * An enumeration object used to define the terrain grid.
+ * @author Dustin Ray
+ * @version Summer 2021
+ */
 public enum Terrain {
 
-
-
-    BOTTOM_WALL('W'),
-    TOP_WALL('T'),
-    TOP_LEFT_CORNER('('),
-    TOP_RIGHT_CORNER(')'),
-    BOTTOM_LEFT_CORNER('['),
-    BOTTOM_RIGHT_CORNER(']'),
-
     /**Letters represent textures for walls and stuff */
-    LEFT_WALL('L'),
-    RIGHT_WALL('G'),
+    TOP_WALL('T'),
     FLOOR_1('F'),
     RED_ZONE('R'),
     DOOR_CLOSED_A('A'),
@@ -32,18 +27,12 @@ public enum Terrain {
     DEAD_CHAIR('$'),
     PLANT_CHAIR('%');
 
-
-
-
-    /**
-     * The character corresponding to a particular value of the enumeration.
-     */
+    /** The character corresponding to a particular value of the enumeration. */
     private final char myLetter;
 
 
     /**
      * Constructs a new Terrain with the specified letter.
-     *
      * @param theLetter The letter.
      */
     Terrain(final char theLetter) {
@@ -53,27 +42,23 @@ public enum Terrain {
 
     /**
      * Returns the Terrain represented by the given letter.
-     *
      * @param theLetter The letter.
      * @return the Terrain represented by the given letter, or GRASS if no
      *         Terrain is represented by the given letter.
      */
     public static Terrain valueOf(final char theLetter) {
         Terrain result = RED_ZONE;
-
         for (final Terrain terrain : Terrain.values()) {
             if (terrain.myLetter == theLetter) {
                 result = terrain;
                 break;
             }
         }
-
         return result;
     }
 
     /**
      * Returns a String representation of this Terrain, such as "WALL (X)".
-     *
      * @return a String representation of this Terrain.
      */
     @Override

@@ -5,6 +5,7 @@ import model.Direction;
 import model.room.Room;
 import model.room.Terrain;
 import res.Icons;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

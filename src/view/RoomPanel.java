@@ -33,7 +33,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         super();
         myCurrentRoom = theRoom;
         loadRoom(myCurrentRoom);
-        userControls = new UserController(192,384, Direction.EAST, myGrid);
+        userControls = new UserController(288,384, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);

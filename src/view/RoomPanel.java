@@ -33,6 +33,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** The current room being rendered. */
     public Room myCurrentRoom;
 
+    /** A value to get the ID of the current room displayed on the panel. */
     public int myRoomID;
 
 
@@ -80,7 +81,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
 
-        //draw doors if they exist
+        //draw doors if they exist, drawing wrong doors right now. Need to explore how doors are linked further.
         if (myCurrentRoom.hasRoomA()) {g2d.drawImage(myCurrentRoom.getDoorA().myDoorImg, 0, 0, this); }
         if (myCurrentRoom.hasRoomB()) {g2d.drawImage(myCurrentRoom.getDoorB().myDoorImg, 96, 0, this);}
         if (myCurrentRoom.hasRoomC()) {g2d.drawImage(myCurrentRoom.getDoorC().myDoorImg, 288, 0, this);}

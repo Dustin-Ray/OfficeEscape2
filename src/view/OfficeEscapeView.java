@@ -160,8 +160,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Property change listener. Loads a new room into the current room panel
-     * if user controller positions a sprite within proximity to a door.
+     * Main interaction between player sprite and doors. move sprite into
+     * proximity to door and press e to load the next room if it exists.
      * @param evt is the received property change.
      */
     @Override

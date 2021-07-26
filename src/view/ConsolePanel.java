@@ -25,8 +25,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     JTextArea myConsoleScreenTextArea;
     /** Graphics to decorate text area. */
     BufferedImage myDisplayConsole;
-    /** Displays current room info, trivia questions, menu options. */
-    BufferedImage myInfoConsole;
+
 
     /**
      * Constructor for class.
@@ -35,7 +34,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      */
     public ConsolePanel() throws IOException, FontFormatException {
         myDisplayConsole = ImageIO.read(new File("src/res/assets/console.png"));
-        myInfoConsole = ImageIO.read(new File("src/res/assets/info_console.png"));
         this.setLayout(null);
         setupText();
     }
@@ -49,7 +47,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         super.paintComponent(g);
         Graphics2D displayConsole = (Graphics2D) g;
         displayConsole.drawImage(this.myDisplayConsole, 768, 0, null);
-        displayConsole.drawImage(this.myInfoConsole, 768, 480, null);
     }
 
     /**

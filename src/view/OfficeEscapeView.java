@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_A;
+import static controller.PropertyChangeEnabledUserControls.*;
 
 
 /**
@@ -115,45 +115,44 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
-        myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
         myCurrentRoomPanel.requestFocusInWindow();
         this.addConsolePanel();
-        this.repaint();
-    }
-    /**Returns to main menu. */
-    private void returnToMainMenu() {
-        myCurrentRoomPanel.setFocusable(false);
-        this.getContentPane().remove(myCurrentRoomPanel);
-        this.getContentPane().remove(myConsolePanel);
-        addMainMenuPanel();
-        this.repaint();
+        myCurrentRoomPanel.setFocusable(true);
+
     }
 
-    public void reset() {
-        this.remove(myMainMenuPanel);
+    public void reset(final int theRoomID) throws IOException {
+
+        myCurrentRoomPanel.userControls.removePropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.userControls.removePropertyChangeListener(this);
+        myCurrentRoomPanel.setFocusable(false);
+        myCurrentRoomPanel.setVisible(false);
         this.remove(myCurrentRoomPanel);
         this.remove(myConsolePanel);
+        myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoomID));
+        this.add(myCurrentRoomPanel);
+        myCurrentRoomPanel.setVisible(true);
+        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
+        myCurrentRoomPanel.requestFocusInWindow();
+        this.addConsolePanel();
+        myCurrentRoomPanel.userControls.getPlayer().reset();
+        myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
+        repaint();
     }
-    /**
-     * Closes the current process.
-     */
-    private void exitGame() {
-        System.exit(0);
-    }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
         switch (evt.getPropertyName()) {
-            case PROPERTY_PROXIMITY_DOOR_A -> {
+            case PROPERTY_PROXIMITY_DOOR_B -> {
                 try {
-                    reset();
-                    setupRoomPanel(1);
-
+                    reset(3);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

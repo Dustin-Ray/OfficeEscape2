@@ -1,9 +1,7 @@
 package model.trivia;
 
-// Trivia manager will make Trivia objects using the database and fill them
-// into an ArrayList. When we select a Trivia to ask the user, we will
-// swap that Trivia with the last Trivia and remove it from the end since
-// it is constant access.
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Creates trivia objects.
@@ -13,7 +11,6 @@ public class Trivia {
 
     /**
      * ID of the question.
-     * Range: 1 to # of questions.
      */
     private final int myID;
     /**
@@ -21,22 +18,57 @@ public class Trivia {
      */
     private final String myQuestion;
     /**
-     * String storing the answer.
+     * String storing the correct answer.
      */
-    private final String myAnswer;
+    private final String myCorrectAnswer;
+    /**
+     * ArrrayList of Strings storing the incorrect answer choices.
+     */
+    private final ArrayList<String> myIncorrectAnswers;
     /**
      * Integer storing the question type.
-     * 1 - True False (T, F)
-     * 2 - Multiple Choice (A, B, C, D)
-     * 3 - Short answer (text box)
      */
     private final int myType;
 
+    /**
+     * Constant representing a true false question type.
+     */
+    private final int TF = 1;
+    /**
+     * Constant representing a multiple choice question type.
+     */
+    private final int MC = 2;
+    /**
+     * Constant representing a short answer question type.
+     */
+    private final int SA = 3;
 
-    public Trivia(int theID, String theQuestion, String theAnswer, int theType) {
+    public Trivia(int theID,
+                  String theQuestion,
+                  String theCorrectAnswer,
+                  String theIncorrectAnswers,
+                  int theType) {
         myID = theID;
         myQuestion = theQuestion;
-        myAnswer = theAnswer;
+        myCorrectAnswer = theCorrectAnswer;
+        ArrayList<String> incorrect = new ArrayList<String>();
+        if (theType == TF) {
+            if (theCorrectAnswer.equals("T")) {
+                incorrect.add("F");
+            }
+            else {
+                incorrect.add("T");
+            }
+        }
+        else if (theType == MC) {
+            String split[] = theIncorrectAnswers.split("\\n");
+
+            for(String line: split) {
+                incorrect.add(line);
+            }
+        }
+
+        myIncorrectAnswers = incorrect;
         myType = theType;
     }
 
@@ -44,11 +76,28 @@ public class Trivia {
         return myQuestion;
     }
 
-    public String getAnswer() {
-        return myAnswer; }
+    public String getCorrectAnswer() {
+        return myCorrectAnswer;
+    }
+
+    public boolean shortAnswerCorrect (String theAnswer) {
+        return theAnswer.equalsIgnoreCase(myCorrectAnswer);
+    }
+
+    public ArrayList<String> getIncorrectAnswers() {
+        /*
+         * Shuffles the incorrect answers list so that
+         * they are not in the same order every time.
+         */
+        Collections.shuffle(myIncorrectAnswers);
+        return myIncorrectAnswers;
+    }
 
     public int getType() {
         return myType;
     }
 
+    public String toString() {
+        return "Q: " + myQuestion + " A: " + myCorrectAnswer;
+    }
 }

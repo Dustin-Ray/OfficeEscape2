@@ -53,10 +53,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
                           final Terrain[][] theGrid) throws IOException {
 
         myPcs = new PropertyChangeSupport(this);
-
         myNextToDoor = false;
-
-
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
         player.setDirection(theDir);

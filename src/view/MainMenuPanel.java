@@ -17,8 +17,11 @@ import java.io.IOException;
  */
 public class MainMenuPanel extends JPanel implements Runnable {
 
+    /**The starting x position for the frame. */
     private int x = 700;
+    /** the y position for the frame. */
     private int y;
+    /** Values */
     public int speedKeyX, speedKeyY;
 
     BufferedImage myBackground1;

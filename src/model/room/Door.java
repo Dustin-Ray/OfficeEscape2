@@ -1,5 +1,9 @@
 package model.room;
 
+import model.trivia.Trivia;
+
+import java.util.ArrayList;
+
 /**
  * Maintains Door information. A Door is valid if it can be used to pass
  * between two Rooms after being unlocked. A Door is unlocked if a user
@@ -17,6 +21,8 @@ public class Door {
     /** A boolean variable to track whether this Door is locked or unlocked. */
     private boolean isUnlocked;
 
+    private ArrayList<Trivia> myTriviaQuestions;
+
 
     /**
      * Constructs a Door.
@@ -27,6 +33,7 @@ public class Door {
     }
 
     public Door(final boolean valid, final boolean unlocked) {
+
         isValid = valid;
         isUnlocked = unlocked;
     }

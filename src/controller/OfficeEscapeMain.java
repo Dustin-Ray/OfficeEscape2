@@ -6,6 +6,6 @@ public class OfficeEscapeMain {
 
     public static void main(String[] theArgs) throws IOException {
         OfficeEscapeController control = new OfficeEscapeController();
-//        new TriviaManager();
+        new TriviaManager();
     }
 }

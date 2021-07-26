@@ -16,21 +16,21 @@ import java.util.Scanner;
  */
 public abstract class AbstractRoom {
 
-    private Door northDoor;
+    private Door DoorA;
 
-    private Door southDoor;
+    private Door DoorB;
 
-    private Door eastDoor;
+    private Door DoorC;
 
-    private Door westDoor;
+    private Door DoorD;
 
-    private Room northRoom;
+    private Room RoomA;
 
-    private Room southRoom;
+    private Room RoomB;
 
-    private Room eastRoom;
+    private Room RoomC;
 
-    private Room westRoom;
+    private Room RoomD;
 
     private final int myID;
 
@@ -106,8 +106,8 @@ public abstract class AbstractRoom {
      * @param door The Door separating this Room and the north Room.
      */
     public void setNorth(final Room room, final Door door) {
-        northRoom = room;
-        northDoor = door;
+        RoomA = room;
+        DoorA = door;
     }
 
 
@@ -118,8 +118,8 @@ public abstract class AbstractRoom {
      * @param door The Door separating this Room and the south Room.
      */
     public void setSouth(final Room room, final Door door) {
-        southRoom = room;
-        southDoor = door;
+        RoomB = room;
+        DoorB = door;
     }
 
 
@@ -130,8 +130,8 @@ public abstract class AbstractRoom {
      * @param door The Door separating this Room and the west Room.
      */
     public void setWest(final Room room, final Door door) {
-        westRoom = room;
-        westDoor = door;
+        RoomD = room;
+        DoorD = door;
     }
 
 
@@ -142,8 +142,8 @@ public abstract class AbstractRoom {
      * @param door The Door separating this Room and the east Room.
      */
     public void setEast(final Room room, final Door door) {
-        eastRoom = room;
-        eastDoor = door;
+        RoomC = room;
+        DoorC = door;
     }
 
 
@@ -153,11 +153,11 @@ public abstract class AbstractRoom {
      * @return The Door between this Room and the north Room.
      * @throws NullPointerException if this Room does not have a north Room.
      */
-    public Door getNorthDoor() {
+    public Door getDoorA() {
         if (!hasNorth()) {
             throw new NullPointerException("north Room is null (i.e., not connected)");
         }
-        return northDoor;
+        return DoorA;
     }
 
 
@@ -167,11 +167,11 @@ public abstract class AbstractRoom {
      * @return The Door between this Room and the south Room.
      * @throws NullPointerException if this Room does not have a south Room.
      */
-    public Door getSouthDoor() {
+    public Door getDoorB() {
         if (!hasSouth()) {
             throw new NullPointerException("south Room is null (i.e., not connected)");
         }
-        return southDoor;
+        return DoorB;
     }
 
 
@@ -181,11 +181,11 @@ public abstract class AbstractRoom {
      * @return The Door between this Room and the east Room.
      * @throws NullPointerException if this Room does not have an east Room.
      */
-    public Door getEastDoor() {
+    public Door getDoorC() {
         if (!hasEast()) {
             throw new NullPointerException("east Room is null (i.e., not connected)");
         }
-        return eastDoor;
+        return DoorC;
     }
 
 
@@ -195,11 +195,11 @@ public abstract class AbstractRoom {
      * @return The Door between this Room and the west Room.
      * @throws NullPointerException if this Room does not have a west Room.
      */
-    public Door getWestDoor() {
+    public Door getDoorD() {
         if (!hasWest()) {
             throw new NullPointerException("west Room is null (i.e., not connected)");
         }
-        return westDoor;
+        return DoorD;
     }
 
 
@@ -209,7 +209,7 @@ public abstract class AbstractRoom {
      * @return The Room north of this Room.
      */
     public Room getRoomA() {
-        return northRoom;
+        return RoomA;
     }
 
 
@@ -219,7 +219,7 @@ public abstract class AbstractRoom {
      * @return The Room south of this Room.
      */
     public Room getRoomB() {
-        return southRoom;
+        return RoomB;
     }
 
 
@@ -229,7 +229,7 @@ public abstract class AbstractRoom {
      * @return The Room west of this Room.
      */
     public Room getRoomC() {
-        return westRoom;
+        return RoomD;
     }
 
 
@@ -239,7 +239,7 @@ public abstract class AbstractRoom {
      * @return The Room east of this Room.
      */
     public Room getRoomD() {
-        return eastRoom;
+        return RoomC;
     }
 
 
@@ -251,7 +251,7 @@ public abstract class AbstractRoom {
      *     otherwise.
      */
     public boolean hasNorth() {
-        return northRoom != null;
+        return RoomA != null;
     }
 
 
@@ -263,7 +263,7 @@ public abstract class AbstractRoom {
      *     otherwise.
      */
     public boolean hasSouth() {
-        return southRoom != null;
+        return RoomB != null;
     }
 
 
@@ -275,7 +275,7 @@ public abstract class AbstractRoom {
      *     otherwise.
      */
     public boolean hasWest() {
-        return westRoom != null;
+        return RoomD != null;
     }
 
 
@@ -287,7 +287,7 @@ public abstract class AbstractRoom {
      *     otherwise.
      */
     public boolean hasEast() {
-        return eastRoom != null;
+        return RoomC != null;
     }
 
 }

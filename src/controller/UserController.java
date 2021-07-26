@@ -128,47 +128,37 @@ public class UserController implements PropertyChangeEnabledUserControls {
             this.move(player.getDirection());
             if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_A) {
                 myNextToDoorA = true;
-                fireProximityChangeDoorA();
+                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
                 player.setImg("UP?");
             } else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_B) {
                 myNextToDoorB = true;
-                fireProximityChangeDoorB();
+                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
                 player.setImg("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_C) {
                 myNextToDoorC = true;
-                fireProximityChangeDoorC();
+                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
                 player.setImg("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
                 myNextToDoorD = true;
-                fireProximityChangeDoorD();
+                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
                 player.setImg("UP?");
             }
+
             else {
                 myNextToDoorA = false;
                 myNextToDoorB = false;
                 myNextToDoorC = false;
                 myNextToDoorD = false;
+                fireProximityChangeDoor(PROPERTY_PROXIMITY_NO_DOOR);
             }
         }
     }
 
 
-    private void fireProximityChangeDoorA() {
-        myPcs.firePropertyChange(PROPERTY_PROXIMITY_DOOR_A, null, myNextToDoorA);
-    }
-
-    private void fireProximityChangeDoorB() {
-        myPcs.firePropertyChange(PROPERTY_PROXIMITY_DOOR_B, null, myNextToDoorA);
-    }
-
-    private void fireProximityChangeDoorC() {
-        myPcs.firePropertyChange(PROPERTY_PROXIMITY_DOOR_C, null, myNextToDoorA);
-    }
-
-    private void fireProximityChangeDoorD() {
-        myPcs.firePropertyChange(PROPERTY_PROXIMITY_DOOR_D, null, myNextToDoorA);
+    private void fireProximityChangeDoor(final String thePropertyChange) {
+        myPcs.firePropertyChange(thePropertyChange, null, myNextToDoorA);
     }
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {

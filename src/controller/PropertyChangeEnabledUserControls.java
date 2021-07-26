@@ -8,6 +8,7 @@ public interface PropertyChangeEnabledUserControls {
     String PROPERTY_PROXIMITY_DOOR_B = "proximity to door B";
     String PROPERTY_PROXIMITY_DOOR_C = "proximity to door C";
     String PROPERTY_PROXIMITY_DOOR_D = "proximity to door D";
+    String PROPERTY_PROXIMITY_NO_DOOR = "not near a door";
 
 
     void addPropertyChangeListener(PropertyChangeListener theListener);

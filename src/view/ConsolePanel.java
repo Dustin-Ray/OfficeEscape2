@@ -9,10 +9,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_A;
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_B;
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_C;
-import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY_DOOR_D;
+import static controller.PropertyChangeEnabledUserControls.*;
 
 public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
@@ -51,6 +48,9 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
                 consoleScreenTextArea.setText("Property change fired: " + "\n" + "next to door D");
+            }
+            case PROPERTY_PROXIMITY_NO_DOOR -> {
+                consoleScreenTextArea.setText("not near any door");
             }
         }
     }

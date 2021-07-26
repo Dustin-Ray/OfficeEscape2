@@ -42,8 +42,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         this.setLayout(null);
         myDisplayConsole = ImageIO.read(new File("src/res/assets/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/info_console.png"));
+        this.setBackground(Color.BLACK);
         setupText();
         repaint();
+    }
+
+    public void setRoomID(final int theRoomID) {
+        myRoomID.setText("Room ID: " + "\n" + theRoomID);
     }
 
     /**
@@ -80,10 +85,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             case PROPERTY_PROXIMITY_NO_DOOR -> {
                 myConsoleScreenTextArea.setText("not near any door");
             }
-            case PROPERTY_ROOM_ID_CHANGE -> {
-                System.out.println("Room ID Changed");
-                myRoomID.setText("room id: " + "\n" + (int) theEvent.getNewValue());
-            }
         }
     }
 
@@ -102,15 +103,16 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myConsoleScreenTextArea.setBounds(830, 50, 360, 245);
         myConsoleScreenTextArea.setLayout(null);
         myConsoleScreenTextArea.setFont(fontTest);
+        myConsoleScreenTextArea.setBackground(Color.BLACK);
         this.add(myConsoleScreenTextArea);
 
-
-        myRoomID = new JTextArea("Room ID: ");
+        myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         myRoomID.setVisible(true);
         myRoomID.setForeground(Color.WHITE);
-        myRoomID.setBounds(790, 580, 360, 245);
+        myRoomID.setBounds(790, 700, 80, 50);
         fontTest = fontTest.deriveFont(Font.PLAIN, 12);
         myRoomID.setFont(fontTest);
+        myRoomID.setBackground(Color.BLACK);
         this.add(myRoomID);
     }
 

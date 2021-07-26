@@ -152,6 +152,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.requestFocusInWindow();
         this.addConsolePanel();
+        myConsolePanel.setRoomID(myCurrentRoomPanel.getCurrentRoomID());
         myCurrentRoomPanel.userControls.getPlayer().reset();
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(this);

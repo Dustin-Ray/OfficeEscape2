@@ -25,10 +25,10 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     MainMenuPanel myMainMenuPanel;
     ConsolePanel myConsolePanel;
     List<Room> myRoomList;
-
+    HashMap<Room, HashSet<Room>> myRoomsMap;
 
     public OfficeEscapeView(List<Room> theRoomsList,
-                            HashMap<Room, HashSet<Room>> roomsMap) throws
+                            HashMap<Room, HashSet<Room>> theRoomsMap) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
@@ -37,7 +37,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             FontFormatException {
 
         super("Office Escape 9: The Story Continues");
-
+        myRoomsMap = theRoomsMap;
         myRoomList = theRoomsList;
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();

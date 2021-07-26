@@ -5,31 +5,52 @@ import model.Direction;
 import model.room.Room;
 import model.room.Terrain;
 import res.Icons;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /**
  * Panel that contains all elements necessary to render a room. Contains a key listener
  * which communicates with user controller to position the sprite on the screen and allow
  * interaction with panel elements.
+ *
  * @author Dustin Ray
+ * @author Reuben Keller
  * @version Summer 2021
  */
 public class RoomPanel extends JPanel implements ActionListener {
 
+    private static final String DOOR_PATH = "src/res/assets/";
+
+    private static final int DOOR_A_X = 96;
+
+    private static final int DOOR_B_X = 288;
+
+    private static final int DOOR_C_X = 480;
+
+    private static final int DOOR_D_X = 672;
+
+
     /** Controller object that uses keyboard input to manipulate player sprite.  */
     public final UserController userControls;
+
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 96;
-    /** The terrain grid for the simulation. */
+
+   /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
+
     /** A library of graphics to use for rendering the current room. */
     private final Icons imgLibrary;
+
     /** The current room being rendered. */
     public Room myCurrentRoom;
 
@@ -37,9 +58,9 @@ public class RoomPanel extends JPanel implements ActionListener {
     public int myRoomID;
 
 
-
     /**
      * Constructor for class.
+     *
      * @param theRoom Current room to load into the panel.
      * @throws IOException if room is not able to be loaded.
      */
@@ -73,25 +94,41 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
 
-
     /** Overrides swing paintComponent to draw GUI elements. */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-
-        //draw doors if they exist, drawing wrong doors right now. Need to explore how doors are linked further.
-        if (myCurrentRoom.hasRoomA()) {g2d.drawImage(myCurrentRoom.getDoorA().myDoorImg, 0, 0, this); }
-        if (myCurrentRoom.hasRoomB()) {g2d.drawImage(myCurrentRoom.getDoorB().myDoorImg, 96, 0, this);}
-        if (myCurrentRoom.hasRoomC()) {g2d.drawImage(myCurrentRoom.getDoorC().myDoorImg, 288, 0, this);}
-        if (myCurrentRoom.hasRoomD()) {g2d.drawImage(myCurrentRoom.getDoorD().myDoorImg, 480, 0, this);}
+        try {
+            BufferedImage closed = ImageIO.read(new File(DOOR_PATH + "door_closed.png"));
+            BufferedImage open = ImageIO.read(new File(DOOR_PATH + "door_open.png"));
+            // initialize all doors to closed
+            g2d.drawImage(closed, DOOR_A_X, 0, this);
+            g2d.drawImage(closed, DOOR_B_X, 0, this);
+            g2d.drawImage(closed, DOOR_C_X, 0, this);
+            g2d.drawImage(closed, DOOR_D_X, 0, this);
+            // open doors as needed
+            if (myCurrentRoom.hasRoomA()) {
+                g2d.drawImage(open, DOOR_A_X, 0, this);
+            }
+            if (myCurrentRoom.hasRoomB()) {
+                g2d.drawImage(open, DOOR_B_X, 0, this);
+            }
+            if (myCurrentRoom.hasRoomC()) {
+                g2d.drawImage(open, DOOR_C_X, 0, this);
+            }
+            if (myCurrentRoom.hasRoomD()) {
+                g2d.drawImage(open, DOOR_D_X, 0, this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         g2d.drawImage(userControls.getPlayer().getImage(),
                 userControls.getPlayer().getX(),
                 userControls.getPlayer().getY(),
                 this);
-
     }
 
     /** Method to move player sprite when keys are pressed or released. */

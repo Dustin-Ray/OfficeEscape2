@@ -43,7 +43,7 @@ public class OfficeEscapeView extends JFrame {
         setupUI();
         setupFrame();
         addToolbarPanel();
-        loadRoom(1);
+        loadRoom(0);
         addConsolePanel();
         this.setVisible(true);
     }
@@ -109,7 +109,7 @@ public class OfficeEscapeView extends JFrame {
 
     private void loadRoom(final int theRoomID) throws IOException {
 
-        myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoomID).getTerrain());
+        myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoomID));
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.setFocusable(true);

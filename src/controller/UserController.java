@@ -29,13 +29,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
     private int dx, dy;
 
     /**Triggers option for trivia event if true. */
-    private boolean myNextToDoorA;
-    /**Triggers option for trivia event if true. */
-    private boolean myNextToDoorB;
-    /**Triggers option for trivia event if true. */
-    private boolean myNextToDoorC;
-    /**Triggers option for trivia event if true. */
-    private boolean myNextToDoorD;
+    private boolean myNextToDoor;
 
     /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
     private final Terrain[][] myGrid;
@@ -60,10 +54,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
         myPcs = new PropertyChangeSupport(this);
 
-        myNextToDoorA = false;
-        myNextToDoorB = false;
-        myNextToDoorC = false;
-        myNextToDoorD = false;
+        myNextToDoor = false;
+
 
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
@@ -127,30 +119,27 @@ public class UserController implements PropertyChangeEnabledUserControls {
         if(this.canPass(neighbors.get(player.getDirection()))) {
             this.move(player.getDirection());
             if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_A) {
-                myNextToDoorA = true;
+                myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
                 player.setImg("UP?");
             } else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_B) {
-                myNextToDoorB = true;
+                myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
                 player.setImg("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_C) {
-                myNextToDoorC = true;
+                myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
                 player.setImg("UP?");
             }
             else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
-                myNextToDoorD = true;
+                myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
                 player.setImg("UP?");
             }
 
             else {
-                myNextToDoorA = false;
-                myNextToDoorB = false;
-                myNextToDoorC = false;
-                myNextToDoorD = false;
+                myNextToDoor = false;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_NO_DOOR);
             }
         }
@@ -158,7 +147,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
 
     private void fireProximityChangeDoor(final String thePropertyChange) {
-        myPcs.firePropertyChange(thePropertyChange, null, myNextToDoorA);
+        myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);
     }
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {

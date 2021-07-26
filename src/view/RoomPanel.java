@@ -2,6 +2,7 @@ package view;
 
 import controller.UserController;
 import model.Direction;
+import model.room.Room;
 import model.room.Terrain;
 import res.Icons;
 
@@ -23,9 +24,9 @@ public class RoomPanel extends JPanel implements ActionListener {
     private final Icons imgLibrary;
 
 
-    public RoomPanel(final Terrain[][] theGrid) throws IOException {
+    public RoomPanel(final Room theRoom) throws IOException {
         super();
-        this.myGrid = theGrid.clone();
+        this.myGrid = loadRoom(theRoom);
         userControls = new UserController(192,384, Direction.EAST, myGrid);
         this.setLayout(null);
         imgLibrary = new Icons();
@@ -37,6 +38,8 @@ public class RoomPanel extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
         repaint();
     }
+
+    public Terrain[][] loadRoom(final Room theRoom) {return theRoom.getTerrain();}
 
     @Override
     public void paintComponent(Graphics g) {

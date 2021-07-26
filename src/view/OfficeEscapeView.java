@@ -121,6 +121,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
         myCurrentRoomPanel.requestFocusInWindow();
+        this.addConsolePanel();
         this.repaint();
     }
     /**Returns to main menu. */
@@ -132,6 +133,11 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         this.repaint();
     }
 
+    public void reset() {
+        this.remove(myMainMenuPanel);
+        this.remove(myCurrentRoomPanel);
+        this.remove(myConsolePanel);
+    }
     /**
      * Closes the current process.
      */
@@ -145,7 +151,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {
+                    reset();
                     setupRoomPanel(1);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -6,16 +6,21 @@ import model.room.Terrain;
 import res.Icons;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-public class RoomPanel extends JPanel implements ActionListener {
+import static controller.PropertyChangeEnabledUserControls.PROPERTY_PROXIMITY;
 
-    private final UserController userControls;
+public class RoomPanel extends JPanel implements ActionListener, PropertyChangeListener {
+
+    public final UserController userControls;
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 96;
     /** The terrain grid for the simulation. */
@@ -24,6 +29,7 @@ public class RoomPanel extends JPanel implements ActionListener {
 
 
     public RoomPanel(final Terrain[][] theGrid) throws IOException {
+        super();
         this.myGrid = theGrid.clone();
         userControls = new UserController(192,384, Direction.EAST, myGrid);
         this.setLayout(null);
@@ -65,6 +71,16 @@ public class RoomPanel extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             userControls.keyPressed(e);
             repaint();}
+    }
+
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        switch (theEvent.getPropertyName()) {
+            case PROPERTY_PROXIMITY:
+                System.out.println("Next to door property change fired.");
+                repaint();
+                break;
+        }
     }
 
     public void resetUserProfile() throws IOException {

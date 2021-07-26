@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class ToolbarMenu extends JMenuBar {
 
@@ -42,6 +43,19 @@ public class ToolbarMenu extends JMenuBar {
         menubar.add(aboutMenu);
         menubar.add(highScores);
         menubar.setVisible(true);
+
+        newGame.addActionListener(e -> {
+//            try {
+//
+////                loadRoom(0);
+//                repaint();
+//            } catch (IOException fileNotFoundException) {
+//                fileNotFoundException.printStackTrace();
+//            }
+        });
+        closeGame.addActionListener(e -> System.exit(0));
+//        mainMenu.addActionListener(e -> returnToMainMenu());
+
 
     }
 

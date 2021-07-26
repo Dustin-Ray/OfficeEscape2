@@ -5,6 +5,8 @@ import model.Player;
 import model.room.Terrain;
 
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +18,7 @@ import static model.room.Terrain.*;
  * Controls attributes for player character. Communicates with RoomPanel via key listener.
  * @author Dustin Ray
  */
-public class UserController {
+public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
     private static final int MOVEMENT_SPEED = 8;
@@ -32,6 +34,9 @@ public class UserController {
     /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
     private final Terrain[][] myGrid;
 
+    private final PropertyChangeSupport myPcs;
+
+
 
 
     /**
@@ -46,6 +51,8 @@ public class UserController {
                           int theY,
                           final Direction theDir,
                           final Terrain[][] theGrid) throws IOException {
+
+        myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
         this.myGrid = theGrid.clone();
         player = new Player(theX, theY);
@@ -113,13 +120,19 @@ public class UserController {
                 neighbors.get(Direction.NORTH) == DOOR_CLOSED_C ||
                 neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
                 myNextToDoor = true;
+                fireProximityChange();
                 player.setImg("UP?");
             } else {
                 myNextToDoor = false;
             }
             //create a boolean value to be used as a test as whether to open a trivia question
         }
-        System.out.println("Am I next to a door? " + myNextToDoor);
+//        System.out.println("Am I next to a door? " + myNextToDoor);
+    }
+
+
+    private void fireProximityChange() {
+        myPcs.firePropertyChange(PROPERTY_PROXIMITY, null, myNextToDoor);
     }
 
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
@@ -130,13 +143,9 @@ public class UserController {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
-
             result.put(Direction.SOUTH, myGrid[(y / div) + 1][(x / div)]);
-
             result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div) + 1]);
-
             result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
-
         }
 //        System.out.println(result);
         return Collections.unmodifiableMap(result);
@@ -145,4 +154,31 @@ public class UserController {
     public boolean canPass(final Terrain theTerrain) {
         return (theTerrain == FLOOR_1);
     }
+
+    @Override
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
+    }
+
+
+    @Override
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
+    }
+
+    @Override
+    public void addPropertyChangeListener(final String thePropertyName,
+                                          final PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(thePropertyName, theListener);
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(final String thePropertyName,
+                                             final PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(thePropertyName, theListener);
+
+    }
+
+
 }

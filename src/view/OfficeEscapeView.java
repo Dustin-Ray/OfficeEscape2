@@ -4,6 +4,7 @@ import model.room.Room;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class OfficeEscapeView extends JFrame {
     List<Room> myRoomList;
 
 
+
     public OfficeEscapeView(List<Room> theRoomsList,
                             HashMap<Room, HashSet<Room>> roomsMap) throws
             ClassNotFoundException,
@@ -37,14 +39,18 @@ public class OfficeEscapeView extends JFrame {
 
         myRoomList = theRoomsList;
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(0).getTerrain());
+        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();
         setupUI();
         setupFrame();
         addToolbarPanel();
-//        addConsolePanel();
-        addMainMenuPanel();
+
+        loadRoom(0);
+
+
+//        addMainMenuPanel();
         this.setVisible(true);
 
     }
@@ -106,32 +112,23 @@ public class OfficeEscapeView extends JFrame {
 
         this.setJMenuBar(myCurrentToolbarMenu.menubar);
         myCurrentToolbarMenu.setVisible(true);
-        myCurrentToolbarMenu.newGame.addActionListener(e -> {
-            try {
-                repaint();
-                loadRoom(0);
-            } catch (IOException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            }
-        });
-        myCurrentToolbarMenu.closeGame.addActionListener(e -> exitGame());
-        myCurrentToolbarMenu.mainMenu.addActionListener(e -> returnToMainMenu());
+        myConsolePanel.setVisible(false);
+
 
     }
 
     private void loadRoom(final int theRoomID) throws IOException {
 
-
+        myCurrentRoomPanel.userControls.addPropertyChangeListener(myCurrentRoomPanel);
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
-
-
         myCurrentRoomPanel.requestFocusInWindow();
         addConsolePanel();
-        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
+        myConsolePanel.setVisible(true);
+
         this.repaint();
     }
     /**Returns to main menu. */

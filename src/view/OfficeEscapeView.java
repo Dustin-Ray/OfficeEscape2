@@ -122,6 +122,7 @@ public class OfficeEscapeView extends JFrame {
     private void returnToMainMenu() {
         myCurrentRoomPanel.setFocusable(false);
         this.getContentPane().remove(myCurrentRoomPanel);
+        this.getContentPane().remove(myConsolePanel);
         addMainMenuPanel();
         this.repaint();
     }

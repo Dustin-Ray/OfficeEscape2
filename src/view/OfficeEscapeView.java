@@ -148,7 +148,6 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomA() != null) {

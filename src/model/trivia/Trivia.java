@@ -43,6 +43,14 @@ public class Trivia {
      */
     private final int SA = 3;
 
+    /**
+     *
+     * @param theID
+     * @param theQuestion
+     * @param theCorrectAnswer
+     * @param theIncorrectAnswers
+     * @param theType
+     */
     public Trivia(int theID,
                   String theQuestion,
                   String theCorrectAnswer,
@@ -72,31 +80,52 @@ public class Trivia {
         myType = theType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getQuestion() {
         return myQuestion;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCorrectAnswer() {
         return myCorrectAnswer;
     }
 
+    /**
+     *
+     * @param theAnswer
+     * @return
+     */
     public boolean shortAnswerCorrect (String theAnswer) {
         return theAnswer.equalsIgnoreCase(myCorrectAnswer);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getIncorrectAnswers() {
-        /*
-         * Shuffles the incorrect answers list so that
-         * they are not in the same order every time.
-         */
         Collections.shuffle(myIncorrectAnswers);
         return myIncorrectAnswers;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getType() {
         return myType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String toString() {
         return "Q: " + myQuestion + " A: " + myCorrectAnswer;
     }

@@ -4,7 +4,6 @@ import model.room.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,11 +45,8 @@ public class OfficeEscapeView extends JFrame {
         setupUI();
         setupFrame();
         addToolbarPanel();
-
         loadRoom(0);
-
-
-//        addMainMenuPanel();
+        addConsolePanel();
         this.setVisible(true);
 
     }
@@ -60,6 +56,7 @@ public class OfficeEscapeView extends JFrame {
         this.add(myConsolePanel);
         myConsolePanel.setBackground(Color.BLACK);
         myConsolePanel.setBounds(768, 0, 480, 768);
+        myConsolePanel.setVisible(true);
         repaint();
     }
 
@@ -109,12 +106,9 @@ public class OfficeEscapeView extends JFrame {
     }
 
     private void addToolbarPanel() throws IOException {
-
         this.setJMenuBar(myCurrentToolbarMenu.menubar);
         myCurrentToolbarMenu.setVisible(true);
         myConsolePanel.setVisible(false);
-
-
     }
 
     private void loadRoom(final int theRoomID) throws IOException {
@@ -126,9 +120,6 @@ public class OfficeEscapeView extends JFrame {
         this.setBackground(Color.BLACK);
         myCurrentRoomPanel.resetUserProfile();
         myCurrentRoomPanel.requestFocusInWindow();
-        addConsolePanel();
-        myConsolePanel.setVisible(true);
-
         this.repaint();
     }
     /**Returns to main menu. */

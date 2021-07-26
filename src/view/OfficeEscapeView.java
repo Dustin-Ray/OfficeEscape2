@@ -118,7 +118,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
-        myCurrentRoomPanel.resetUserProfile();
+        myCurrentRoomPanel.resetUserController();
         myCurrentRoomPanel.requestFocusInWindow();
         this.addConsolePanel();
         myCurrentRoomPanel.setFocusable(true);

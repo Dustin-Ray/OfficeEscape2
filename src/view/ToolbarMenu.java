@@ -2,16 +2,36 @@ package view;
 
 import javax.swing.*;
 
+/**
+ * Class containing a toolbar with menu options to display at the top
+ * of the screen.
+ * @author Dustin Ray
+ * @version Summer 2021
+ */
 public class ToolbarMenu extends JMenuBar {
 
+    /** The menu bar to be displayed at the top of the window. */
     final JMenuBar menubar;
+    /** File menu options. */
     public final JMenu fileMenu;
+    /** Returns focus aspect to main menu. */
     public final JMenuItem mainMenu;
+    /** Option starts a new game and resets game state. */
     public final JMenuItem newGame;
+    /** Loads a saved game state. */
     public final JMenuItem loadGame;
+    /** Saves a current game state. */
     public final JMenuItem saveGame;
+    /** Closes the game and shuts down the game process. */
     public final JMenuItem closeGame;
 
+    /**
+     * Constructor for toolbar.
+     * @throws UnsupportedLookAndFeelException If unable to load system default l/f.
+     * @throws ClassNotFoundException If unable to load system default l/f.
+     * @throws InstantiationException If unable to load system default l/f.
+     * @throws IllegalAccessException If unable to load system default l/f.
+     */
     public ToolbarMenu() throws
             UnsupportedLookAndFeelException,
             ClassNotFoundException,
@@ -44,22 +64,18 @@ public class ToolbarMenu extends JMenuBar {
         menubar.setVisible(true);
 
         newGame.addActionListener(e -> {
-//            try {
-//
-////                loadRoom(0);
-//                repaint();
-//            } catch (IOException fileNotFoundException) {
-//                fileNotFoundException.printStackTrace();
-//            }
         });
         closeGame.addActionListener(e -> System.exit(0));
-//        mainMenu.addActionListener(e -> returnToMainMenu());
-
-
     }
 
+    /**
+     * Sets up the UI for the toolbar.
+     * @throws ClassNotFoundException If unable to load system default l/f.
+     * @throws InstantiationException If unable to load system default l/f.
+     * @throws IllegalAccessException If unable to load system default l/f.
+     * @throws UnsupportedLookAndFeelException If unable to load system default l/f.
+     */
     private void setupUI() throws
-
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,

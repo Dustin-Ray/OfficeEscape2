@@ -9,7 +9,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * Loads the main menu panel which is displayed at startup and when
+ * the return to main menu file option is selected.
+ * @author Dustin Ray
+ * @version Summer 2021
+ */
 public class MainMenuPanel extends JPanel implements Runnable {
 
     private int x = 700;

@@ -35,15 +35,15 @@ public class OfficeEscapeView extends JFrame {
         super("Office Escape 9: The Story Continues");
 
         myRoomList = theRoomsList;
-        myCurrentRoomPanel = new RoomPanel(myRoomList.get(0).getTerrain());
-        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
+
+
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();
         setupUI();
         setupFrame();
         addToolbarPanel();
-        loadRoom(0);
+        loadRoom(1);
         addConsolePanel();
         this.setVisible(true);
     }
@@ -109,6 +109,8 @@ public class OfficeEscapeView extends JFrame {
 
     private void loadRoom(final int theRoomID) throws IOException {
 
+        myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoomID).getTerrain());
+        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);

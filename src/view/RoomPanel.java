@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static controller.PropertyChangeEnabledUserControls.*;
 
-public class RoomPanel extends JPanel implements ActionListener, PropertyChangeListener {
+public class RoomPanel extends JPanel implements ActionListener {
 
     public final UserController userControls;
     /** The size in pixels of a side of one "square" on the grid. */
@@ -72,27 +72,7 @@ public class RoomPanel extends JPanel implements ActionListener, PropertyChangeL
             repaint();}
     }
 
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
-        switch (theEvent.getPropertyName()) {
-            case PROPERTY_PROXIMITY_DOOR_A -> {
-                System.out.println("Property change fired: next to door A");
-                repaint();
-            }
-            case PROPERTY_PROXIMITY_DOOR_B -> {
-                System.out.println("Property change fired: next to door B");
-                repaint();
-            }
-            case PROPERTY_PROXIMITY_DOOR_C -> {
-                System.out.println("Property change fired: next to door C");
-                repaint();
-            }
-            case PROPERTY_PROXIMITY_DOOR_D -> {
-                System.out.println("Property change fired: next to door D");
-                repaint();
-            }
-        }
-    }
+
 
     public void resetUserProfile() throws IOException {
         this.userControls.getPlayer().reset();

@@ -23,7 +23,6 @@ public class OfficeEscapeView extends JFrame {
     List<Room> myRoomList;
 
 
-
     public OfficeEscapeView(List<Room> theRoomsList,
                             HashMap<Room, HashSet<Room>> roomsMap) throws
             ClassNotFoundException,
@@ -32,7 +31,6 @@ public class OfficeEscapeView extends JFrame {
             UnsupportedLookAndFeelException,
             IOException,
             FontFormatException {
-
 
         super("Office Escape 9: The Story Continues");
 
@@ -48,7 +46,6 @@ public class OfficeEscapeView extends JFrame {
         loadRoom(0);
         addConsolePanel();
         this.setVisible(true);
-
     }
 
     /** */
@@ -65,7 +62,6 @@ public class OfficeEscapeView extends JFrame {
         this.add(myMainMenuPanel);
         myMainMenuPanel.setBackground(Color.BLACK);
         myMainMenuPanel.setBounds(0, 0, 1248, 768);
-
     }
 
 
@@ -113,7 +109,7 @@ public class OfficeEscapeView extends JFrame {
 
     private void loadRoom(final int theRoomID) throws IOException {
 
-        myCurrentRoomPanel.userControls.addPropertyChangeListener(myCurrentRoomPanel);
+        myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.setFocusable(true);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);

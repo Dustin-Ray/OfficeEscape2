@@ -17,16 +17,22 @@ import java.io.IOException;
  */
 public class MainMenuPanel extends JPanel implements Runnable {
 
-    /**The starting x position for the frame. */
+    /**The starting x position for the background2, puts it behind the computer monitor. */
     private int x = 700;
     /** the y position for the frame. */
     private int y;
-    /** Values */
+    /** Values to represent the change in x and y position when a key event occurs. */
     public int speedKeyX, speedKeyY;
-
+    /** Main background image. */
     BufferedImage myBackground1;
+    /** Image sits behind main background image. */
     BufferedImage myBackground2;
 
+    /**
+     * Constructor for class.
+     * @throws IOException If any resource cannot be loaded.
+     * @throws FontFormatException if font cannot be loaded.
+     */
     public MainMenuPanel() throws IOException, FontFormatException {
 
         this.setLayout(null);
@@ -63,6 +69,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
 
     }
 
+    /** */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -29,12 +29,9 @@ public class Door {
         isUnlocked = unlocked;
     }
 
-
-
     /**
      * Sets the validity of this Door. A Door is valid if it can be used to pass
      * between two rooms after being unlocked.
-     *
      * @param theValue true to make this Door valid and false to make this Door
      *     invalid.
      */
@@ -46,26 +43,21 @@ public class Door {
     public void unlockDoor() {
         isUnlocked = true;
     }
-
     /** Locks this Door. */
     public void lockDoor() {
         isUnlocked = false;
     }
 
-
     /**
      * Checks if this door is valid.
-     *
      * @return true if this Door is valid and false otherwise.
      */
     public boolean isValid() {
         return isValid;
     }
 
-
     /**
      * Checks if this door has been unlocked.
-     *
      * @return true if this Door has been unlocked and false otherwise.
      */
     public boolean isUnlocked() {

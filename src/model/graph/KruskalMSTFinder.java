@@ -65,13 +65,9 @@ public class KruskalMSTFinder<V> {
                 // IDs don't match (i.e., the vertices are from different sets)
                 mst.add(edge);
                 //
-                if (vertexMap.get(from) == null) {
-                    vertexMap.put(from, new ArrayList<>());
-                }
+                vertexMap.computeIfAbsent(from, k -> new ArrayList<>());
                 vertexMap.get(from).add(to);
-                if (vertexMap.get(to) == null) {
-                    vertexMap.put(to,new ArrayList<>());
-                }
+                vertexMap.computeIfAbsent(to, k -> new ArrayList<>());
                 vertexMap.get(to).add(from);
                 //
                 disjointSets.union(from, to);

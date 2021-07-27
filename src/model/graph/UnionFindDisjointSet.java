@@ -18,12 +18,12 @@ public class UnionFindDisjointSet<T> {
      * If the value at index i is -1, then (1) i corresponds to a root node (i.e., the
      * representative of the tree) and (2) i is the representative ID for the tree.
      */
-    private List<Integer> pointers;
+    private final List<Integer> pointers;
 
     /**
      * Maps the type T to Integer indices in pointers.
      */
-    private Map<T, Integer> indices;
+    private final Map<T, Integer> indices;
 
 
     /**
@@ -91,10 +91,9 @@ public class UnionFindDisjointSet<T> {
      *
      * @param elementA The element in set A.
      * @param elementB The element in set B.
-     * @return true if elementA and elementB are in different sets and false otherwise.
      * @throws IllegalArgumentException if elementA or elementB are not in an existing set.
      */
-    public boolean union(T elementA, T elementB) {
+    public void union(T elementA, T elementB) {
         // Looks up the set containing item1 and the set containing item2. Combine the
         // two sets into one. Pick new representative for resulting set.
         if (!indices.containsKey(elementA) || !indices.containsKey(elementB)) {
@@ -107,7 +106,7 @@ public class UnionFindDisjointSet<T> {
 
         // check if items are already in the same set
         if (id1 == id2) {
-            return false;
+            return;
         }
 
         // optimization: point ID with smaller size to ID with larger size
@@ -120,7 +119,6 @@ public class UnionFindDisjointSet<T> {
             pointers.set(id1, id2);
             pointers.set(id2, -1 * (id1Size + id2Size));
         }
-        return true;
     }
 
 }

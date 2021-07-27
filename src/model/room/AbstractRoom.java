@@ -35,17 +35,14 @@ public abstract class AbstractRoom {
     /** The terrain grid for this room. */
     private Terrain[][] myTerrain;
 
-
     /**
      * Constructs a Room with the given integer ID.
-     *
      * @param theID The integer ID of this Room.
      */
     public AbstractRoom(final int theID) {
         myID = theID;
         readMapFile();
     }
-
 
     /**
      * Reads the map text file corresponding to this Rooms ID and builds this
@@ -59,7 +56,6 @@ public abstract class AbstractRoom {
             System.out.println("Error loading resource, check all externally loaded file paths. ");
         }
     }
-
 
     /**
      * Converts a characters into a 2d Terrain grid.
@@ -87,10 +83,8 @@ public abstract class AbstractRoom {
         return myTerrain;
     }
 
-
     /**
      * Returns the integer ID of for this Room.
-     *
      * @return The integer ID for this Room.
      */
     public int getRoomID() {
@@ -100,7 +94,6 @@ public abstract class AbstractRoom {
 
     /**
      * Sets the north Room and Door to the given Room and Door.
-     *
      * @param room The Room north of this Room.
      * @param door The Door separating this Room and the north Room.
      */
@@ -109,10 +102,8 @@ public abstract class AbstractRoom {
         DoorA = door;
     }
 
-
     /**
      * Sets the south Room and Door to the given Room and Door.
-     *
      * @param room The Room south of this Room.
      * @param door The Door separating this Room and the south Room.
      */
@@ -123,7 +114,6 @@ public abstract class AbstractRoom {
 
     /**
      * Sets the east Room and Door to the given Room and Door.
-     *
      * @param room The Room east of this Room.
      * @param door The Door separating this Room and the east Room.
      */
@@ -134,7 +124,6 @@ public abstract class AbstractRoom {
 
     /**
      * Sets the west Room and Door to the given Room and Door.
-     *
      * @param room The Room west of this Room.
      * @param door The Door separating this Room and the west Room.
      */
@@ -143,10 +132,8 @@ public abstract class AbstractRoom {
         DoorD = door;
     }
 
-
     /**
      * Returns the door between this Room and the north Room.
-     *
      * @return The Door between this Room and the north Room.
      * @throws NullPointerException if this Room does not have a north Room.
      */
@@ -157,10 +144,8 @@ public abstract class AbstractRoom {
         return DoorA;
     }
 
-
     /**
      * Returns the door between this Room and the south Room.
-     *
      * @return The Door between this Room and the south Room.
      * @throws NullPointerException if this Room does not have a south Room.
      */
@@ -174,7 +159,6 @@ public abstract class AbstractRoom {
 
     /**
      * Returns the door between this Room and the east Room.
-     *
      * @return The Door between this Room and the east Room.
      * @throws NullPointerException if this Room does not have an east Room.
      */
@@ -185,10 +169,8 @@ public abstract class AbstractRoom {
         return DoorC;
     }
 
-
     /**
      * Returns the door between this Room and the west Room.
-     *
      * @return The Door between this Room and the west Room.
      * @throws NullPointerException if this Room does not have a west Room.
      */
@@ -199,51 +181,41 @@ public abstract class AbstractRoom {
         return DoorD;
     }
 
-
     /**
      * Returns the Room north of this Room.
-     *
      * @return The Room north of this Room.
      */
     public Room getRoomA() {
         return RoomA;
     }
 
-
     /**
      * Returns the Room south of this Room.
-     *
      * @return The Room south of this Room.
      */
     public Room getRoomB() {
         return RoomB;
     }
 
-
     /**
      * Returns the Room west of this Room.
-     *
      * @return The Room west of this Room.
      */
     public Room getRoomC() {
         return RoomC;
     }
 
-
     /**
      * Returns the Room east of this Room.
-     *
      * @return The Room east of this Room.
      */
     public Room getRoomD() {
         return RoomD;
     }
 
-
     /**
      * Returns true if this Room is connected to a north Room and false
      * otherwise.
-     *
      * @return true if this Room is connected to a north Room and false
      *     otherwise.
      */
@@ -251,11 +223,9 @@ public abstract class AbstractRoom {
         return RoomA != null;
     }
 
-
     /**
      * Returns true if this Room is connected to a south Room and false
      * otherwise.
-     *
      * @return true if this Room is connected to a south Room and false
      *     otherwise.
      */
@@ -266,7 +236,6 @@ public abstract class AbstractRoom {
     /**
      * Returns true if this Room is connected to a east Room and false
      * otherwise.
-     *
      * @return true if this Room is connected to a east Room and false
      *     otherwise.
      */
@@ -277,7 +246,6 @@ public abstract class AbstractRoom {
     /**
      * Returns true if this Room is connected to a west Room and false
      * otherwise.
-     *
      * @return true if this Room is connected to a west Room and false
      *     otherwise.
      */

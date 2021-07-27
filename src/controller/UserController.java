@@ -73,16 +73,19 @@ public class UserController implements PropertyChangeEnabledUserControls {
      */
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 
+        //the current tile size
         myDiv = 48;
         final int x = Math.abs(theMover.getX());
         final int y = Math.abs(theMover.getY());
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
+            //uses the x y position of the sprite to access the elements of the terrain array.
             result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
             result.put(Direction.SOUTH, myGrid[(y / myDiv) + 2][(x / myDiv)]);
             result.put(Direction.EAST, myGrid[(y / myDiv) + 2][(x / myDiv) + 2]);
             result.put(Direction.WEST, myGrid[(y / myDiv) + 2][(x / myDiv)]);
         }
+//        System.out.println(result.toString());
         return Collections.unmodifiableMap(result);
     }
 
@@ -139,7 +142,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
         player.setDirection(theDir);
         player.setX(player.getX() + dx);
         player.setY(player.getY() + dy);
-        System.out.println(myLoadGameFlag);
+//        System.out.println(myLoadGameFlag);
     }
 
     /**

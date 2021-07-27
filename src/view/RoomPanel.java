@@ -28,6 +28,7 @@ import java.io.IOException;
  */
 public class RoomPanel extends JPanel implements ActionListener {
 
+    /**Represents path to door image assets. */
     private static final String DOOR_PATH = "src/res/assets/";
 
     private static final int DOOR_A_X = 96;
@@ -40,7 +41,7 @@ public class RoomPanel extends JPanel implements ActionListener {
 
 
     /** Controller object that uses keyboard input to manipulate player sprite.  */
-    public final UserController userControls;
+    public final UserController myUserControls;
 
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 48;
@@ -55,7 +56,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     public Room myCurrentRoom;
 
     /** A value to get the ID of the current room displayed on the panel. */
-    public int myRoomID;
+    private int myRoomID;
 
     private BufferedImage myFloorMap;
 
@@ -69,9 +70,9 @@ public class RoomPanel extends JPanel implements ActionListener {
         super();
         loadRoom(theRoom);
 
-        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_0.png"));
+        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
 
-        userControls = new UserController(288,384, Direction.EAST, myGrid);
+        myUserControls = new UserController(288,384, Direction.EAST, myGrid);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -92,12 +93,14 @@ public class RoomPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    /** Returns the current ID value of the room loaded into this panel.
+     * @return int value of currently loaded room ID. */
     public int getCurrentRoomID() {
         return myRoomID;
     }
 
 
-    /** Overrides swing paintComponent to draw GUI elements. */
+    /** Overrides swing paintComponent to draw GUI elements. Can be called manually with repaint() */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -128,18 +131,19 @@ public class RoomPanel extends JPanel implements ActionListener {
 //            e.printStackTrace();
 //        }
 
+        //shifts floor map over to the right by 2 squares to hide red zone boundaries.
         g2d.drawImage(myFloorMap, 96 , 0, this);
-
-        g2d.drawImage(userControls.getPlayer().getImage(),
-                userControls.getPlayer().getX(),
-                userControls.getPlayer().getY(),
+        //draws player sprite onto the frame
+        g2d.drawImage(myUserControls.getPlayer().getImage(),
+                myUserControls.getPlayer().getX(),
+                myUserControls.getPlayer().getY(),
                 this);
     }
 
     /** Method to move player sprite when keys are pressed or released. */
     @Override
     public void actionPerformed(ActionEvent e) {
-        userControls.advance();
+        myUserControls.advance();
         repaint();
     }
 
@@ -151,7 +155,7 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyReleased(KeyEvent e) {
-            userControls.keyReleased(e);
+            myUserControls.keyReleased(e);
             repaint();}
 
         /**
@@ -160,13 +164,13 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyPressed(KeyEvent e) {
-            userControls.keyPressed(e);
+            myUserControls.keyPressed(e);
             repaint();}
     }
 
     /** Resets user controller to initial state. */
     public void resetUserController() throws IOException {
-        this.userControls.getPlayer().reset();
+        this.myUserControls.getPlayer().reset();
     }
 
     /**

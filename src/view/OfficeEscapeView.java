@@ -118,8 +118,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     private void setupRoomPanel() throws IOException {
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(0));
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
-        myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
+        myCurrentRoomPanel.myUserControls.addPropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.myUserControls.addPropertyChangeListener(this);
         this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
         this.setBackground(Color.BLACK);
@@ -140,8 +140,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     public void loadRoom(final Room theRoom) throws IOException {
 
         //reset and remove
-        myCurrentRoomPanel.userControls.removePropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.userControls.removePropertyChangeListener(this);
+        myCurrentRoomPanel.myUserControls.removePropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.myUserControls.removePropertyChangeListener(this);
         myCurrentRoomPanel.setFocusable(false);
         myCurrentRoomPanel.setVisible(false);
         this.remove(myCurrentRoomPanel);
@@ -155,9 +155,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.requestFocusInWindow();
         this.addConsolePanel();
         myConsolePanel.setRoomID(myCurrentRoomPanel.getCurrentRoomID());
-        myCurrentRoomPanel.userControls.getPlayer().reset();
-        myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
+        myCurrentRoomPanel.myUserControls.getPlayer().reset();
+        myCurrentRoomPanel.myUserControls.addPropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.myUserControls.addPropertyChangeListener(this);
         repaint();
     }
 
@@ -171,7 +171,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomA() != null &&
-                myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
+                myCurrentRoomPanel.myUserControls.getMyLoadGameFlag()) {
                     try {
                         myCurrentRoomPanel.myCurrentRoom.getDoorA().unlockDoor();
                         loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomA());
@@ -181,7 +181,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomB() != null &&
-                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
+                        myCurrentRoomPanel.myUserControls.getMyLoadGameFlag()) {
                     try {
                         myCurrentRoomPanel.myCurrentRoom.getDoorB().unlockDoor();
                         loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomB());}
@@ -190,7 +190,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomC() != null &&
-                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
+                        myCurrentRoomPanel.myUserControls.getMyLoadGameFlag()) {
                     try {
                         myCurrentRoomPanel.myCurrentRoom.getDoorC().unlockDoor();
                         loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomC());}
@@ -199,7 +199,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
                 if (myCurrentRoomPanel.myCurrentRoom.getRoomD() != null &&
-                        myCurrentRoomPanel.userControls.getMyLoadGameFlag()) {
+                        myCurrentRoomPanel.myUserControls.getMyLoadGameFlag()) {
                     try {
                         myCurrentRoomPanel.myCurrentRoom.getDoorD().unlockDoor();
                         loadRoom(myCurrentRoomPanel.myCurrentRoom.getRoomD());}

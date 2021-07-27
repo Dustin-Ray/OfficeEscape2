@@ -94,19 +94,19 @@ public class UserController implements PropertyChangeEnabledUserControls {
         int key = theKeyEvent.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
             player.setDirection(Direction.WEST);
-            this.player.myPlayerSprite = player.chair_left;
+            this.player.setMyPlayerSprite(player.chair_left);
             dx = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_RIGHT) {
             player.setDirection(Direction.EAST);
-            this.player.myPlayerSprite = player.chair_right;
+            this.player.setMyPlayerSprite(player.chair_right);
             dx = MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_UP) {
             player.setDirection(Direction.NORTH);
-            this.player.myPlayerSprite = player.chair_up;
+            this.player.setMyPlayerSprite(player.chair_up);
             dy = -MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_DOWN) {
             player.setDirection(Direction.SOUTH);
-            this.player.myPlayerSprite = player.chair_down;
+            this.player.setMyPlayerSprite(player.chair_down);
             dy = MOVEMENT_SPEED;}
         if (key == KeyEvent.VK_E) {
             myLoadGameFlag = true;}

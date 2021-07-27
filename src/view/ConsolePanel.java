@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static controller.PropertyChangeEnabledUserControls.*;
-import static view.PropertyChangeEnabledRoomControls.PROPERTY_ROOM_ID_CHANGE;
 
 /**
  * Represents the console panel to the right of the game screen. Player

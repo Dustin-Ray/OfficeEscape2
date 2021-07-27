@@ -4,7 +4,6 @@ import controller.UserController;
 import model.Direction;
 import model.room.Room;
 import model.room.Terrain;
-import res.Icons;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -39,9 +38,11 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     private static final int DOOR_D_X = 672;
 
+    public BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/black_square.png"));
+    public BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
 
     /** Controller object that uses keyboard input to manipulate player sprite.  */
-    public final UserController myUserControls;
+    private UserController myUserControls;
 
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 48;
@@ -49,15 +50,13 @@ public class RoomPanel extends JPanel implements ActionListener {
    /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
 
-    /** A library of graphics to use for rendering the current room. */
-    private final Icons imgLibrary;
-
     /** The current room being rendered. */
-    public Room myCurrentRoom;
+    private Room myCurrentRoom;
 
     /** A value to get the ID of the current room displayed on the panel. */
     private int myRoomID;
 
+    /** The graphical floor map for the currently loaded room. */
     private BufferedImage myFloorMap;
 
     /**
@@ -68,28 +67,24 @@ public class RoomPanel extends JPanel implements ActionListener {
      */
     public RoomPanel(final Room theRoom) throws IOException {
         super();
-        loadRoom(theRoom);
-
-        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
-
-        myUserControls = new UserController(288,384, Direction.EAST, myGrid);
-        imgLibrary = new Icons();
+        this.loadRoom(theRoom);
         setBackground(Color.BLACK);
         this.setFocusable(true);
         int DELAY = 10;
         Timer timer = new Timer(DELAY, this);
         timer.start();
         addKeyListener(new TAdapter());
-        myRoomID = myCurrentRoom.getRoomID();
         repaint();
 
     }
 
     /** Helper method that can be called externally to switch rooms.  */
-    public void loadRoom(final Room theRoom) {
+    public void loadRoom(final Room theRoom) throws IOException {
         myCurrentRoom = theRoom;
-        myRoomID = myCurrentRoom.getRoomID();
+        myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
+        myUserControls = new UserController(288,384, Direction.EAST, myGrid);
+        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
         repaint();
     }
 
@@ -134,16 +129,16 @@ public class RoomPanel extends JPanel implements ActionListener {
         //shifts floor map over to the right by 2 squares to hide red zone boundaries.
         g2d.drawImage(myFloorMap, 96 , 0, this);
         //draws player sprite onto the frame
-        g2d.drawImage(myUserControls.getPlayer().getImage(),
-                myUserControls.getPlayer().getX(),
-                myUserControls.getPlayer().getY(),
+        g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),
+                getMyUserControls().getPlayer().getX(),
+                getMyUserControls().getPlayer().getY(),
                 this);
     }
 
     /** Method to move player sprite when keys are pressed or released. */
     @Override
     public void actionPerformed(ActionEvent e) {
-        myUserControls.advance();
+        getMyUserControls().advance();
         repaint();
     }
 
@@ -155,7 +150,7 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyReleased(KeyEvent e) {
-            myUserControls.keyReleased(e);
+            getMyUserControls().keyReleased(e);
             repaint();}
 
         /**
@@ -164,13 +159,13 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyPressed(KeyEvent e) {
-            myUserControls.keyPressed(e);
+            getMyUserControls().keyPressed(e);
             repaint();}
     }
 
     /** Resets user controller to initial state. */
-    public void resetUserController() throws IOException {
-        this.myUserControls.getPlayer().reset();
+    public void resetUserController() {
+        this.getMyUserControls().getPlayer().reset();
     }
 
     /**
@@ -183,12 +178,26 @@ public class RoomPanel extends JPanel implements ActionListener {
             for (int x = 0; x < myGrid[y].length; x++) {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
-                    case RED_ZONE -> theGraphics.drawImage(imgLibrary.RED_ZONE, leftx, topy, null);
-                    case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
+                    case RED_ZONE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
+                    case FLOOR_1 -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
                 }
             }
         }
         repaint();
     }
+
+    /**
+     * Gets the current room loaded into this frame.
+     * @return the current room loaded into this frame.
+     */
+    public Room getMyCurrentRoom() {return myCurrentRoom;}
+
+    /**
+     * Gets the current user controls object loaded into this frame.
+     * @return the current user controller loaded into this frame.
+     */
+    public UserController getMyUserControls() {return myUserControls;}
+
+
 }
 

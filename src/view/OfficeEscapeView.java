@@ -65,32 +65,28 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         setupFrame();
         addToolbarPanel();
 //        addMainMenuPanel();
-        setupRoomPanel();
+        loadRoom(myRoomList.get(0));
         addConsolePanel();
         this.setVisible(true);
         this.setResizable(false);
     }
 
     /** Initializes the current frame to hold all of the panels. Dimensions are set in
-     * multiples of 96 which is the default grid square size. */
+     * multiples of 8 which is the default grid square size. */
     private void setupFrame() {
-
         this.setSize(1248, 828);
         this.setLocation(500, 100);
         this.setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
 
     /** Adds a console panel to the frame. */
     private void addConsolePanel() {
-        myConsolePanel.setFocusable(true);
         myConsolePanel.setBounds(768, 0, 480, 480);
         this.getContentPane().add(myConsolePanel);
         myConsolePanel.setVisible(true);
         myConsolePanel.repaint();
-
     }
 
 
@@ -112,25 +108,6 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Initializes the current room panel. Probably contains redundant code.
-     * @throws IOException if any resources cannot be loaded.
-     */
-    private void setupRoomPanel() throws IOException {
-        myCurrentRoomPanel = new RoomPanel(myRoomList.get(0));
-        myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
-        myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(this);
-        this.remove(myMainMenuPanel);
-        this.add(myCurrentRoomPanel);
-        this.setBackground(Color.BLACK);
-
-        myCurrentRoomPanel.resetUserController();
-        myCurrentRoomPanel.requestFocusInWindow();
-        myCurrentRoomPanel.setFocusable(true);
-
-    }
-
-    /**
      * Loads a given room into the room panel. Used for room traversal. Removes
      * all currently displayed elements and property change listeners.
      * Possibly contains redundant code.
@@ -138,25 +115,14 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      * @throws IOException if any resource cannot be loaded.
      */
     private void loadRoom(final Room theRoom) throws IOException {
-
-        //reset and remove
-        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
-        myCurrentRoomPanel.setFocusable(false);
-        myCurrentRoomPanel.setVisible(false);
-        this.remove(myCurrentRoomPanel);
-        this.remove(myConsolePanel);
-
         //load and add new room
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
         this.add(myCurrentRoomPanel);
         myCurrentRoomPanel.setVisible(true);
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.requestFocusInWindow();
-        this.addConsolePanel();
         myConsolePanel.setRoomID(myCurrentRoomPanel.getCurrentRoomID());
         myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(myConsolePanel);
-        myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(this);
         repaint();
     }
 

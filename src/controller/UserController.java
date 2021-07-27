@@ -61,21 +61,25 @@ public class UserController implements PropertyChangeEnabledUserControls {
     }
 
     /**
-     * Gets player object for this class.
-     * @return Current player object for this class.
+     * Generates a map of the current terrain surrounding the player sprite.
+     * @param theMover is the current player sprite.
+     * @return each cardinal direction (NWES) and its current terrain in relation
+     * to the player sprite.
      */
-    public Player getPlayer() {return player;}
+    private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 
-    /**
-     * Moves the player object on the grid and sets direction according to
-     * current key press.
-     * @param theDir direction that the player object should be oriented in
-     *               according to current key press.
-     */
-    public void move(final Direction theDir) {
-        player.setDirection(theDir);
-        player.setX(player.getX() + dx);
-        player.setY(player.getY() + dy);
+        final int div = 48;
+        final int x = Math.abs(theMover.getX());
+        final int y = Math.abs(theMover.getY());
+        final Map<Direction, Terrain> result = new HashMap<>();
+        for (int i = 0; i < Direction.values().length; i++) {
+            result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
+            result.put(Direction.SOUTH, myGrid[(y / div) + 2][(x / div)]);
+            result.put(Direction.EAST, myGrid[(y / div) + 2][(x / div) + 2]);
+            result.put(Direction.WEST, myGrid[(y / div) + 2][(x / div)]);
+        }
+//        System.out.println(result);
+        return Collections.unmodifiableMap(result);
     }
 
     /**
@@ -115,6 +119,31 @@ public class UserController implements PropertyChangeEnabledUserControls {
     }
 
 
+    /**
+     * Moves the player object on the grid and sets direction according to
+     * current key press.
+     * @param theDir direction that the player object should be oriented in
+     *               according to current key press.
+     */
+    public void move(final Direction theDir) {
+        player.setDirection(theDir);
+        player.setX(player.getX() + dx);
+        player.setY(player.getY() + dy);
+    }
+
+    /**
+     * Valid terrain that the sprite is allowed to move on.
+     * @param theTerrain is the terrain to check for validity.
+     * @return boolean determining if terrain passed in is valid to move on.
+     */
+    public boolean canPass(final Terrain theTerrain) {
+        return (theTerrain == FLOOR_1);
+    }
+
+    /**
+     * Checks proximity to doors and other elements that can be interacted with.
+     * Moves player sprite if interaction is valid.
+     */
     public void advance() {
         final Map<Direction, Terrain> neighbors = generateNeighbors(player);
         if(this.canPass(neighbors.get(player.getDirection()))) {
@@ -138,7 +167,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
                 player.setMyPlayerSprite("UP?");
             }
-
             else {
                 myNextToDoor = false;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_NO_DOOR);
@@ -147,56 +175,64 @@ public class UserController implements PropertyChangeEnabledUserControls {
     }
 
 
+    /**
+     * Gets player object for this class.
+     * @return Current player object for this class.
+     */
+    public Player getPlayer() {return player;}
+
+    /**
+     * Gets the value of the current load game flag. Used so that the player can
+     * press the "e" key on the keyboard to load the next room.
+     * @return
+     */
     public boolean getMyLoadGameFlag() {return myLoadGameFlag;}
 
+    /**
+     * Fires a property change when the player sprite is in proximity to a door.
+     * @param thePropertyChange is the current event of the player being next to a door.
+     */
     private void fireProximityChangeDoor(final String thePropertyChange) {
         myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);
     }
 
-    private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
-
-        final int div = 96;
-        final int x = Math.abs(theMover.getX());
-        final int y = Math.abs(theMover.getY());
-        final Map<Direction, Terrain> result = new HashMap<>();
-        for (int i = 0; i < Direction.values().length; i++) {
-            result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
-            result.put(Direction.SOUTH, myGrid[(y / div) + 1][(x / div)]);
-            result.put(Direction.EAST, myGrid[(y / div) + 1][(x / div) + 1]);
-            result.put(Direction.WEST, myGrid[(y / div) + 1][(x / div)]);
-        }
-//        System.out.println(result);
-        return Collections.unmodifiableMap(result);
-    }
-
-    public boolean canPass(final Terrain theTerrain) {
-        return (theTerrain == FLOOR_1);
-    }
-
+    /**
+     * Adds a property change listener.
+     * @param theListener the listen to add.
+     */
     @Override
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
     }
 
-
+    /**
+     * Removes a property change listener.
+     * @param theListener the listen to remove.
+     */
     @Override
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
 
+    /**
+     * Adds a property change listener.
+     * @param thePropertyName is the name of the listener to add.
+     * @param theListener is the listener to add.
+     */
     @Override
     public void addPropertyChangeListener(final String thePropertyName,
                                           final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
-
     }
 
+    /**
+     * Removes a property change listener.
+     * @param thePropertyName is the name of the listener to remove.
+     * @param theListener is the listener to remove.
+     */
     @Override
     public void removePropertyChangeListener(final String thePropertyName,
                                              final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
-
     }
-
-
 }

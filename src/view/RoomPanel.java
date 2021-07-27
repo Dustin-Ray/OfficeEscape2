@@ -43,7 +43,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     public final UserController userControls;
 
     /** The size in pixels of a side of one "square" on the grid. */
-    private static final int SQUARE_SIZE = 96;
+    private static final int SQUARE_SIZE = 48;
 
    /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
@@ -57,6 +57,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** A value to get the ID of the current room displayed on the panel. */
     public int myRoomID;
 
+    private BufferedImage myFloorMap;
 
     /**
      * Constructor for class.
@@ -67,8 +68,10 @@ public class RoomPanel extends JPanel implements ActionListener {
     public RoomPanel(final Room theRoom) throws IOException {
         super();
         loadRoom(theRoom);
+
+        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_0.png"));
+
         userControls = new UserController(288,384, Direction.EAST, myGrid);
-//        this.setLayout(null);
         imgLibrary = new Icons();
         setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -100,30 +103,32 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-        try {
-            BufferedImage closed = ImageIO.read(new File(DOOR_PATH + "door_closed.png"));
-            BufferedImage open = ImageIO.read(new File(DOOR_PATH + "door_open.png"));
-            // initialize all doors to closed
-            g2d.drawImage(closed, DOOR_A_X, 0, this);
-            g2d.drawImage(closed, DOOR_B_X, 0, this);
-            g2d.drawImage(closed, DOOR_C_X, 0, this);
-            g2d.drawImage(closed, DOOR_D_X, 0, this);
-            // open doors as needed
-            if (myCurrentRoom.hasRoomA()) {
-                g2d.drawImage(open, DOOR_A_X, 0, this);
-            }
-            if (myCurrentRoom.hasRoomB()) {
-                g2d.drawImage(open, DOOR_B_X, 0, this);
-            }
-            if (myCurrentRoom.hasRoomC()) {
-                g2d.drawImage(open, DOOR_C_X, 0, this);
-            }
-            if (myCurrentRoom.hasRoomD()) {
-                g2d.drawImage(open, DOOR_D_X, 0, this);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            BufferedImage closed = ImageIO.read(new File(DOOR_PATH + "door_closed.png"));
+//            BufferedImage open = ImageIO.read(new File(DOOR_PATH + "door_open.png"));
+//            // initialize all doors to closed
+//            g2d.drawImage(closed, DOOR_A_X, 0, this);
+//            g2d.drawImage(closed, DOOR_B_X, 0, this);
+//            g2d.drawImage(closed, DOOR_C_X, 0, this);
+//            g2d.drawImage(closed, DOOR_D_X, 0, this);
+//            // open doors as needed
+//            if (myCurrentRoom.hasRoomA()) {
+//                g2d.drawImage(open, DOOR_A_X, 0, this);
+//            }
+//            if (myCurrentRoom.hasRoomB()) {
+//                g2d.drawImage(open, DOOR_B_X, 0, this);
+//            }
+//            if (myCurrentRoom.hasRoomC()) {
+//                g2d.drawImage(open, DOOR_C_X, 0, this);
+//            }
+//            if (myCurrentRoom.hasRoomD()) {
+//                g2d.drawImage(open, DOOR_D_X, 0, this);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        g2d.drawImage(myFloorMap, 96 , 0, this);
 
         g2d.drawImage(userControls.getPlayer().getImage(),
                 userControls.getPlayer().getX(),
@@ -174,19 +179,8 @@ public class RoomPanel extends JPanel implements ActionListener {
             for (int x = 0; x < myGrid[y].length; x++) {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
-                    case DOOR_CLOSED_A, DOOR_CLOSED_B, DOOR_CLOSED_C, DOOR_CLOSED_D -> theGraphics.drawImage(imgLibrary.DOOR_CLOSED, leftx, topy, null);
-                    case DOOR_OPEN -> theGraphics.drawImage(imgLibrary.DOOR_PLACEHOLDER, leftx, topy, null);
-                    case WHITE_BOARD -> theGraphics.drawImage(imgLibrary.WHITE_BOARD, leftx, topy, null);
-                    case WARHOL -> theGraphics.drawImage(imgLibrary.WARHOL, leftx, topy, null);
-                    case VENDING_MACHINE -> theGraphics.drawImage(imgLibrary.VENDING_MACHINE, leftx, topy, null);
                     case RED_ZONE -> theGraphics.drawImage(imgLibrary.RED_ZONE, leftx, topy, null);
                     case FLOOR_1 -> theGraphics.drawImage(imgLibrary.FLOOR_1, leftx, topy, null);
-                    case TOP_WALL -> theGraphics.drawImage(imgLibrary.TOP_WALL, leftx, topy, null);
-                    case DESK_1 -> theGraphics.drawImage(imgLibrary.DESK_1, leftx, topy, null);
-                    case DESK_2 -> theGraphics.drawImage(imgLibrary.DESK_2, leftx, topy, null);
-                    case DESK_3 -> theGraphics.drawImage(imgLibrary.DESK_3, leftx, topy, null);
-                    case DEAD_CHAIR -> theGraphics.drawImage(imgLibrary.DEAD_CHAIR, leftx, topy, null);
-                    case PLANT_CHAIR -> theGraphics.drawImage(imgLibrary.PLANT_CHAIR, leftx, topy, null);
                 }
             }
         }

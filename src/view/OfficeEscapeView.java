@@ -55,7 +55,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             FontFormatException {
 
         super("Office Escape 9: The Story Continues");
-//        this.setLayout(null);
+
         myRoomsMap = theRoomsMap;
         myRoomList = theRoomsList;
         myCurrentToolbarMenu = new ToolbarMenu();
@@ -64,6 +64,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         setupUI();
         setupFrame();
         addToolbarPanel();
+//        addMainMenuPanel();
         setupRoomPanel();
         addConsolePanel();
         this.setVisible(true);
@@ -94,7 +95,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
 
     /** Adds a main menu panel to the frame. */
-    private void addMainMenuPanel() {
+    private void addMainMenuPanel() throws IOException, FontFormatException {
+        myMainMenuPanel = new MainMenuPanel();
         myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
         myMainMenuPanel.repaint();
@@ -118,9 +120,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.setBounds(-96, 0, 864, 768);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.userControls.addPropertyChangeListener(this);
-//        this.remove(myMainMenuPanel);
+        this.remove(myMainMenuPanel);
         this.add(myCurrentRoomPanel);
-//        this.setBackground(Color.BLACK);
+        this.setBackground(Color.BLACK);
 
         myCurrentRoomPanel.resetUserController();
         myCurrentRoomPanel.requestFocusInWindow();

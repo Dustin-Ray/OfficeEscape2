@@ -8,24 +8,16 @@ package model.room;
 public enum Terrain {
 
     /**Letters represent textures for walls and stuff */
-    TOP_WALL('T'),
+
     FLOOR_1('F'),
     RED_ZONE('R'),
     DOOR_CLOSED_A('A'),
     DOOR_CLOSED_B('B'),
     DOOR_CLOSED_C('C'),
     DOOR_CLOSED_D('D'),
-    DOOR_OPEN('O'),
+    DOOR_OPEN('O');
 
-    /**Symbols represent decorations and objects */
-    WHITE_BOARD('!'),
-    WARHOL('@'),
-    VENDING_MACHINE('#'),
-    DESK_1('1'),
-    DESK_2('2'),
-    DESK_3('3'),
-    DEAD_CHAIR('$'),
-    PLANT_CHAIR('%');
+
 
     /** The character corresponding to a particular value of the enumeration. */
     private final char myLetter;

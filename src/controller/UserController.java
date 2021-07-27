@@ -39,6 +39,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** A value used to determine if the player wants to enter the next room. */
     private boolean myLoadGameFlag;
 
+    /** The value used to calculate proximity to terrain in getNeighbors method.
+     * Can be changed to fit different asset pixel sizes. */
+    private int myDiv;
+
 
     /**
      * Constructor.
@@ -53,6 +57,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
                           final Direction theDir,
                           final Terrain[][] theGrid) throws IOException {
 
+        myDiv = 0;
         myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
         this.myGrid = theGrid.clone();
@@ -68,17 +73,16 @@ public class UserController implements PropertyChangeEnabledUserControls {
      */
     private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
 
-        final int div = 48;
+        myDiv = 48;
         final int x = Math.abs(theMover.getX());
         final int y = Math.abs(theMover.getY());
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
-            result.put(Direction.NORTH, myGrid[(y / div)][(x / div)]);
-            result.put(Direction.SOUTH, myGrid[(y / div) + 2][(x / div)]);
-            result.put(Direction.EAST, myGrid[(y / div) + 2][(x / div) + 2]);
-            result.put(Direction.WEST, myGrid[(y / div) + 2][(x / div)]);
+            result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.SOUTH, myGrid[(y / myDiv) + 2][(x / myDiv)]);
+            result.put(Direction.EAST, myGrid[(y / myDiv) + 2][(x / myDiv) + 2]);
+            result.put(Direction.WEST, myGrid[(y / myDiv) + 2][(x / myDiv)]);
         }
-//        System.out.println(result);
         return Collections.unmodifiableMap(result);
     }
 
@@ -184,7 +188,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /**
      * Gets the value of the current load game flag. Used so that the player can
      * press the "e" key on the keyboard to load the next room.
-     * @return
+     * @return boolean value of current load game flag. True is user is pressing and
+     * holding the "e" key, false otherwise.
      */
     public boolean getMyLoadGameFlag() {return myLoadGameFlag;}
 

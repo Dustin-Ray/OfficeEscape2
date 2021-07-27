@@ -137,7 +137,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      * @param theRoom is the new room to be loaded into the panel.
      * @throws IOException if any resource cannot be loaded.
      */
-    public void loadRoom(final Room theRoom) throws IOException {
+    private void loadRoom(final Room theRoom) throws IOException {
 
         //reset and remove
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);

@@ -86,7 +86,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         this.y = y;
     }
 
-    public void advance() {
+    private void advance() {
             this.setX(this.x + this.speedKeyX);
             this.setY(this.y + this.speedKeyY);
     }

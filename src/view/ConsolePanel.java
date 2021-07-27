@@ -20,15 +20,14 @@ import static controller.PropertyChangeEnabledUserControls.*;
  */
 public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
-
     /** Area to display text output.  */
-    JTextArea myConsoleScreenTextArea;
+    private JTextArea myConsoleScreenTextArea;
     /** Graphics to decorate text area. */
-    BufferedImage myDisplayConsole;
+    private final BufferedImage myDisplayConsole;
     /** Graphics to decorate text area. */
-    BufferedImage myInfoDisplayConsole;
-
-    JTextArea myRoomID;
+    private final BufferedImage myInfoDisplayConsole;
+    /** Text area that displays the current room number. */
+    private JTextArea myRoomID;
 
     /**
      * Constructor for class.
@@ -37,7 +36,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      */
     public ConsolePanel() throws IOException, FontFormatException {
         super();
-
         this.setLayout(null);
         myDisplayConsole = ImageIO.read(new File("src/res/assets/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/info_console.png"));
@@ -92,7 +90,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      * @throws IOException if class resource cannot be loaded.
      * @throws FontFormatException if font cannot be loaded.
      */
-    public void setupText() throws IOException, FontFormatException {
+    private void setupText() throws IOException, FontFormatException {
 
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 18);

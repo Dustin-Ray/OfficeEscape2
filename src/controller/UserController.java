@@ -139,6 +139,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
         player.setDirection(theDir);
         player.setX(player.getX() + dx);
         player.setY(player.getY() + dy);
+        System.out.println(myLoadGameFlag);
     }
 
     /**

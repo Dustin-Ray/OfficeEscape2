@@ -112,6 +112,12 @@ public class UserController implements PropertyChangeEnabledUserControls {
             myLoadGameFlag = true;}
     }
 
+    /**
+     * Handles a key release event. Used to stop movement of the
+     * player sprite and also sets the load game value to false if user
+     * if not pressing the "e" key.
+     * @param e is the key released event.
+     */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {dx = 0;}

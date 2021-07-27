@@ -38,8 +38,12 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     private static final int DOOR_D_X = 672;
 
-    public BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/black_square.png"));
-    public BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
+    /** An image to represent valid floor that can be traversed by the sprite. Hidden
+     * underneath the floor map image. */
+    private final BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/black_square.png"));
+    /** An image to represent invalid terrain that cannot be traversed by the sprite. Hidden
+     * underneath the floor map image. */
+    private final BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
 
     /** Controller object that uses keyboard input to manipulate player sprite.  */
     private UserController myUserControls;
@@ -75,7 +79,6 @@ public class RoomPanel extends JPanel implements ActionListener {
         timer.start();
         addKeyListener(new TAdapter());
         repaint();
-
     }
 
     /** Helper method that can be called externally to switch rooms.  */

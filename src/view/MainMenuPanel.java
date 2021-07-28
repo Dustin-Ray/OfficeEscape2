@@ -45,7 +45,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         animate.start();
         this.setPreferredSize(new Dimension(1200, 768));
 
-        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 24);
 
         final JLabel newGame = new JLabel("new game");

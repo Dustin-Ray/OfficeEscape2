@@ -37,8 +37,8 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     public ConsolePanel() throws IOException, FontFormatException {
         super();
         this.setLayout(null);
-        myDisplayConsole = ImageIO.read(new File("src/res/assets/console.png"));
-        myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/info_console.png"));
+        myDisplayConsole = ImageIO.read(new File("src/res/assets/menu/console.png"));
+        myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/menu/info_console.png"));
         this.setBackground(Color.BLACK);
         setupText();
         repaint();
@@ -92,7 +92,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      */
     private void setupText() throws IOException, FontFormatException {
 
-        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 18);
         myConsoleScreenTextArea = new JTextArea("this is a test...");
         myConsoleScreenTextArea.setVisible(true);

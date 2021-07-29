@@ -10,23 +10,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * Uses an ArrayList to store Trivia objects that are instantiated using
+ * data from a SQLite database.
  *
+ * @author Raz Consta
  */
 public class TriviaManager {
 
     /**
-     *
+     * The ArrayList that stores all of the Trivia objects.
      */
     private ArrayList<Trivia> myTriviaList;
 
     /**
-     *
+     * Constructs a TriviaManager that stores all of the Trivia objects from
+     * a database.
      */
     public TriviaManager() {
 
         myTriviaList = new ArrayList<>();
-        Connection c = null;
-        Statement stmt = null;
+        Connection c;
+        Statement stmt;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -62,11 +66,10 @@ public class TriviaManager {
     }
 
     /**
-     *
-     * @return
+     * Returns a random trivia object and removes it from the trivia pool.
+     * @return a Trivia object from the ArrayList of Trivia objects.
      */
     public Trivia getTrivia() {
-        // returns a random trivia object and removes it from the trivia pool
         Random rnd = new Random();
         System.out.println(myTriviaList.size());
         return myTriviaList.get(Math.abs(rnd.nextInt(myTriviaList.size())));

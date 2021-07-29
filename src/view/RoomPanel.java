@@ -59,7 +59,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         this.loadRoom(theRoom);
         setBackground(Color.BLACK);
         this.setFocusable(true);
-        int DELAY = 10;
+        int DELAY = 1;
         Timer timer = new Timer(DELAY, this);
         timer.start();
         addKeyListener(new TAdapter());
@@ -90,11 +90,11 @@ public class RoomPanel extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
         //shifts floor map over up and to the left by 1 square to hide red zone boundaries.
-        g2d.drawImage(myFloorMap, 48 , 48, this);
+//        g2d.drawImage(myFloorMap, 48 , 48, this);
         //draws player sprite onto the frame
         g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),
-                getMyUserControls().getPlayer().getX(),
-                getMyUserControls().getPlayer().getY(),
+                getMyUserControls().getPlayer().getX() - 48,
+                getMyUserControls().getPlayer().getY() - 48,
                 this);
     }
 
@@ -142,7 +142,8 @@ public class RoomPanel extends JPanel implements ActionListener {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
                     case RED_ZONE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
-                    case FLOOR_1 -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
+                    case FLOOR_1, DOOR_CLOSED_A, DOOR_CLOSED_B, DOOR_CLOSED_C, DOOR_CLOSED_D -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
+
                 }
             }
         }

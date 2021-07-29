@@ -22,7 +22,7 @@ import static model.room.Terrain.*;
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 10;
+    private static final int MOVEMENT_SPEED = 2;
     /** Object representing player character. */
     private final Player player;
     /**Values uses to represent change in x and y positioning during key
@@ -82,10 +82,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             //uses the x y position of the sprite to access the elements of the terrain array.
-            result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
-            result.put(Direction.SOUTH, myGrid[(y / myDiv) + 1][(x / myDiv)]);
-            result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv) + 1]);
-            result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.NORTH, myGrid[(y / myDiv) -1][(x / myDiv)]);
+            result.put(Direction.SOUTH, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)- 1]);
             myPositions = "Y pos: " + ((y / myDiv)) + "\n" + "X pos: " + ((x / myDiv));
         }
         myNeighbors = "Surrounding terrain: \n";
@@ -159,7 +159,12 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @return boolean determining if terrain passed in is valid to move on.
      */
     public boolean canPass(final Terrain theTerrain) {
-        return (theTerrain == FLOOR_1);
+
+        return (theTerrain == FLOOR_1 ||
+                theTerrain == DOOR_CLOSED_A ||
+                theTerrain == DOOR_CLOSED_B ||
+                theTerrain == DOOR_CLOSED_C ||
+                theTerrain == DOOR_CLOSED_D);
     }
 
     /**

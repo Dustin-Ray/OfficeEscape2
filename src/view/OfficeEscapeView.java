@@ -22,7 +22,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     RoomPanel myCurrentRoomPanel;
     /** The current toolbar menu which contains options for loading, saving, etc. */
     ToolbarMenu myCurrentToolbarMenu;
-    /** The main menu panel of the game which is shown on game load. */
+    /** The main menu panel of the game which is shown on game start. */
     MainMenuPanel myMainMenuPanel;
     /** The panel that shows text output from the NPCs. */
     ConsolePanel myConsolePanel;

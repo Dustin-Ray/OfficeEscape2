@@ -4,6 +4,8 @@ package controller;
 import model.room.Room;
 import view.OfficeEscapeView;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -33,12 +35,15 @@ public class OfficeEscapeController {
         EventQueue.invokeLater(() -> {
             try {
                 new OfficeEscapeView(roomsList, roomsMap);
-            } catch (final ClassNotFoundException
-                    | InstantiationException
-                    | IllegalAccessException
-                    | UnsupportedLookAndFeelException
-                    | IOException
-                    | FontFormatException e) {
+            } catch (final
+                    ClassNotFoundException |
+                    InstantiationException |
+                    IllegalAccessException |
+                    UnsupportedLookAndFeelException |
+                    IOException |
+                    FontFormatException |
+                    UnsupportedAudioFileException |
+                    LineUnavailableException e) {
                 e.printStackTrace();
             }
         });

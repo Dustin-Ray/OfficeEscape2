@@ -1,6 +1,7 @@
 package view;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -33,9 +34,10 @@ public class MainMenuPanel extends JPanel implements Runnable {
      * @throws IOException If any resource cannot be loaded.
      * @throws FontFormatException if font cannot be loaded.
      */
-    public MainMenuPanel() throws IOException, FontFormatException {
+    public MainMenuPanel() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
 
         this.setLayout(null);
+        playSound();
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         myBackground2 = ImageIO.read(new File("src/res/backgrounds/mainmenu2.png"));
         this.setBackground(Color.BLACK);
@@ -111,6 +113,28 @@ public class MainMenuPanel extends JPanel implements Runnable {
             beforeTime = System.currentTimeMillis();
         }
     }
+
+    public void playSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+        File audioFile = new File("src/res/assets/music/Jordan F - Our Destiny, Above Us.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+        AudioFormat format = audioStream.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, format);
+        Clip audioClip = (Clip) AudioSystem.getLine(info);
+        audioClip.open(audioStream);
+        FloatControl volume = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue((float) -4);
+        audioClip.start();
+        audioClip.loop(100);
+
+
+
+//        audioClip.close();
+//        audioStream.close();
+
+    }
+
 
     /*
      * create a inner class to handle key inputs

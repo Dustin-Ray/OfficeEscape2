@@ -1,6 +1,9 @@
 package view;
 
 import model.room.Room;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -49,7 +52,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
             IllegalAccessException,
             UnsupportedLookAndFeelException,
             IOException,
-            FontFormatException {
+            FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
 
         super("Office Escape 9: The Story Continues");
 
@@ -62,8 +65,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         setupUI();
         setupFrame();
         addToolbarPanel();
-//        addMainMenuPanel();
-        loadRoom(myRoomList.get(0));
+        addMainMenuPanel();
+//        loadRoom(myRoomList.get(0));
         addConsolePanel();
         this.setVisible(true);
         this.setResizable(false);
@@ -88,8 +91,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
 
     /** Adds a main menu panel to the frame. */
-    private void addMainMenuPanel() throws IOException, FontFormatException {
-        myMainMenuPanel = new MainMenuPanel();
+    private void addMainMenuPanel() {
+//        myMainMenuPanel = new MainMenuPanel();
         myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
         myMainMenuPanel.setBounds(0, 0, 1248, 768);

@@ -65,8 +65,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         setupUI();
         setupFrame();
         addToolbarPanel();
-        addMainMenuPanel();
-//        loadRoom(myRoomList.get(0));
+//        addMainMenuPanel();
+        loadRoom(myRoomList.get(0));
         addConsolePanel();
         this.setVisible(true);
         this.setResizable(false);

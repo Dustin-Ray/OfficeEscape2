@@ -151,37 +151,22 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomA() != null && canLoad) {
-                    try {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorA().unlockDoor();
-                        resetLoadedRoom();
-                        loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomA());
-                    } catch (IOException e) {e.printStackTrace();}}
+                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().getTrivia());
+                }
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomB() != null && canLoad) {
-                    try {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorB().unlockDoor();
-                        resetLoadedRoom();
-                        loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomB());}
-                    catch (IOException e) {e.printStackTrace();}
+                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().getTrivia());
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomC() != null && canLoad) {
-                    try {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorC().unlockDoor();
-                        resetLoadedRoom();
-                        loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomC());}
-                    catch (IOException e) {e.printStackTrace();}
+                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().getTrivia());
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomD() != null && canLoad) {
-                    try {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorD().unlockDoor();
-                        resetLoadedRoom();
-                        loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomD());}
-                    catch (IOException e) {e.printStackTrace();}
+                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().getTrivia());
                 }
             }
         }

@@ -201,8 +201,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
             }
             else {
                 myNextToDoor = false;
-                fireXYPositionChange();
-                fireNeighborChange();
+//                fireXYPositionChange();
+//                fireNeighborChange();
             }
         }
     }

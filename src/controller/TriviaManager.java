@@ -36,7 +36,7 @@ public class TriviaManager {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/res/database/questions-answers.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+//            System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
             ResultSet rst = stmt.executeQuery( "SELECT * FROM trivia;" );
@@ -59,10 +59,10 @@ public class TriviaManager {
             System.exit(0);
         }
 
-        System.out.println("Testing if the questions have been loaded from database to ArrayList.");
-        for (Trivia t: myTriviaList) {
-            System.out.println(t);
-        }
+//        System.out.println("Testing if the questions have been loaded from database to ArrayList.");
+//        for (Trivia t: myTriviaList) {
+//            System.out.println(t);
+//        }
     }
 
     /**
@@ -71,7 +71,6 @@ public class TriviaManager {
      */
     public Trivia getTrivia() {
         Random rnd = new Random();
-        System.out.println(myTriviaList.size());
         return myTriviaList.get(Math.abs(rnd.nextInt(myTriviaList.size())));
     }
 }

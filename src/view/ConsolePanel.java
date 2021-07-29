@@ -21,7 +21,9 @@ import static controller.PropertyChangeEnabledUserControls.*;
 public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** Area to display text output.  */
-    private JTextArea myConsoleScreenTextArea;
+    private JTextArea myConsoleScreenTextArea1;
+    /** Area to display text output.  */
+    private JTextArea myConsoleScreenTextArea2;
     /** Graphics to decorate text area. */
     private final BufferedImage myDisplayConsole;
     /** Graphics to decorate text area. */
@@ -68,20 +70,28 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
-                myConsoleScreenTextArea.setText("Property change fired: " + "\n" + "next to door A");
+                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door A");
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
-                myConsoleScreenTextArea.setText("Property change fired: " + "\n" + "next to door B");
+                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door B");
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
-                myConsoleScreenTextArea.setText("Property change fired: " + "\n" + "next to door C");
+                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door C");
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
-                myConsoleScreenTextArea.setText("Property change fired: " + "\n" + "next to door D");
+                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door D");
             }
-            case PROPERTY_PROXIMITY_NO_DOOR -> {
-                myConsoleScreenTextArea.setText("not near any door");
+//            case PROPERTY_PROXIMITY_NO_DOOR -> {
+//                myConsoleScreenTextArea.setText("not near any door");
+//            }
+            case XY_POSITION -> {
+                myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
             }
+
+            case NEIGHBOR_CHANGE -> {
+                myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
+            }
+
         }
     }
 
@@ -94,15 +104,27 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 18);
-        myConsoleScreenTextArea = new JTextArea("this is a test...");
-        myConsoleScreenTextArea.setVisible(true);
-        myConsoleScreenTextArea.setForeground(Color.WHITE);
-        myConsoleScreenTextArea.setBounds(830, 50, 360, 245);
-        myConsoleScreenTextArea.setLayout(null);
-        myConsoleScreenTextArea.setFont(fontTest);
-        myConsoleScreenTextArea.setBackground(Color.BLACK);
-        this.add(myConsoleScreenTextArea);
+        myConsoleScreenTextArea1 = new JTextArea("this is a test...");
+        myConsoleScreenTextArea1.setVisible(true);
+        myConsoleScreenTextArea1.setForeground(Color.WHITE);
+        myConsoleScreenTextArea1.setBounds(830, 50, 360, 120);
+        myConsoleScreenTextArea1.setLayout(null);
+        myConsoleScreenTextArea1.setFont(fontTest);
+        myConsoleScreenTextArea1.setBackground(Color.BLACK);
+        this.add(myConsoleScreenTextArea1);
 
+
+        myConsoleScreenTextArea2 = new JTextArea("this is a test...");
+        myConsoleScreenTextArea2.setVisible(true);
+        myConsoleScreenTextArea2.setForeground(Color.WHITE);
+        myConsoleScreenTextArea2.setBounds(830, 170, 360, 120);
+        myConsoleScreenTextArea2.setLayout(null);
+        fontTest = fontTest.deriveFont(Font.PLAIN, 20);
+        myConsoleScreenTextArea2.setFont(fontTest);
+        myConsoleScreenTextArea2.setBackground(Color.BLACK);
+        this.add(myConsoleScreenTextArea2);
+        
+        
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         myRoomID.setVisible(true);
         myRoomID.setForeground(Color.WHITE);

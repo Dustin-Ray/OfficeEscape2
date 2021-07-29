@@ -9,7 +9,8 @@ public interface PropertyChangeEnabledUserControls {
     String PROPERTY_PROXIMITY_DOOR_C = "proximity to door C";
     String PROPERTY_PROXIMITY_DOOR_D = "proximity to door D";
     String PROPERTY_PROXIMITY_NO_DOOR = "not near a door";
-
+    String XY_POSITION = "xy position change";
+    String NEIGHBOR_CHANGE = "terrain neighboring sprite has changed";
 
 
     void addPropertyChangeListener(PropertyChangeListener theListener);

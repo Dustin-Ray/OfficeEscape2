@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static model.room.Terrain.*;
 
@@ -42,6 +43,12 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** The value used to calculate proximity to terrain in getNeighbors method.
      * Can be changed to fit different asset pixel sizes. */
     private int myDiv;
+
+    /** Used for debugging, fires to console panel so sprite position can be determined. */
+    private String myPositions;
+
+    private String myNeighbors;
+
 
 
     /**
@@ -80,12 +87,20 @@ public class UserController implements PropertyChangeEnabledUserControls {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             //uses the x y position of the sprite to access the elements of the terrain array.
-            result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
-            result.put(Direction.SOUTH, myGrid[(y / myDiv) + 2][(x / myDiv)]);
-            result.put(Direction.EAST, myGrid[(y / myDiv) + 2][(x / myDiv) + 2]);
-            result.put(Direction.WEST, myGrid[(y / myDiv) + 2][(x / myDiv)]);
+            result.put(Direction.NORTH, myGrid[(y / myDiv) + 1][(x / myDiv)]);
+            result.put(Direction.SOUTH, myGrid[(y / myDiv) - 2][(x / myDiv)]);
+            result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv) + 1]);
+            result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv) - 1]);
+
+            myPositions = "Y pos: " + ((y / myDiv)) + "\n" + "X pos: " + ((x / myDiv));
+
         }
-//        System.out.println(result.toString());
+        myNeighbors = "Surrounding terrain: \n";
+        for (int j = 0; j < 4; j++) {
+            Set<Direction> s = result.keySet();
+            Object[] sArr = s.toArray();
+            myNeighbors = myNeighbors + sArr[j].toString() + ":    " + result.get(sArr[j]) + "\n";
+        }
         return Collections.unmodifiableMap(result);
     }
 
@@ -183,7 +198,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
             }
             else {
                 myNextToDoor = false;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_NO_DOOR);
+                fireXYPositionChange();
+                fireNeighborChange();
             }
         }
     }
@@ -210,6 +226,19 @@ public class UserController implements PropertyChangeEnabledUserControls {
     private void fireProximityChangeDoor(final String thePropertyChange) {
         myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);
     }
+
+
+    /** Fires a property change when the player sprite position changes. */
+    private void fireXYPositionChange() {
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, myPositions);
+    }
+
+    /** Fires a property change when the terrain surrounding the sprite changes. */
+    private void fireNeighborChange() {
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
+    }
+
+
 
     /**
      * Adds a property change listener.

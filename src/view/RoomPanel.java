@@ -29,37 +29,22 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     /**Represents path to door image assets. */
     private static final String DOOR_PATH = "src/res/assets/";
-
-    private static final int DOOR_A_X = 96;
-
-    private static final int DOOR_B_X = 288;
-
-    private static final int DOOR_C_X = 480;
-
-    private static final int DOOR_D_X = 672;
-
     /** An image to represent valid floor that can be traversed by the sprite. Hidden
      * underneath the floor map image. */
     private final BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/black_square.png"));
     /** An image to represent invalid terrain that cannot be traversed by the sprite. Hidden
      * underneath the floor map image. */
     private final BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
-
     /** Controller object that uses keyboard input to manipulate player sprite.  */
     private UserController myUserControls;
-
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 48;
-
    /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
-
     /** The current room being rendered. */
     private Room myCurrentRoom;
-
     /** A value to get the ID of the current room displayed on the panel. */
     private int myRoomID;
-
     /** The graphical floor map for the currently loaded room. */
     private BufferedImage myFloorMap;
 
@@ -86,7 +71,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
-        myUserControls = new UserController(288,384, Direction.EAST, myGrid);
+        myUserControls = new UserController(480,480, Direction.EAST, myGrid);
         myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
         repaint();
     }
@@ -104,32 +89,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-//        try {
-//            BufferedImage closed = ImageIO.read(new File(DOOR_PATH + "door_closed.png"));
-//            BufferedImage open = ImageIO.read(new File(DOOR_PATH + "door_open.png"));
-//            // initialize all doors to closed
-//            g2d.drawImage(closed, DOOR_A_X, 0, this);
-//            g2d.drawImage(closed, DOOR_B_X, 0, this);
-//            g2d.drawImage(closed, DOOR_C_X, 0, this);
-//            g2d.drawImage(closed, DOOR_D_X, 0, this);
-//            // open doors as needed
-//            if (myCurrentRoom.hasRoomA()) {
-//                g2d.drawImage(open, DOOR_A_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomB()) {
-//                g2d.drawImage(open, DOOR_B_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomC()) {
-//                g2d.drawImage(open, DOOR_C_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomD()) {
-//                g2d.drawImage(open, DOOR_D_X, 0, this);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        //shifts floor map over to the right by 1 square to hide red zone boundaries.
+        //shifts floor map over down and to the right by 1 square to hide red zone boundaries.
         g2d.drawImage(myFloorMap, 48 , 48, this);
         //draws player sprite onto the frame
         g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),

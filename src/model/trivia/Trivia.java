@@ -125,6 +125,32 @@ public class Trivia {
     }
 
     /**
+     * Returns an ArrayList containing the correct and incorrect answers,
+     * whose order is shuffled.
+     *
+     * @return shuffled ArrayList of correct and incorrect answers
+     */
+    public ArrayList<String> getAnswers() {
+        ArrayList<String> answerList = new ArrayList<>();
+
+        // Add the correct answer to the answer list.
+        answerList.add(getCorrectAnswer());
+
+        // Store the wrong answers.
+        ArrayList<String> wrongAnswers = getIncorrectAnswers();
+
+        // Add the wrong answers to the answerList.
+        answerList.add(wrongAnswers.get(0));
+        answerList.add(wrongAnswers.get(1));
+        answerList.add(wrongAnswers.get(2));
+
+        // Shuffle the answerList that will be displayed to the user.
+        Collections.shuffle(answerList);
+
+        return answerList;
+    }
+
+    /**
      * Returns an integer that indicates the type of the Trivia question.
      *
      * @return integer representing the type of the question.

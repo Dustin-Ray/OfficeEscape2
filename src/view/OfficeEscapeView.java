@@ -1,5 +1,6 @@
 package view;
 
+import controller.TriviaManager;
 import model.room.Room;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -46,7 +47,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      * @throws FontFormatException if cannot load a given font file.
      */
     public OfficeEscapeView(List<Room> theRoomsList,
-                            HashMap<Room, HashSet<Room>> theRoomsMap) throws
+                            HashMap<Room, HashSet<Room>> theRoomsMap,
+                            final TriviaManager theTriviaManager) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,

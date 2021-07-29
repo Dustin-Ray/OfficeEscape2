@@ -23,6 +23,7 @@ public class RoomManager {
     /** The number of rows in the graph representation. */
     private final int myRows;
 
+    private TriviaManager myTriviaManager;
 
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
@@ -30,8 +31,11 @@ public class RoomManager {
      * @param theGraphRep The graph representation of connected Rooms.
      * @param theRows The number of rows in the graph representation.
      */
-    public RoomManager(final Map<Integer, List<Integer>> theGraphRep,
-                       final int theRows) {
+    public RoomManager(final Map<Integer,
+                        List<Integer>> theGraphRep,
+                        final int theRows,
+                        final TriviaManager theTriviaManager) {
+        myTriviaManager = theTriviaManager;
         myGraphRep = theGraphRep;
         myRows = theRows;
     }
@@ -58,7 +62,7 @@ public class RoomManager {
             for (Integer neighborID : myGraphRep.get(currID)) {
                 Room neighborRoom = new Room(neighborID);
                 if (!s.contains(neighborRoom)) {
-                    Door door = new Door(true, false);
+                    Door door = new Door(true, false, myTriviaManager.getTrivia());
                     if (currID - myRows == neighborID) {
                         // neighbor is north of curr (north = A)
                         currRoom.setDoorA(neighborRoom, door);

@@ -27,14 +27,16 @@ public class OfficeEscapeController {
      */
     public void run() throws IOException {
 
+        TriviaManager triviaMgr = new TriviaManager();
         GraphManager graphManager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
-        RoomManager roomManager = new RoomManager(graphManager.getConnectedRoomsMap(), DEFAULT_ROW_DIM);
+        RoomManager roomManager = new RoomManager(graphManager.getConnectedRoomsMap(), DEFAULT_ROW_DIM, triviaMgr);
         HashMap<Room, HashSet<Room>> roomsMap = roomManager.extractRoomsMap();
         List<Room> roomsList = roomManager.extractRoomsList();
 
+
         EventQueue.invokeLater(() -> {
             try {
-                new OfficeEscapeView(roomsList, roomsMap);
+                new OfficeEscapeView(roomsList, roomsMap, triviaMgr);
             } catch (final
                     ClassNotFoundException |
                     InstantiationException |

@@ -55,7 +55,7 @@ public class TriviaManager {
             System.exit(0);
         }
 
-        System.out.println("Testing if the questions have been loaded from database to ArrayLis.");
+        System.out.println("Testing if the questions have been loaded from database to ArrayList.");
         for (Trivia t: myTriviaList) {
             System.out.println(t);
         }
@@ -68,6 +68,7 @@ public class TriviaManager {
     public Trivia getTrivia() {
         // returns a random trivia object and removes it from the trivia pool
         Random rnd = new Random();
-        return myTriviaList.remove(rnd.nextInt(myTriviaList.size()));
+        System.out.println(myTriviaList.size());
+        return myTriviaList.get(Math.abs(rnd.nextInt(myTriviaList.size())));
     }
 }

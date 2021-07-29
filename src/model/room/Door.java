@@ -27,7 +27,10 @@ public class Door {
         isUnlocked = false;
     }
 
-    public Door(final boolean valid, final boolean unlocked) {
+    public Door(final boolean valid,
+                final boolean unlocked,
+                final Trivia theTrivia) {
+        myTrivia = theTrivia;
         isValid = valid;
         isUnlocked = unlocked;
 
@@ -51,6 +54,9 @@ public class Door {
     public void lockDoor() {
         isUnlocked = false;
     }
+
+    /** Returns Trivia object for this door. */
+    public Trivia getTrivia() {return myTrivia;}
 
     /**
      * Checks if this door is valid.

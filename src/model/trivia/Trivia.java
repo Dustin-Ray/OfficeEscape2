@@ -1,6 +1,7 @@
 package model.trivia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -31,17 +32,18 @@ public class Trivia {
     private final int myType;
 
     /**
-     * Constant representing a true false question type.
-     */
-    private final int TF = 1;
-    /**
-     * Constant representing a multiple choice question type.
-     */
-    private final int MC = 2;
-    /**
      * Constant representing a short answer question type.
      */
     private final int SA = 3;
+
+    /**
+     * Constant representing a true false question type.
+     */
+    int TF = 1;
+    /**
+     * Constant representing a multiple choice question type.
+     */
+    int MC = 2;
 
     /**
      *
@@ -60,6 +62,7 @@ public class Trivia {
         myQuestion = theQuestion;
         myCorrectAnswer = theCorrectAnswer;
         ArrayList<String> incorrect = new ArrayList<String>();
+
         if (theType == TF) {
             if (theCorrectAnswer.equals("T")) {
                 incorrect.add("F");
@@ -69,11 +72,9 @@ public class Trivia {
             }
         }
         else if (theType == MC) {
-            String split[] = theIncorrectAnswers.split("\\n");
+            String[] split = theIncorrectAnswers.split("\\n");
 
-            for(String line: split) {
-                incorrect.add(line);
-            }
+            incorrect.addAll(Arrays.asList(split));
         }
 
         myIncorrectAnswers = incorrect;

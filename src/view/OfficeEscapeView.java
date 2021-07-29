@@ -92,7 +92,6 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
     /** Adds a main menu panel to the frame. */
     private void addMainMenuPanel() {
-//        myMainMenuPanel = new MainMenuPanel();
         myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
         myMainMenuPanel.setBounds(0, 0, 1248, 768);
@@ -101,7 +100,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     /** Adds a toolbar menu to the top of the frame which contains options
      * for loading, saving, returning to main menu, etc. */
     private void addToolbarPanel() {
-        this.setJMenuBar(myCurrentToolbarMenu.menubar);
+        this.setJMenuBar(myCurrentToolbarMenu.getMyMenuBar());
         myCurrentToolbarMenu.setVisible(true);
     }
 
@@ -129,7 +128,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         repaint();
     }
 
-    /** Removes currently loaded panels */
+    /** Removes currently loaded panels and resets all listeners. */
     private void resetLoadedRoom() {
         //reset currently loaded room
         myCurrentRoomPanel.setVisible(false);

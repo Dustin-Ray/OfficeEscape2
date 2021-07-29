@@ -37,7 +37,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
     public MainMenuPanel() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
 
         this.setLayout(null);
-        playSound();
+
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         myBackground2 = ImageIO.read(new File("src/res/backgrounds/mainmenu2.png"));
         this.setBackground(Color.BLACK);
@@ -114,26 +114,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         }
     }
 
-    public void playSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
-        File audioFile = new File("src/res/assets/music/Jordan F - Our Destiny, Above Us.wav");
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
-        AudioFormat format = audioStream.getFormat();
-        DataLine.Info info = new DataLine.Info(Clip.class, format);
-        Clip audioClip = (Clip) AudioSystem.getLine(info);
-        audioClip.open(audioStream);
-        FloatControl volume = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue((float) -4);
-        audioClip.start();
-        audioClip.loop(100);
-
-
-
-//        audioClip.close();
-//        audioStream.close();
-
-    }
 
 
     /*

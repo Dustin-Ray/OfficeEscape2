@@ -55,6 +55,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
 
         myRoomsMap = theRoomsMap;
         myRoomList = theRoomsList;
+
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();

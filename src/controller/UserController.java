@@ -88,11 +88,16 @@ public class UserController implements PropertyChangeEnabledUserControls {
             result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)- 1]);
             myPositions = "Y pos: " + ((y / myDiv)) + "\n" + "X pos: " + ((x / myDiv));
         }
+        //helper code to fire debug info to console
         myNeighbors = "Surrounding terrain: \n";
         for (int j = 0; j < 4; j++) {
             Set<Direction> s = result.keySet();
             Object[] sArr = s.toArray();
-            myNeighbors = myNeighbors + sArr[j].toString() + ":    " + result.get(sArr[j]) + "\n";
+            myNeighbors = myNeighbors +
+                        sArr[j].toString() +
+                        ":    "
+                        + result.get(sArr[j])
+                        + "\n";
         }
         return Collections.unmodifiableMap(result);
     }

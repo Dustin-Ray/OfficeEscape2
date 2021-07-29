@@ -56,6 +56,7 @@ public class RoomManager {
         for (Integer currID : myGraphRep.keySet()) {
 
             Room currRoom = new Room(currID);
+
             HashSet<Room> s = new HashSet<>();
             if (rooms.containsKey(currRoom)) {
                 s = rooms.get(currRoom);
@@ -86,6 +87,7 @@ public class RoomManager {
                 }
             }
             rooms.put(currRoom, s);
+
         }
         return rooms;
     }

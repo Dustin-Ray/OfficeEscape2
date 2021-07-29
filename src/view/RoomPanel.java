@@ -27,8 +27,6 @@ import java.io.IOException;
  */
 public class RoomPanel extends JPanel implements ActionListener {
 
-    /**Represents path to door image assets. */
-    private static final String DOOR_PATH = "src/res/assets/";
     /** An image to represent valid floor that can be traversed by the sprite. Hidden
      * underneath the floor map image. */
     private final BufferedImage FLOOR_1 = ImageIO.read(new File("src/res/assets/black_square.png"));
@@ -68,11 +66,12 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     /** Helper method that can be called externally to switch rooms.  */
     public void loadRoom(final Room theRoom) throws IOException {
+
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
         myUserControls = new UserController(480,480, Direction.EAST, myGrid);
-        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
+        myFloorMap = ImageIO.read(new File("src/res/floor_maps/floor_map_" + theRoom.getRoomID() + "/floor_map_" + theRoom.getRoomID() + ".png"));
         repaint();
     }
 
@@ -90,8 +89,8 @@ public class RoomPanel extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
         //shifts floor map over up and to the left by 1 square to hide red zone boundaries.
-//        g2d.drawImage(myFloorMap, 48 , 48, this);
-        //draws player sprite onto the frame
+        g2d.drawImage(myFloorMap, 48 , 48, this);
+        //draws player sprite onto the frame, -48 is to account for the shift in terrain buffer grid
         g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),
                 getMyUserControls().getPlayer().getX() - 48,
                 getMyUserControls().getPlayer().getY() - 48,

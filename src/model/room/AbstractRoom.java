@@ -49,7 +49,7 @@ public abstract class AbstractRoom {
      * Room's RoomPanel.
      */
     private void readMapFile() {
-        File file = new File("src/res/floor_maps/floor_map_" + myID + ".txt");
+        File file = new File("src/res/floor_maps/floor_map_" + myID +  "/floor_map_" + myID + ".txt");
         try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
             readGrid(input);
         } catch (final IOException ioe) {

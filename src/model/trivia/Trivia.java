@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Creates trivia objects.
+ * Class to represents Trivia objects.
+ * Trivia objects are questions that are true/false, multiple choice
+ * or short answer.
+ *
  * @author Raz Consta
  */
 public class Trivia {
@@ -23,7 +26,7 @@ public class Trivia {
      */
     private final String myCorrectAnswer;
     /**
-     * ArrrayList of Strings storing the incorrect answer choices.
+     * ArrayList of Strings storing the incorrect answer choices.
      */
     private final ArrayList<String> myIncorrectAnswers;
     /**
@@ -46,12 +49,13 @@ public class Trivia {
     int MC = 2;
 
     /**
+     * Constructs a Trivia object.
      *
-     * @param theID
-     * @param theQuestion
-     * @param theCorrectAnswer
-     * @param theIncorrectAnswers
-     * @param theType
+     * @param theID integer ID of the Trivia
+     * @param theQuestion String storing the question
+     * @param theCorrectAnswer String storing the correct answer
+     * @param theIncorrectAnswers ArrayList storing the incorrect answers
+     * @param theType integer representing the type of the question
      */
     public Trivia(int theID,
                   String theQuestion,
@@ -61,7 +65,7 @@ public class Trivia {
         myID = theID;
         myQuestion = theQuestion;
         myCorrectAnswer = theCorrectAnswer;
-        ArrayList<String> incorrect = new ArrayList<String>();
+        ArrayList<String> incorrect = new ArrayList<>();
 
         if (theType == TF) {
             if (theCorrectAnswer.equals("T")) {
@@ -82,33 +86,38 @@ public class Trivia {
     }
 
     /**
+     * Returns the question of the Trivia object.
      *
-     * @return
+     * @return String representing the question.
      */
     public String getQuestion() {
         return myQuestion;
     }
 
     /**
+     * Returns the correct answer of the Trivia object.
      *
-     * @return
+     * @return String representing the correct answer.
      */
     public String getCorrectAnswer() {
         return myCorrectAnswer;
     }
 
     /**
+     * Returns a boolean whether the passed string matches the correct answer.
      *
-     * @param theAnswer
-     * @return
+     * @param theAnswer String representing the user's answer.
+     * @return true if the user's answer matches the correct answer, false otherwise
      */
     public boolean shortAnswerCorrect (String theAnswer) {
         return theAnswer.equalsIgnoreCase(myCorrectAnswer);
     }
 
     /**
+     * Returns the ArrayList of incorrect answers for the Trivia question.
+     * In the case of TF and SA type of questions, the ArrayList is empty.
      *
-     * @return
+     * @return ArrayList containing Strings of incorrect answers.
      */
     public ArrayList<String> getIncorrectAnswers() {
         Collections.shuffle(myIncorrectAnswers);
@@ -116,16 +125,18 @@ public class Trivia {
     }
 
     /**
+     * Returns an integer that indicates the type of the Trivia question.
      *
-     * @return
+     * @return integer representing the type of the question.
      */
     public int getType() {
         return myType;
     }
 
     /**
+     * Returns a String representation of the Trivia object.
      *
-     * @return
+     * @return String that shows the questions and correct answer.
      */
     public String toString() {
         return "Q: " + myQuestion + " A: " + myCorrectAnswer;

@@ -69,29 +69,15 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-            case PROPERTY_PROXIMITY_DOOR_A -> {
-                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door A");
+            case PROPERTY_PROXIMITY_DOOR_A, PROPERTY_PROXIMITY_DOOR_D, PROPERTY_PROXIMITY_DOOR_C, PROPERTY_PROXIMITY_DOOR_B -> {
+                myConsoleScreenTextArea1.setText("Press E for trivia");
             }
-            case PROPERTY_PROXIMITY_DOOR_B -> {
-                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door B");
-            }
-            case PROPERTY_PROXIMITY_DOOR_C -> {
-                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door C");
-            }
-            case PROPERTY_PROXIMITY_DOOR_D -> {
-                myConsoleScreenTextArea1.setText("Property change fired: " + "\n" + "next to door D");
-            }
-//            case PROPERTY_PROXIMITY_NO_DOOR -> {
-//                myConsoleScreenTextArea.setText("not near any door");
-//            }
             case XY_POSITION -> {
                 myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
             }
-
             case NEIGHBOR_CHANGE -> {
                 myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
             }
-
         }
     }
 

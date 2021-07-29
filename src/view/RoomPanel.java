@@ -89,7 +89,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-        //shifts floor map over down and to the right by 1 square to hide red zone boundaries.
+        //shifts floor map over up and to the left by 1 square to hide red zone boundaries.
         g2d.drawImage(myFloorMap, 48 , 48, this);
         //draws player sprite onto the frame
         g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),

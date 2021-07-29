@@ -28,25 +28,20 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /**Values uses to represent change in x and y positioning during key
      * pressed/released event. */
     private int dx, dy;
-
     /**Triggers option for trivia event if true. */
     private boolean myNextToDoor;
-
     /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
     private final Terrain[][] myGrid;
-
+    /**Property change support manager for this object. Used to fire changes to listeners.  */
     private final PropertyChangeSupport myPcs;
-
     /** A value used to determine if the player wants to enter the next room. */
     private boolean myLoadGameFlag;
-
     /** The value used to calculate proximity to terrain in getNeighbors method.
      * Can be changed to fit different asset pixel sizes. */
     private int myDiv;
-
     /** Used for debugging, fires to console panel so sprite position can be determined. */
     private String myPositions;
-
+    /**String representation of neighbors surrounding the player sprite.  */
     private String myNeighbors;
 
 
@@ -87,13 +82,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             //uses the x y position of the sprite to access the elements of the terrain array.
-             result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
             result.put(Direction.SOUTH, myGrid[(y / myDiv) + 1][(x / myDiv)]);
             result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv) + 1]);
             result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)]);
-
             myPositions = "Y pos: " + ((y / myDiv)) + "\n" + "X pos: " + ((x / myDiv));
-
         }
         myNeighbors = "Surrounding terrain: \n";
         for (int j = 0; j < 4; j++) {

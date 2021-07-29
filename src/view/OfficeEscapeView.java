@@ -100,8 +100,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
     private void addToolbarPanel() {
         this.setJMenuBar(myCurrentToolbarMenu.menubar);
         myCurrentToolbarMenu.setVisible(true);
-        myConsolePanel.setVisible(false);
     }
+
+
 
     /**
      * Loads a given room into the room panel. Used for room traversal. Removes
@@ -111,6 +112,8 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      * @throws IOException if any resource cannot be loaded.
      */
     private void loadRoom(final Room theRoom) throws IOException {
+
+        //load new room
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
         this.add(myCurrentRoomPanel);
         myCurrentRoomPanel.setVisible(true);
@@ -118,6 +121,19 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.requestFocusInWindow();
         myConsolePanel.setRoomID(myCurrentRoomPanel.getCurrentRoomID());
         myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(this);
+        this.add(myConsolePanel);
+        repaint();
+    }
+
+    /** Removes currently loaded panels */
+    private void resetLoadedRoom() {
+        //reset currently loaded room
+        myCurrentRoomPanel.setVisible(false);
+        this.remove(myCurrentRoomPanel);
+        this.remove(myConsolePanel);
+        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
     }
 
     /**
@@ -133,6 +149,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomA() != null && canLoad) {
                     try {
                         myCurrentRoomPanel.getMyCurrentRoom().getDoorA().unlockDoor();
+                        resetLoadedRoom();
                         loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomA());
                     } catch (IOException e) {e.printStackTrace();}}
             }
@@ -140,6 +157,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomB() != null && canLoad) {
                     try {
                         myCurrentRoomPanel.getMyCurrentRoom().getDoorB().unlockDoor();
+                        resetLoadedRoom();
                         loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomB());}
                     catch (IOException e) {e.printStackTrace();}
                 }
@@ -148,6 +166,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomC() != null && canLoad) {
                     try {
                         myCurrentRoomPanel.getMyCurrentRoom().getDoorC().unlockDoor();
+                        resetLoadedRoom();
                         loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomC());}
                     catch (IOException e) {e.printStackTrace();}
                 }
@@ -156,6 +175,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 if (myCurrentRoomPanel.getMyCurrentRoom().getRoomD() != null && canLoad) {
                     try {
                         myCurrentRoomPanel.getMyCurrentRoom().getDoorD().unlockDoor();
+                        resetLoadedRoom();
                         loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomD());}
                     catch (IOException e) {e.printStackTrace();}
                 }

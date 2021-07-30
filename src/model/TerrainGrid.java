@@ -1,10 +1,14 @@
 package model;
 
+import model.room.Terrain;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class FileReader {
+import static model.room.Terrain.*;
+
+public class TerrainGrid {
 
     private static final String ROOM_A = "5";
 
@@ -24,17 +28,17 @@ public class FileReader {
 
     private final String myPath;
 
-    private String[][] myGrid;
+    private Terrain[][] myGrid;
 
 
-    public FileReader(final int theRows, final int theCols, String thePath) {
+    public TerrainGrid(final int theRows, final int theCols, String thePath) {
         myRows = theRows;
         myCols = theCols;
         myPath = thePath;
 
-        myGrid = new String[myRows + PADDING][myCols + PADDING];
-        for (String[] row : myGrid) {
-            Arrays.fill(row, "R");
+        myGrid = new Terrain[myRows + PADDING][myCols + PADDING];
+        for (Terrain[] row : myGrid) {
+            Arrays.fill(row, RED_ZONE);
         }
 
         translateFile();
@@ -48,20 +52,19 @@ public class FileReader {
                 String[] line = sc.nextLine().split(",");
                 for (int col = 1; col < myCols + 1; col++) {
                     String curr = line[col - 1];
+                    Terrain terrain = RED_ZONE;
                     if (curr.equals(ROOM_A)) {
-                        curr = "A";
+                        terrain = DOOR_CLOSED_A;
                     } else if (curr.equals(ROOM_B)) {
-                        curr = "B";
+                        terrain = DOOR_CLOSED_B;
                     } else if (curr.equals(ROOM_C)) {
-                        curr = "C";
+                        terrain = DOOR_CLOSED_C;
                     } else if (curr.equals(ROOM_D)) {
-                        curr = "D";
+                        terrain = DOOR_CLOSED_D;
                     } else if (!curr.equals(INVALID)) {
-                        curr = "F";
-                    } else {
-                        curr = "R";
+                        terrain = FLOOR_1;
                     }
-                    myGrid[row][col] = curr;
+                    myGrid[row][col] = terrain;
                 }
             }
         } catch (Exception e) {
@@ -69,7 +72,8 @@ public class FileReader {
         }
     }
 
-    public String[][] getGrid() {
+    public Terrain[][] getGrid() {
         return myGrid;
     }
+
 }

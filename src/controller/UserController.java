@@ -22,7 +22,7 @@ import static model.room.Terrain.*;
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 2;
+    private static final int MOVEMENT_SPEED = 8;
     /** Object representing player character. */
     private final Player player;
     /**Values uses to represent change in x and y positioning during key
@@ -201,8 +201,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
             }
             else {
                 myNextToDoor = false;
-//                fireXYPositionChange();
-//                fireNeighborChange();
+                fireXYPositionChange();
+                fireNeighborChange();
             }
         }
     }

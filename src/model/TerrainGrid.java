@@ -10,13 +10,13 @@ import static model.room.Terrain.*;
 
 public class TerrainGrid {
 
-    private static final String ROOM_A = "5";
+    private static final String ROOM_A = "77";
 
-    private static final String ROOM_B = "184";
+    private static final String ROOM_B = "78";
 
-    private static final String ROOM_C = "102";
+    private static final String ROOM_C = "94";
 
-    private static final String ROOM_D = "98";
+    private static final String ROOM_D = "93";
 
     private static final String INVALID = "-1";
 

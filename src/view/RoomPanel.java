@@ -71,7 +71,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
         myUserControls = new UserController(480,480, Direction.EAST, myGrid);
-        myFloorMap = ImageIO.read(new File("src/res/floor_maps/floor_map_" + theRoom.getRoomID() + "/floor_map_" + theRoom.getRoomID() + ".png"));
+        myFloorMap = ImageIO.read(new File("src/res/floor_maps/floor_map_" + theRoom.getRoomID() + "/floor_map.png"));
         repaint();
     }
 

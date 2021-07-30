@@ -44,7 +44,7 @@ public abstract class AbstractRoom {
 
 
     public String getFilePath() {
-        return "src/res/floor_maps/floor_map_" + myID +  "/floor_map_" + myID + ".csv";
+        return "src/res/floor_maps/floor_map_" + myID +  "/floor_map_validfloor.csv";
     }
 
 

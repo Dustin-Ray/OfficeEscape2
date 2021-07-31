@@ -86,7 +86,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
             result.put(Direction.SOUTH, myGrid[(y / myDiv)][(x / myDiv)]);
             result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv)]);
             result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)- 1]);
-            myPositions = "Y pos: " + ((y / myDiv)) + "\n" + "X pos: " + ((x / myDiv));
+            myPositions = "Y pos: " + ((y / myDiv)) + "\t" + "X pos: " + ((x / myDiv));
         }
         //helper code to fire debug info to console
         myNeighbors = "Surrounding terrain: \n";
@@ -165,11 +165,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
      */
     public boolean canPass(final Terrain theTerrain) {
 
-        return (theTerrain == FLOOR_1 ||
-                theTerrain == DOOR_CLOSED_A ||
-                theTerrain == DOOR_CLOSED_B ||
-                theTerrain == DOOR_CLOSED_C ||
-                theTerrain == DOOR_CLOSED_D);
+        return !(theTerrain == RED_ZONE);
     }
 
     /**

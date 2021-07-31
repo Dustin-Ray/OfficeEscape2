@@ -18,7 +18,7 @@ public class TerrainGrid {
 
     private static final String ROOM_D = "3";
 
-    private static final String INVALID = "-1";
+    private static final String RED_ZONE = "-1";
 
     private static final int PADDING = 2;
 
@@ -28,7 +28,7 @@ public class TerrainGrid {
 
     private final String myPath;
 
-    private Terrain[][] myGrid;
+    private final Terrain[][] myGrid;
 
 
     public TerrainGrid(final int theRows, final int theCols, String thePath) {
@@ -38,7 +38,7 @@ public class TerrainGrid {
 
         myGrid = new Terrain[myRows + PADDING][myCols + PADDING];
         for (Terrain[] row : myGrid) {
-            Arrays.fill(row, RED_ZONE);
+            Arrays.fill(row, Terrain.RED_ZONE);
         }
 
         translateFile();
@@ -52,7 +52,7 @@ public class TerrainGrid {
                 String[] line = sc.nextLine().split(",");
                 for (int col = 1; col < myCols + 1; col++) {
                     String curr = line[col - 1];
-                    Terrain terrain = RED_ZONE;
+                    Terrain terrain = Terrain.RED_ZONE;
                     if (curr.equals(ROOM_A)) {
                         terrain = DOOR_CLOSED_A;
                     } else if (curr.equals(ROOM_B)) {
@@ -61,7 +61,7 @@ public class TerrainGrid {
                         terrain = DOOR_CLOSED_C;
                     } else if (curr.equals(ROOM_D)) {
                         terrain = DOOR_CLOSED_D;
-                    } else if (!curr.equals(INVALID)) {
+                    } else if (!curr.equals(RED_ZONE)) {
                         terrain = FLOOR_1;
                     }
                     myGrid[row][col] = terrain;

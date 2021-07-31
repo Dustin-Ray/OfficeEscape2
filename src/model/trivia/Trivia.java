@@ -67,7 +67,7 @@ public class Trivia {
         myCorrectAnswer = theCorrectAnswer;
         ArrayList<String> incorrect = new ArrayList<>();
 
-        if (theType == TF) {
+        if (theType == 1) {
             if (theCorrectAnswer.equals("T")) {
                 incorrect.add("F");
             }
@@ -75,7 +75,7 @@ public class Trivia {
                 incorrect.add("T");
             }
         }
-        else if (theType == MC) {
+        else if (theType == 2) {
             String[] split = theIncorrectAnswers.split("\\n");
 
             incorrect.addAll(Arrays.asList(split));
@@ -139,10 +139,9 @@ public class Trivia {
         // Store the wrong answers.
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
 
+
         // Add the wrong answers to the answerList.
-        answerList.add(wrongAnswers.get(0));
-        answerList.add(wrongAnswers.get(1));
-        answerList.add(wrongAnswers.get(2));
+        answerList.addAll(myIncorrectAnswers);
 
         // Shuffle the answerList that will be displayed to the user.
         Collections.shuffle(answerList);

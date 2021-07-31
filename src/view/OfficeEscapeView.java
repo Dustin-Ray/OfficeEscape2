@@ -2,6 +2,7 @@ package view;
 
 import controller.TriviaManager;
 import model.room.Room;
+import model.trivia.Trivia;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -151,27 +152,42 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
         boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().getRoomA() != null && canLoad) {
-                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().getTrivia());
+                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomA()) {
+                    myConsolePanel.triviaPrompt();
+                    if (canLoad) {startTriviaEvent("A");}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().getRoomB() != null && canLoad) {
-                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().getTrivia());
+                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomB()) {
+                    myConsolePanel.triviaPrompt();
+                    if (canLoad) {startTriviaEvent("B");}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().getRoomC() != null && canLoad) {
-                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().getTrivia());
+                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomC()) {
+                    myConsolePanel.triviaPrompt();
+                    if (canLoad) {startTriviaEvent("C");}
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().getRoomD() != null && canLoad) {
-                    myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().getTrivia());
+                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomD()) {
+                    myConsolePanel.triviaPrompt();
+                    if (canLoad) {startTriviaEvent("D");}
                 }
             }
         }
     }
+
+    /** Cleans up propertyChange method. Sets the trivia text in the console panel
+     * to the trivia object attached to the door specified by theDoorLetter.
+     * @param theDoorLetter is the door from which the trivia object is retrieved. */
+    public void startTriviaEvent(final String theDoorLetter) {
+        if("A".equals(theDoorLetter)) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().getTrivia());}
+        else if("B".equals(theDoorLetter)) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().getTrivia());}
+        else if("C".equals(theDoorLetter)) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().getTrivia());}
+        else if("D".equals(theDoorLetter)) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().getTrivia());}
+    }
+
 
     /**
      * Attempts to set look and feel to system defaults. Reverts to

@@ -22,7 +22,7 @@ import static model.room.Terrain.*;
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 8;
+    private static final int MOVEMENT_SPEED = 3;
     /** Object representing player character. */
     private final Player player;
     /**Values uses to represent change in x and y positioning during key
@@ -175,31 +175,28 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void advance() {
         final Map<Direction, Terrain> neighbors = generateNeighbors(player);
         if(this.canPass(neighbors.get(player.getDirection()))) {
-            this.move(player.getDirection());
-            if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_A) {
+
+            if (neighbors.get(player.getDirection()) == DOOR_CLOSED_A) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-                player.setMyPlayerSprite("UP?");
-            } else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_B) {
+            } else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_B) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-                player.setMyPlayerSprite("UP?");
             }
-            else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_C) {
+            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_C) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-                player.setMyPlayerSprite("UP?");
             }
-            else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
+            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_D) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-                player.setMyPlayerSprite("UP?");
             }
             else {
                 myNextToDoor = false;
                 fireXYPositionChange();
                 fireNeighborChange();
             }
+            this.move(player.getDirection());
         }
     }
 

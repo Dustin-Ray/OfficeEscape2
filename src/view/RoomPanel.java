@@ -82,6 +82,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
 
+
     /** Overrides swing paintComponent to draw GUI elements. Can be called manually with repaint() */
     @Override
     public void paintComponent(Graphics g) {

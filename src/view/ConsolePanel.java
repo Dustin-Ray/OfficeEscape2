@@ -73,9 +73,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-            case PROPERTY_PROXIMITY_DOOR_A, PROPERTY_PROXIMITY_DOOR_D, PROPERTY_PROXIMITY_DOOR_C, PROPERTY_PROXIMITY_DOOR_B -> {
-                myConsoleScreenTextArea1.setText("Press E for trivia");
-            }
             case XY_POSITION -> {
                 myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
             }
@@ -85,7 +82,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
-    /** */
+    /** Prompts to begin trivia event. */
+    public void triviaPrompt() {myConsoleScreenTextArea1.setText("Press E for Trivia: ");}
+
+    /** Sets text area 2 to display the trivia question and text area 3 to display answer area.
+     * @param theTrivia is the trivia question to operate on. */
     public void setTrivia(final Trivia theTrivia) {
         myConsoleScreenTextArea2.setText("QUESTION: \n" + theTrivia.getQuestion());
         myConsoleScreenTextArea3.setText("CHOOSE YOUR ANSWER: \n" + theTrivia.getIncorrectAnswers().toString());

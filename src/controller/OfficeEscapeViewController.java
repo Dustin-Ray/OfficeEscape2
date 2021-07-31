@@ -1,7 +1,11 @@
-package view;
+package controller;
 
 import controller.TriviaManager;
 import model.room.Room;
+import view.ConsolePanel;
+import view.MainMenuPanel;
+import view.RoomPanel;
+import view.ToolbarMenu;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -21,7 +25,7 @@ import static controller.PropertyChangeEnabledUserControls.*;
  * @author Dustin Ray
  * @version Summer 2021
  */
-public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
+public class OfficeEscapeViewController extends JFrame implements PropertyChangeListener {
 
     /** The current room panel which renders the game room to the screen. */
     RoomPanel myCurrentRoomPanel;
@@ -49,9 +53,9 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
      * @throws IOException if cannot load system l/f.
      * @throws FontFormatException if cannot load a given font file.
      */
-    public OfficeEscapeView(List<Room> theRoomsList,
-                            HashMap<Room, HashSet<Room>> theRoomsMap,
-                            final TriviaManager theTriviaManager) throws
+    public OfficeEscapeViewController(List<Room> theRoomsList,
+                                      HashMap<Room, HashSet<Room>> theRoomsMap,
+                                      final TriviaManager theTriviaManager) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
@@ -160,13 +164,12 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("A");}
                     if(myConsolePanel.myFlag) {
+                        myCurrentRoomPanel.getMyCurrentRoom().getDoorA().unlockDoor();
                         resetLoadedRoom();
                         try {
                             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomA());
                             myConsolePanel.myFlag = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        } catch (IOException e) {e.printStackTrace();}
                     }
                 }
             }
@@ -176,13 +179,12 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("B");}
                     if(myConsolePanel.myFlag) {
+                        myCurrentRoomPanel.getMyCurrentRoom().getDoorB().unlockDoor();
                         resetLoadedRoom();
                         try {
                             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomB());
                             myConsolePanel.myFlag = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        } catch (IOException e) {e.printStackTrace();}
                     }
                 }
             }
@@ -192,13 +194,12 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("C");}
                     if(myConsolePanel.myFlag) {
+                        myCurrentRoomPanel.getMyCurrentRoom().getDoorC().unlockDoor();
                         resetLoadedRoom();
                         try {
                             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomC());
                             myConsolePanel.myFlag = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        } catch (IOException e) {e.printStackTrace();}
                     }
                 }
             }
@@ -208,19 +209,16 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("D");}
                     if(myConsolePanel.myFlag) {
+                        myCurrentRoomPanel.getMyCurrentRoom().getDoorD().unlockDoor();
                         resetLoadedRoom();
                         try {
                             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomD());
                             myConsolePanel.myFlag = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        } catch (IOException e) {e.printStackTrace();}
                     }
                 }
             }
-            case NEIGHBOR_CHANGE -> {
-                myConsolePanel.resetAnswerVisibility();
-            }
+            case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
         }
     }
 

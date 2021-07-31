@@ -3,13 +3,7 @@ package controller;
 import model.room.Door;
 import model.room.Room;
 
-import java.io.IOException;
 import java.util.*;
-
-
-
-
-
 
 /**
  * Uses a graph representation to generate a mapping of each Room to connected
@@ -28,6 +22,7 @@ public class RoomManager {
     /** The number of rows in the graph representation. */
     private final int myRows;
 
+    private final TriviaManager myTriviaManager;
 
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
@@ -35,8 +30,11 @@ public class RoomManager {
      * @param theGraphRep The graph representation of connected Rooms.
      * @param theRows The number of rows in the graph representation.
      */
-    public RoomManager(final Map<Integer, List<Integer>> theGraphRep,
-                       final int theRows) {
+    public RoomManager(final Map<Integer,
+                        List<Integer>> theGraphRep,
+                        final int theRows,
+                        final TriviaManager theTriviaManager) {
+        myTriviaManager = theTriviaManager;
         myGraphRep = theGraphRep;
         myRows = theRows;
     }
@@ -48,13 +46,10 @@ public class RoomManager {
      *
      * @return A mapping of each Room to connected Rooms.
      */
-    public HashMap<Room, HashSet<Room>> extractRoomsMap() throws IOException {
+    public HashMap<Room, HashSet<Room>> extractRoomsMap() {
         rooms = new HashMap<>();
-        Set<Integer> handled = new HashSet<>();
-        HashMap<Integer, Room> idToRoom = new HashMap<>();
 
         for (Integer currID : myGraphRep.keySet()) {
-
             Room currRoom = new Room(currID);
             HashSet<Room> s = new HashSet<>();
             if (rooms.containsKey(currRoom)) {
@@ -64,7 +59,7 @@ public class RoomManager {
             for (Integer neighborID : myGraphRep.get(currID)) {
                 Room neighborRoom = new Room(neighborID);
                 if (!s.contains(neighborRoom)) {
-                    Door door = new Door(true, false);
+                    Door door = new Door(true, false, myTriviaManager.getTrivia());
                     if (currID - myRows == neighborID) {
                         // neighbor is north of curr (north = A)
                         currRoom.setDoorA(neighborRoom, door);

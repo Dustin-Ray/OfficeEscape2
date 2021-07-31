@@ -39,7 +39,7 @@ public enum Terrain {
      *         Terrain is represented by the given letter.
      */
     public static Terrain valueOf(final char theLetter) {
-        Terrain result = RED_ZONE;
+        Terrain result = FLOOR_1;
         for (final Terrain terrain : Terrain.values()) {
             if (terrain.myLetter == theLetter) {
                 result = terrain;

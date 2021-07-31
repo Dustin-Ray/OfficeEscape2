@@ -8,7 +8,8 @@ import java.util.Random;
  * @author Marty Stepp
  * @author Daniel M. Zimmerman
  * @author Alan Fowler (acfowler@u.washington.edu)
- * @version 1.1
+ * @author Dustin Ray (modified for use in Office Escape application.)
+ * @version Summer 2021
  */
 public enum Direction {
 

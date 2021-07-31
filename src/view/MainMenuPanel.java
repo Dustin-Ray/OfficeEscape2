@@ -1,6 +1,8 @@
 package view;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -33,9 +35,10 @@ public class MainMenuPanel extends JPanel implements Runnable {
      * @throws IOException If any resource cannot be loaded.
      * @throws FontFormatException if font cannot be loaded.
      */
-    public MainMenuPanel() throws IOException, FontFormatException {
+    public MainMenuPanel() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
 
         this.setLayout(null);
+
         myBackground1 = ImageIO.read(new File("src/res/backgrounds/mainmenu.png"));
         myBackground2 = ImageIO.read(new File("src/res/backgrounds/mainmenu2.png"));
         this.setBackground(Color.BLACK);
@@ -45,7 +48,7 @@ public class MainMenuPanel extends JPanel implements Runnable {
         animate.start();
         this.setPreferredSize(new Dimension(1200, 768));
 
-        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/expansiva/Expansiva.otf"));
+        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
         fontTest = fontTest.deriveFont(Font.PLAIN, 24);
 
         final JLabel newGame = new JLabel("new game");
@@ -111,6 +114,9 @@ public class MainMenuPanel extends JPanel implements Runnable {
             beforeTime = System.currentTimeMillis();
         }
     }
+
+
+
 
     /*
      * create a inner class to handle key inputs

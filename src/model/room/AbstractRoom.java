@@ -1,10 +1,6 @@
 package model.room;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
+import model.TerrainGrid;
 
 /**
  * Implements behavior common to all Rooms.
@@ -33,7 +29,8 @@ public abstract class AbstractRoom {
     /** The int ID for this room. */
     private final int myID;
     /** The terrain grid for this room. */
-    private Terrain[][] myTerrain;
+    private final Terrain[][] myTerrain;
+
 
     /**
      * Constructs a Room with the given integer ID.
@@ -41,37 +38,13 @@ public abstract class AbstractRoom {
      */
     public AbstractRoom(final int theID) {
         myID = theID;
-        readMapFile();
+        TerrainGrid tG = new TerrainGrid(16, 16, getFilePath());
+        myTerrain = tG.getGrid();
     }
 
-    /**
-     * Reads the map text file corresponding to this Rooms ID and builds this
-     * Room's RoomPanel.
-     */
-    private void readMapFile() {
-        File file = new File("src/res/floor_maps/floor_map_" + myID + ".txt");
-        try (Scanner input = new Scanner(new BufferedReader(new FileReader(file)))) {
-            readGrid(input);
-        } catch (final IOException ioe) {
-            System.out.println("Error loading resource, check all externally loaded file paths. ");
-        }
-    }
 
-    /**
-     * Converts a characters into a 2d Terrain grid.
-     * @param theInput The input scanner.
-     */
-    private void readGrid(final Scanner theInput) {
-        final int numRows = theInput.nextInt();
-        final int numColumns = theInput.nextInt();
-        theInput.nextLine();
-        myTerrain = new Terrain[numRows][numColumns];
-        for (int row = 0; row < numRows; row++) {
-            final String line = theInput.nextLine();
-            for (int column = 0; column < numColumns; column++) {
-                myTerrain[row][column] = Terrain.valueOf(line.charAt(column));
-            }
-        }
+    public String getFilePath() {
+        return "src/res/floor_maps/floor_map_" + myID +  "/floor_map_validfloor.csv";
     }
 
 

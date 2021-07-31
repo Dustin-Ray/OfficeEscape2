@@ -16,27 +16,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Panel that contains all elements necessary to render a room. Contains a key listener
- * which communicates with user controller to position the sprite on the screen and allow
- * interaction with panel elements.
- *
- * @author Dustin Ray
- * @author Reuben Keller
- * @version Summer 2021
- */
+
 public class RoomPanel extends JPanel implements ActionListener {
-
-    /**Represents path to door image assets. */
-    private static final String DOOR_PATH = "src/res/assets/";
-
-    private static final int DOOR_A_X = 96;
-
-    private static final int DOOR_B_X = 288;
-
-    private static final int DOOR_C_X = 480;
-
-    private static final int DOOR_D_X = 672;
 
     /** An image to represent valid floor that can be traversed by the sprite. Hidden
      * underneath the floor map image. */
@@ -44,22 +25,16 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** An image to represent invalid terrain that cannot be traversed by the sprite. Hidden
      * underneath the floor map image. */
     private final BufferedImage RED_ZONE = ImageIO.read(new File("src/res/assets/red_zone.png"));
-
     /** Controller object that uses keyboard input to manipulate player sprite.  */
     private UserController myUserControls;
-
     /** The size in pixels of a side of one "square" on the grid. */
     private static final int SQUARE_SIZE = 48;
-
    /** The terrain grid for the simulation. */
     private Terrain[][] myGrid;
-
     /** The current room being rendered. */
     private Room myCurrentRoom;
-
     /** A value to get the ID of the current room displayed on the panel. */
     private int myRoomID;
-
     /** The graphical floor map for the currently loaded room. */
     private BufferedImage myFloorMap;
 
@@ -67,14 +42,14 @@ public class RoomPanel extends JPanel implements ActionListener {
      * Constructor for class.
      *
      * @param theRoom Current room to load into the panel.
-     * @throws IOException if room is not able to be loaded.
+     * @throws IOException if any resource used by this class cannot be loaded.
      */
     public RoomPanel(final Room theRoom) throws IOException {
         super();
         this.loadRoom(theRoom);
         setBackground(Color.BLACK);
         this.setFocusable(true);
-        int DELAY = 10;
+        int DELAY = 1;
         Timer timer = new Timer(DELAY, this);
         timer.start();
         addKeyListener(new TAdapter());
@@ -83,11 +58,12 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     /** Helper method that can be called externally to switch rooms.  */
     public void loadRoom(final Room theRoom) throws IOException {
+
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
-        myUserControls = new UserController(288,384, Direction.EAST, myGrid);
-        myFloorMap = ImageIO.read(new File(DOOR_PATH + "maps/floor_map_" + theRoom.getRoomID() + ".png"));
+        myUserControls = new UserController(480,480, Direction.EAST, myGrid);
+        myFloorMap = ImageIO.read(new File("src/res/floor_maps/floor_map_" + theRoom.getRoomID() + "/floor_map.png"));
         repaint();
     }
 
@@ -98,43 +74,19 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
 
+
     /** Overrides swing paintComponent to draw GUI elements. Can be called manually with repaint() */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         drawMap(g2d);
-//        try {
-//            BufferedImage closed = ImageIO.read(new File(DOOR_PATH + "door_closed.png"));
-//            BufferedImage open = ImageIO.read(new File(DOOR_PATH + "door_open.png"));
-//            // initialize all doors to closed
-//            g2d.drawImage(closed, DOOR_A_X, 0, this);
-//            g2d.drawImage(closed, DOOR_B_X, 0, this);
-//            g2d.drawImage(closed, DOOR_C_X, 0, this);
-//            g2d.drawImage(closed, DOOR_D_X, 0, this);
-//            // open doors as needed
-//            if (myCurrentRoom.hasRoomA()) {
-//                g2d.drawImage(open, DOOR_A_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomB()) {
-//                g2d.drawImage(open, DOOR_B_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomC()) {
-//                g2d.drawImage(open, DOOR_C_X, 0, this);
-//            }
-//            if (myCurrentRoom.hasRoomD()) {
-//                g2d.drawImage(open, DOOR_D_X, 0, this);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        //shifts floor map over to the right by 2 squares to hide red zone boundaries.
-        g2d.drawImage(myFloorMap, 96 , 0, this);
-        //draws player sprite onto the frame
+        //shifts floor map over up and to the left by 1 square to hide red zone boundaries.
+        g2d.drawImage(myFloorMap, 48 , 48, this);
+        //draws player sprite onto the frame, -48 is to account for the shift in terrain buffer grid
         g2d.drawImage(getMyUserControls().getPlayer().getPlayerSprite(),
-                getMyUserControls().getPlayer().getX(),
-                getMyUserControls().getPlayer().getY(),
+                getMyUserControls().getPlayer().getX() - 48,
+                getMyUserControls().getPlayer().getY() - 48,
                 this);
     }
 
@@ -182,7 +134,12 @@ public class RoomPanel extends JPanel implements ActionListener {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
                     case RED_ZONE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
-                    case FLOOR_1 -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
+                    case FLOOR_1,
+                            DOOR_CLOSED_A,
+                            DOOR_CLOSED_B,
+                            DOOR_CLOSED_C,
+                            DOOR_CLOSED_D -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
+
                 }
             }
         }
@@ -200,7 +157,6 @@ public class RoomPanel extends JPanel implements ActionListener {
      * @return the current user controller loaded into this frame.
      */
     public UserController getMyUserControls() {return myUserControls;}
-
 
 }
 

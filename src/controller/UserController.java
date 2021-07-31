@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static model.room.Terrain.*;
 
@@ -21,28 +22,27 @@ import static model.room.Terrain.*;
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 8;
+    private static final int MOVEMENT_SPEED = 3;
     /** Object representing player character. */
     private final Player player;
     /**Values uses to represent change in x and y positioning during key
      * pressed/released event. */
     private int dx, dy;
-
     /**Triggers option for trivia event if true. */
     private boolean myNextToDoor;
-
-    /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
+    /** The terrain grid for the simulation. Square size defined by terrain grid.  */
     private final Terrain[][] myGrid;
-
+    /**Property change support manager for this object. Used to fire changes to listeners.  */
     private final PropertyChangeSupport myPcs;
-
     /** A value used to determine if the player wants to enter the next room. */
     private boolean myLoadGameFlag;
-
     /** The value used to calculate proximity to terrain in getNeighbors method.
      * Can be changed to fit different asset pixel sizes. */
     private int myDiv;
-
+    /** Used for debugging, fires to console panel so sprite position can be determined. */
+    private String myPositions;
+    /**String representation of neighbors surrounding the player sprite.  */
+    private String myNeighbors;
 
     /**
      * Constructor.
@@ -80,12 +80,23 @@ public class UserController implements PropertyChangeEnabledUserControls {
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
             //uses the x y position of the sprite to access the elements of the terrain array.
-            result.put(Direction.NORTH, myGrid[(y / myDiv)][(x / myDiv)]);
-            result.put(Direction.SOUTH, myGrid[(y / myDiv) + 2][(x / myDiv)]);
-            result.put(Direction.EAST, myGrid[(y / myDiv) + 2][(x / myDiv) + 2]);
-            result.put(Direction.WEST, myGrid[(y / myDiv) + 2][(x / myDiv)]);
+            result.put(Direction.NORTH, myGrid[(y / myDiv) -1][(x / myDiv)]);
+            result.put(Direction.SOUTH, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv)]);
+            result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)- 1]);
+            myPositions = "Y pos: " + ((y / myDiv)) + "\t" + "X pos: " + ((x / myDiv));
         }
-//        System.out.println(result.toString());
+        //helper code to fire debug info to console
+        myNeighbors = "Surrounding terrain: \n";
+        for (int j = 0; j < 4; j++) {
+            Set<Direction> s = result.keySet();
+            Object[] sArr = s.toArray();
+            myNeighbors = myNeighbors +
+                        sArr[j].toString() +
+                        ":    "
+                        + result.get(sArr[j])
+                        + "\n";
+        }
         return Collections.unmodifiableMap(result);
     }
 
@@ -150,9 +161,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @param theTerrain is the terrain to check for validity.
      * @return boolean determining if terrain passed in is valid to move on.
      */
-    public boolean canPass(final Terrain theTerrain) {
-        return (theTerrain == FLOOR_1);
-    }
+    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == RED_ZONE);}
 
     /**
      * Checks proximity to doors and other elements that can be interacted with.
@@ -161,30 +170,28 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void advance() {
         final Map<Direction, Terrain> neighbors = generateNeighbors(player);
         if(this.canPass(neighbors.get(player.getDirection()))) {
-            this.move(player.getDirection());
-            if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_A) {
+
+            if (neighbors.get(player.getDirection()) == DOOR_CLOSED_A) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-                player.setMyPlayerSprite("UP?");
-            } else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_B) {
+            } else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_B) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-                player.setMyPlayerSprite("UP?");
             }
-            else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_C) {
+            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_C) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-                player.setMyPlayerSprite("UP?");
             }
-            else if (neighbors.get(Direction.NORTH) == DOOR_CLOSED_D) {
+            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_D) {
                 myNextToDoor = true;
                 fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-                player.setMyPlayerSprite("UP?");
             }
             else {
                 myNextToDoor = false;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_NO_DOOR);
+                fireXYPositionChange();
+                fireNeighborChange();
             }
+            this.move(player.getDirection());
         }
     }
 
@@ -211,6 +218,17 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);
     }
 
+
+    /** Fires a property change when the player sprite position changes. */
+    private void fireXYPositionChange() {
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, myPositions);
+    }
+
+    /** Fires a property change when the terrain surrounding the sprite changes. */
+    private void fireNeighborChange() {
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
+    }
+
     /**
      * Adds a property change listener.
      * @param theListener the listen to add.
@@ -229,25 +247,5 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.removePropertyChangeListener(theListener);
     }
 
-    /**
-     * Adds a property change listener.
-     * @param thePropertyName is the name of the listener to add.
-     * @param theListener is the listener to add.
-     */
-    @Override
-    public void addPropertyChangeListener(final String thePropertyName,
-                                          final PropertyChangeListener theListener) {
-        myPcs.addPropertyChangeListener(thePropertyName, theListener);
-    }
 
-    /**
-     * Removes a property change listener.
-     * @param thePropertyName is the name of the listener to remove.
-     * @param theListener is the listener to remove.
-     */
-    @Override
-    public void removePropertyChangeListener(final String thePropertyName,
-                                             final PropertyChangeListener theListener) {
-        myPcs.removePropertyChangeListener(thePropertyName, theListener);
-    }
 }

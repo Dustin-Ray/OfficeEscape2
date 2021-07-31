@@ -159,6 +159,15 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                         !(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().isUnlocked())) {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("A");}
+                    if(myConsolePanel.myFlag) {
+                        resetLoadedRoom();
+                        try {
+                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomA());
+                            myConsolePanel.myFlag = false;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
@@ -166,6 +175,15 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                         !(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().isUnlocked())) {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("B");}
+                    if(myConsolePanel.myFlag) {
+                        resetLoadedRoom();
+                        try {
+                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomB());
+                            myConsolePanel.myFlag = false;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
@@ -173,13 +191,30 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                         !(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().isUnlocked())) {
                     myConsolePanel.triviaPrompt();
                     if (canLoad) {startTriviaEvent("C");}
+                    if(myConsolePanel.myFlag) {
+                        resetLoadedRoom();
+                        try {
+                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomC());
+                            myConsolePanel.myFlag = false;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
                 if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomD() &&
                         !(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().isUnlocked())) {
                     myConsolePanel.triviaPrompt();
-                    if (canLoad) {startTriviaEvent("D");
+                    if (canLoad) {startTriviaEvent("D");}
+                    if(myConsolePanel.myFlag) {
+                        resetLoadedRoom();
+                        try {
+                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomD());
+                            myConsolePanel.myFlag = false;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

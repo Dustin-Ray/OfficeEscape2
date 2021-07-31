@@ -5,6 +5,8 @@ import model.trivia.Trivia;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -38,12 +40,14 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     private Trivia myTrivia;
     /** A list of answer labels to be displayed when a trivia event is initiated. */
     private ArrayList<JLabel> myAnswerLabelList;
-    /** A list of trivia answers delivered from trivia class. */
-    private ArrayList<String> myTriviaAnswers;
-    private JTextArea myShortAnswerTextArea;
-
-    private Font myCustomFont;
-
+    /** A text area to enter short answers to trivia questions. */
+    private final JTextArea myShortAnswerTextArea;
+    /** A custom font to be used for GUI elements. */
+    private final Font myCustomFont;
+    /** A "button" to be used to submit short answers. */
+    private final JLabel mySubmitAnswer;
+    /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
+    public boolean myFlag;
 
 
     /**
@@ -57,9 +61,9 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myDisplayConsole = ImageIO.read(new File("src/res/assets/menu/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/menu/info_console.png"));
         myShortAnswerTextArea = new JTextArea(1, 30);
-
+        mySubmitAnswer = new JLabel("Submit");
         myCustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-
+        myFlag = false;
 
         this.setBackground(Color.BLACK);
         setupText();
@@ -103,11 +107,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Sets text area 2 to display the trivia question and text area 3 to display answer area.
      * @param theTrivia is the trivia question to operate on. */
     public void setTrivia(final Trivia theTrivia) {
-        myTriviaAnswers = theTrivia.getAnswers();
+        ArrayList<String> triviaAnswers = theTrivia.getAnswers();
+        myTrivia = theTrivia;
         myConsoleScreenTextArea2.setText("QUESTION: \n" + theTrivia.getQuestion());
         if (theTrivia.getType() != 3) {
-            for (int i= 0; i < myTriviaAnswers.size(); i++) {
-                myAnswerLabelList.get(i).setText("   " + myTriviaAnswers.get(i));
+            for (int i = 0; i < triviaAnswers.size(); i++) {
+                myAnswerLabelList.get(i).setText(triviaAnswers.get(i));
+                myAnswerLabelList.get(i).setHorizontalAlignment(SwingConstants.CENTER);
                 myAnswerLabelList.get(i).setVisible(true);
             }
         } else if(theTrivia.getType() == 3) {setupShortAnswer();}
@@ -135,13 +141,26 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             answerLabel.setOpaque(true);
             answerLabel.setBackground(Color.GRAY);
             answerLabel.setLayout(null);
-            answerLabel.setBounds(820, labelYPosition, 360, 50);
+            answerLabel.setBounds(820, labelYPosition, 250, 50);
             labelYPosition += 55;
             answerLabel.setFont(labelFont);
             this.add(answerLabel);
             answerLabel.repaint();
+
+            answerLabel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (answerLabel.getText().equals(myTrivia.getCorrectAnswer())) {
+                        System.out.println("Correct!");
+                        myFlag = true;
+                    } else {
+                        System.out.println("Incorrect!");
+                        myFlag = false;
+                    }
+                }
+            });
         }
     }
+
 
     /** Resets answer entry area if sprite moves away from a trivia event. */
     public void resetAnswerVisibility() {
@@ -151,24 +170,50 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             answerLabel.repaint();
         }
         myShortAnswerTextArea.setVisible(false);
+        mySubmitAnswer.setVisible(false);
     }
 
     /** Shows the short answer entry area when a short answer trivia event is triggered. */
     private void setupShortAnswer(){
 
         Font shortAnswerFont = myCustomFont.deriveFont(Font.PLAIN, 13);
-        myShortAnswerTextArea.setText("Enter answer here");
+        myShortAnswerTextArea.setText("    Enter answer here");
         myShortAnswerTextArea.setForeground(Color.WHITE);
         myShortAnswerTextArea.setBounds(820, 500, 360, 50);
         myShortAnswerTextArea.setLayout(null);
         myShortAnswerTextArea.setBackground(Color.GRAY);
-        myShortAnswerTextArea.setLineWrap(true);
-        myShortAnswerTextArea.setWrapStyleWord(true);
         myShortAnswerTextArea.setEditable(true);
         myShortAnswerTextArea.setFont(shortAnswerFont);
         this.add(myShortAnswerTextArea);
         myShortAnswerTextArea.setVisible(true);
         myShortAnswerTextArea.repaint();
+
+        mySubmitAnswer.setFont(shortAnswerFont);
+        mySubmitAnswer.setForeground(Color.WHITE);
+        mySubmitAnswer.setLayout(null);
+        mySubmitAnswer.setHorizontalAlignment(SwingConstants.CENTER);
+        mySubmitAnswer.setBounds(820, 565, 250, 50);
+        mySubmitAnswer.setOpaque(true);
+        mySubmitAnswer.setBackground(Color.GRAY);
+        this.add(mySubmitAnswer);
+        mySubmitAnswer.setVisible(true);
+        mySubmitAnswer.repaint();
+
+        //do this stuff when the mouse clicks the submit label
+        mySubmitAnswer.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (myShortAnswerTextArea.getText().equals(myTrivia.getCorrectAnswer())) {
+                    System.out.println("Correct!");
+                    myFlag = true;
+                } else {
+                    System.out.println("Incorrect!");
+                    myFlag = false;
+                }
+            }
+        });
+
+
+
     }
     /** Sets up text elements in panel.*/
     private void setupText() {

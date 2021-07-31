@@ -20,7 +20,7 @@ public class TriviaManager {
     /**
      * The ArrayList that stores all of the Trivia objects.
      */
-    private ArrayList<Trivia> myTriviaList;
+    private final ArrayList<Trivia> myTriviaList;
 
     /**
      * Constructs a TriviaManager that stores all of the Trivia objects from

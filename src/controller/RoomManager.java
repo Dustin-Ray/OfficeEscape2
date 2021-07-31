@@ -23,7 +23,7 @@ public class RoomManager {
     /** The number of rows in the graph representation. */
     private final int myRows;
 
-    private TriviaManager myTriviaManager;
+    private final TriviaManager myTriviaManager;
 
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.

@@ -29,7 +29,7 @@ public abstract class AbstractRoom {
     /** The int ID for this room. */
     private final int myID;
     /** The terrain grid for this room. */
-    private Terrain[][] myTerrain;
+    private final Terrain[][] myTerrain;
 
 
     /**

@@ -3,7 +3,6 @@ package controller;
 import model.room.Door;
 import model.room.Room;
 
-import java.io.IOException;
 import java.util.*;
 
 /**

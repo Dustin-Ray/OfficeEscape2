@@ -42,7 +42,7 @@ public class RoomPanel extends JPanel implements ActionListener {
      * Constructor for class.
      *
      * @param theRoom Current room to load into the panel.
-     * @throws IOException if room is not able to be loaded.
+     * @throws IOException if any resource used by this class cannot be loaded.
      */
     public RoomPanel(final Room theRoom) throws IOException {
         super();
@@ -157,7 +157,6 @@ public class RoomPanel extends JPanel implements ActionListener {
      * @return the current user controller loaded into this frame.
      */
     public UserController getMyUserControls() {return myUserControls;}
-
 
 }
 

@@ -35,7 +35,7 @@ public class OfficeEscapeController {
 
         EventQueue.invokeLater(() -> {
             try {
-                new OfficeEscapeViewController(roomsList, roomsMap, triviaMgr);
+                new ViewController(roomsList, roomsMap, triviaMgr);
             } catch (final
                     ClassNotFoundException |
                     InstantiationException |

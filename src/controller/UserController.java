@@ -30,7 +30,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
     private int dx, dy;
     /**Triggers option for trivia event if true. */
     private boolean myNextToDoor;
-    /** The terrain grid for the simulation. 8 x 8 square with each square 96 x 96 pixels. */
+    /** The terrain grid for the simulation. Square size defined by terrain grid.  */
     private final Terrain[][] myGrid;
     /**Property change support manager for this object. Used to fire changes to listeners.  */
     private final PropertyChangeSupport myPcs;
@@ -43,8 +43,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
     private String myPositions;
     /**String representation of neighbors surrounding the player sprite.  */
     private String myNeighbors;
-
-
 
     /**
      * Constructor.
@@ -231,8 +229,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
     }
 
-
-
     /**
      * Adds a property change listener.
      * @param theListener the listen to add.
@@ -251,25 +247,5 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.removePropertyChangeListener(theListener);
     }
 
-    /**
-     * Adds a property change listener.
-     * @param thePropertyName is the name of the listener to add.
-     * @param theListener is the listener to add.
-     */
-    @Override
-    public void addPropertyChangeListener(final String thePropertyName,
-                                          final PropertyChangeListener theListener) {
-        myPcs.addPropertyChangeListener(thePropertyName, theListener);
-    }
 
-    /**
-     * Removes a property change listener.
-     * @param thePropertyName is the name of the listener to remove.
-     * @param theListener is the listener to remove.
-     */
-    @Override
-    public void removePropertyChangeListener(final String thePropertyName,
-                                             final PropertyChangeListener theListener) {
-        myPcs.removePropertyChangeListener(thePropertyName, theListener);
-    }
 }

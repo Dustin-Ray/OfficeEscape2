@@ -1,7 +1,6 @@
 package view;
 
 import model.trivia.Trivia;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +63,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         mySubmitAnswer = new JLabel("Submit");
         myCustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
         myFlag = false;
-
         this.setBackground(Color.BLACK);
         setupText();
         setupAnswerLabels();

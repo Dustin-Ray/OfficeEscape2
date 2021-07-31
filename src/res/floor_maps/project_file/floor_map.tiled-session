@@ -31,6 +31,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/floor_map.tmx": {
+            "scale": 1.0736979166666665,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 358.57385398981336,
+                "y": 384.65195246179974
+            }
+        },
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/floor_map_1.tmx": {
             "scale": 1,
             "selectedLayer": -1,
@@ -90,7 +98,7 @@
             }
         }
     },
-    "last.exportedFilePath": "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_0",
+    "last.exportedFilePath": "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_2",
     "last.externalTilesetPath": "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/project_file",
     "last.imagePath": "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/project_file",
     "map.height": 16,
@@ -103,6 +111,7 @@
     ],
     "project": "floor_map.tiled-project",
     "recentFiles": [
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/floor_map.tmx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/modern_office_interiors_48x48.tsx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/modern_office_walls_floors_48x48.tsx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/door_tiles.tsx",
@@ -113,8 +122,7 @@
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/maps/Room_Builder_Office_48x48.tsx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/floor_map_0.tmx",
         "/home/dustinr/Modern_Office_MV_3_TILESETS_B-C-D-E.tsx",
-        "/home/dustinr/untitled.tmx",
-        "/home/dustinr/test.tsx"
+        "/home/dustinr/untitled.tmx"
     ],
     "tileset.lastUsedFilter": "All Files (*)",
     "tileset.lastUsedFormat": "tsx",

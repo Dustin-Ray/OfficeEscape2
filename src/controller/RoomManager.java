@@ -47,10 +47,8 @@ public class RoomManager {
      *
      * @return A mapping of each Room to connected Rooms.
      */
-    public HashMap<Room, HashSet<Room>> extractRoomsMap() throws IOException {
+    public HashMap<Room, HashSet<Room>> extractRoomsMap() {
         rooms = new HashMap<>();
-        Set<Integer> handled = new HashSet<>();
-        HashMap<Integer, Room> idToRoom = new HashMap<>();
 
         for (Integer currID : myGraphRep.keySet()) {
             Room currRoom = new Room(currID);
@@ -84,7 +82,6 @@ public class RoomManager {
                 }
             }
             rooms.put(currRoom, s);
-
         }
         return rooms;
     }

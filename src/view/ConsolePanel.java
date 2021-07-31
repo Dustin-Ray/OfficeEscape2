@@ -28,8 +28,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     private JTextArea myConsoleScreenTextArea1;
     /** Area to display text output.  */
     private JTextArea myConsoleScreenTextArea2;
-    /** Area to display text output.  */
-    private JTextArea myConsoleScreenTextArea3;
     /** Graphics to decorate text area. */
     private final BufferedImage myDisplayConsole;
     /** Graphics to decorate text area. */
@@ -40,6 +38,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     private Trivia myTrivia;
     /** A list of answer labels to be displayed when a trivia event is initiated. */
     private ArrayList<JLabel> myAnswerLabelList;
+    /** A list of trivia answers delivered from trivia class. */
+    private ArrayList<String> myTriviaAnswers;
+    private JTextArea myShortAnswerTextArea;
+
+    private Font myCustomFont;
+
+
 
     /**
      * Constructor for class.
@@ -51,6 +56,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         this.setLayout(null);
         myDisplayConsole = ImageIO.read(new File("src/res/assets/menu/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/menu/info_console.png"));
+        myShortAnswerTextArea = new JTextArea(1, 30);
+
+        myCustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
+
+
         this.setBackground(Color.BLACK);
         setupText();
         setupAnswerLabels();
@@ -93,38 +103,33 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Sets text area 2 to display the trivia question and text area 3 to display answer area.
      * @param theTrivia is the trivia question to operate on. */
     public void setTrivia(final Trivia theTrivia) {
-
-        myTrivia = theTrivia;
+        myTriviaAnswers = theTrivia.getAnswers();
         myConsoleScreenTextArea2.setText("QUESTION: \n" + theTrivia.getQuestion());
-
-        int i = 0;
-        for(String answer : myTrivia.getAnswers()) {
-            myAnswerLabelList.get(i).setText("   " + answer);
-            myAnswerLabelList.get(i).setVisible(true);
-            i += 1;
-        }
-        i = 0;
+        if (theTrivia.getType() != 3) {
+            for (int i= 0; i < myTriviaAnswers.size(); i++) {
+                myAnswerLabelList.get(i).setText("   " + myTriviaAnswers.get(i));
+                myAnswerLabelList.get(i).setVisible(true);
+            }
+        } else if(theTrivia.getType() == 3) {setupShortAnswer();}
     }
+
 
     /** Adds clickable answer labels to info console area. */
     private void setupAnswerLabels() {
 
         myAnswerLabelList = new ArrayList<>();
-
         JLabel answerLabel1 = new JLabel("");
         JLabel answerLabel2 = new JLabel("");
         JLabel answerLabel3 = new JLabel("");
         JLabel answerLabel4 = new JLabel("");
-
         myAnswerLabelList.add(answerLabel1);
         myAnswerLabelList.add(answerLabel2);
         myAnswerLabelList.add(answerLabel3);
         myAnswerLabelList.add(answerLabel4);
+        Font labelFont = myCustomFont.deriveFont(Font.PLAIN, 13);
 
         int labelYPosition = 500;
-
         for (JLabel answerLabel : myAnswerLabelList) {
-
             answerLabel.setVisible(false);
             answerLabel.setForeground(Color.WHITE);
             answerLabel.setOpaque(true);
@@ -132,49 +137,62 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             answerLabel.setLayout(null);
             answerLabel.setBounds(820, labelYPosition, 360, 50);
             labelYPosition += 55;
+            answerLabel.setFont(labelFont);
             this.add(answerLabel);
             answerLabel.repaint();
         }
     }
 
-    /** Resets answer labels if sprite moves away from a trivia event. */
-    public void resetLabels() {
+    /** Resets answer entry area if sprite moves away from a trivia event. */
+    public void resetAnswerVisibility() {
         for (JLabel answerLabel : myAnswerLabelList) {
             answerLabel.setVisible(false);
             answerLabel.setText("");
             answerLabel.repaint();
         }
-
+        myShortAnswerTextArea.setVisible(false);
     }
 
-    /**
-     * Sets up text elements in panel.
-     * @throws IOException if class resource cannot be loaded.
-     * @throws FontFormatException if font cannot be loaded.
-     */
-    private void setupText() throws IOException, FontFormatException {
+    /** Shows the short answer entry area when a short answer trivia event is triggered. */
+    private void setupShortAnswer(){
 
-        Font fontTest = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-        fontTest = fontTest.deriveFont(Font.PLAIN, 18);
+        Font shortAnswerFont = myCustomFont.deriveFont(Font.PLAIN, 13);
+        myShortAnswerTextArea.setText("Enter answer here");
+        myShortAnswerTextArea.setForeground(Color.WHITE);
+        myShortAnswerTextArea.setBounds(820, 500, 360, 50);
+        myShortAnswerTextArea.setLayout(null);
+        myShortAnswerTextArea.setBackground(Color.GRAY);
+        myShortAnswerTextArea.setLineWrap(true);
+        myShortAnswerTextArea.setWrapStyleWord(true);
+        myShortAnswerTextArea.setEditable(true);
+        myShortAnswerTextArea.setFont(shortAnswerFont);
+        this.add(myShortAnswerTextArea);
+        myShortAnswerTextArea.setVisible(true);
+        myShortAnswerTextArea.repaint();
+    }
+    /** Sets up text elements in panel.*/
+    private void setupText() {
+
+        Font textArea1font = myCustomFont.deriveFont(Font.PLAIN, 18);
         myConsoleScreenTextArea1 = new JTextArea("TEXT AREA 1");
         myConsoleScreenTextArea1.setVisible(true);
         myConsoleScreenTextArea1.setForeground(Color.WHITE);
         myConsoleScreenTextArea1.setBounds(830, 50, 350, 18);
         myConsoleScreenTextArea1.setLayout(null);
-        myConsoleScreenTextArea1.setFont(fontTest);
+        myConsoleScreenTextArea1.setFont(textArea1font);
         myConsoleScreenTextArea1.setBackground(Color.BLACK);
         myConsoleScreenTextArea1.setLineWrap(true);
         myConsoleScreenTextArea1.setWrapStyleWord(true);
         myConsoleScreenTextArea1.setEditable(false);
         this.add(myConsoleScreenTextArea1);
 
-        fontTest = fontTest.deriveFont(Font.PLAIN, 14);
+        Font textArea2font = myCustomFont.deriveFont(Font.PLAIN, 14);
         myConsoleScreenTextArea2 = new JTextArea("TEXT AREA 2");
         myConsoleScreenTextArea2.setVisible(true);
         myConsoleScreenTextArea2.setForeground(Color.WHITE);
         myConsoleScreenTextArea2.setBounds(830, 80, 350, 100);
         myConsoleScreenTextArea2.setLayout(null);
-        myConsoleScreenTextArea2.setFont(fontTest);
+        myConsoleScreenTextArea2.setFont(textArea2font);
         myConsoleScreenTextArea2.setBackground(Color.BLACK);
         myConsoleScreenTextArea2.setLineWrap(true);
         myConsoleScreenTextArea2.setWrapStyleWord(true);
@@ -185,11 +203,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myRoomID.setVisible(true);
         myRoomID.setForeground(Color.WHITE);
         myRoomID.setBounds(830, 235, 80, 50);
-        fontTest = fontTest.deriveFont(Font.PLAIN, 12);
-        myRoomID.setFont(fontTest);
+        Font roomIDFont = myCustomFont.deriveFont(Font.PLAIN, 12);
+        myRoomID.setFont(roomIDFont);
         myRoomID.setBackground(Color.BLACK);
         myConsoleScreenTextArea1.setEditable(false);
         this.add(myRoomID);
     }
-
 }

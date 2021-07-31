@@ -184,7 +184,7 @@ public class OfficeEscapeView extends JFrame implements PropertyChangeListener {
                 }
             }
             case NEIGHBOR_CHANGE -> {
-                myConsolePanel.resetLabels();
+                myConsolePanel.resetAnswerVisibility();
             }
         }
     }

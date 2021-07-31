@@ -228,6 +228,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myConsoleScreenTextArea1.setLineWrap(true);
         myConsoleScreenTextArea1.setWrapStyleWord(true);
         myConsoleScreenTextArea1.setEditable(false);
+
         this.add(myConsoleScreenTextArea1);
 
         Font textArea2font = myCustomFont.deriveFont(Font.PLAIN, 14);

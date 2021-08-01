@@ -47,7 +47,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** A "button" to be used to submit short answers. */
     private final JLabel mySubmitAnswer;
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
-    public boolean myFlag;
+    private boolean myCorrectlyAnsweredFlag;
 
 
     /**
@@ -63,7 +63,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myShortAnswerTextArea = new JTextArea(1, 30);
         mySubmitAnswer = new JLabel("Submit");
         myCustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-        myFlag = false;
+        setCorrectlyAnsweredFlag(false);
         this.setBackground(Color.BLACK);
         setupText();
         setupAnswerLabels();
@@ -150,10 +150,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
                 public void mouseClicked(MouseEvent e) {
                     if (answerLabel.getText().equals(myTrivia.getCorrectAnswer())) {
                         System.out.println("Correct!");
-                        myFlag = true;
+                        setCorrectlyAnsweredFlag(true);
                     } else {
                         System.out.println("Incorrect!");
-                        myFlag = false;
+                        setCorrectlyAnsweredFlag(false);
                     }
                 }
             });
@@ -203,10 +203,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             public void mouseClicked(MouseEvent e) {
                 if (myShortAnswerTextArea.getText().equals(myTrivia.getCorrectAnswer())) {
                     System.out.println("Correct!");
-                    myFlag = true;
+                    setCorrectlyAnsweredFlag(true);
                 } else {
                     System.out.println("Incorrect!");
-                    myFlag = false;
+                    setCorrectlyAnsweredFlag(false);
                 }
             }
         });
@@ -253,5 +253,15 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myRoomID.setBackground(Color.BLACK);
         myConsoleScreenTextArea1.setEditable(false);
         this.add(myRoomID);
+    }
+
+    /** A flag to tell observing classes to load the next room if trivia is correctly answered.
+     * @return true if question was answered correctly, false otherwise. */
+    public boolean getCorrectlyAnsweredFlag() {
+        return myCorrectlyAnsweredFlag;
+    }
+
+    public void setCorrectlyAnsweredFlag(boolean myCorrectlyAnsweredFlag) {
+        this.myCorrectlyAnsweredFlag = myCorrectlyAnsweredFlag;
     }
 }

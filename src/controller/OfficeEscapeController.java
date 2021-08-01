@@ -17,14 +17,14 @@ public class OfficeEscapeController {
     private static final int DEFAULT_ROW_DIM = 4;
     private static final int DEFAULT_COL_DIM = 4;
 
-    public OfficeEscapeController() throws IOException {
+    public OfficeEscapeController() {
         run();
     }
 
     /**
      * Probably instantiate trivia manager here.
      */
-    public void run() throws IOException {
+    public void run() {
 
         TriviaManager triviaMgr = new TriviaManager();
         GraphManager graphManager = new GraphManager(DEFAULT_ROW_DIM, DEFAULT_COL_DIM);
@@ -35,7 +35,7 @@ public class OfficeEscapeController {
 
         EventQueue.invokeLater(() -> {
             try {
-                new ViewController(roomsList, roomsMap, triviaMgr);
+                new ViewController(roomsList, roomsMap);
             } catch (final
                     ClassNotFoundException |
                     InstantiationException |

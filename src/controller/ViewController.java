@@ -51,8 +51,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * @throws FontFormatException if cannot load a given font file.
      */
     public ViewController(List<Room> theRoomsList,
-                          HashMap<Room, HashSet<Room>> theRoomsMap,
-                          final TriviaManager theTriviaManager) throws
+                          HashMap<Room, HashSet<Room>> theRoomsMap) throws
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
@@ -85,14 +84,12 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
     /** Adds a console panel to the frame. */
     private void addConsolePanel() {
         myConsolePanel.setBounds(768, 0, 480, 480);
         this.getContentPane().add(myConsolePanel);
         myConsolePanel.setVisible(true);
     }
-
 
     /** Adds a main menu panel to the frame. */
     private void addMainMenuPanel() {
@@ -107,8 +104,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         this.setJMenuBar(myCurrentToolbarMenu.getMyMenuBar());
         myCurrentToolbarMenu.setVisible(true);
     }
-
-
 
     /**
      * Loads a given room into the room panel. Used for room traversal. Removes
@@ -132,7 +127,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         repaint();
     }
 
-    /** Removes currently loaded panels and resets all listeners. */
+    /** Removes currently loaded panels and resets all listeners. Always call before loading
+     * new room, except when starting for first time.*/
     private void resetLoadedRoom() {
         //reset currently loaded room
         myCurrentRoomPanel.setVisible(false);
@@ -141,6 +137,35 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.resetUserController();
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
+        repaint();
+    }
+
+    /** Handles interaction between doors. Launches trivia event if one exists.
+     * @param theID theID of the resource to seek, can be a door or a room.
+     * @throws  IOException if any resource cannot be loaded. */
+    public void doorInteraction(final String theID) throws IOException {
+        //is e pressed on keyboard?
+        boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
+        //check to see if door is valid and locked
+        if (myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
+                !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
+            //start trivia event when user presses e
+            myConsolePanel.triviaPrompt();
+            if (canLoad) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());}
+            //if answered correctly, load next room and unlock door
+            if(myConsolePanel.getCorrectlyAnsweredFlag()) {
+                myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
+                resetLoadedRoom();
+                try {loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
+                     myConsolePanel.setCorrectlyAnsweredFlag(false);}
+                catch (IOException e) {e.printStackTrace();}
+            }
+        }
+        //if approached unlocked door, press e to load next room without answering trivia
+        else if (canLoad && myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
+                (myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
+            resetLoadedRoom();
+            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
     }
 
     /**
@@ -150,84 +175,26 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
+
         switch (evt.getPropertyName()) {
             case PROPERTY_PROXIMITY_DOOR_A -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomA() &&
-                        !(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().isUnlocked())) {
-                    myConsolePanel.triviaPrompt();
-                    if (canLoad) {startTriviaEvent("A");}
-                    if(myConsolePanel.myFlag) {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorA().unlockDoor();
-                        resetLoadedRoom();
-                        try {
-                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomA());
-                            myConsolePanel.myFlag = false;
-                        } catch (IOException e) {e.printStackTrace();}
-                    }
-                }
+                try {doorInteraction("A");}
+                catch (IOException e) {e.printStackTrace();}
             }
             case PROPERTY_PROXIMITY_DOOR_B -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomB() &&
-                        !(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().isUnlocked())) {
-                    myConsolePanel.triviaPrompt();
-                    if (canLoad) {startTriviaEvent("B");}
-                    if(myConsolePanel.myFlag) {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorB().unlockDoor();
-                        resetLoadedRoom();
-                        try {
-                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomB());
-                            myConsolePanel.myFlag = false;
-                        } catch (IOException e) {e.printStackTrace();}
-                    }
-                }
+                try {doorInteraction("B");}
+                catch (IOException e) {e.printStackTrace();}
             }
             case PROPERTY_PROXIMITY_DOOR_C -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomC() &&
-                        !(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().isUnlocked())) {
-                    myConsolePanel.triviaPrompt();
-                    if (canLoad) {startTriviaEvent("C");}
-                    if(myConsolePanel.myFlag) {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorC().unlockDoor();
-                        resetLoadedRoom();
-                        try {
-                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomC());
-                            myConsolePanel.myFlag = false;
-                        } catch (IOException e) {e.printStackTrace();}
-                    }
-                }
+                try {doorInteraction("C");}
+                catch (IOException e) {e.printStackTrace();}
             }
             case PROPERTY_PROXIMITY_DOOR_D -> {
-                if (myCurrentRoomPanel.getMyCurrentRoom().hasRoomD() &&
-                        !(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().isUnlocked())) {
-                    myConsolePanel.triviaPrompt();
-                    if (canLoad) {startTriviaEvent("D");}
-                    if(myConsolePanel.myFlag) {
-                        myCurrentRoomPanel.getMyCurrentRoom().getDoorD().unlockDoor();
-                        resetLoadedRoom();
-                        try {
-                            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoomD());
-                            myConsolePanel.myFlag = false;
-                        } catch (IOException e) {e.printStackTrace();}
-                    }
-                }
+                try {doorInteraction("D");}
+                catch (IOException e) {e.printStackTrace();}
             }
             case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
         }
-    }
-
-    /** Cleans up propertyChange method. Sets the trivia text in the console panel
-     * to the trivia object attached to the door specified by theDoorLetter.
-     * @param theDoorLetter is the door from which the trivia object is retrieved. */
-    public void startTriviaEvent(final String theDoorLetter) {
-        if("A".equals(theDoorLetter)) {
-            myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorA().getTrivia());}
-        else if("B".equals(theDoorLetter)) {
-            myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorB().getTrivia());}
-        else if("C".equals(theDoorLetter)) {
-            myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorC().getTrivia());}
-        else if("D".equals(theDoorLetter)) {
-            myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoorD().getTrivia());}
     }
 
 

@@ -75,8 +75,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         this.setResizable(false);
     }
 
-    /** Initializes the current frame to hold all of the panels. Dimensions are set in
-     * multiples of 8 which is the default grid square size. */
+    /** Initializes the current frame to hold the panels. Dimensions are set in
+     * multiples of the default grid square size. */
     private void setupFrame() {
         this.setSize(1248, 828);
         this.setLocation(500, 100);

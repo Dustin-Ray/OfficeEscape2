@@ -135,11 +135,10 @@ public class RoomPanel extends JPanel implements ActionListener {
                 switch (myGrid[y][x]) {
                     case RED_ZONE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
                     case FLOOR_1,
-                            DOOR_CLOSED_A,
-                            DOOR_CLOSED_B,
-                            DOOR_CLOSED_C,
-                            DOOR_CLOSED_D -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
-
+                         DOOR_CLOSED_A,
+                         DOOR_CLOSED_B,
+                         DOOR_CLOSED_C,
+                         DOOR_CLOSED_D -> theGraphics.drawImage(FLOOR_1, leftx, topy, null);
                 }
             }
         }

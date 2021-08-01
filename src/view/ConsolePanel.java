@@ -123,8 +123,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Adds clickable answer labels to info console area. */
     private void setupAnswerLabels() {
 
-        Font labelFont = myCustomFont.deriveFont(Font.PLAIN, 13);
-
         myAnswerLabelList = new ArrayList<>();
         JLabel answerLabel1 = new JLabel("");
         JLabel answerLabel2 = new JLabel("");
@@ -137,7 +135,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         int labelYPosition = 500;
         for (JLabel answerLabel : myAnswerLabelList) {
-            setupLabel(labelFont, answerLabel);
+            setupLabel(answerLabel);
             answerLabel.setBounds(820, labelYPosition, 250, 50);
             labelYPosition += 55;
         }
@@ -158,29 +156,28 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Shows the short answer entry area when a short answer trivia event is triggered. */
     private void setupShortAnswer(){
 
-        Font shortAnswerFont = myCustomFont.deriveFont(Font.PLAIN, 13);
-
-        initializeTextArea(shortAnswerFont, myShortAnswerTextArea);
+        initializeTextArea(13, myShortAnswerTextArea);
         myShortAnswerTextArea.setText("    Enter answer here");
         myShortAnswerTextArea.setBounds(820, 500, 360, 50);
         myShortAnswerTextArea.setEditable(true);
 
         mySubmitAnswer.setBounds(820, 565, 250, 50);
         mySubmitAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-        setupLabel(shortAnswerFont, mySubmitAnswer);
+        setupLabel(mySubmitAnswer);
     }
 
     /**
      * Initializes a given JLabel for use in the panel.
-     * @param shortAnswerFont the custom font to use for the label.
      * @param theLabel is the label to initialize.
      */
-    private void setupLabel(final Font shortAnswerFont, final JLabel theLabel) {
+    private void setupLabel(final JLabel theLabel) {
+
+        Font customFont = myCustomFont.deriveFont(Font.PLAIN, 13);
         theLabel.setForeground(Color.WHITE);
         theLabel.setOpaque(true);
         theLabel.setBackground(Color.GRAY);
         theLabel.setLayout(null);
-        theLabel.setFont(shortAnswerFont);
+        theLabel.setFont(customFont);
         theLabel.setVisible(true);
         this.add(theLabel);
         theLabel.repaint();
@@ -208,19 +205,16 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Sets up text elements in panel.*/
     private void setupTextArea() {
 
-        Font textArea1font = myCustomFont.deriveFont(Font.PLAIN, 18);
         myConsoleScreenTextArea1 = new JTextArea();
         myConsoleScreenTextArea1.setBounds(830, 50, 350, 18);
-        initializeTextArea(textArea1font, myConsoleScreenTextArea1);
+        initializeTextArea(18, myConsoleScreenTextArea1);
 
-        Font textArea2font = myCustomFont.deriveFont(Font.PLAIN, 14);
         myConsoleScreenTextArea2 = new JTextArea();
         myConsoleScreenTextArea2.setBounds(830, 80, 350, 100);
-        initializeTextArea(textArea2font, myConsoleScreenTextArea2);
+        initializeTextArea(14, myConsoleScreenTextArea2);
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
-        Font roomIDFont = myCustomFont.deriveFont(Font.PLAIN, 12);
-        initializeTextArea(roomIDFont, myRoomID);
+        initializeTextArea(12, myRoomID);
         myRoomID.setBounds(830, 235, 80, 50);
 
     }
@@ -228,11 +222,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /**
      * Method initializes any given text area to be displayed on the screen. Ideally
      * called before any set bounds or color changes are made.
-     * @param shortAnswerFont the custom font to use for the text area.
+     * @param theFontSize the size to set the custom font.
      * @param theTextArea the text area to set up.
      */
-    private void initializeTextArea(final Font shortAnswerFont, final JTextArea theTextArea) {
-        theTextArea.setFont(shortAnswerFont);
+    private void initializeTextArea(final int theFontSize, final JTextArea theTextArea) {
+
+        Font customFont = myCustomFont.deriveFont(Font.PLAIN, theFontSize);
+        theTextArea.setFont(customFont);
         theTextArea.setBackground(Color.BLACK);
         theTextArea.setForeground(Color.WHITE);
         theTextArea.setLayout(null);

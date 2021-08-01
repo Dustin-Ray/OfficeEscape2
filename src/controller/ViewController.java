@@ -140,34 +140,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         repaint();
     }
 
-    /** Handles interaction between doors. Launches trivia event if one exists.
-     * @param theID theID of the resource to seek, can be a door or a room.
-     * @throws  IOException if any resource cannot be loaded. */
-    public void doorInteraction(final String theID) throws IOException {
-        //is e pressed on keyboard?
-        boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
-        //check to see if door is valid and locked
-        if (myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
-                !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
-            //start trivia event when user presses e
-            myConsolePanel.triviaPrompt();
-            if (canLoad) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());}
-            //if answered correctly, load next room and unlock door
-            if(myConsolePanel.getCorrectlyAnsweredFlag()) {
-                myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
-                resetLoadedRoom();
-                try {loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
-                     myConsolePanel.setCorrectlyAnsweredFlag(false);}
-                catch (IOException e) {e.printStackTrace();}
-            }
-        }
-        //if approached unlocked door, press e to load next room without answering trivia
-        else if (canLoad && myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
-                (myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
-            resetLoadedRoom();
-            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
-    }
-
     /**
      * Main interaction between player sprite and doors. move sprite into
      * proximity to door and press e to load the next room if it exists.
@@ -197,6 +169,33 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         }
     }
 
+    /** Handles interaction between doors. Launches trivia event if one exists.
+     * @param theID theID of the resource to seek, can be a door or a room.
+     * @throws  IOException if any resource cannot be loaded. */
+    public void doorInteraction(final String theID) throws IOException {
+        //is e pressed on keyboard?
+        boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
+        //check to see if door is valid and locked
+        if (myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
+                !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
+            //start trivia event when user presses e
+            myConsolePanel.triviaPrompt();
+            if (canLoad) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());}
+            //if answered correctly, load next room and unlock door
+            if(myConsolePanel.getCorrectlyAnsweredFlag()) {
+                myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
+                resetLoadedRoom();
+                try {loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
+                     myConsolePanel.setCorrectlyAnsweredFlag(false);}
+                catch (IOException e) {e.printStackTrace();}
+            }
+        }
+        //if approached unlocked door, press e to load next room without answering trivia
+        else if (canLoad && myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
+                (myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
+            resetLoadedRoom();
+            loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
+    }
 
     /**
      * Attempts to set look and feel to system defaults. Reverts to

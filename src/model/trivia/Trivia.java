@@ -68,17 +68,23 @@ public class Trivia {
         ArrayList<String> incorrect = new ArrayList<>();
 
         if (theType == 1) {
-            if (theCorrectAnswer.equals("T")) {
-                incorrect.add("F");
+            if (theCorrectAnswer.equals("True")) {
+                incorrect.add("False");
             }
             else {
-                incorrect.add("T");
+                incorrect.add("True");
             }
         }
         else if (theType == 2) {
-            String[] split = theIncorrectAnswers.split("\\n");
-
-            incorrect.addAll(Arrays.asList(split));
+            int i = 0, j;
+            for (j = 0; j < theIncorrectAnswers.length(); j++) {
+                if (theIncorrectAnswers.charAt(j) == ';') {
+                    incorrect.add(theIncorrectAnswers.substring(i, j));
+                    i = j + 1;
+                    j = j + 1;
+                }
+            }
+            incorrect.add(theIncorrectAnswers.substring(i, j));
         }
 
         myIncorrectAnswers = incorrect;

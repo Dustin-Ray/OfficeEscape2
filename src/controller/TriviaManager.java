@@ -59,10 +59,15 @@ public class TriviaManager {
             System.exit(0);
         }
 
+        // Testing code below:
+
 //        System.out.println("Testing if the questions have been loaded from database to ArrayList.");
 //        for (Trivia t: myTriviaList) {
 //            System.out.println(t);
 //        }
+//
+//        Trivia mc = myTriviaList.get(1);
+//        System.out.println(mc.getAnswers());
     }
 
     /**

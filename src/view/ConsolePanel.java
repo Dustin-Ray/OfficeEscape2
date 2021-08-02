@@ -47,8 +47,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** A "button" to be used to submit short answers. */
     private final JLabel mySubmitAnswer;
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
-    public boolean myFlag;
-
+    private boolean myCorrectlyAnsweredFlag;
 
     /**
      * Constructor for class.
@@ -61,11 +60,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myDisplayConsole = ImageIO.read(new File("src/res/assets/menu/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/menu/info_console.png"));
         myShortAnswerTextArea = new JTextArea(1, 30);
+        myConsoleScreenTextArea1 = new JTextArea();
+        myConsoleScreenTextArea2 = new JTextArea();
         mySubmitAnswer = new JLabel("Submit");
         myCustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-        myFlag = false;
+        setCorrectlyAnsweredFlag(false);
         this.setBackground(Color.BLACK);
-        setupText();
+        setupTextArea();
         setupAnswerLabels();
         repaint();
     }
@@ -131,32 +132,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myAnswerLabelList.add(answerLabel2);
         myAnswerLabelList.add(answerLabel3);
         myAnswerLabelList.add(answerLabel4);
-        Font labelFont = myCustomFont.deriveFont(Font.PLAIN, 13);
 
-        int labelYPosition = 500;
+        int labelYPosition = 514;
         for (JLabel answerLabel : myAnswerLabelList) {
-            answerLabel.setVisible(false);
-            answerLabel.setForeground(Color.WHITE);
-            answerLabel.setOpaque(true);
-            answerLabel.setBackground(Color.GRAY);
-            answerLabel.setLayout(null);
-            answerLabel.setBounds(820, labelYPosition, 250, 50);
+            setupLabel(answerLabel, labelYPosition);
             labelYPosition += 55;
-            answerLabel.setFont(labelFont);
-            this.add(answerLabel);
-            answerLabel.repaint();
-
-            answerLabel.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if (answerLabel.getText().equals(myTrivia.getCorrectAnswer())) {
-                        System.out.println("Correct!");
-                        myFlag = true;
-                    } else {
-                        System.out.println("Incorrect!");
-                        myFlag = false;
-                    }
-                }
-            });
         }
     }
 
@@ -175,83 +155,107 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Shows the short answer entry area when a short answer trivia event is triggered. */
     private void setupShortAnswer(){
 
-        Font shortAnswerFont = myCustomFont.deriveFont(Font.PLAIN, 13);
+        initializeTextArea(myShortAnswerTextArea, 13, 888, 514, 360, 50);
         myShortAnswerTextArea.setText("    Enter answer here");
-        myShortAnswerTextArea.setForeground(Color.WHITE);
-        myShortAnswerTextArea.setBounds(820, 500, 360, 50);
-        myShortAnswerTextArea.setLayout(null);
-        myShortAnswerTextArea.setBackground(Color.GRAY);
         myShortAnswerTextArea.setEditable(true);
-        myShortAnswerTextArea.setFont(shortAnswerFont);
-        this.add(myShortAnswerTextArea);
-        myShortAnswerTextArea.setVisible(true);
-        myShortAnswerTextArea.repaint();
 
-        mySubmitAnswer.setFont(shortAnswerFont);
-        mySubmitAnswer.setForeground(Color.WHITE);
-        mySubmitAnswer.setLayout(null);
         mySubmitAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-        mySubmitAnswer.setBounds(820, 565, 250, 50);
-        mySubmitAnswer.setOpaque(true);
-        mySubmitAnswer.setBackground(Color.GRAY);
-        this.add(mySubmitAnswer);
-        mySubmitAnswer.setVisible(true);
-        mySubmitAnswer.repaint();
+        setupLabel(mySubmitAnswer, 579);
+    }
 
-        //do this stuff when the mouse clicks the submit label
-        mySubmitAnswer.addMouseListener(new MouseAdapter() {
+    /**
+     * Initializes a given JLabel for use in the panel.
+     * @param theLabel is the label to initialize.
+     * @param theYPosition is the desired y position on the screen to place the label.
+     */
+    private void setupLabel(final JLabel theLabel,
+                            final int theYPosition) {
+
+        Font customFont = myCustomFont.deriveFont(Font.PLAIN, 13);
+        theLabel.setForeground(Color.WHITE);
+        theLabel.setOpaque(true);
+        theLabel.setBackground(Color.GRAY);
+        theLabel.setLayout(null);
+        theLabel.setFont(customFont);
+        theLabel.setVisible(true);
+        this.add(theLabel);
+        theLabel.setBounds(888, theYPosition, 240, 50);
+        theLabel.repaint();
+        setMouseListeners(theLabel);
+    }
+
+    /**
+     * Adds mouse listeners to given labels. Determines how to test the answer
+     * correctness depending on the type of trivia question set in the current room.
+     * @param theLabel the JLabel to add a mouse click listener to.
+     *
+     */
+    private void setMouseListeners(final JLabel theLabel) {
+        theLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (myShortAnswerTextArea.getText().equals(myTrivia.getCorrectAnswer())) {
-                    System.out.println("Correct!");
-                    myFlag = true;
-                } else {
-                    System.out.println("Incorrect!");
-                    myFlag = false;
-                }
+                //if short answer, do this:
+                if (myTrivia.getType() == 3) {
+                    setCorrectlyAnsweredFlag(myShortAnswerTextArea.getText().equals(myTrivia.getCorrectAnswer()));
+                //otherwise, do this:
+                } else {setCorrectlyAnsweredFlag(theLabel.getText().equals(myTrivia.getCorrectAnswer()));}
             }
         });
-
-
-
     }
+
     /** Sets up text elements in panel.*/
-    private void setupText() {
+    private void setupTextArea() {
 
-        Font textArea1font = myCustomFont.deriveFont(Font.PLAIN, 18);
-        myConsoleScreenTextArea1 = new JTextArea("TEXT AREA 1");
-        myConsoleScreenTextArea1.setVisible(true);
-        myConsoleScreenTextArea1.setForeground(Color.WHITE);
-        myConsoleScreenTextArea1.setBounds(830, 50, 350, 18);
-        myConsoleScreenTextArea1.setLayout(null);
-        myConsoleScreenTextArea1.setFont(textArea1font);
-        myConsoleScreenTextArea1.setBackground(Color.BLACK);
-        myConsoleScreenTextArea1.setLineWrap(true);
-        myConsoleScreenTextArea1.setWrapStyleWord(true);
-        myConsoleScreenTextArea1.setEditable(false);
+        myConsoleScreenTextArea1 = new JTextArea();
+        initializeTextArea(myConsoleScreenTextArea1, 18,  830, 50, 350, 18);
 
-        this.add(myConsoleScreenTextArea1);
-
-        Font textArea2font = myCustomFont.deriveFont(Font.PLAIN, 14);
-        myConsoleScreenTextArea2 = new JTextArea("TEXT AREA 2");
-        myConsoleScreenTextArea2.setVisible(true);
-        myConsoleScreenTextArea2.setForeground(Color.WHITE);
-        myConsoleScreenTextArea2.setBounds(830, 80, 350, 100);
-        myConsoleScreenTextArea2.setLayout(null);
-        myConsoleScreenTextArea2.setFont(textArea2font);
-        myConsoleScreenTextArea2.setBackground(Color.BLACK);
-        myConsoleScreenTextArea2.setLineWrap(true);
-        myConsoleScreenTextArea2.setWrapStyleWord(true);
-        myConsoleScreenTextArea1.setEditable(false);
-        this.add(myConsoleScreenTextArea2);
+        myConsoleScreenTextArea2 = new JTextArea();
+        initializeTextArea(myConsoleScreenTextArea2, 14,  830, 80, 350, 100);
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
-        myRoomID.setVisible(true);
-        myRoomID.setForeground(Color.WHITE);
-        myRoomID.setBounds(830, 235, 80, 50);
-        Font roomIDFont = myCustomFont.deriveFont(Font.PLAIN, 12);
-        myRoomID.setFont(roomIDFont);
-        myRoomID.setBackground(Color.BLACK);
-        myConsoleScreenTextArea1.setEditable(false);
-        this.add(myRoomID);
+        initializeTextArea(myRoomID, 12,830, 235, 80, 50);
+
+    }
+
+    /**
+     * Method initializes any given text area to be displayed on the screen. Ideally
+     * called before any set bounds or color changes are made.
+     * @param theFontSize the size to set the custom font.
+     * @param theTextArea the text area to set up.
+     * @param theXPosition is the desired x position on the screen to place the text area.
+     * @param theYPosition is the desired y position on the screen to place the text area.
+     * @param theWidth is the desired width of the text area.
+     * @param theHeight is the desired height of the text area.
+     */
+    private void initializeTextArea(final JTextArea theTextArea,
+                                    final int theFontSize,
+                                    final int theXPosition,
+                                    final int theYPosition,
+                                    final int theWidth,
+                                    final int theHeight) {
+
+        Font customFont = myCustomFont.deriveFont(Font.PLAIN, theFontSize);
+        theTextArea.setFont(customFont);
+        theTextArea.setBackground(Color.BLACK);
+        theTextArea.setForeground(Color.WHITE);
+        theTextArea.setLayout(null);
+        theTextArea.setLineWrap(true);
+        theTextArea.setWrapStyleWord(true);
+        theTextArea.setEditable(false);
+        this.add(theTextArea);
+        theTextArea.setVisible(true);
+        theTextArea.setBounds(theXPosition, theYPosition, theWidth, theHeight);
+        theTextArea.repaint();
+    }
+
+    /** A flag to tell observing classes to load the next room if trivia is correctly answered.
+     * @return true if question was answered correctly, false otherwise. */
+    public boolean getCorrectlyAnsweredFlag() {return myCorrectlyAnsweredFlag;}
+
+    /**
+     * Set the flag so that the next room can be loaded if the question is answered correctly.
+     * @param myCorrectlyAnsweredFlag a boolean to set the flag with.
+     */
+    public void setCorrectlyAnsweredFlag(final boolean myCorrectlyAnsweredFlag) {
+        this.myCorrectlyAnsweredFlag = myCorrectlyAnsweredFlag;
     }
 }

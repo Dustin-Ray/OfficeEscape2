@@ -10,13 +10,13 @@ import java.beans.PropertyChangeListener;
 public interface PropertyChangeEnabledUserControls {
 
     /** Proximity constant to fire to listeners if sprite approaches a door. */
-    String PROPERTY_PROXIMITY_DOOR_A = "proximity to door A";
+    String PROPERTY_PROXIMITY_DOOR_A = "A";
     /** Proximity constant to fire to listeners if sprite approaches a door. */
-    String PROPERTY_PROXIMITY_DOOR_B = "proximity to door B";
+    String PROPERTY_PROXIMITY_DOOR_B = "B";
     /** Proximity constant to fire to listeners if sprite approaches a door. */
-    String PROPERTY_PROXIMITY_DOOR_C = "proximity to door C";
+    String PROPERTY_PROXIMITY_DOOR_C = "C";
     /** Proximity constant to fire to listeners if sprite approaches a door. */
-    String PROPERTY_PROXIMITY_DOOR_D = "proximity to door D";
+    String PROPERTY_PROXIMITY_DOOR_D = "D";
     /** X/Y position constant to fire to listeners when user controller changes position of the
      * player sprite. */
     String XY_POSITION = "xy position change";

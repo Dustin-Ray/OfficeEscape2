@@ -5,7 +5,6 @@ import model.TerrainGrid;
 /**
  * Implements behavior common to all Rooms.
  *
- * @author Dustin Ray
  * @author Reuben Keller
  */
 public abstract class AbstractRoom {
@@ -64,6 +63,50 @@ public abstract class AbstractRoom {
         return myID;
     }
 
+    /**
+     * Gets the door specified if it exists.
+     * @param theDoorName A letter representing the door to return.
+     * @return the door specified by theDoorName.
+     */
+    public Door getDoor(final String theDoorName) {
+        return switch (theDoorName) {
+            case "A" -> DoorA;
+            case "B" -> DoorB;
+            case "C" -> DoorC;
+            case "D" -> DoorD;
+            default -> null;
+        };
+    }
+
+    /**
+     * Gets the room specified if it exists.
+     * @param theRoomName A letter representing the room to return.
+     * @return the room specified by theRoomName.
+     */
+    public Room getRoom(final String theRoomName) {
+        return switch (theRoomName) {
+            case "A" -> RoomA;
+            case "B" -> RoomB;
+            case "C" -> RoomC;
+            case "D" -> RoomD;
+            default -> null;
+        };
+    }
+
+    /**
+     * Checks to see if the specified room exists.
+     * @param theRoomName the room to check.
+     * @return true if room exists, false otherwise.
+     */
+    public boolean hasRoom(final String theRoomName) {
+        return switch (theRoomName) {
+            case "A" -> RoomA != null;
+            case "B" -> RoomB != null;
+            case "C" -> RoomC != null;
+            case "D" -> RoomD != null;
+            default -> false;
+        };
+    }
 
     /**
      * Sets the north Room and Door to the given Room and Door.
@@ -112,10 +155,13 @@ public abstract class AbstractRoom {
      */
     public Door getDoorA() {
         if (!hasRoomA()) {
-            throw new NullPointerException("Room A is null (i.e., not connected)");
+            throw new NullPointerException("Room is null (i.e., not connected)");
         }
         return DoorA;
     }
+
+
+
 
     /**
      * Returns the door between this Room and the south Room.
@@ -162,6 +208,9 @@ public abstract class AbstractRoom {
         return RoomA;
     }
 
+
+
+
     /**
      * Returns the Room south of this Room.
      * @return The Room south of this Room.
@@ -195,6 +244,9 @@ public abstract class AbstractRoom {
     public boolean hasRoomA() {
         return RoomA != null;
     }
+
+
+
 
     /**
      * Returns true if this Room is connected to a south Room and false

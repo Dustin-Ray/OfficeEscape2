@@ -11,7 +11,6 @@ import model.trivia.Trivia;
  */
 public class Door {
 
-    //TODO: Assign a Trivia object to the Door
 
     /** A boolean variable to track whether this Door is valid or invalid. */
     private boolean isValid;

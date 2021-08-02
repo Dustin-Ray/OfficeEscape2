@@ -3,6 +3,7 @@ package model.trivia;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Class to represents Trivia objects.
@@ -33,20 +34,18 @@ public class Trivia {
      * Integer storing the question type.
      */
     private final int myType;
-
+    /**
+     * Constant representing a true false question type.
+     */
+    private final int TF = 1;
+    /**
+     * Constant representing a multiple choice question type.
+     */
+    private final int MC = 2;
     /**
      * Constant representing a short answer question type.
      */
     private final int SA = 3;
-
-    /**
-     * Constant representing a true false question type.
-     */
-    int TF = 1;
-    /**
-     * Constant representing a multiple choice question type.
-     */
-    int MC = 2;
 
     /**
      * Constructs a Trivia object.
@@ -68,17 +67,23 @@ public class Trivia {
         ArrayList<String> incorrect = new ArrayList<>();
 
         if (theType == 1) {
-            if (theCorrectAnswer.equals("T")) {
-                incorrect.add("F");
+            if (theCorrectAnswer.equals("True")) {
+                incorrect.add("False");
             }
             else {
-                incorrect.add("T");
+                incorrect.add("True");
             }
         }
         else if (theType == 2) {
-            String[] split = theIncorrectAnswers.split("\\n");
-
-            incorrect.addAll(Arrays.asList(split));
+            int i = 0, j;
+            for (j = 0; j < theIncorrectAnswers.length(); j++) {
+                if (theIncorrectAnswers.charAt(j) == ';') {
+                    incorrect.add(theIncorrectAnswers.substring(i, j));
+                    i = j + 1;
+                    j = j + 1;
+                }
+            }
+            incorrect.add(theIncorrectAnswers.substring(i, j));
         }
 
         myIncorrectAnswers = incorrect;
@@ -132,21 +137,53 @@ public class Trivia {
      */
     public ArrayList<String> getAnswers() {
         ArrayList<String> answerList = new ArrayList<>();
-
         // Add the correct answer to the answer list.
         answerList.add(getCorrectAnswer());
-
-        // Store the wrong answers.
+        /*
+         Store the wrong answers.
+         In case of MC, there are 3.
+         In case of SA, there is 1.
+         */
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
-
-
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
-
         // Shuffle the answerList that will be displayed to the user.
         Collections.shuffle(answerList);
-
         return answerList;
+    }
+
+    /**
+     * Returns a shuffled ArrayList with answers changed as part of using the
+     * hint system.
+     *
+     * @return shuffled ArrayList of correct and incorrect answers
+     */
+    public ArrayList<String> getHints() {
+        ArrayList<String> hintsList = new ArrayList<>();
+
+        if (getType() == TF) {
+            hintsList.add("Maybe " + myCorrectAnswer);
+            hintsList.add("Maybe " + myIncorrectAnswers.get(0));
+        } else if (getType() == MC) {
+            hintsList.add(myCorrectAnswer);
+            hintsList.add(myIncorrectAnswers.get(new Random().nextInt(3)));
+        } else if (getType() == SA) {
+            StringBuilder saHint = new StringBuilder();
+            for (int i = 0; i < myCorrectAnswer.length(); i++) {
+                if (Math.random() < 0.7) {
+                    saHint.append(myCorrectAnswer.charAt(i));
+                } else {
+                    if (myCorrectAnswer.charAt(i) != ' ') {
+                        saHint.append('_');
+                    } else {
+                        saHint.append(' ');
+                    }
+                }
+            }
+            hintsList.add(saHint.toString());
+        }
+        Collections.shuffle(hintsList);
+        return hintsList;
     }
 
     /**
@@ -157,6 +194,8 @@ public class Trivia {
     public int getType() {
         return myType;
     }
+
+
 
     /**
      * Returns a String representation of the Trivia object.

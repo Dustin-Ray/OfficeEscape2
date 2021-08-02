@@ -8,12 +8,5 @@
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/res/database/questions-answers.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="questions-answers" uuid="40ba7071-0f29-4117-8778-1af95603afbf">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/res/questions-answers.db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

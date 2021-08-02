@@ -133,10 +133,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myAnswerLabelList.add(answerLabel3);
         myAnswerLabelList.add(answerLabel4);
 
-        int labelYPosition = 500;
+        int labelYPosition = 514;
         for (JLabel answerLabel : myAnswerLabelList) {
             setupLabel(answerLabel);
-            answerLabel.setBounds(820, labelYPosition, 250, 50);
+            answerLabel.setBounds(888, labelYPosition, 240, 50);
             labelYPosition += 55;
         }
     }
@@ -158,10 +158,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         initializeTextArea(13, myShortAnswerTextArea);
         myShortAnswerTextArea.setText("    Enter answer here");
-        myShortAnswerTextArea.setBounds(820, 500, 360, 50);
+        myShortAnswerTextArea.setBounds(888, 514, 360, 50);
         myShortAnswerTextArea.setEditable(true);
 
-        mySubmitAnswer.setBounds(820, 565, 250, 50);
+        mySubmitAnswer.setBounds(888, 579, 240, 50);
         mySubmitAnswer.setHorizontalAlignment(SwingConstants.CENTER);
         setupLabel(mySubmitAnswer);
     }

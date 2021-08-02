@@ -68,6 +68,13 @@ public class TriviaManager {
 //
 //        Trivia mc = myTriviaList.get(1);
 //        System.out.println(mc.getAnswers());
+
+        // Testing hint system
+
+//        for (Trivia t: myTriviaList) {
+//            System.out.println(t.getAnswers());
+//            System.out.println(t.getHints() + "\n");
+//        }
     }
 
     /**

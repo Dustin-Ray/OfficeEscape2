@@ -135,8 +135,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         int labelYPosition = 514;
         for (JLabel answerLabel : myAnswerLabelList) {
-            setupLabel(answerLabel);
-            answerLabel.setBounds(888, labelYPosition, 240, 50);
+            setupLabel(answerLabel, labelYPosition);
             labelYPosition += 55;
         }
     }
@@ -156,21 +155,21 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Shows the short answer entry area when a short answer trivia event is triggered. */
     private void setupShortAnswer(){
 
-        initializeTextArea(13, myShortAnswerTextArea);
+        initializeTextArea(myShortAnswerTextArea, 13, 888, 514, 360, 50);
         myShortAnswerTextArea.setText("    Enter answer here");
-        myShortAnswerTextArea.setBounds(888, 514, 360, 50);
         myShortAnswerTextArea.setEditable(true);
 
-        mySubmitAnswer.setBounds(888, 579, 240, 50);
         mySubmitAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-        setupLabel(mySubmitAnswer);
+        setupLabel(mySubmitAnswer, 579);
     }
 
     /**
      * Initializes a given JLabel for use in the panel.
      * @param theLabel is the label to initialize.
+     * @param theYPosition is the desired y position on the screen to place the label.
      */
-    private void setupLabel(final JLabel theLabel) {
+    private void setupLabel(final JLabel theLabel,
+                            final int theYPosition) {
 
         Font customFont = myCustomFont.deriveFont(Font.PLAIN, 13);
         theLabel.setForeground(Color.WHITE);
@@ -180,6 +179,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         theLabel.setFont(customFont);
         theLabel.setVisible(true);
         this.add(theLabel);
+        theLabel.setBounds(888, theYPosition, 240, 50);
         theLabel.repaint();
         setMouseListeners(theLabel);
     }
@@ -206,16 +206,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     private void setupTextArea() {
 
         myConsoleScreenTextArea1 = new JTextArea();
-        myConsoleScreenTextArea1.setBounds(830, 50, 350, 18);
-        initializeTextArea(18, myConsoleScreenTextArea1);
+        initializeTextArea(myConsoleScreenTextArea1, 18,  830, 50, 350, 18);
 
         myConsoleScreenTextArea2 = new JTextArea();
-        myConsoleScreenTextArea2.setBounds(830, 80, 350, 100);
-        initializeTextArea(14, myConsoleScreenTextArea2);
+        initializeTextArea(myConsoleScreenTextArea2, 14,  830, 80, 350, 100);
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
-        initializeTextArea(12, myRoomID);
-        myRoomID.setBounds(830, 235, 80, 50);
+        initializeTextArea(myRoomID, 12,830, 235, 80, 50);
 
     }
 
@@ -224,8 +221,17 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      * called before any set bounds or color changes are made.
      * @param theFontSize the size to set the custom font.
      * @param theTextArea the text area to set up.
+     * @param theXPosition is the desired x position on the screen to place the text area.
+     * @param theYPosition is the desired y position on the screen to place the text area.
+     * @param theWidth is the desired width of the text area.
+     * @param theHeight is the desired height of the text area.
      */
-    private void initializeTextArea(final int theFontSize, final JTextArea theTextArea) {
+    private void initializeTextArea(final JTextArea theTextArea,
+                                    final int theFontSize,
+                                    final int theXPosition,
+                                    final int theYPosition,
+                                    final int theWidth,
+                                    final int theHeight) {
 
         Font customFont = myCustomFont.deriveFont(Font.PLAIN, theFontSize);
         theTextArea.setFont(customFont);
@@ -237,6 +243,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         theTextArea.setEditable(false);
         this.add(theTextArea);
         theTextArea.setVisible(true);
+        theTextArea.setBounds(theXPosition, theYPosition, theWidth, theHeight);
         theTextArea.repaint();
     }
 
@@ -244,6 +251,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      * @return true if question was answered correctly, false otherwise. */
     public boolean getCorrectlyAnsweredFlag() {return myCorrectlyAnsweredFlag;}
 
+    /**
+     * Set the flag so that the next room can be loaded if the question is answered correctly.
+     * @param myCorrectlyAnsweredFlag a boolean to set the flag with.
+     */
     public void setCorrectlyAnsweredFlag(final boolean myCorrectlyAnsweredFlag) {
         this.myCorrectlyAnsweredFlag = myCorrectlyAnsweredFlag;
     }

@@ -1,4 +1,4 @@
-package model.room;
+package model.map;
 
 /**
  * An enumeration object used to define the terrain grid.

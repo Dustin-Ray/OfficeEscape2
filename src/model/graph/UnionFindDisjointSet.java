@@ -1,3 +1,13 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.graph;
 
 import java.util.ArrayList;
@@ -76,11 +86,6 @@ public class UnionFindDisjointSet<T> {
             pointers.set(temp, repID);
             indices.put(element, repID);
         }
-        // if (pointers.get(index) != -1) {
-        //     pointers.set(index, repID);
-        //     indices.put(item, repID);
-        // }
-
         return repID;
     }
 
@@ -94,8 +99,6 @@ public class UnionFindDisjointSet<T> {
      * @throws IllegalArgumentException if elementA or elementB are not in an existing set.
      */
     public void union(T elementA, T elementB) {
-        // Looks up the set containing item1 and the set containing item2. Combine the
-        // two sets into one. Pick new representative for resulting set.
         if (!indices.containsKey(elementA) || !indices.containsKey(elementB)) {
             throw new IllegalArgumentException();
         }

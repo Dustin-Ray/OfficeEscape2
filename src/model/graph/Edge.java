@@ -84,6 +84,11 @@ public class Edge<V> {
     }
 
 
+    /**
+     * Returns the String representation of this Edge.
+     *
+     * @return The String representation of this Edge.
+     */
     @Override
     public String toString() {
         return "(" + myFrom + ", " + myTo + ", " + myWeight + ")";
@@ -101,6 +106,7 @@ public class Edge<V> {
         }
         return result;
     }
+
 
     @Override
     public int hashCode() {

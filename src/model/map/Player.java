@@ -1,4 +1,6 @@
-package model;
+package model.map;
+
+import model.map.Direction;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

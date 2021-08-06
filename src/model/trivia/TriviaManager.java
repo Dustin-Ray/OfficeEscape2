@@ -1,6 +1,14 @@
-package controller;
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
 
-import model.trivia.Trivia;
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
+package model.trivia;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

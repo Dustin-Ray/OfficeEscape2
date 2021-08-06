@@ -1,12 +1,12 @@
-package model;
+package model.map;
 
-import model.room.Terrain;
+import model.map.Terrain;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static model.room.Terrain.*;
+import static model.map.Terrain.*;
 
 public class TerrainGrid {
 

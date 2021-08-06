@@ -1,8 +1,8 @@
 package controller;
 
-import model.Direction;
-import model.Player;
-import model.room.Terrain;
+import model.map.Direction;
+import model.map.Player;
+import model.map.Terrain;
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static model.room.Terrain.*;
+import static model.map.Terrain.*;
 
 /**
  * Controls attributes for player character. Communicates with RoomPanel via key listener.

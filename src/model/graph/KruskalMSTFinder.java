@@ -48,13 +48,13 @@ public class KruskalMSTFinder<V> {
      */
     private void findMST() {
         // sort edges in the graph by weight in ascending order
-        List<Edge<V>> edges = new ArrayList<>(myGraph.allEdges());
+        List<Edge<V>> edges = new ArrayList<>(myGraph.edges());
         edges.sort(Comparator.comparingDouble(Edge::weight));
         UnionFindDisjointSet<V> disjointSets = new UnionFindDisjointSet<>();
 
         // start with each vertex as a set
         int numVertices = 0;
-        for (V vertex : myGraph.allVertices()) {
+        for (V vertex : myGraph.vertices()) {
             disjointSets.makeSet(vertex);
             numVertices += 1;
         }

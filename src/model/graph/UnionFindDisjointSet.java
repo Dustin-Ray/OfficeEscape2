@@ -98,7 +98,7 @@ public class UnionFindDisjointSet<T> {
      * @param elementB The element in set B.
      * @throws IllegalArgumentException if elementA or elementB are not in an existing set.
      */
-    public void union(T elementA, T elementB) {
+    public boolean union(T elementA, T elementB) {
         if (!indices.containsKey(elementA) || !indices.containsKey(elementB)) {
             throw new IllegalArgumentException();
         }
@@ -109,7 +109,7 @@ public class UnionFindDisjointSet<T> {
 
         // check if items are already in the same set
         if (id1 == id2) {
-            return;
+            return false;
         }
 
         // optimization: point ID with smaller size to ID with larger size
@@ -122,6 +122,7 @@ public class UnionFindDisjointSet<T> {
             pointers.set(id1, id2);
             pointers.set(id2, -1 * (id1Size + id2Size));
         }
+        return true;
     }
 
 }

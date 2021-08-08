@@ -133,8 +133,8 @@ public class RoomPanel extends JPanel implements ActionListener {
             for (int x = 0; x < myGrid[y].length; x++) {
                 final int leftx = x * SQUARE_SIZE;
                 switch (myGrid[y][x]) {
-                    case RED_ZONE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
-                    case FLOOR_1,
+                    case OBSTACLE -> theGraphics.drawImage(RED_ZONE, leftx, topy, null);
+                    case FLOOR,
                          DOOR_CLOSED_A,
                          DOOR_CLOSED_B,
                          DOOR_CLOSED_C,

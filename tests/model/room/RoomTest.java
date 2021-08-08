@@ -1,113 +1,38 @@
 package model.room;
 
-import org.junit.jupiter.api.BeforeEach;
+import model.trivia.Trivia;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Implements tests for Room.
+ *
+ * @author Reuben Keller
+ * @version Summer 2021
+ */
 class RoomTest {
 
-    @BeforeEach
-    void setUp() {
+    private final Room room;
+
+    private static final int ROOM_ID = 0;
+
+    public RoomTest() {
+        room = new Room(ROOM_ID);
+        Door door = new Door();
+        door.unlockDoor();
+        door.setDoor(true);
+        room.setC(new Room(1), door);
     }
 
     @Test
-    void getFilePath() {
+    void getRoomID_onRoom_returnsCorrectID() {
+        assertEquals(ROOM_ID, room.getRoomID());
     }
 
-    @Test
-    void getTerrain() {
-    }
 
     @Test
-    void getRoomID() {
-    }
+    void equals_onIdenticalRooms_returnsTrue() {
 
-    @Test
-    void getDoor() {
-    }
-
-    @Test
-    void getRoom() {
-    }
-
-    @Test
-    void hasRoom() {
-    }
-
-    @Test
-    void setDoorA() {
-    }
-
-    @Test
-    void setDoorB() {
-    }
-
-    @Test
-    void setDoorC() {
-    }
-
-    @Test
-    void setDoorD() {
-    }
-
-    @Test
-    void getDoorA() {
-    }
-
-    @Test
-    void getDoorB() {
-    }
-
-    @Test
-    void getDoorC() {
-    }
-
-    @Test
-    void getDoorD() {
-    }
-
-    @Test
-    void getRoomA() {
-    }
-
-    @Test
-    void getRoomB() {
-    }
-
-    @Test
-    void getRoomC() {
-    }
-
-    @Test
-    void getRoomD() {
-    }
-
-    @Test
-    void hasRoomA() {
-    }
-
-    @Test
-    void hasRoomB() {
-    }
-
-    @Test
-    void hasRoomC() {
-    }
-
-    @Test
-    void hasRoomD() {
-    }
-
-    @Test
-    void testEquals() {
-    }
-
-    @Test
-    void testHashCode() {
-    }
-
-    @Test
-    void testToString() {
     }
 }

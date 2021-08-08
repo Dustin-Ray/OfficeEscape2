@@ -161,7 +161,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @param theTerrain is the terrain to check for validity.
      * @return boolean determining if terrain passed in is valid to move on.
      */
-    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == RED_ZONE);}
+    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == OBSTACLE);}
 
     /**
      * Checks proximity to doors and other elements that can be interacted with.

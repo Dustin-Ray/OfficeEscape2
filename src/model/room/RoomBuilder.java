@@ -88,7 +88,6 @@ public class RoomBuilder {
                 myGraph.addDirectedEdge(j, j + COLS, weight);
             }
         }
-        System.out.println(myGraph.edges());
     }
 
 

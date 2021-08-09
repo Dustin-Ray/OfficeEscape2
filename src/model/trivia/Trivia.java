@@ -179,7 +179,7 @@ public class Trivia {
         } else if (getType() == SA) {
             StringBuilder saHint = new StringBuilder();
             for (int i = 0; i < myCorrectAnswer.length(); i++) {
-                if (Math.random() < 0.7) {
+                if (Math.random() < 0.5) {
                     saHint.append(myCorrectAnswer.charAt(i));
                 } else {
                     if (myCorrectAnswer.charAt(i) != ' ') {

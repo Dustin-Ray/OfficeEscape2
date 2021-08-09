@@ -1,7 +1,8 @@
-package model.room;
+package model.map;
 
 /**
  * An enumeration object used to define the terrain grid.
+ *
  * @author Dustin Ray
  * @version Summer 2021
  */
@@ -9,8 +10,8 @@ public enum Terrain {
 
     /**Letters represent textures for walls and stuff */
 
-    FLOOR_1('F'),
-    RED_ZONE('R'),
+    FLOOR('F'),
+    OBSTACLE('R'),
     DOOR_CLOSED_A('A'),
     DOOR_CLOSED_B('B'),
     DOOR_CLOSED_C('C'),
@@ -39,7 +40,7 @@ public enum Terrain {
      *         Terrain is represented by the given letter.
      */
     public static Terrain valueOf(final char theLetter) {
-        Terrain result = FLOOR_1;
+        Terrain result = FLOOR;
         for (final Terrain terrain : Terrain.values()) {
             if (terrain.myLetter == theLetter) {
                 result = terrain;

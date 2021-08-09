@@ -1,9 +1,18 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.trivia;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import model.room.Door;
+
+import java.util.*;
 
 /**
  * Class to represents Trivia objects.
@@ -196,6 +205,23 @@ public class Trivia {
     }
 
 
+    @Override
+    public boolean equals(final Object other) {
+        boolean result = false;
+        if ((other != null) && (other.getClass().equals(this.getClass()))) {
+            Trivia o = (Trivia) other;
+            result = myQuestion.equals(o.myQuestion)
+                    && myCorrectAnswer.equals(o.myCorrectAnswer)
+                    && myID == o.myID
+                    && myType == o.myType;
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(myQuestion, myCorrectAnswer, myID, myType);
+    }
 
     /**
      * Returns a String representation of the Trivia object.

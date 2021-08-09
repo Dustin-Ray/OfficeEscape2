@@ -1,6 +1,17 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.room;
 
-import model.TerrainGrid;
+import model.map.TerrainGrid;
+import model.map.Terrain;
 
 /**
  * Implements behavior common to all Rooms.
@@ -95,6 +106,7 @@ public abstract class AbstractRoom {
 
     /**
      * Checks to see if the specified room exists.
+     *
      * @param theRoomName the room to check.
      * @return true if room exists, false otherwise.
      */
@@ -108,48 +120,58 @@ public abstract class AbstractRoom {
         };
     }
 
+
     /**
-     * Sets the north Room and Door to the given Room and Door.
-     * @param room The Room north of this Room.
-     * @param door The Door separating this Room and the north Room.
+     * Sets the A Room and Door to the given Room and Door.
+     *
+     * @param room The A Room of this Room.
+     * @param door The A Door separating this Room and the A Room.
      */
-    public void setDoorA(final Room room, final Door door) {
+    public void setA(final Room room, final Door door) {
         RoomA = room;
         DoorA = door;
     }
 
+
     /**
-     * Sets the south Room and Door to the given Room and Door.
-     * @param room The Room south of this Room.
-     * @param door The Door separating this Room and the south Room.
+     * Sets the B Room and Door to the given Room and Door.
+     *
+     * @param room The B Room of this Room.
+     * @param door The B Door separating this Room and the B Room.
      */
-    public void setDoorB(final Room room, final Door door) {
+    public void setB(final Room room, final Door door) {
         RoomB = room;
         DoorB = door;
     }
 
+
     /**
-     * Sets the east Room and Door to the given Room and Door.
-     * @param room The Room east of this Room.
-     * @param door The Door separating this Room and the east Room.
+     * Sets the C Room and Door to the given Room and Door.
+     *
+     * @param room The C Room of this Room.
+     * @param door The C Door separating this Room and the C Room.
      */
-    public void setDoorC(final Room room, final Door door) {
+    public void setC(final Room room, final Door door) {
         RoomC = room;
         DoorC = door;
     }
 
+
     /**
-     * Sets the west Room and Door to the given Room and Door.
-     * @param room The Room west of this Room.
-     * @param door The Door separating this Room and the west Room.
+     * Sets the D Room and Door to the given Room and Door.
+     *
+     * @param room The D Room of this Room.
+     * @param door The D Door separating this Room and the D Room.
      */
-    public void setDoorD(final Room room, final Door door) {
+    public void setD(final Room room, final Door door) {
         RoomD = room;
         DoorD = door;
     }
 
+
     /**
      * Returns the door between this Room and the north Room.
+     *
      * @return The Door between this Room and the north Room.
      * @throws NullPointerException if this Room does not have a north Room.
      */
@@ -161,10 +183,9 @@ public abstract class AbstractRoom {
     }
 
 
-
-
     /**
      * Returns the door between this Room and the south Room.
+     *
      * @return The Door between this Room and the south Room.
      * @throws NullPointerException if this Room does not have a south Room.
      */
@@ -188,6 +209,7 @@ public abstract class AbstractRoom {
         return DoorC;
     }
 
+
     /**
      * Returns the door between this Room and the west Room.
      * @return The Door between this Room and the west Room.
@@ -200,40 +222,6 @@ public abstract class AbstractRoom {
         return DoorD;
     }
 
-    /**
-     * Returns the Room north of this Room.
-     * @return The Room north of this Room.
-     */
-    public Room getRoomA() {
-        return RoomA;
-    }
-
-
-
-
-    /**
-     * Returns the Room south of this Room.
-     * @return The Room south of this Room.
-     */
-    public Room getRoomB() {
-        return RoomB;
-    }
-
-    /**
-     * Returns the Room west of this Room.
-     * @return The Room west of this Room.
-     */
-    public Room getRoomC() {
-        return RoomC;
-    }
-
-    /**
-     * Returns the Room east of this Room.
-     * @return The Room east of this Room.
-     */
-    public Room getRoomD() {
-        return RoomD;
-    }
 
     /**
      * Returns true if this Room is connected to a north Room and false

@@ -1,12 +1,10 @@
-package model;
-
-import model.room.Terrain;
+package model.map;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static model.room.Terrain.*;
+import static model.map.Terrain.*;
 
 public class TerrainGrid {
 
@@ -38,7 +36,7 @@ public class TerrainGrid {
 
         myGrid = new Terrain[myRows + PADDING][myCols + PADDING];
         for (Terrain[] row : myGrid) {
-            Arrays.fill(row, Terrain.RED_ZONE);
+            Arrays.fill(row, Terrain.OBSTACLE);
         }
 
         translateFile();
@@ -52,7 +50,7 @@ public class TerrainGrid {
                 String[] line = sc.nextLine().split(",");
                 for (int col = 1; col < myCols + 1; col++) {
                     String curr = line[col - 1];
-                    Terrain terrain = Terrain.RED_ZONE;
+                    Terrain terrain = Terrain.OBSTACLE;
                     if (curr.equals(ROOM_A)) {
                         terrain = DOOR_CLOSED_A;
                     } else if (curr.equals(ROOM_B)) {
@@ -62,7 +60,7 @@ public class TerrainGrid {
                     } else if (curr.equals(ROOM_D)) {
                         terrain = DOOR_CLOSED_D;
                     } else if (!curr.equals(RED_ZONE)) {
-                        terrain = FLOOR_1;
+                        terrain = FLOOR;
                     }
                     myGrid[row][col] = terrain;
                 }

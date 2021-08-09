@@ -1,8 +1,8 @@
 package controller;
 
-import model.Direction;
-import model.Player;
-import model.room.Terrain;
+import model.map.Direction;
+import model.map.Player;
+import model.map.Terrain;
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static model.room.Terrain.*;
+import static model.map.Terrain.*;
 
 /**
  * Controls attributes for player character. Communicates with RoomPanel via key listener.
@@ -161,7 +161,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @param theTerrain is the terrain to check for validity.
      * @return boolean determining if terrain passed in is valid to move on.
      */
-    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == RED_ZONE);}
+    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == OBSTACLE);}
 
     /**
      * Checks proximity to doors and other elements that can be interacted with.

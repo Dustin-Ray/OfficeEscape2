@@ -137,7 +137,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * @throws IOException if any resource cannot be loaded.
      */
     private void loadRoom(final Room theRoom) throws IOException {
-
         //load new room
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
         this.add(myCurrentRoomPanel);
@@ -190,7 +189,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 try {doorInteraction("D");}
                 catch (IOException e) {e.printStackTrace();}
             }
-            // case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
+             case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
         }
     }
 

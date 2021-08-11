@@ -46,13 +46,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** The GameMap the Player is in. */
     private final GameMap myGM;
 
-    private boolean nextToDoorA;
-
-    private boolean nextToDoorB;
-
-    private boolean nextToDoorC;
-
-    private boolean nextToDoorD;
+    private Map<Direction, Terrain> res;
 
     /**
      * Constructor.
@@ -117,15 +111,18 @@ public class UserController implements PropertyChangeEnabledUserControls {
             myPlayer.setVelX(-MOVEMENT_SPEED);
             myPlayer.setDirection(Direction.WEST);
             myPlayer.setSprite(myPlayer.chairLeft);
-        } else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_KP_RIGHT) {
+        }
+        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_KP_RIGHT) {
             myPlayer.setVelX(MOVEMENT_SPEED);
             myPlayer.setDirection(Direction.EAST);
             myPlayer.setSprite(myPlayer.chairRight);
-        } else if (key == KeyEvent.VK_DOWN|| key == KeyEvent.VK_KP_DOWN) {
+        }
+        if (key == KeyEvent.VK_DOWN|| key == KeyEvent.VK_KP_DOWN) {
             myPlayer.setVelY(MOVEMENT_SPEED);
             myPlayer.setDirection(Direction.SOUTH);
             myPlayer.setSprite(myPlayer.chairDown);
-        }else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
+        }
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
             myPlayer.setVelY(-MOVEMENT_SPEED);
             myPlayer.setDirection(Direction.NORTH);
             myPlayer.setSprite(myPlayer.chairUp);
@@ -134,6 +131,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
             myLoadGameFlag = true;
         }
     }
+
 
     /**
      * Handles a key release event. Used to stop movement of the
@@ -156,113 +154,76 @@ public class UserController implements PropertyChangeEnabledUserControls {
             myPlayer.setVelY(0);
         }
         if (key == KeyEvent.VK_E) {
-            myLoadGameFlag = true;
+            myLoadGameFlag = false;
         }
     }
 
 
     public void checkDoorProximity() {
+        res = new HashMap<>();
         if (collisionWith(myGM.doorAPositions())) {
-            nextToDoorA = true;
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-//            System.out.println("By door A");
+            res.put(myPlayer.getDirection(), DOOR_CLOSED_A);
+            myNextToDoor = true;
         } else if (collisionWith(myGM.doorBPositions())) {
-            nextToDoorB = true;
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-//            System.out.println("By door B");
+            res.put(myPlayer.getDirection(), DOOR_CLOSED_B);
+            myNextToDoor = true;
         } else if (collisionWith(myGM.doorCPositions())) {
-            nextToDoorC = true;
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-//            System.out.println("By door C");
+            res.put(myPlayer.getDirection(), DOOR_CLOSED_C);
+            myNextToDoor = true;
         } else if (collisionWith(myGM.doorDPositions())) {
-            nextToDoorD = true;
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-//            System.out.println("By door D");
+            res.put(myPlayer.getDirection(), DOOR_CLOSED_D);
+            myNextToDoor = true;
         } else {
-            nextToDoorA = false;
-            nextToDoorB = false;
-            nextToDoorC = false;
-            nextToDoorD = false;
+            myNextToDoor = false;
+            generateNeighbors();
+            fireXYPositionChange();
+            fireNeighborChange();
         }
     }
 
 
 
-//    /**
-//     * Generates a map of the current terrain surrounding the player sprite.
-//     * @return each cardinal direction (NWES) and its current terrain in relation
-//     * to the player sprite.
-//     */
-//    private Map<Direction, Terrain> generateNeighbors() {
-//        int playerTileX = (myPlayer.getX() / GameMap.TILE_WIDTH) + 1;
-//        int playerTileY = (myPlayer.getY() / GameMap.TILE_HEIGHT) + 1;
-//        int arrPosX = playerTileX - 1;
-//        int arrPosY = playerTileY - 1;
-//        if (arrPosY - 1 < 0) {
-//            arrPosY += 1;
-//        }
-//        final Map<Direction, Terrain> result = new HashMap<>();
-//        for (int i = 0; i < Direction.values().length; i++) {
-//            //uses the x y position of the sprite to access the elements of the terrain array.
-//            result.put(Direction.NORTH, myGrid[arrPosY - 1][arrPosX]);
-//            result.put(Direction.SOUTH, myGrid[arrPosY + 1][arrPosX]);
-//            result.put(Direction.EAST, myGrid[arrPosY][arrPosX - 1]);
-//            result.put(Direction.WEST, myGrid[arrPosY][arrPosX + 1]);
-//            myPositions = "Y pos: " + playerTileY + "\t" + "X pos: " + playerTileX;
-//        }
-//
-//
-//        //helper code to fire debug info to console
-//        myNeighbors = "Surrounding terrain: \n";
-//        for (int j = 0; j < 4; j++) {
-//            Set<Direction> s = result.keySet();
-//            Object[] sArr = s.toArray();
-//            myNeighbors = myNeighbors +
-//                    sArr[j].toString() +
-//                    ":    "
-//                    + result.get(sArr[j])
-//                    + "\n";
-//        }
-//        return Collections.unmodifiableMap(result);
-//    }
+    /**
+     * Generates a map of the current terrain surrounding the player sprite.
+     * @return each cardinal direction (NWES) and its current terrain in relation
+     * to the player sprite.
+     */
+    private Map<Direction, Terrain> generateNeighbors() {
+        int playerTileX = (myPlayer.getX() / GameMap.TILE_WIDTH) + 1;
+        int playerTileY = (myPlayer.getY() / GameMap.TILE_HEIGHT) + 1;
+        int arrPosX = playerTileX - 1;
+        int arrPosY = playerTileY - 1;
+        if (arrPosY - 1 < 0) {
+            arrPosY += 1;
+        }
+        final Map<Direction, Terrain> result = new HashMap<>();
+        for (int i = 0; i < Direction.values().length; i++) {
+            //uses the x y position of the sprite to access the elements of the terrain array.
+            result.put(Direction.NORTH, myGrid[arrPosY - 1][arrPosX]);
+            result.put(Direction.SOUTH, myGrid[arrPosY + 1][arrPosX]);
+            result.put(Direction.EAST, myGrid[arrPosY][arrPosX - 1]);
+            result.put(Direction.WEST, myGrid[arrPosY][arrPosX + 1]);
+            myPositions = "Y pos: " + playerTileY + "\t" + "X pos: " + playerTileX;
+        }
 
-//
-//    /**
-//     * Valid terrain that the sprite is allowed to move on.
-//     * @param theTerrain is the terrain to check for validity.
-//     * @return boolean determining if terrain passed in is valid to move on.
-//     */
-//    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == OBSTACLE);}
-//
-//    /**
-//     * Checks proximity to doors and other elements that can be interacted with.
-//     * Moves player sprite if interaction is valid.
-//     */
-//    public void advance() {
-//        final Map<Direction, Terrain> neighbors = generateNeighbors();
-//        if(this.canPass(neighbors.get(myPlayer.getDirection()))) {
-//            if (neighbors.get(myPlayer.getDirection()) == DOOR_CLOSED_A) {
-//                myNextToDoor = true;
-//                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-//            } else if (neighbors.get(myPlayer.getDirection()) == DOOR_CLOSED_B) {
-//                myNextToDoor = true;
-//                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-//            }
-//            else if (neighbors.get(myPlayer.getDirection()) == DOOR_CLOSED_C) {
-//                myNextToDoor = true;
-//                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-//            }
-//            else if (neighbors.get(myPlayer.getDirection()) == DOOR_CLOSED_D) {
-//                myNextToDoor = true;
-//                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-//            }
-//            else {
-//                myNextToDoor = false;
-//                fireXYPositionChange();
-//                fireNeighborChange();
-//            }
-//        }
-//    }
+
+        //helper code to fire debug info to console
+        myNeighbors = "Surrounding terrain: \n";
+        for (int j = 0; j < result.size(); j++) {
+            Set<Direction> s = result.keySet();
+            Object[] sArr = s.toArray();
+            myNeighbors = myNeighbors +
+                    sArr[j].toString() +
+                    ":    "
+                    + result.get(sArr[j])
+                    + "\n";
+        }
+        return Collections.unmodifiableMap(result);
+    }
 
 
     /**

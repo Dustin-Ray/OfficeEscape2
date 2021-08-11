@@ -106,23 +106,21 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-//            case XY_POSITION -> myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
-//            case NEIGHBOR_CHANGE -> testText = theEvent.getNewValue().toString();
+            case XY_POSITION -> myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
             case NEIGHBOR_CHANGE -> myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
         }
     }
 
 
-    private String testText;
-
     /** Prompts to begin trivia event. */
-    public void triviaPrompt() {myConsoleScreenTextArea1.setText("Press E for Trivia: ");}
+    public void triviaPrompt() {
+        myConsoleScreenTextArea1.setText("Press E for Trivia: ");
+    }
 
     /** Sets text area 2 to display the trivia question and text area 3 to display answer area.
      * @param theTrivia is the trivia question to operate on. */
     public void setTrivia(final Trivia theTrivia) {
         ArrayList<String> triviaAnswers = theTrivia.getAnswers();
-        System.out.println(triviaAnswers);
         myTrivia = theTrivia;
         myConsoleScreenTextArea2.setText("QUESTION: \n" + theTrivia.getQuestion());
         if (theTrivia.getType() != 3) {
@@ -139,7 +137,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** Adds clickable answer labels to info console area. */
     private void setupAnswerLabels() {
-
         myAnswerLabelList = new ArrayList<>();
         JLabel answerLabel1 = new JLabel("");
         JLabel answerLabel2 = new JLabel("");

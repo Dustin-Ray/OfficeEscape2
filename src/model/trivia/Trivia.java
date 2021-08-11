@@ -154,7 +154,6 @@ public class Trivia {
          In case of SA, there is 1.
          */
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
-        System.out.println(wrongAnswers.size());
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
         // Shuffle the answerList that will be displayed to the user.

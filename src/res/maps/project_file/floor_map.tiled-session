@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -52,6 +52,26 @@
             "scaleInEditor": 1
         },
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/modern_office_walls_floors_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/door_tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map.tmx": {
+            "scale": 1,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 351,
+                "y": 377
+            }
+        },
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map_img.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/modern_office_walls_floors_48x48.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -108,9 +128,17 @@
     "map.tileWidth": 48,
     "map.width": 16,
     "openFiles": [
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map.tmx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map_img.tsx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/modern_office_walls_floors_48x48.tsx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/door_tileset.tsx"
     ],
     "project": "floor_map.tiled-project",
     "recentFiles": [
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/door_tileset.tsx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/modern_office_walls_floors_48x48.tsx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map_img.tsx",
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_4/floor_map.tmx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/floor_map.tmx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/modern_office_interiors_48x48.tsx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/floor_maps/floor_map_1/modern_office_walls_floors_48x48.tsx",
@@ -118,11 +146,7 @@
         "/home/dustinr/Downloads/16x16_base_map_test.tmx",
         "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/office_walls_floors48x48.png.tsx",
         "/home/dustinr/Downloads/16x16_base_map.tmx",
-        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/maps/Modern_Office_Black_Shadow_48x48.tsx",
-        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/maps/Room_Builder_Office_48x48.tsx",
-        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/floor_map_0.tmx",
-        "/home/dustinr/Modern_Office_MV_3_TILESETS_B-C-D-E.tsx",
-        "/home/dustinr/untitled.tmx"
+        "/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/maps/Modern_Office_Black_Shadow_48x48.tsx"
     ],
     "tileset.lastUsedFilter": "All Files (*)",
     "tileset.lastUsedFormat": "tsx",

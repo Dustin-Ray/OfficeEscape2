@@ -40,6 +40,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** The graphical floor map for the currently loaded room. */
     private BufferedImage myFloorMap;
 
+
     /**
      * Constructor for class.
      *
@@ -60,12 +61,10 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     /** Helper method that can be called externally to switch rooms.  */
     public void loadRoom(final Room theRoom) throws IOException {
-
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
         this.myGrid = theRoom.getTerrain();
-
-        myUserControls = new UserController(new Player(384, 384), myCurrentRoom.getMap(), Direction.EAST, myGrid);
+        myUserControls = new UserController(new Player(384, 384), myCurrentRoom.getMap());
         myFloorMap = ImageIO.read(new File(PATH + theRoom.getRoomID() + "/floor_map.png"));
         repaint();
     }
@@ -83,21 +82,19 @@ public class RoomPanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-//        drawMap(g2d);
-
-
         g2d.drawImage(myFloorMap, 0,0, this);
-        g2d.drawImage(getMyUserControls().getMyPlayer().getPlayerSprite(),
-                getMyUserControls().getMyPlayer().getX(),
-                getMyUserControls().getMyPlayer().getY(),
+        g2d.drawImage(myUserControls.getMyPlayer().getPlayerSprite(),
+                myUserControls.getMyPlayer().getX(),
+                myUserControls.getMyPlayer().getY(),
                 this);
     }
+
 
     /** Method to move player sprite when keys are pressed or released. */
     @Override
     public void actionPerformed(ActionEvent e) {
-        getMyUserControls().updatePlayer();
-        getMyUserControls().checkDoorProximity();
+        myUserControls.updatePlayer();
+        myUserControls.checkDoorProximity();
         repaint();
     }
 
@@ -110,7 +107,7 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyReleased(KeyEvent e) {
-            getMyUserControls().keyReleased(e);
+            myUserControls.keyReleased(e);
             repaint();}
 
 
@@ -120,14 +117,14 @@ public class RoomPanel extends JPanel implements ActionListener {
          */
         @Override
         public void keyPressed(KeyEvent e) {
-            getMyUserControls().keyPressed(e);
+            myUserControls.keyPressed(e);
             repaint();}
     }
 
 
     /** Resets user controller to initial state. */
     public void resetUserController() {
-        this.getMyUserControls().getMyPlayer().reset();
+        this.myUserControls.getMyPlayer().reset();
     }
 
 

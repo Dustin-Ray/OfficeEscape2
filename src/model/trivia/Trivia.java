@@ -134,7 +134,6 @@ public class Trivia {
      * @return ArrayList containing Strings of incorrect answers.
      */
     public ArrayList<String> getIncorrectAnswers() {
-//        Collections.shuffle(myIncorrectAnswers);
         return myIncorrectAnswers;
     }
 
@@ -156,8 +155,6 @@ public class Trivia {
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
-        // Shuffle the answerList that will be displayed to the user.
-//        Collections.shuffle(answerList);
         return answerList;
     }
 

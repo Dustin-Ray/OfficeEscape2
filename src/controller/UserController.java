@@ -27,9 +27,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /**Triggers option for trivia event if true. */
     private boolean myNextToDoor;
 
-    /** The terrain grid for the simulation. Square size defined by terrain grid.  */
-    private final Terrain[][] myGrid;
-
     /**Property change support manager for this object. Used to fire changes to listeners.  */
     private final PropertyChangeSupport myPcs;
 
@@ -48,20 +45,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
     private Map<Direction, Terrain> res;
 
-    /**
-     * Constructor.
-     * @param theDir starting facing direction for player object.
-     * @param theGrid is the terrain that the player object will interact with.
-     * @throws IOException if player object cannot load a given resource.
-     */
+
     public UserController(final Player thePlayer,
-                          final GameMap theGM,
-                          final Direction theDir,
-                          final Terrain[][] theGrid) {
+                          final GameMap theGM) {
         myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
-        this.myGrid = theGM.getTerrainGrid();
-        System.out.println(myGrid);
         myGM = theGM;
         myPlayer = thePlayer;
     }
@@ -186,7 +174,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
     }
 
 
-
     /**
      * Generates a map of the current terrain surrounding the player sprite.
      * @return each cardinal direction (NWES) and its current terrain in relation
@@ -200,16 +187,15 @@ public class UserController implements PropertyChangeEnabledUserControls {
         if (arrPosY - 1 < 0) {
             arrPosY += 1;
         }
+        Terrain[][] grid = myGM.getTerrainGrid();
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
-            //uses the x y position of the sprite to access the elements of the terrain array.
-            result.put(Direction.NORTH, myGrid[arrPosY - 1][arrPosX]);
-            result.put(Direction.SOUTH, myGrid[arrPosY + 1][arrPosX]);
-            result.put(Direction.EAST, myGrid[arrPosY][arrPosX - 1]);
-            result.put(Direction.WEST, myGrid[arrPosY][arrPosX + 1]);
+            result.put(Direction.NORTH, grid[arrPosY - 1][arrPosX]);
+            result.put(Direction.SOUTH, grid[arrPosY + 1][arrPosX]);
+            result.put(Direction.EAST, grid[arrPosY][arrPosX - 1]);
+            result.put(Direction.WEST, grid[arrPosY][arrPosX + 1]);
             myPositions = "Y pos: " + playerTileY + "\t" + "X pos: " + playerTileX;
         }
-
 
         //helper code to fire debug info to console
         myNeighbors = "Surrounding terrain: \n";
@@ -254,10 +240,12 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, myPositions);
     }
 
+
     /** Fires a property change when the terrain surrounding the sprite changes. */
     private void fireNeighborChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
     }
+
 
     /**
      * Adds a property change listener.
@@ -267,6 +255,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
     }
+
 
     /**
      * Removes a property change listener.

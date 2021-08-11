@@ -134,7 +134,7 @@ public class Trivia {
      * @return ArrayList containing Strings of incorrect answers.
      */
     public ArrayList<String> getIncorrectAnswers() {
-        Collections.shuffle(myIncorrectAnswers);
+//        Collections.shuffle(myIncorrectAnswers);
         return myIncorrectAnswers;
     }
 
@@ -154,10 +154,11 @@ public class Trivia {
          In case of SA, there is 1.
          */
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
+        System.out.println(wrongAnswers.size());
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
         // Shuffle the answerList that will be displayed to the user.
-        Collections.shuffle(answerList);
+//        Collections.shuffle(answerList);
         return answerList;
     }
 
@@ -195,6 +196,7 @@ public class Trivia {
         return hintsList;
     }
 
+
     /**
      * Returns an integer that indicates the type of the Trivia question.
      *
@@ -218,10 +220,12 @@ public class Trivia {
         return result;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(myQuestion, myCorrectAnswer, myID, myType);
     }
+
 
     /**
      * Returns a String representation of the Trivia object.

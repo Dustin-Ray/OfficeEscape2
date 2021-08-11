@@ -28,24 +28,34 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** Area to display text output.  */
     private JTextArea myConsoleScreenTextArea1;
+
     /** Area to display text output.  */
     private JTextArea myConsoleScreenTextArea2;
+
     /** Graphics to decorate text area. */
     private final BufferedImage myDisplayConsole;
+
     /** Graphics to decorate text area. */
     private final BufferedImage myInfoDisplayConsole;
+
     /** Text area that displays the current room number. */
     private JTextArea myRoomID;
+
     /** Trivia object to be integrated into a trivia event. */
     private Trivia myTrivia;
+
     /** A list of answer labels to be displayed when a trivia event is initiated. */
     private ArrayList<JLabel> myAnswerLabelList;
+
     /** A text area to enter short answers to trivia questions. */
     private final JTextArea myShortAnswerTextArea;
+
     /** A custom font to be used for GUI elements. */
     private final Font myCustomFont;
+
     /** A "button" to be used to submit short answers. */
     private final JLabel mySubmitAnswer;
+
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
     private boolean myCorrectlyAnsweredFlag;
 
@@ -96,10 +106,14 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-            case XY_POSITION -> myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
+//            case XY_POSITION -> myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
+//            case NEIGHBOR_CHANGE -> testText = theEvent.getNewValue().toString();
             case NEIGHBOR_CHANGE -> myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
         }
     }
+
+
+    private String testText;
 
     /** Prompts to begin trivia event. */
     public void triviaPrompt() {myConsoleScreenTextArea1.setText("Press E for Trivia: ");}
@@ -108,6 +122,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
      * @param theTrivia is the trivia question to operate on. */
     public void setTrivia(final Trivia theTrivia) {
         ArrayList<String> triviaAnswers = theTrivia.getAnswers();
+        System.out.println(triviaAnswers);
         myTrivia = theTrivia;
         myConsoleScreenTextArea2.setText("QUESTION: \n" + theTrivia.getQuestion());
         if (theTrivia.getType() != 3) {
@@ -116,7 +131,9 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
                 myAnswerLabelList.get(i).setHorizontalAlignment(SwingConstants.CENTER);
                 myAnswerLabelList.get(i).setVisible(true);
             }
-        } else if(theTrivia.getType() == 3) {setupShortAnswer();}
+        }
+        else if(theTrivia.getType() == 3) {setupShortAnswer();}
+
     }
 
 

@@ -159,6 +159,7 @@ public abstract class MapEntity {
                 && myY + myHeight > other.myY;
     }
 
+
     /**
      * Detects whether this MapEntity is out of the Map bounds.
      *

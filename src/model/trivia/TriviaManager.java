@@ -89,4 +89,6 @@ public class TriviaManager {
         Random rnd = new Random();
         return myTriviaList.remove(Math.abs(rnd.nextInt(myTriviaList.size())));
     }
+
+
 }

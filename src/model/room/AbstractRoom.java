@@ -10,7 +10,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package model.room;
 
-import model.map.TerrainGrid;
+import model.map.GameMap;
 import model.map.Terrain;
 
 /**
@@ -28,6 +28,7 @@ public abstract class AbstractRoom {
     private Door DoorC;
     /** Door object containing a given trivia question and link to another room. */
     private Door DoorD;
+
     /** Room object possibly linked to this room by a given door. */
     private Room RoomA;
     /** Room object possibly linked to this room by a given door. */
@@ -36,10 +37,13 @@ public abstract class AbstractRoom {
     private Room RoomC;
     /** Room object possibly linked to this room by a given door. */
     private Room RoomD;
+
     /** The int ID for this room. */
     private final int myID;
     /** The terrain grid for this room. */
     private final Terrain[][] myTerrain;
+
+    private final GameMap gm;
 
 
     /**
@@ -48,15 +52,14 @@ public abstract class AbstractRoom {
      */
     public AbstractRoom(final int theID) {
         myID = theID;
-        TerrainGrid tG = new TerrainGrid(16, 16, getFilePath());
-        myTerrain = tG.getGrid();
+        GameMap tG = new GameMap(theID);
+        myTerrain = tG.getTerrainGrid();
+        gm = new GameMap(myID);
     }
 
-
-    public String getFilePath() {
-        return "src/res/floor_maps/floor_map_" + myID +  "/floor_map_validfloor.csv";
+    public GameMap getMap() {
+        return gm;
     }
-
 
     /**
      * Gets the terrain grid for this room.

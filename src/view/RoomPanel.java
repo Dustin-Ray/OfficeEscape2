@@ -25,12 +25,6 @@ public class RoomPanel extends JPanel implements ActionListener {
     /** Controller object that uses keyboard input to manipulate player sprite.  */
     private UserController myUserControls;
 
-    /** The size in pixels of a side of one "square" on the grid. */
-    private static final int SQUARE_SIZE = 48;
-
-   /** The terrain grid for the simulation. */
-    private Terrain[][] myGrid;
-
     /** The current room being rendered. */
     private Room myCurrentRoom;
 
@@ -63,7 +57,6 @@ public class RoomPanel extends JPanel implements ActionListener {
     public void loadRoom(final Room theRoom) throws IOException {
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
-        this.myGrid = theRoom.getTerrain();
         myUserControls = new UserController(new Player(384, 384), myCurrentRoom.getMap());
         myFloorMap = ImageIO.read(new File(PATH + theRoom.getRoomID() + "/floor_map.png"));
         repaint();
@@ -83,10 +76,9 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(myFloorMap, 0,0, this);
-        g2d.drawImage(myUserControls.getMyPlayer().getPlayerSprite(),
-                myUserControls.getMyPlayer().getX(),
-                myUserControls.getMyPlayer().getY(),
-                this);
+        Player player = myUserControls.getMyPlayer();
+        g2d.drawImage(player.getPlayerSprite(), player.getX(),
+                player.getY(), this);
     }
 
 

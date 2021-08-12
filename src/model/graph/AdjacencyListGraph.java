@@ -13,9 +13,11 @@ package model.graph;
 import java.util.*;
 
 /**
- * An adjacency-list implementation of a graph. Can be used to build a directed
- * or undirected and weighted or unweighted graph. All edges have a default
- * weight of 0.0.
+ * An adjacency-list implementation of a graph. Each vertex u in the
+ * adjacency-list is mapped to a set of edges (u, v), where each v shares an
+ * edge with u. Can be used to build an undirected or directed and weighted or
+ * unweighted graph. All edges have a default weight of 0.0 (for an unweighted
+ * graph) unless otherwise assigned.
  *
  * @author Reuben Keller
  * @version Summer 2021
@@ -66,7 +68,6 @@ public class AdjacencyListGraph<V>{
      *     from and to are not equal.
      */
     public void addDirectedEdge(final V from, final V to, final double weight) {
-        checkEdge(from, to);
         Edge<V> edge = new Edge<>(from, to, weight);
         edges.add(edge);
         vertices.add(from);
@@ -102,28 +103,8 @@ public class AdjacencyListGraph<V>{
      * @param to The vertex b in undirected edge {a, b}.
      */
     public void addUndirectedEdge(final V from, final V to, final double weight) {
-        checkEdge(from, to);
         addDirectedEdge(from, to, weight);
         addDirectedEdge(to, from, weight);
-    }
-
-
-    /**
-     * Checks if the edge for the given vertices is valid.
-     *
-     * @param from The vertex the edge emanates from.
-     * @param to The vertex the edge terminates on.
-     * @throws IllegalArgumentException if from == null or to == null, or if
-     *     from and to are not equal.
-     */
-    private void checkEdge(final V from, final V to) {
-        if (from == null || to == null) {
-            throw new IllegalArgumentException("attempted to add a directed" +
-                    "edge with a null vertex");
-        }
-        if (Objects.equals(from, to)) {
-            throw new IllegalArgumentException("attempted to add a self-loop");
-        }
     }
 
 
@@ -205,8 +186,8 @@ public class AdjacencyListGraph<V>{
 
 
     /**
-     * Overrides the hashCode method to hash this AdjacencyListGraph based
-     * on its defining fields.
+     * Hashes this AdjacencyListGraph based on its adjacency-list, set of
+     * vertices, and set of edges.
      *
      * @return The integer hashed value of this AdjacencyListGraph.
      */

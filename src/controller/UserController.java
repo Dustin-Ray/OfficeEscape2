@@ -1,3 +1,13 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package controller;
 
 import model.map.*;
@@ -39,15 +49,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /**String representation of neighbors surrounding the player sprite.  */
     private String myNeighbors;
 
-
     /** The GameMap the Player is in. */
     private final GameMap myGM;
 
-    private Map<Direction, Terrain> res;
 
-
-    public UserController(final Player thePlayer,
-                          final GameMap theGM) {
+    public UserController(final Player thePlayer, final GameMap theGM) {
         myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
         myGM = theGM;
@@ -56,42 +62,9 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
 
     /**
-     * Checks if the Player collides with any Obstacles in the Map.
+     * Handles key-pressed events.
      *
-     * @return true if Player collides with an Obstacle and false otherwise
-     */
-    private boolean collisionWith(List<MapEntity> obstacles) {
-        for (MapEntity obstacle : obstacles) {
-            if (myPlayer.collidesWith(obstacle)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * Updates the x and y positions of the player.
-     */
-    public void updatePlayer() {
-        int oldX = myPlayer.getX();
-        int oldY = myPlayer.getY();
-        myPlayer.update();
-        int newX = myPlayer.getX();
-        int newY = myPlayer.getY();
-        if (collisionWith(myGM.getObstacles()) || myPlayer.outOfBounds()) {
-            newX = oldX;
-            newY = oldY;
-        }
-        myPlayer.setX(newX);
-        myPlayer.setY(newY);
-    }
-
-
-    /**
-     * Handles key pressed events.
-     *
-     * @param event is an int value of the current key event value.
+     * @param event The KeyEvent triggered by pressing a key.
      */
     public void keyPressed(final KeyEvent event) {
         int key = event.getKeyCode();
@@ -122,10 +95,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
 
     /**
-     * Handles a key release event. Used to stop movement of the
-     * player sprite and also sets the load game value to false if user
-     * if not pressing the "e" key.
-     * @param event is the key released event.
+     * Handles a key-release event. Sets the velocity of a player in a
+     * direction to 0 based on the key that's released. Also sets the
+     * load game value to false if the user releases the "e" key.
+     *
+     * @param event The KeyEvent triggered by releasing a key.
      */
     public void keyReleased(KeyEvent event) {
         int key = event.getKeyCode();
@@ -146,28 +120,59 @@ public class UserController implements PropertyChangeEnabledUserControls {
         }
     }
 
+    /**
+     * Checks if the Player collides with any Obstacles in the Map.
+     *
+     * @return true if the Player collides with an Obstacle and false otherwise
+     */
+    private boolean collisionWith(List<MapEntity> obstacles) {
+        for (MapEntity obstacle : obstacles) {
+            if (myPlayer.collidesWith(obstacle)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public void checkDoorProximity() {
-        res = new HashMap<>();
+
+    /**
+     * Updates the x and y positions of the player.
+     */
+    public void updatePlayer() {
+        int oldX = myPlayer.getX();
+        int oldY = myPlayer.getY();
+        myPlayer.update();
+        int newX = myPlayer.getX();
+        int newY = myPlayer.getY();
+        if (collisionWith(myGM.getObstacles()) || myPlayer.outOfBounds()) {
+            newX = oldX;
+            newY = oldY;
+        }
+        myPlayer.setX(newX);
+        myPlayer.setY(newY);
+        checkDoorProximity();
+    }
+
+
+    /**
+     * Checks the proximity of the Player sprite for any Doors.
+     */
+    private void checkDoorProximity() {
+        generateNeighbors();
         if (collisionWith(myGM.doorAPositions())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-            res.put(myPlayer.getDirection(), DOOR_CLOSED_A);
             myNextToDoor = true;
         } else if (collisionWith(myGM.doorBPositions())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-            res.put(myPlayer.getDirection(), DOOR_CLOSED_B);
             myNextToDoor = true;
         } else if (collisionWith(myGM.doorCPositions())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-            res.put(myPlayer.getDirection(), DOOR_CLOSED_C);
             myNextToDoor = true;
         } else if (collisionWith(myGM.doorDPositions())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-            res.put(myPlayer.getDirection(), DOOR_CLOSED_D);
             myNextToDoor = true;
         } else {
             myNextToDoor = false;
-            generateNeighbors();
             fireXYPositionChange();
             fireNeighborChange();
         }
@@ -175,15 +180,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
 
     /**
-     * Generates a map of the current terrain surrounding the player sprite.
-     * @return each cardinal direction (NWES) and its current terrain in relation
-     * to the player sprite.
+     * Generates a map of the current Terrain surrounding the Player.
      */
-    private Map<Direction, Terrain> generateNeighbors() {
-        int playerTileX = (myPlayer.getX() / GameMap.TILE_WIDTH) + 1;
-        int playerTileY = (myPlayer.getY() / GameMap.TILE_HEIGHT) + 1;
-        int arrPosX = playerTileX - 1;
-        int arrPosY = playerTileY - 1;
+    private void generateNeighbors() {
+        int arrPosX = myPlayer.tileX() - 1;
+        int arrPosY = myPlayer.tileY() - 1;
         if (arrPosY - 1 < 0) {
             arrPosY += 1;
         }
@@ -194,7 +195,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
             result.put(Direction.SOUTH, grid[arrPosY + 1][arrPosX]);
             result.put(Direction.EAST, grid[arrPosY][arrPosX - 1]);
             result.put(Direction.WEST, grid[arrPosY][arrPosX + 1]);
-            myPositions = "Y pos: " + playerTileY + "\t" + "X pos: " + playerTileX;
+            myPositions = "Y pos: " + myPlayer.tileY() + "\t"
+                    + "X pos: " + myPlayer.tileX();
         }
 
         //helper code to fire debug info to console
@@ -208,7 +210,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
                     + result.get(sArr[j])
                     + "\n";
         }
-        return Collections.unmodifiableMap(result);
     }
 
 
@@ -216,7 +217,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * Gets player object for this class.
      * @return Current player object for this class.
      */
-    public Player getMyPlayer() {return myPlayer;}
+    public Player getMyPlayer() {
+        return myPlayer;
+    }
+
 
     /**
      * Gets the value of the current load game flag. Used so that the player can
@@ -224,7 +228,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @return boolean value of current load game flag. True is user is pressing and
      * holding the "e" key, false otherwise.
      */
-    public boolean getMyLoadGameFlag() {return myLoadGameFlag;}
+    public boolean getMyLoadGameFlag() {
+        return myLoadGameFlag;
+    }
+
 
     /**
      * Fires a property change when the player sprite is in proximity to a door.
@@ -265,6 +272,5 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
-
 
 }

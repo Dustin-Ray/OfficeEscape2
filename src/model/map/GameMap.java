@@ -1,3 +1,13 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.map;
 
 import java.io.File;

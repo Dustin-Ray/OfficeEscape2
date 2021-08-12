@@ -94,7 +94,6 @@ public class RoomPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         myUserControls.updatePlayer();
-        myUserControls.checkDoorProximity();
         repaint();
     }
 

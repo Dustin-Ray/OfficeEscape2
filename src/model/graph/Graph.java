@@ -1,9 +1,20 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.graph;
 
 import java.util.Set;
 
 
 /**
+ * A Graph interface defining the expected behavior of implementing classes.
  *
  * @author Reuben Keller
  * @version Summer 2021

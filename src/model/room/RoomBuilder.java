@@ -80,12 +80,12 @@ public class RoomBuilder {
             // horizontal edges
             if ((j + 1) % ROWS != 0) {
                 double weight = myRand.nextDouble();
-                myGraph.addDirectedEdge(j, j + 1, weight);
+                myGraph.addUndirectedEdge(j, j + 1, weight);
             }
             // vertical edges
             if (j + COLS < NUM_ROOMS) {
                 double weight = myRand.nextDouble();
-                myGraph.addDirectedEdge(j, j + COLS, weight);
+                myGraph.addUndirectedEdge(j, j + COLS, weight);
             }
         }
     }

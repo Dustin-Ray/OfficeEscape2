@@ -22,7 +22,7 @@ import java.util.*;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public class AdjacencyListGraph<V>{
+public class AdjacencyListGraph<V> implements Graph<V> {
 
     /** The default value weight for edges in this AdjacencyListGraph. */
     private static final double DEFAULT_WEIGHT = 0.0;

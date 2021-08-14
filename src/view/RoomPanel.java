@@ -58,7 +58,7 @@ public class RoomPanel extends JPanel implements ActionListener {
     public void loadRoom(final Room theRoom) throws IOException {
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
-        myUserControls = new UserController(new Player(384, 384), myCurrentRoom.getMap());
+        myUserControls = new UserController(new Player(), myCurrentRoom.getMap());
         myFloorMap = ImageIO.read(new File(PATH + theRoom.getRoomID() + "/floor_map.png"));
         repaint();
     }

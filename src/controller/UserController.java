@@ -188,6 +188,9 @@ public class UserController implements PropertyChangeEnabledUserControls {
         if (arrPosY - 1 < 0) {
             arrPosY += 1;
         }
+        if (arrPosX - 1 < 0) {
+            arrPosX += 1;
+        }
         Terrain[][] grid = myGM.getTerrainGrid();
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {

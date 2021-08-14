@@ -19,7 +19,7 @@ public class Player extends MapEntity {
     public static final String PATH = "src/res/assets/chair/testing/";
 
     /** The default x position of this PLayer. */
-    private static final int DEFAULT_X = 288;
+    private static final int DEFAULT_X = 384;
 
     /** The default y position of this Player. */
     private static final int DEFAULT_Y = 384;
@@ -44,6 +44,14 @@ public class Player extends MapEntity {
 
     /** The Direction of this player. */
     private Direction myDir;
+
+
+    /**
+     * Constructs a Player at the default pixel position (x, y) = (384, 384).
+     */
+    public Player() {
+        this(DEFAULT_X, DEFAULT_Y);
+    }
 
 
     /**

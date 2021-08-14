@@ -29,7 +29,7 @@ import static model.map.Terrain.*;
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 3;
+    private static final int MOVEMENT_SPEED = 10;
 
     /** Object representing player character. */
     private final Player myPlayer;

@@ -20,6 +20,8 @@ import java.io.IOException;
 
 public class RoomPanel extends JPanel implements ActionListener {
 
+    public static final int DELAY = 1000 / 60;
+
     public static final String PATH = "src/res/maps/map_";
 
     /** Controller object that uses keyboard input to manipulate player sprite.  */
@@ -46,7 +48,6 @@ public class RoomPanel extends JPanel implements ActionListener {
         this.loadRoom(theRoom);
         setBackground(Color.BLACK);
         this.setFocusable(true);
-        int DELAY = 1;
         Timer timer = new Timer(DELAY, this);
         timer.start();
         addKeyListener(new TAdapter());

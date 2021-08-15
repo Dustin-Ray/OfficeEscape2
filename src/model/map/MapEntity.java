@@ -10,6 +10,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package model.map;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -19,7 +20,7 @@ import java.util.Objects;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public abstract class MapEntity {
+public abstract class MapEntity implements Serializable {
 
     /** The pixel width of this map entity. */
     protected int myWidth;

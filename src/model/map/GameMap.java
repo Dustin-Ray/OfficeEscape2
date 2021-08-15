@@ -11,6 +11,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 package model.map;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ import static model.map.Terrain.*;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public class GameMap {
+public class GameMap implements Serializable {
 
     /** The pixel width of each tile. */
     public static final int TILE_WIDTH = 48;

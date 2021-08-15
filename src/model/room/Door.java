@@ -12,6 +12,7 @@ package model.room;
 
 import model.trivia.Trivia;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Objects;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public class Door {
+public class Door implements Serializable {
 
     /** A boolean variable to track whether this Door is valid or invalid. */
     private boolean isValid;

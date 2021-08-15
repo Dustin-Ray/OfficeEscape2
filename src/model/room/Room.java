@@ -10,6 +10,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package model.room;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Objects;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public class Room extends AbstractRoom {
+public class Room extends AbstractRoom implements Serializable {
 
     /**
      * Constructs a Room with the given ID.

@@ -10,8 +10,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package model.trivia;
 
-import model.room.Door;
-
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -21,7 +20,7 @@ import java.util.*;
  *
  * @author Raz Consta
  */
-public class Trivia {
+public class Trivia implements Serializable {
 
     /**
      * ID of the question.

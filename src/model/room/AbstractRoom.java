@@ -12,6 +12,8 @@ package model.room;
 
 import model.map.GameMap;
 
+import java.io.Serializable;
+
 /**
  * Implements behavior common to all Rooms. Each Room has 4 possible Doors and
  * 4 possible neighboring Rooms.
@@ -19,7 +21,7 @@ import model.map.GameMap;
  * @author Reuben Keller
  * @version Summer 2021
  */
-public abstract class AbstractRoom {
+public abstract class AbstractRoom implements Serializable {
 
     /** Door A of this Room. */
     private Door doorA;
@@ -49,7 +51,7 @@ public abstract class AbstractRoom {
     private final int myID;
 
     /** The GameMap of this Room. */
-    private final GameMap gm;
+    private GameMap gm;
 
 
     /**

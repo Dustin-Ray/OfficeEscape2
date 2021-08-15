@@ -1,3 +1,13 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package model.map;
 
 import java.util.Objects;
@@ -158,6 +168,7 @@ public abstract class MapEntity {
                 && myY < other.myY + other.myHeight
                 && myY + myHeight > other.myY;
     }
+
 
     /**
      * Detects whether this MapEntity is out of the Map bounds.

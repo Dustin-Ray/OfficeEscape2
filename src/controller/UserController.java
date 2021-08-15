@@ -1,197 +1,217 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Dustin Ray, Raz Consta, Reuben Keller
+ */
+
 package controller;
 
-import model.map.Direction;
-import model.map.Player;
-import model.map.Terrain;
+import model.map.*;
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static model.map.Terrain.*;
 
 /**
  * Controls attributes for player character. Communicates with RoomPanel via key listener.
+ *
  * @author Dustin Ray
+ * @author Reuben Keller
  */
 public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Movement speed of player sprite. */
-    private static final int MOVEMENT_SPEED = 3;
+    private static final int MOVEMENT_SPEED = 10;
+
     /** Object representing player character. */
-    private final Player player;
-    /**Values uses to represent change in x and y positioning during key
-     * pressed/released event. */
-    private int dx, dy;
+    private final Player myPlayer;
+
     /**Triggers option for trivia event if true. */
     private boolean myNextToDoor;
-    /** The terrain grid for the simulation. Square size defined by terrain grid.  */
-    private final Terrain[][] myGrid;
+
     /**Property change support manager for this object. Used to fire changes to listeners.  */
     private final PropertyChangeSupport myPcs;
+
     /** A value used to determine if the player wants to enter the next room. */
     private boolean myLoadGameFlag;
-    /** The value used to calculate proximity to terrain in getNeighbors method.
-     * Can be changed to fit different asset pixel sizes. */
-    private int myDiv;
+
     /** Used for debugging, fires to console panel so sprite position can be determined. */
     private String myPositions;
+
     /**String representation of neighbors surrounding the player sprite.  */
     private String myNeighbors;
 
-    /**
-     * Constructor.
-     * @param theX starting x value for player object.
-     * @param theY starting y value for player object.
-     * @param theDir starting facing direction for player object.
-     * @param theGrid is the terrain that the player object will interact with.
-     * @throws IOException if player object cannot load a given resource.
-     */
-    public UserController(int theX,
-                          int theY,
-                          final Direction theDir,
-                          final Terrain[][] theGrid) throws IOException {
+    /** The GameMap the Player is in. */
+    private final GameMap myGM;
 
-        myDiv = 0;
+
+    public UserController(final Player thePlayer, final GameMap theGM) {
         myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
-        this.myGrid = theGrid.clone();
-        player = new Player(theX, theY);
-        player.setDirection(theDir);
+        myGM = theGM;
+        myPlayer = thePlayer;
+    }
+
+
+    /**
+     * Handles key-pressed events.
+     *
+     * @param event The KeyEvent triggered by pressing a key.
+     */
+    public void keyPressed(final KeyEvent event) {
+        int key = event.getKeyCode();
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_KP_LEFT) {
+            myPlayer.setVelX(-MOVEMENT_SPEED);
+            myPlayer.setDirection(Direction.WEST);
+            myPlayer.setSprite(myPlayer.chairLeft);
+        }
+        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_KP_RIGHT) {
+            myPlayer.setVelX(MOVEMENT_SPEED);
+            myPlayer.setDirection(Direction.EAST);
+            myPlayer.setSprite(myPlayer.chairRight);
+        }
+        if (key == KeyEvent.VK_DOWN|| key == KeyEvent.VK_KP_DOWN) {
+            myPlayer.setVelY(MOVEMENT_SPEED);
+            myPlayer.setDirection(Direction.SOUTH);
+            myPlayer.setSprite(myPlayer.chairDown);
+        }
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
+            myPlayer.setVelY(-MOVEMENT_SPEED);
+            myPlayer.setDirection(Direction.NORTH);
+            myPlayer.setSprite(myPlayer.chairUp);
+        }
+        if (key == KeyEvent.VK_E) {
+            myLoadGameFlag = true;
+        }
+    }
+
+
+    /**
+     * Handles a key-release event. Sets the velocity of a player in a
+     * direction to 0 based on the key that's released. Also sets the
+     * load game value to false if the user releases the "e" key.
+     *
+     * @param event The KeyEvent triggered by releasing a key.
+     */
+    public void keyReleased(KeyEvent event) {
+        int key = event.getKeyCode();
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_KP_LEFT) {
+            myPlayer.setVelX(0);
+        }
+        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_KP_RIGHT) {
+            myPlayer.setVelX(0);
+        }
+        if (key == KeyEvent.VK_DOWN|| key == KeyEvent.VK_KP_DOWN) {
+            myPlayer.setVelY(0);
+        }
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
+            myPlayer.setVelY(0);
+        }
+        if (key == KeyEvent.VK_E) {
+            myLoadGameFlag = false;
+        }
     }
 
     /**
-     * Generates a map of the current terrain surrounding the player sprite.
-     * @param theMover is the current player sprite.
-     * @return each cardinal direction (NWES) and its current terrain in relation
-     * to the player sprite.
+     * Checks if the Player collides with any Obstacles in the Map.
+     *
+     * @return true if the Player collides with an Obstacle and false otherwise
      */
-    private Map<Direction, Terrain> generateNeighbors(final Player theMover) {
+    private boolean collisionWith(List<MapEntity> obstacles) {
+        for (MapEntity obstacle : obstacles) {
+            if (myPlayer.collidesWith(obstacle)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        //the current tile size
-        myDiv = 48;
-        final int x = Math.abs(theMover.getX());
-        final int y = Math.abs(theMover.getY());
+
+    /**
+     * Updates the x and y positions of the player.
+     */
+    public void updatePlayer() {
+        int oldX = myPlayer.getX();
+        int oldY = myPlayer.getY();
+        myPlayer.update();
+        int newX = myPlayer.getX();
+        int newY = myPlayer.getY();
+        if (collisionWith(myGM.getObstacles()) || myPlayer.outOfBounds()) {
+            newX = oldX;
+            newY = oldY;
+        }
+        myPlayer.setX(newX);
+        myPlayer.setY(newY);
+        checkDoorProximity();
+    }
+
+
+    /**
+     * Checks the proximity of the Player sprite for any Doors.
+     */
+    private void checkDoorProximity() {
+        generateNeighbors();
+        if (collisionWith(myGM.doorAPositions())) {
+            fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
+            myNextToDoor = true;
+        } else if (collisionWith(myGM.doorBPositions())) {
+            fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
+            myNextToDoor = true;
+        } else if (collisionWith(myGM.doorCPositions())) {
+            fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
+            myNextToDoor = true;
+        } else if (collisionWith(myGM.doorDPositions())) {
+            fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
+            myNextToDoor = true;
+        } else {
+            myNextToDoor = false;
+            fireXYPositionChange();
+            fireNeighborChange();
+        }
+    }
+
+
+    /**
+     * Generates a map of the current Terrain surrounding the Player.
+     */
+    private void generateNeighbors() {
+        int arrPosX = myPlayer.tileX() - 1;
+        int arrPosY = myPlayer.tileY() - 1;
+        if (arrPosY - 1 < 0) {
+            arrPosY += 1;
+        }
+        if (arrPosX - 1 < 0) {
+            arrPosX += 1;
+        }
+        Terrain[][] grid = myGM.getTerrainGrid();
         final Map<Direction, Terrain> result = new HashMap<>();
         for (int i = 0; i < Direction.values().length; i++) {
-            //uses the x y position of the sprite to access the elements of the terrain array.
-            result.put(Direction.NORTH, myGrid[(y / myDiv) -1][(x / myDiv)]);
-            result.put(Direction.SOUTH, myGrid[(y / myDiv)][(x / myDiv)]);
-            result.put(Direction.EAST, myGrid[(y / myDiv)][(x / myDiv)]);
-            result.put(Direction.WEST, myGrid[(y / myDiv)][(x / myDiv)- 1]);
-            myPositions = "Y pos: " + ((y / myDiv)) + "\t" + "X pos: " + ((x / myDiv));
+            result.put(Direction.NORTH, grid[arrPosY - 1][arrPosX]);
+            result.put(Direction.SOUTH, grid[arrPosY + 1][arrPosX]);
+            result.put(Direction.EAST, grid[arrPosY][arrPosX - 1]);
+            result.put(Direction.WEST, grid[arrPosY][arrPosX + 1]);
+            myPositions = "Y pos: " + myPlayer.tileY() + "\t"
+                    + "X pos: " + myPlayer.tileX();
         }
+
         //helper code to fire debug info to console
         myNeighbors = "Surrounding terrain: \n";
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < result.size(); j++) {
             Set<Direction> s = result.keySet();
             Object[] sArr = s.toArray();
             myNeighbors = myNeighbors +
-                        sArr[j].toString() +
-                        ":    "
-                        + result.get(sArr[j])
-                        + "\n";
-        }
-        return Collections.unmodifiableMap(result);
-    }
-
-    /**
-     * Handles key pressed event.
-     * @param theKeyEvent is an int value of the current key event value.
-     */
-    public void keyPressed(KeyEvent theKeyEvent) {
-        int key = theKeyEvent.getKeyCode();
-        if (key == KeyEvent.VK_LEFT) {
-            player.setDirection(Direction.WEST);
-            this.player.setMyPlayerSprite(player.chair_left);
-            dx = -MOVEMENT_SPEED;}
-        if (key == KeyEvent.VK_RIGHT) {
-            player.setDirection(Direction.EAST);
-            this.player.setMyPlayerSprite(player.chair_right);
-            dx = MOVEMENT_SPEED;}
-        if (key == KeyEvent.VK_UP) {
-            player.setDirection(Direction.NORTH);
-            this.player.setMyPlayerSprite(player.chair_up);
-            dy = -MOVEMENT_SPEED;}
-        if (key == KeyEvent.VK_DOWN) {
-            player.setDirection(Direction.SOUTH);
-            this.player.setMyPlayerSprite(player.chair_down);
-            dy = MOVEMENT_SPEED;}
-        if (key == KeyEvent.VK_E) {
-            myLoadGameFlag = true;}
-    }
-
-    /**
-     * Handles a key release event. Used to stop movement of the
-     * player sprite and also sets the load game value to false if user
-     * if not pressing the "e" key.
-     * @param e is the key released event.
-     */
-    public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_LEFT) {dx = 0;}
-        if (key == KeyEvent.VK_RIGHT) {dx = 0;}
-        if (key == KeyEvent.VK_UP) {dy = 0;}
-        if (key == KeyEvent.VK_DOWN) {dy = 0;}
-        if (key == KeyEvent.VK_E) {
-            myLoadGameFlag = false;}
-    }
-
-
-    /**
-     * Moves the player object on the grid and sets direction according to
-     * current key press.
-     * @param theDir direction that the player object should be oriented in
-     *               according to current key press.
-     */
-    public void move(final Direction theDir) {
-        player.setDirection(theDir);
-        player.setX(player.getX() + dx);
-        player.setY(player.getY() + dy);
-//        System.out.println(myLoadGameFlag);
-    }
-
-    /**
-     * Valid terrain that the sprite is allowed to move on.
-     * @param theTerrain is the terrain to check for validity.
-     * @return boolean determining if terrain passed in is valid to move on.
-     */
-    public boolean canPass(final Terrain theTerrain) {return !(theTerrain == OBSTACLE);}
-
-    /**
-     * Checks proximity to doors and other elements that can be interacted with.
-     * Moves player sprite if interaction is valid.
-     */
-    public void advance() {
-        final Map<Direction, Terrain> neighbors = generateNeighbors(player);
-        if(this.canPass(neighbors.get(player.getDirection()))) {
-
-            if (neighbors.get(player.getDirection()) == DOOR_CLOSED_A) {
-                myNextToDoor = true;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
-            } else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_B) {
-                myNextToDoor = true;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
-            }
-            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_C) {
-                myNextToDoor = true;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
-            }
-            else if (neighbors.get(player.getDirection()) == DOOR_CLOSED_D) {
-                myNextToDoor = true;
-                fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
-            }
-            else {
-                myNextToDoor = false;
-                fireXYPositionChange();
-                fireNeighborChange();
-            }
-            this.move(player.getDirection());
+                    sArr[j].toString() +
+                    ":    "
+                    + result.get(sArr[j])
+                    + "\n";
         }
     }
 
@@ -200,7 +220,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * Gets player object for this class.
      * @return Current player object for this class.
      */
-    public Player getPlayer() {return player;}
+    public Player getMyPlayer() {
+        return myPlayer;
+    }
+
 
     /**
      * Gets the value of the current load game flag. Used so that the player can
@@ -208,7 +231,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * @return boolean value of current load game flag. True is user is pressing and
      * holding the "e" key, false otherwise.
      */
-    public boolean getMyLoadGameFlag() {return myLoadGameFlag;}
+    public boolean getMyLoadGameFlag() {
+        return myLoadGameFlag;
+    }
+
 
     /**
      * Fires a property change when the player sprite is in proximity to a door.
@@ -224,10 +250,12 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, myPositions);
     }
 
+
     /** Fires a property change when the terrain surrounding the sprite changes. */
     private void fireNeighborChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
     }
+
 
     /**
      * Adds a property change listener.
@@ -238,6 +266,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.addPropertyChangeListener(theListener);
     }
 
+
     /**
      * Removes a property change listener.
      * @param theListener the listen to remove.
@@ -246,6 +275,5 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
-
 
 }

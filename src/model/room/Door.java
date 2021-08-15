@@ -20,6 +20,7 @@ import java.util.Objects;
  * answers a Trivia question correctly.
  *
  * @author Reuben Keller
+ * @version Summer 2021
  */
 public class Door {
 

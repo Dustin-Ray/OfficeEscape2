@@ -134,7 +134,6 @@ public class Trivia {
      * @return ArrayList containing Strings of incorrect answers.
      */
     public ArrayList<String> getIncorrectAnswers() {
-        Collections.shuffle(myIncorrectAnswers);
         return myIncorrectAnswers;
     }
 
@@ -156,8 +155,6 @@ public class Trivia {
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
-        // Shuffle the answerList that will be displayed to the user.
-        Collections.shuffle(answerList);
         return answerList;
     }
 
@@ -179,7 +176,7 @@ public class Trivia {
         } else if (getType() == SA) {
             StringBuilder saHint = new StringBuilder();
             for (int i = 0; i < myCorrectAnswer.length(); i++) {
-                if (Math.random() < 0.7) {
+                if (Math.random() < 0.5) {
                     saHint.append(myCorrectAnswer.charAt(i));
                 } else {
                     if (myCorrectAnswer.charAt(i) != ' ') {
@@ -194,6 +191,7 @@ public class Trivia {
         Collections.shuffle(hintsList);
         return hintsList;
     }
+
 
     /**
      * Returns an integer that indicates the type of the Trivia question.
@@ -218,10 +216,12 @@ public class Trivia {
         return result;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(myQuestion, myCorrectAnswer, myID, myType);
     }
+
 
     /**
      * Returns a String representation of the Trivia object.

@@ -45,18 +45,14 @@ public class TriviaManager {
             c = DriverManager.getConnection("jdbc:sqlite:src/res/database/questions-answers.db");
             c.setAutoCommit(false);
 //            System.out.println("Opened database successfully");
-
             stmt = c.createStatement();
             ResultSet rst = stmt.executeQuery( "SELECT * FROM trivia;" );
-
             while ( rst.next() ) {
-
                 int id = rst.getInt("id");
                 String question = rst.getString("question");
                 String correct = rst.getString("answer");
                 String incorrect = rst.getString("wrong");
                 int type = rst.getInt("type");
-
                 myTriviaList.add(new Trivia(id, question, correct, incorrect, type));
             }
             rst.close();
@@ -73,7 +69,7 @@ public class TriviaManager {
 //        for (Trivia t: myTriviaList) {
 //            System.out.println(t);
 //        }
-//
+
 //        Trivia mc = myTriviaList.get(1);
 //        System.out.println(mc.getAnswers());
 
@@ -91,6 +87,8 @@ public class TriviaManager {
      */
     public Trivia getTrivia() {
         Random rnd = new Random();
-        return myTriviaList.get(Math.abs(rnd.nextInt(myTriviaList.size())));
+        return myTriviaList.remove(Math.abs(rnd.nextInt(myTriviaList.size())));
     }
+
+
 }

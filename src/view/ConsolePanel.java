@@ -28,26 +28,38 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** Area to display text output.  */
     private JTextArea myConsoleScreenTextArea1;
+
     /** Area to display text output.  */
     private JTextArea myConsoleScreenTextArea2;
+
     /** Graphics to decorate text area. */
     private final BufferedImage myDisplayConsole;
+
     /** Graphics to decorate text area. */
     private final BufferedImage myInfoDisplayConsole;
+
     /** Text area that displays the current room number. */
     private JTextArea myRoomID;
+
     /** Trivia object to be integrated into a trivia event. */
     private Trivia myTrivia;
+
     /** A list of answer labels to be displayed when a trivia event is initiated. */
     private ArrayList<JLabel> myAnswerLabelList;
+
     /** A text area to enter short answers to trivia questions. */
     private final JTextArea myShortAnswerTextArea;
+
     /** A custom font to be used for GUI elements. */
     private final Font myCustomFont;
+
     /** A "button" to be used to submit short answers. */
     private final JLabel mySubmitAnswer;
+
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
     private boolean myCorrectlyAnsweredFlag;
+    /** A counter to keep track of correctly answered questions. */
+    private JTextArea myCorrectlyAnswered;
 
     /**
      * Constructor for class.
@@ -101,8 +113,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
+
     /** Prompts to begin trivia event. */
-    public void triviaPrompt() {myConsoleScreenTextArea1.setText("Press E for Trivia: ");}
+    public void triviaPrompt() {
+        myConsoleScreenTextArea1.setText("Press E for Trivia: ");
+    }
 
     /** Sets text area 2 to display the trivia question and text area 3 to display answer area.
      * @param theTrivia is the trivia question to operate on. */
@@ -116,13 +131,14 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
                 myAnswerLabelList.get(i).setHorizontalAlignment(SwingConstants.CENTER);
                 myAnswerLabelList.get(i).setVisible(true);
             }
-        } else if(theTrivia.getType() == 3) {setupShortAnswer();}
+        }
+        else if(theTrivia.getType() == 3) {setupShortAnswer();}
+
     }
 
 
     /** Adds clickable answer labels to info console area. */
     private void setupAnswerLabels() {
-
         myAnswerLabelList = new ArrayList<>();
         JLabel answerLabel1 = new JLabel("");
         JLabel answerLabel2 = new JLabel("");
@@ -213,6 +229,12 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         initializeTextArea(myRoomID, 12,830, 235, 80, 50);
+
+        myCorrectlyAnswered = new JTextArea("Correctly answered: " + "\n" + "0");
+        initializeTextArea(myRoomID, 12,910, 235, 80, 50);
+
+
+
 
     }
 

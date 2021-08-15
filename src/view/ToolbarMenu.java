@@ -1,7 +1,11 @@
 package view;
 
+import controller.PropertyChangeEnabledUserControls;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,12 +15,14 @@ import java.io.IOException;
  * @author Dustin Ray
  * @version Summer 2021
  */
-public class ToolbarMenu extends JMenuBar {
+public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserControls {
 
     /** The menu bar to be displayed at the top of the window. */
     private final JMenuBar myMenuBar;
     /** Game soundtrack audio file. */
     private Clip myAudioClip;
+
+    private final PropertyChangeSupport myPcs;
 
     /**
      * Constructor for toolbar.
@@ -38,7 +44,11 @@ public class ToolbarMenu extends JMenuBar {
         setupHighScoresMenu();
         setupAboutMenu();
         myMenuBar.setVisible(true);
+        myPcs = new PropertyChangeSupport(this);
+
     }
+
+
 
     /** Returns this menubar object. */
     public JMenuBar getMyMenuBar() {return myMenuBar;}
@@ -73,9 +83,39 @@ public class ToolbarMenu extends JMenuBar {
         fileMenu.add(closeGame);
 
         newGame.addActionListener(e -> {});
+        saveGame.addActionListener(e -> fireSavePropertyChange(SAVE));
+        loadGame.addActionListener(e -> fireLoadPropertyChange(LOAD));
         closeGame.addActionListener(e -> System.exit(0));
         myMenuBar.add(fileMenu);
     }
+
+    private void fireSavePropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "save");
+    }
+
+    private void fireLoadPropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "load");
+    }
+
+    /**
+     * Adds a property change listener.
+     * @param theListener the listen to add.
+     */
+    @Override
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
+    }
+
+
+    /**
+     * Removes a property change listener.
+     * @param theListener the listen to remove.
+     */
+    @Override
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
+    }
+
 
     /** Initializes music controls menu and adds to menu bar */
     private void setupMusicControls() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -114,6 +154,8 @@ public class ToolbarMenu extends JMenuBar {
     }
 
 
+
+
     /**
      * Sets up the UI for the toolbar.
      * @throws ClassNotFoundException If unable to load system default l/f.
@@ -138,5 +180,6 @@ public class ToolbarMenu extends JMenuBar {
                     UIManager.getCrossPlatformLookAndFeelClassName());
         }
     }
+
 
 }

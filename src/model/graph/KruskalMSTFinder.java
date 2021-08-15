@@ -21,52 +21,49 @@ import java.util.*;
  */
 public class KruskalMSTFinder<V> {
 
-    /** The graph to find a Kruskal MST of. */
-    private final Graph<V> myGraph;
-
-    /** The Kruskal MST generated. */
-    private final Set<Edge<V>> mst;
-
     /** A mapping of each vertex in the MST to its connected vertices. */
-    private final Map<V, List<V>> vertexMap;
+    private final Map<V, Set<V>> vertexMap;
 
-    /** The data structure maintaining the disjoint sets for the MST .*/
-    private final UnionFindDisjointSet<V> disjointSets;
-
-    /** The Edges in myGraph, sorted in non-decreasing order of weight. */
-    private List<Edge<V>> edges;
+    /** The set of Edges in the MST. */
+    private Set<Edge<V>> myMST;
 
 
     /**
      * Constructs a Kruskal MST finder for the given Graph.
-     *
-     * @param theGraph The Graph to find a Kruskal MST of.
      */
-    public KruskalMSTFinder(final Graph<V> theGraph) {
-        myGraph = theGraph;
-        mst = new HashSet<>();
+    public KruskalMSTFinder() {
         vertexMap = new HashMap<>();
-        disjointSets = new UnionFindDisjointSet<>();
-        findMST();
     }
 
 
     /**
-     * Sets up the list of Edges in non-decreasing order by weight.
+     * Given a Graph, returns a list of its edges sorted in non-decreasing
+     * order by weight.
+     *
+     * @param graph The Graph to extract a list of sorted edges from.
+     * @return A list of Edges sorted in non-decreasing order by weight.
      */
-    private void sortEdgesByWeight() {
-        edges = new ArrayList<>(myGraph.edges());
-        edges.sort(Comparator.comparingDouble(Edge::weight));
+    public List<Edge<V>> sortEdgesByWeight(Graph<V> graph) {
+        List<Edge<V>> sortedEdges = new ArrayList<>(graph.edges());
+        sortedEdges.sort(Comparator.comparingDouble(Edge::weight));
+        return sortedEdges;
     }
 
 
     /**
-     * Creates a disjoint set for each vertex in the Graph.
+     * Given a Graph, returns a UnionFindDisjointSet data structure containing
+     * a disjoint set for each of its vertices.
+     *
+     * @param graph The Graph with vertices to make disjoint sets of.
+     * @return A UnionFindDisjointSet data structure containing a disjoint set
+     *     for each vertex in the given graph.
      */
-    private void makeDisjointSets() {
-        for (V vertex : myGraph.vertices()) {
+    public UnionFindDisjointSet<V> makeDisjointSets(Graph<V> graph) {
+        UnionFindDisjointSet<V> disjointSets = new UnionFindDisjointSet<>();
+        for (V vertex : graph.vertices()) {
             disjointSets.makeSet(vertex);
         }
+        return disjointSets;
     }
 
 
@@ -76,30 +73,28 @@ public class KruskalMSTFinder<V> {
      * @param from The vertex a in edge (a, b).
      * @param to The vertex b in edge (a, b).
      */
-    private void addToVertexMap(final V from, final V to) {
-        vertexMap.computeIfAbsent(from, k -> new ArrayList<>());
+    public void addToVertexMap(final V from, final V to) {
+        vertexMap.computeIfAbsent(from, k -> new HashSet<>());
         vertexMap.get(from).add(to);
-        vertexMap.computeIfAbsent(to, k -> new ArrayList<>());
+        vertexMap.computeIfAbsent(to, k -> new HashSet<>());
         vertexMap.get(to).add(from);
     }
 
 
     /**
-     * Uses Kruskal's algorithm to find an MST in a Graph. The method first
-     * sorts a list of edges in the Graph to get them in non-decreasing order
-     * by weight and makes a disjoint set for each vertex in the Graph. The
-     * method then iterates through the ordered list of edges, finding the
-     * disjoint set that each vertex in each Edge belongs to. If two vertices
-     * belong to different disjoint sets, then their sets are unioned together
-     * (since doing so will not create a cycle) and their edge is added to the
-     * MST.
+     * Generates and returns a set of Edges in a MST using an efficient version
+     * of Kruskal's algorithm.
+     *
+     * @param graph The Graph to find an MST of.
+     * @return The MST of graph.
      */
-    private void findMST() {
-        sortEdgesByWeight();
-        makeDisjointSets();
+    public Set<Edge<V>> findMST(Graph<V> graph) {
+        myMST = new HashSet<>();
+        List<Edge<V>> sortedEdges = sortEdgesByWeight(graph);
+        UnionFindDisjointSet<V> disjointSets = makeDisjointSets(graph);
         // iterate through ordered edges to find a potential MST
-        for (Edge<V> edge : edges) {
-            if (mst.size() == myGraph.numVertices()- 1) {
+        for (Edge<V> edge : sortedEdges) {
+            if (myMST.size() == graph.numVertices()- 1) {
                 // stop iterating early if |E| = |V| - 1
                 break;
             }
@@ -108,21 +103,12 @@ public class KruskalMSTFinder<V> {
             int fromMST = disjointSets.findSet(from);
             int toMST = disjointSets.findSet(to);
             if (fromMST != toMST) {
-                mst.add(edge);
+                myMST.add(edge);
                 disjointSets.union(from, to);
                 addToVertexMap(from, to);
             }
         }
-    }
-
-
-    /**
-     * Returns the set of Edges in the Kruskal MST.
-     *
-     * @return The set of Edges in the Kruskal MST.
-     */
-    public Set<Edge<V>> getMST() {
-        return mst;
+        return myMST;
     }
 
 
@@ -131,7 +117,7 @@ public class KruskalMSTFinder<V> {
      *
      * @return A mapping of each vertex in the MST to its connected vertices.
      */
-    public Map<V, List<V>> getVertexMap () {
+    public Map<V, Set<V>> getVertexMap () {
         return vertexMap;
     }
 

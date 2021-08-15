@@ -164,6 +164,17 @@ public class AdjacencyListGraph<V> implements Graph<V> {
 
 
     /**
+     * Returns true if the number of Edges in this AdjacencyListGraph is zero
+     * and false otherwise.
+     *
+     * @return true if edges.size() == 0 and false otherwise
+     */
+    public boolean isEmpty() {
+        return edges.size() == 0;
+    }
+
+
+    /**
      * Overrides the equals method to make equality dependent on having the
      * same adjacency-list, vertices, and edges.
      *

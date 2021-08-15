@@ -5,6 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *
+ *
+ * @author Reuben Keller
+ * @version Summer 2021
+ */
 class TriviaManagerTest {
 
     @BeforeEach
@@ -13,5 +19,17 @@ class TriviaManagerTest {
 
     @Test
     void getTrivia() {
+    }
+
+
+
+    @Test
+    void getQuestion_returnsCorrectQuestion() {
+
+    }
+
+    @Test
+    void getCorrectAnswer_returnsCorrectAnswer() {
+
     }
 }

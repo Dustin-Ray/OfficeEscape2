@@ -1,5 +1,6 @@
 package controller;
 
+import model.GameState;
 import model.room.Room;
 import view.ConsolePanel;
 import view.MainMenuPanel;
@@ -61,6 +62,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     /** The mappings of all rooms to their connected rooms. */
     Map<Room, Set<Room>> myRoomsMap;
 
+    Room myCurrentRoom;
+
 
     /**
      * Constructor for class. Sets up all panels in the order in which they should appear.
@@ -98,6 +101,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         this.setResizable(false);
     }
 
+
     /** Initializes the current frame to hold the panels. Dimensions are set in
      * multiples of the default grid square size. */
     private void setupFrame() {
@@ -126,6 +130,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * for loading, saving, returning to main menu, etc. */
     private void addToolbarPanel() {
         this.setJMenuBar(myCurrentToolbarMenu.getMyMenuBar());
+        myCurrentToolbarMenu.addPropertyChangeListener(this);
         myCurrentToolbarMenu.setVisible(true);
     }
 
@@ -170,9 +175,33 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
-
         switch (evt.getPropertyName()) {
+            case SAVE -> {
+                System.out.println("Save option clicked");
+                GameState gs = new GameState();
+                gs.save("rooms_map_data", myRoomsMap);
+                gs.save("rooms_list_data", myRoomList);
+                gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
+                System.out.println("Saved rooms map: " + myRoomsMap);
+                System.out.println("Saved rooms list: " + myRoomList);
+                System.out.println("Saved current room: " + myCurrentRoomPanel.getMyCurrentRoom());
+            }
+            case LOAD -> {
+                System.out.println("Load option clicked");
+                GameState gs = new GameState();
+                myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
+                System.out.println("Loaded rooms map: " + myRoomsMap);
+                myRoomList = (List<Room>) gs.load("rooms_list_data");
+                System.out.println("Loaded rooms list: " + myRoomList);
+                myCurrentRoom = (Room) gs.load("current_room_data");
+                System.out.println("Current room: " + myCurrentRoom);
+                try {
+                    resetLoadedRoom();
+                    loadRoom(myCurrentRoom);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}
                 catch (IOException e) {e.printStackTrace();}
@@ -220,6 +249,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             resetLoadedRoom();
             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
     }
+
 
     /**
      * Attempts to set look and feel to system defaults. Reverts to

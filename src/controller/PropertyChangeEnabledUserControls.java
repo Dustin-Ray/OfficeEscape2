@@ -23,6 +23,11 @@ public interface PropertyChangeEnabledUserControls {
     /** Property constant to fire when terrain surrounding the player sprite has changed. */
     String NEIGHBOR_CHANGE = "terrain neighboring sprite has changed";
 
+    String SAVE = "save";
+
+
+    String LOAD = "load";
+
     /**
      * Adds a property change listener.
      * @param theListener the listen to add.

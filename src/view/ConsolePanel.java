@@ -58,6 +58,8 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
     private boolean myCorrectlyAnsweredFlag;
+    /** A counter to keep track of correctly answered questions. */
+    private JTextArea myCorrectlyAnswered;
 
     /**
      * Constructor for class.
@@ -227,6 +229,12 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         initializeTextArea(myRoomID, 12,830, 235, 80, 50);
+
+        myCorrectlyAnswered = new JTextArea("Correctly answered: " + "\n" + "0");
+        initializeTextArea(myRoomID, 12,910, 235, 80, 50);
+
+
+
 
     }
 

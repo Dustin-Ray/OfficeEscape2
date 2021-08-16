@@ -11,6 +11,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 package model.room;
 
 import model.graph.AdjacencyListGraph;
+import model.graph.Dijkstra;
 import model.graph.Edge;
 import model.graph.KruskalMSTFinder;
 import model.trivia.TriviaManager;
@@ -24,6 +25,10 @@ import java.util.*;
  * @author Reuben Keller
  */
 public class RoomBuilder {
+
+    public static final int SOURCE = 0;
+
+    public static final int TARGET = 15;
 
     /** The number of rows in the graph representation. */
     public static final int ROWS = 4;
@@ -48,6 +53,9 @@ public class RoomBuilder {
     /** A helper class to get random trivia. */
     private final TriviaManager myTriviaManager;
 
+    private final List<Integer> optimalSolution;
+
+
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
      */
@@ -55,6 +63,7 @@ public class RoomBuilder {
         myGraph = new AdjacencyListGraph<>();
         myTriviaManager = new TriviaManager();
         myRand = new Random();
+        optimalSolution = new ArrayList<>();
         generateGraph();
         generateMST();
         extractRoomsMap();
@@ -76,13 +85,11 @@ public class RoomBuilder {
         for (int j = 0; j < NUM_ROOMS; j++) {
             // horizontal edges
             if ((j + 1) % ROWS != 0) {
-                double weight = myRand.nextDouble();
-                myGraph.addUndirectedEdge(j, j + 1, weight);
+                myGraph.addUndirectedEdge(j, j + 1, myRand.nextDouble());
             }
             // vertical edges
             if (j + COLS < NUM_ROOMS) {
-                double weight = myRand.nextDouble();
-                myGraph.addUndirectedEdge(j, j + COLS, weight);
+                myGraph.addUndirectedEdge(j, j + COLS, myRand.nextDouble());
             }
         }
     }
@@ -139,6 +146,17 @@ public class RoomBuilder {
         }
     }
 
+    public void extractOptimalSolution() {
+        Dijkstra<Integer> d = new Dijkstra<>();
+        Map<Integer, Edge<Integer>> map = d.shortestPathTree(myGraph, SOURCE, TARGET);
+        List<Edge<Integer>> edges = d.extractShortestPath(map, SOURCE, TARGET);
+
+        for (Edge<Integer> edge : edges) {
+            optimalSolution.add(edge.from());
+        }
+        optimalSolution.add(edges.get(edges.size() - 1).to());
+    }
+
     /**
      * Returns a list of Room objects in increasing order of Room ID.
      *
@@ -172,6 +190,8 @@ public class RoomBuilder {
     public AdjacencyListGraph<Integer> getGraph() {
         return myGraph;
     }
+
+
 
 
 }

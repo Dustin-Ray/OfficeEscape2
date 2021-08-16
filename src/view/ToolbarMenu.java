@@ -87,6 +87,7 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         saveGame.addActionListener(e -> fireSavePropertyChange(SAVE));
         loadGame.addActionListener(e -> fireLoadPropertyChange(LOAD));
         newGame.addActionListener(e -> fireNewGamePropertyChange(NEW_GAME));
+        mainMenu.addActionListener(e -> fireMainMenuPropertyChange(MAIN_MENU));
         //
         closeGame.addActionListener(e -> System.exit(0));
         myMenuBar.add(fileMenu);
@@ -103,6 +104,9 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
     private void fireNewGamePropertyChange(String theProperty) {
         myPcs.firePropertyChange(theProperty, null, "new game");
 
+    }
+    private void fireMainMenuPropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "main menu");
     }
 
     /**

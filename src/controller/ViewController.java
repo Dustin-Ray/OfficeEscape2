@@ -93,8 +93,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         setupUI();
         setupFrame();
         addToolbarPanel();
-//        addMainMenuPanel();
-        loadRoom(myRoomList.get(0));
+        addMainMenuPanel();
+//        loadRoom(myRoomList.get(0));
         addConsolePanel();
         this.setVisible(true);
         this.setResizable(false);
@@ -128,6 +128,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     private void addMainMenuPanel() {
         myMainMenuPanel.setFocusable(true);
         this.add(myMainMenuPanel);
+        myMainMenuPanel.addPropertyChangeListener(this);
         myMainMenuPanel.setBounds(0, 0, FRAME_WIDTH, ROOM_HEIGHT);
     }
 
@@ -183,9 +184,22 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case NEW_GAME -> {
-                initRoomBuilder();
+            case MAIN_MENU -> {
                 resetLoadedRoom();
+                this.add(myMainMenuPanel);
+                myMainMenuPanel.setVisible(true);
+                myMainMenuPanel.requestFocus();
+                myMainMenuPanel.setFocusable(true);
+            }
+            case NEW_GAME -> {
+                System.out.println("nani?!?!?!?");
+                initRoomBuilder();
+                myMainMenuPanel.setVisible(false);
+                this.remove(myMainMenuPanel);
+                if (myCurrentRoomPanel != null) {
+                    resetLoadedRoom();
+                }
+
                 loadRoom(myRoomList.get(0));
             }
             case SAVE -> {
@@ -195,11 +209,15 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
             }
             case LOAD -> {
+                myMainMenuPanel.setVisible(false);
+                this.remove(myMainMenuPanel);
                 GameState gs = new GameState();
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");
                 myCurrentRoom = (Room) gs.load("current_room_data");
-                resetLoadedRoom();
+                if (myCurrentRoomPanel != null) {
+                    resetLoadedRoom();
+                }
                 loadRoom(myCurrentRoom);
             }
             case PROPERTY_PROXIMITY_DOOR_A -> {

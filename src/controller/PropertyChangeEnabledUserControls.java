@@ -30,6 +30,8 @@ public interface PropertyChangeEnabledUserControls {
 
     String NEW_GAME = "new game";
 
+    String MAIN_MENU = "main menu";
+
 
     /**
      * Adds a property change listener.

@@ -1,5 +1,7 @@
 package view;
 
+import controller.PropertyChangeEnabledUserControls;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -7,7 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,7 +23,7 @@ import java.io.IOException;
  * @author Dustin Ray
  * @version Summer 2021
  */
-public class MainMenuPanel extends JPanel implements Runnable {
+public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserControls, Runnable {
 
     /**The starting x position for the background2, puts it behind the computer monitor. */
     private int x = 700;
@@ -30,12 +36,15 @@ public class MainMenuPanel extends JPanel implements Runnable {
     /** Image sits behind main background image. */
     BufferedImage myBackground2;
 
+    private final PropertyChangeSupport myPC;
+
+
     /**
      * Constructor for class.
      * @throws IOException If any resource cannot be loaded.
      * @throws FontFormatException if font cannot be loaded.
      */
-    public MainMenuPanel() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    public MainMenuPanel() throws IOException, FontFormatException {
 
         this.setLayout(null);
 
@@ -53,6 +62,8 @@ public class MainMenuPanel extends JPanel implements Runnable {
 
         final JLabel newGame = new JLabel("new game");
         final JLabel loadGame = new JLabel("load game");
+        setMouseListeners(loadGame);
+        setMouseListeners(newGame);
 
         newGame.setVisible(true);
         newGame.setForeground(Color.WHITE);
@@ -70,7 +81,62 @@ public class MainMenuPanel extends JPanel implements Runnable {
         this.add(loadGame);
         this.setFocusable(true);
 
+        myPC = new PropertyChangeSupport(this);
+
+
     }
+
+    /**
+     * Adds mouse listeners to given labels. Determines how to test the answer
+     * correctness depending on the type of trivia question set in the current room.
+     * @param theLabel the JLabel to add a mouse click listener to.
+     *
+     */
+    private void setMouseListeners(final JLabel theLabel) {
+        String text = theLabel.getText();
+        theLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (text.equals("new game")) {
+                    System.out.println("new game clicked");
+                    fireNewGamePropertyChange(NEW_GAME);
+                } else {
+                    System.out.println("load game clicked");
+                    fireLoadPropertyChange(LOAD);
+                }
+            }
+        });
+    }
+
+
+    private void fireLoadPropertyChange(String theProperty) {
+        myPC.firePropertyChange(theProperty, null, "load");
+    }
+
+    private void fireNewGamePropertyChange(String theProperty) {
+        myPC.firePropertyChange(theProperty, null, "new game");
+
+    }
+
+
+    /**
+     * Adds a property change listener.
+     * @param theListener the listen to add.
+     */
+    @Override
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        myPC.addPropertyChangeListener(theListener);
+    }
+
+
+    /**
+     * Removes a property change listener.
+     * @param theListener the listen to remove.
+     */
+    @Override
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
+        myPC.removePropertyChangeListener(theListener);
+    }
+
 
     /** */
     @Override

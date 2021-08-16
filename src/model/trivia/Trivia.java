@@ -22,22 +22,18 @@ import java.util.*;
  */
 public class Trivia implements Serializable {
 
-    /**
-     * ID of the question.
-     */
+    /** ID of the question. */
     private final int myID;
-    /**
-     * String storing the question.
-     */
+
+    /** String storing the question. */
     private final String myQuestion;
-    /**
-     * String storing the correct answer.
-     */
+
+    /** String storing the correct answer. */
     private final String myCorrectAnswer;
-    /**
-     * ArrayList of Strings storing the incorrect answer choices.
-     */
+
+    /** ArrayList of Strings storing the incorrect answer choices. */
     private final ArrayList<String> myIncorrectAnswers;
+
     /**
      * Integer storing the question type.
      */
@@ -54,6 +50,8 @@ public class Trivia implements Serializable {
      * Constant representing a short answer question type.
      */
     private final int SA = 3;
+
+
 
     /**
      * Constructs a Trivia object.
@@ -116,15 +114,7 @@ public class Trivia implements Serializable {
         return myCorrectAnswer;
     }
 
-    /**
-     * Returns a boolean whether the passed string matches the correct answer.
-     *
-     * @param theAnswer String representing the user's answer.
-     * @return true if the user's answer matches the correct answer, false otherwise
-     */
-    public boolean shortAnswerCorrect (String theAnswer) {
-        return theAnswer.equalsIgnoreCase(myCorrectAnswer);
-    }
+
 
     /**
      * Returns the ArrayList of incorrect answers for the Trivia question.

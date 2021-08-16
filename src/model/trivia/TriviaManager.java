@@ -39,7 +39,6 @@ public class TriviaManager {
         myTriviaList = new ArrayList<>();
         Connection c;
         Statement stmt;
-
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/res/database/questions-answers.db");

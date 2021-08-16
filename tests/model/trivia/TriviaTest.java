@@ -11,13 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TriviaTest {
 
-
     private static final int SHORT_ID = 1;
     private static final String SHORT_QUESTION = "Hello, World?";
     private static final String SHORT_ANSWER = "Hi";
     private static final String SHORT_INCORRECT_ANSWERS = "";
     private static final int SHORT_TYPE = 3;
-
 
     private static final int MULTIPLE_ID = 3;
     private static final String MULTIPLE_QUESTION = SHORT_QUESTION;
@@ -27,8 +25,8 @@ public class TriviaTest {
 
     private static final int TRUE_FALSE_ID = 4;
     private static final String TRUE_FALSE_QUESTION = SHORT_QUESTION;
-    private static final String TRUE_FALSE_ANSWER = "true";
-    private static final String TRUE_FALSE_INCORRECT_ANSWERS = "false";
+    private static final String TRUE_FALSE_ANSWER = "True";
+    private static final String TRUE_FALSE_INCORRECT_ANSWERS = "False";
     private static final int TRUE_FALSE_TYPE = 1;
 
 

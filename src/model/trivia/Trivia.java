@@ -34,17 +34,13 @@ public class Trivia implements Serializable {
     /** ArrayList of Strings storing the incorrect answer choices. */
     private final ArrayList<String> myIncorrectAnswers;
 
-    /**
-     * Integer storing the question type.
-     */
+    /** Integer storing the question type. */
     private final int myType;
-    /**
-     * Constant representing a true false question type.
-     */
+
+    /** Constant representing a true false question type. */
     private final int TF = 1;
-    /**
-     * Constant representing a multiple choice question type.
-     */
+
+    /** Constant representing a multiple choice question type. */
     private final int MC = 2;
     /**
      * Constant representing a short answer question type.
@@ -143,6 +139,7 @@ public class Trivia implements Serializable {
          */
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
+        System.out.println(myCorrectAnswer);
         answerList.addAll(myIncorrectAnswers);
         return answerList;
     }

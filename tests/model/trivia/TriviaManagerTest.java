@@ -7,11 +7,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TriviaManagerTest {
 
-    @BeforeEach
-    void setUp() {
-    }
 
-    @Test
-    void getTrivia() {
-    }
 }

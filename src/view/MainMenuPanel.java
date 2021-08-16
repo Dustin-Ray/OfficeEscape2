@@ -36,7 +36,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
     /** Image sits behind main background image. */
     BufferedImage myBackground2;
 
-    private final PropertyChangeSupport myPC;
+    private PropertyChangeSupport myPC;
 
 
     /**
@@ -81,7 +81,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         this.add(loadGame);
         this.setFocusable(true);
 
-        myPC = new PropertyChangeSupport(this);
+//        myPC = new PropertyChangeSupport(this);
 
 
     }
@@ -124,6 +124,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
      */
     @Override
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        myPC = new PropertyChangeSupport(this);
         myPC.addPropertyChangeListener(theListener);
     }
 

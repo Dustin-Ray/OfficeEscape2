@@ -19,10 +19,9 @@ public class OfficeEscapeController {
     }
 
     public void run() {
-        RoomBuilder roomBuilder = new RoomBuilder();
         EventQueue.invokeLater(() -> {
             try {
-                new ViewController(roomBuilder.roomsList(), roomBuilder.roomsMap());
+                new ViewController();
             } catch (final
                     ClassNotFoundException |
                     InstantiationException |

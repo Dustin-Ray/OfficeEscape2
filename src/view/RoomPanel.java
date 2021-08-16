@@ -43,7 +43,7 @@ public class RoomPanel extends JPanel implements ActionListener {
      * @param theRoom Current room to load into the panel.
      * @throws IOException if any resource used by this class cannot be loaded.
      */
-    public RoomPanel(final Room theRoom) throws IOException {
+    public RoomPanel(final Room theRoom) {
         super();
         this.loadRoom(theRoom);
         setBackground(Color.BLACK);
@@ -55,11 +55,15 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
     /** Helper method that can be called externally to switch rooms.  */
-    public void loadRoom(final Room theRoom) throws IOException {
+    public void loadRoom(final Room theRoom) {
         myCurrentRoom = theRoom;
         myRoomID = getMyCurrentRoom().getRoomID();
         myUserControls = new UserController(new Player(), myCurrentRoom.getMap());
-        myFloorMap = ImageIO.read(new File(PATH + theRoom.getRoomID() + "/floor_map.png"));
+        try {
+            myFloorMap = ImageIO.read(new File(PATH + theRoom.getRoomID() + "/floor_map.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         repaint();
     }
 

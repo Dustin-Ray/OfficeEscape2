@@ -77,7 +77,7 @@ public class GameMap implements Serializable {
     /** A list of the pixel door C positions in the map. */
     private final List<MapEntity> doorCPositions;
 
-    /** A list of the pixel door D position in the map. */
+    /** A list of the pixel door D positions in the map. */
     private final List<MapEntity> doorDPositions;
 
 

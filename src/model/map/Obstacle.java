@@ -8,6 +8,11 @@ package model.map;
  */
 public class Obstacle extends MapEntity {
 
+    /**
+     * Constructs an Obstacle at the given pixel (x, y) location.
+     * @param theX The pixel x position.
+     * @param theY The pixel y position.
+     */
     public Obstacle(final int theX, final int theY) {
         super(theX, theY);
     }

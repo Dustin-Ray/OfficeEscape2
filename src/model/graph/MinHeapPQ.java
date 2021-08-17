@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class MinHeapPQ<T> {
 
+    private final int START_INDEX = 1;
+
     /** The list representation of the min-heap. */
     private final List<Entry<T>> minHeap;
 
@@ -31,8 +33,9 @@ public class MinHeapPQ<T> {
      */
     public MinHeapPQ() {
         minHeap = new ArrayList<>();
-        entryMap = new HashMap<>();
-        indexMap = new HashMap<>();
+        entryMap = new TreeMap<>();
+        indexMap = new TreeMap<>();
+        minHeap.add(null);
     }
 
 
@@ -48,10 +51,10 @@ public class MinHeapPQ<T> {
             throw new NullPointerException();
         }
         Entry<T> entry = new Entry<>(element, priority);
-        entryMap.put(element, entry);
-        indexMap.put(element, minHeap.size() - 1);
         minHeap.add(entry);
-        percolateUp(minHeap.size() - 1);
+        entryMap.put(element, entry);
+        indexMap.put(element, size());
+        percolateUp(size());
     }
 
 
@@ -65,12 +68,12 @@ public class MinHeapPQ<T> {
         if (isEmpty()) {
             return null;
         }
-        swap(0, minHeap.size() - 1);
-        Entry<T> result = minHeap.remove(minHeap.size() - 1);
+        swap(START_INDEX, size());
+        Entry<T> result = minHeap.remove(size());
         T element = result.getElement();
         entryMap.remove(element);
         indexMap.remove(element);
-        percolateDown(0);
+        percolateDown(START_INDEX);
         return element;
     }
 
@@ -118,11 +121,11 @@ public class MinHeapPQ<T> {
      *
      * @return The head of this queue or null if this queue is empty.
      */
-    public Entry<T> peekMin() {
+    public T peekMin() {
         if (isEmpty()) {
             return null;
         }
-        return minHeap.get(0);
+        return minHeap.get(START_INDEX).getElement();
     }
 
 
@@ -132,17 +135,14 @@ public class MinHeapPQ<T> {
      * is smaller or it's the root.
      */
     private void percolateUp(int idx) {
-        double parentPriority = minHeap.get(parent(idx)).getPriority();
-        double childPriority = minHeap.get(idx).getPriority();
         /*
         Swap the recently added element with its parent while it has a parent
         and is less than that parent.
          */
-        while (hasParent(idx) && parentPriority > childPriority) {
+        while (hasParent(idx)
+                && minHeap.get(parent(idx)).getPriority() > minHeap.get(idx).getPriority()) {
             swap(idx, parent(idx));
             idx = parent(idx);
-            parentPriority = minHeap.get(parent(idx)).getPriority();
-            childPriority = minHeap.get(idx).getPriority();
         }
     }
 
@@ -162,20 +162,17 @@ public class MinHeapPQ<T> {
         last, which is filled from left to right with no gaps).
          */
         while (hasLeftChild(idx) && !entryIsPlaced) {
-            int smallest = leftChild(idx); // index of smallest child
-            int right = rightChild(idx);
+            int indexOfSmallest = leftChild(idx);
             if (hasRightChild(idx)) {
-                double leftPriority = minHeap.get(smallest).getPriority();
-                double rightPriority = minHeap.get(right).getPriority();
-                if (leftPriority < rightPriority) {
-                    smallest = right;
+                if (minHeap.get(rightChild(idx)).getPriority() < minHeap.get(leftChild(idx)).getPriority()) {
+                    indexOfSmallest = rightChild(idx);
                 }
             }
-            double parentPriority = minHeap.get(idx).getPriority();
-            double smallestPriority = minHeap.get(smallest).getPriority();
-            if (parentPriority > smallestPriority) {
-                swap(idx, smallest);
-                idx = smallest;
+
+            // compare parent node to smallest child node
+            if (minHeap.get(idx).getPriority() > minHeap.get(indexOfSmallest).getPriority()) {
+                swap(idx, indexOfSmallest);
+                idx = indexOfSmallest;
             } else {
                 entryIsPlaced = true;
             }
@@ -190,7 +187,7 @@ public class MinHeapPQ<T> {
      * @return true if the element at parentIdx has a left child and false otherwise.
      */
     private boolean hasLeftChild(int parentIdx) {
-        return leftChild(parentIdx) < size();
+        return leftChild(parentIdx) <= size();
     }
 
 
@@ -201,7 +198,7 @@ public class MinHeapPQ<T> {
      * @return true if the element at parentIdx has a right child and false otherwise.
      */
     private boolean hasRightChild(int parentIdx) {
-        return rightChild(parentIdx) < size();
+        return rightChild(parentIdx) <= size();
     }
 
 
@@ -213,7 +210,7 @@ public class MinHeapPQ<T> {
      * @return The index of the left child.
      */
     private int leftChild(int parentIdx) {
-        return 2 * parentIdx + 1;
+        return 2 * parentIdx + 1 - START_INDEX;
     }
 
 
@@ -225,7 +222,7 @@ public class MinHeapPQ<T> {
      * @return The index of the right child.
      */
     private int rightChild(int parentIdx) {
-        return leftChild(parentIdx) + 1;
+        return 2 * parentIdx + 2 - START_INDEX;
     }
 
 
@@ -236,9 +233,6 @@ public class MinHeapPQ<T> {
      * @param b The index of the second element.
      */
     private void swap(int a, int b) {
-        if (a >= size() || a < 0 || b >= size() || b < 0) {
-            throw new IndexOutOfBoundsException();
-        }
         Entry<T> temp = minHeap.get(a);
         minHeap.set(a, minHeap.get(b));
         minHeap.set(b, temp);
@@ -252,7 +246,7 @@ public class MinHeapPQ<T> {
      * @return true if the element at index has a parent and false otherwise.
      */
     private boolean hasParent(int index) {
-        return parent(index) >= 0;
+        return parent(index) != 0;
     }
 
 
@@ -263,7 +257,7 @@ public class MinHeapPQ<T> {
      * @return The index of the parent.
      */
     private int parent(int index) {
-        return (index - 1) / 2;
+        return (index - 1 + START_INDEX) / 2;
     }
 
 
@@ -273,7 +267,7 @@ public class MinHeapPQ<T> {
      * @return The total number of elements in this Min-PQ.
      */
     public int size() {
-        return minHeap.size();
+        return minHeap.size() - START_INDEX;
     }
 
 

@@ -34,6 +34,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
     /** Image sits behind main background image. */
     BufferedImage myBackground2;
 
+    /** Property change support object for this class. */
     private PropertyChangeSupport myPC;
 
 
@@ -186,9 +187,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
 
 
 
-    /*
-     * create a inner class to handle key inputs
-     */
+    /**Handles key presses.  */
     private class InputHandler extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -206,6 +205,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
             }
         }
 
+        /** Handles key releases. */
         public void keyReleased(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 speedKeyX = 0;

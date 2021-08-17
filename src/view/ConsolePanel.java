@@ -60,6 +60,9 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     private boolean myCorrectlyAnsweredFlag;
     /** A counter to keep track of correctly answered questions. */
     private JTextArea myCorrectlyAnswered;
+    private JTextArea myIncorrectlyAnswered;
+    private int myIncorrect;
+    private int myCorrect;
 
     /**
      * Constructor for class.
@@ -69,6 +72,10 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     public ConsolePanel() throws IOException, FontFormatException {
         super();
         this.setLayout(null);
+
+        myIncorrect = 0;
+        myCorrect = 0;
+
         myDisplayConsole = ImageIO.read(new File("src/res/assets/menu/console.png"));
         myInfoDisplayConsole = ImageIO.read(new File("src/res/assets/menu/info_console.png"));
         myShortAnswerTextArea = new JTextArea(1, 30);
@@ -88,6 +95,15 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     public void setRoomID(final int theRoomID) {
         myRoomID.setText("Room ID: " + "\n" + theRoomID);
     }
+
+
+    /** Increments a counter to keep track of incorrectly answered questions. */
+    public void setBad() {myIncorrectlyAnswered.setText("Bad: " + "\n" + myIncorrect++);}
+
+    /** Increments a counter to keep track of correctly answered questions. */
+    public void setGood() {myCorrectlyAnswered.setText("Good: " + "\n" + myCorrect++);}
+
+
 
     /**
      * Draws graphics to panel.
@@ -230,10 +246,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         initializeTextArea(myRoomID, 12,830, 235, 80, 50);
 
-        myCorrectlyAnswered = new JTextArea("Correctly answered: " + "\n" + "0");
-        initializeTextArea(myRoomID, 12,910, 235, 80, 50);
+        myCorrectlyAnswered = new JTextArea("Good: " + "\n" + "0");
+        initializeTextArea(myCorrectlyAnswered, 12,920, 235, 70, 50);
 
-
+        myIncorrectlyAnswered = new JTextArea("Bad: " + "\n" + "0");
+        initializeTextArea(myIncorrectlyAnswered, 12,990, 235, 80, 50);
 
 
     }

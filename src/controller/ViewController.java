@@ -192,14 +192,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myMainMenuPanel.setFocusable(true);
             }
             case NEW_GAME -> {
-                System.out.println("nani?!?!?!?");
                 initRoomBuilder();
                 myMainMenuPanel.setVisible(false);
                 this.remove(myMainMenuPanel);
-                if (myCurrentRoomPanel != null) {
-                    resetLoadedRoom();
-                }
-
+                if (myCurrentRoomPanel != null) {resetLoadedRoom();}
                 loadRoom(myRoomList.get(0));
             }
             case SAVE -> {
@@ -255,6 +251,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             //if answered correctly, load next room and unlock door
             if(myConsolePanel.getCorrectlyAnsweredFlag()) {
                 myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
+                myConsolePanel.setGood();
                 resetLoadedRoom();
                 loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
                 myConsolePanel.setCorrectlyAnsweredFlag(false);

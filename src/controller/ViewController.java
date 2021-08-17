@@ -251,10 +251,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             //if answered correctly, load next room and unlock door
             if(myConsolePanel.getCorrectlyAnsweredFlag()) {
                 myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
-                myConsolePanel.setGood();
                 resetLoadedRoom();
                 loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
                 myConsolePanel.setCorrectlyAnsweredFlag(false);
+                myConsolePanel.setGood();
             }
         }
         //if approached unlocked door, press e to load next room without answering trivia

@@ -3,8 +3,6 @@ package view;
 import controller.PropertyChangeEnabledUserControls;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -81,7 +79,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         this.add(loadGame);
         this.setFocusable(true);
 
-//        myPC = new PropertyChangeSupport(this);
+
 
 
     }
@@ -98,22 +96,23 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
             public void mouseClicked(MouseEvent e) {
                 if (text.equals("new game")) {
                     System.out.println("new game clicked");
-                    fireNewGamePropertyChange(NEW_GAME);
+                    fireNewGamePropertyChange();
                 } else {
                     System.out.println("load game clicked");
-                    fireLoadPropertyChange(LOAD);
+                    fireLoadPropertyChange();
                 }
             }
         });
     }
 
 
-    private void fireLoadPropertyChange(String theProperty) {
-        myPC.firePropertyChange(theProperty, null, "load");
+    /** Fires property change to listeners. */
+    private void fireLoadPropertyChange() {
+        myPC.firePropertyChange(PropertyChangeEnabledUserControls.LOAD, null, "load");
     }
-
-    private void fireNewGamePropertyChange(String theProperty) {
-        myPC.firePropertyChange(theProperty, null, "new game");
+    /** Fires property change to listeners. */
+    private void fireNewGamePropertyChange() {
+        myPC.firePropertyChange(PropertyChangeEnabledUserControls.NEW_GAME, null, "new game");
 
     }
 
@@ -131,7 +130,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
 
     /**
      * Removes a property change listener.
-     * @param theListener the listen to remove.
+     * @param theListener the listener to remove.
      */
     @Override
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
@@ -139,7 +138,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
     }
 
 
-    /** */
+    /** Paints components to screen. */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -149,18 +148,20 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
 
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
 
+    /** Sets X position*/
+    public void setX(int x) {this.x = x;}
+
+    /** Sets Y position. */
+    public void setY(int y) {this.y = y;}
+
+    /** Moves component. */
     private void advance() {
             this.setX(this.x + this.speedKeyX);
             this.setY(this.y + this.speedKeyY);
     }
 
+    /** Runnable loop to capture keyboard input. */
     @Override
     public void run() {
         long beforeTime, timeDiff, sleep;

@@ -186,7 +186,7 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     public boolean equals(final Object other) {
         boolean result = false;
         if ((other != null) && (other.getClass().equals(this.getClass()))) {
-            //@SuppressWarnings("unchecked")
+            @SuppressWarnings("unchecked")
             AdjacencyListGraph<V> o = (AdjacencyListGraph<V>) other;
             result = (adjacencyList.equals(o.adjacencyList)
                     && vertices.equals(o.vertices)

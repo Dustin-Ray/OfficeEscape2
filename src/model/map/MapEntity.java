@@ -187,7 +187,10 @@ public abstract class MapEntity implements Serializable {
         boolean result = false;
         if ((other != null) && (other.getClass().equals(this.getClass()))) {
             MapEntity o = (MapEntity) other;
-            result = (myX == o.myX && myY == o.myY);
+            result = (myX == o.myX
+                    && myY == o.myY
+                    && myVelX == o.myVelX
+                    && myVelY == o.myVelY);
         }
         return result;
     }

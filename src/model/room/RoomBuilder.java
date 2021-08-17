@@ -11,7 +11,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 package model.room;
 
 import model.graph.AdjacencyListGraph;
-import model.graph.Dijkstra;
+import model.graph.DijkstraSPFinder;
 import model.graph.Edge;
 import model.graph.KruskalMSTFinder;
 import model.trivia.TriviaManager;
@@ -67,6 +67,7 @@ public class RoomBuilder {
         generateGraph();
         generateMST();
         extractRoomsMap();
+        extractOptimalSolution();
     }
 
     /**
@@ -147,7 +148,7 @@ public class RoomBuilder {
     }
 
     public void extractOptimalSolution() {
-        Dijkstra<Integer> d = new Dijkstra<>();
+        DijkstraSPFinder<Integer> d = new DijkstraSPFinder<>();
         Map<Integer, Edge<Integer>> map = d.shortestPathTree(myGraph, SOURCE, TARGET);
         List<Edge<Integer>> edges = d.extractShortestPath(map, SOURCE, TARGET);
 
@@ -156,6 +157,11 @@ public class RoomBuilder {
         }
         optimalSolution.add(edges.get(edges.size() - 1).to());
     }
+
+    public List<Integer> getOptimalSolution() {
+        return optimalSolution;
+    }
+
 
     /**
      * Returns a list of Room objects in increasing order of Room ID.

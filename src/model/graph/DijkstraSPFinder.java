@@ -28,7 +28,7 @@ public class DijkstraSPFinder<V> {
     public DijkstraSPFinder() {
         edgeToV = new HashMap<>();
         distToV = new HashMap<>();
-        perimeter = new MinHeapPQ<>();;
+        perimeter = new MinHeapPQ<>();
     }
 
 
@@ -110,7 +110,6 @@ public class DijkstraSPFinder<V> {
      */
     public List<Edge<V>> extractShortestPath(Map<V, Edge<V>> spt, V source,
                                              V target) {
-
         Edge<V> edge = spt.get(target);
         List<Edge<V>> list = new ArrayList<>();
         if (edge != null) {

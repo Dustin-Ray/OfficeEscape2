@@ -2,27 +2,11 @@ package model.graph;
 
 import java.util.*;
 
-
-/**
- * Implements a min-heap priority queue that maintains the following
- * invariants:
- *      (1) Binary Tree Invariant: Every node has at most 2 children;
- *      (2) Min-Heap Invariant: Every node is less than or equal to its
- *          children;
- *      (3) Min-Heap Structure Invariant: A heap is always a complete tree.
- *
- * @author Reuben Keller
- * @version Summer 2021
- */
 public class MinHeapPQ<T> {
 
-    /** The list representation of the min-heap. */
+
     private final List<Entry<T>> minHeap;
-
-    /** A mapping of each element to its Entry. */
     private final Map<T, Entry<T>> entryMap;
-
-    /** A mapping of each element to its index in minHeap. */
     private final Map<T, Integer> indexMap;
 
 
@@ -36,22 +20,12 @@ public class MinHeapPQ<T> {
     }
 
 
-    /**
-     * Adds the given element to this min-heap priority queue.
-     *
-     * @param element The element to add.
-     * @param priority The priority to assign this element.
-     * @throws NullPointerException if element is null.
-     */
     public void offer(final T element, final double priority) {
-        if (element == null) {
-            throw new NullPointerException();
-        }
         Entry<T> entry = new Entry<>(element, priority);
         entryMap.put(element, entry);
-        indexMap.put(element, minHeap.size() - 1);
+        indexMap.put(element, minHeap.size());
         minHeap.add(entry);
-        percolateUp(minHeap.size() - 1);
+        percolateUp();
     }
 
 
@@ -59,7 +33,7 @@ public class MinHeapPQ<T> {
      * Retrieves and removes the head of this Min-PQ, or returns null if
      * this Min-PQ is empty.
      *
-     * @return The head of this queue or null if this queue is empty.
+     * @return The head of this queue, or null if this queue is empty.
      */
     public T poll() {
         if (isEmpty()) {
@@ -70,53 +44,27 @@ public class MinHeapPQ<T> {
         T element = result.getElement();
         entryMap.remove(element);
         indexMap.remove(element);
-        percolateDown(0);
+        percolateDown();
         return element;
     }
 
-
-    /**
-     * Returns true if this MinHeapPQ contains the given element and false
-     * otherwise.
-     *
-     * @param element The element to check for in this MinHeapPQ.
-     * @return true if element is in this MinHeapPQ and false otherwise.
-     * @throws NullPointerException if element is null.
-     */
-
     public boolean contains(T element) {
-        if (element == null) {
-            throw new NullPointerException("the given element is null");
-        }
         return entryMap.containsKey(element);
     }
 
-
-    /**
-     * Changes the current priority of the given element to the given priority.
-     *
-     * @param element The element to change the priority of.
-     * @param priority The new priority to assign the element.
-     */
     public void changePriority(T element, double priority) {
-        if (element == null) {
-            throw new NullPointerException("the given element is null");
-        }
-        if (!contains(element)) {
-            throw new NoSuchElementException("the given element not in queue");
-        }
         Entry<T> entry = entryMap.get(element);
         entry.setPriority(priority);
         int entryIndex = indexMap.get(entry.getElement());
-        percolateUp(entryIndex);
-        percolateDown(entryIndex);
+        percolateUp();
+        percolateDown();
     }
 
 
     /**
      * Returns, but does not remove, the head of this Min-PQ.
      *
-     * @return The head of this queue or null if this queue is empty.
+     * @return The head of this Min-PQ.
      */
     public Entry<T> peekMin() {
         if (isEmpty()) {
@@ -129,9 +77,11 @@ public class MinHeapPQ<T> {
 
     /**
      * Swaps the last element in the Min-Heap with its parent until its parent
-     * is smaller or it's the root.
+     * is smaller or it's the root. Note:'percolate-up' is also commonly known as
+     * 'bubble-up' or 'swim-Up'.
      */
-    private void percolateUp(int idx) {
+    private void percolateUp() {
+        int idx = minHeap.size() - 1;
         double parentPriority = minHeap.get(parent(idx)).getPriority();
         double childPriority = minHeap.get(idx).getPriority();
         /*
@@ -147,40 +97,37 @@ public class MinHeapPQ<T> {
     }
 
 
-    /**
-     * Swaps the entry at the given index with its smallest child until
-     * invariant (2) is restored.
-     *
-     * @param idx The index of the entry to percolate down on.
-     */
-    private void percolateDown(int idx) {
+    private void percolateDown() {
+        int parentIdx = 0;
         boolean entryIsPlaced = false;
         /*
         If the Min-Heap has a single child, then it only has a left child. This
         is because the Heap structure invariant requires that a Heap is always
-        a complete tree (i.e., that every level is full except possibly the
-        last, which is filled from left to right with no gaps).
+        a complete tree (i.e., that every level is full except possibly the last,
+        which is filled from left to right with no gaps).
          */
-        while (hasLeftChild(idx) && !entryIsPlaced) {
-            int smallest = leftChild(idx); // index of smallest child
-            int right = rightChild(idx);
-            if (hasRightChild(idx)) {
-                double leftPriority = minHeap.get(smallest).getPriority();
-                double rightPriority = minHeap.get(right).getPriority();
-                if (leftPriority < rightPriority) {
-                    smallest = right;
+        while (hasLeftChild(parentIdx) && !entryIsPlaced) {
+            int childIdx = leftChild(parentIdx);
+            int rightChildIdx = rightChild(parentIdx);
+            // if there's a right child and it's smaller then the left, update child swap index
+            if (hasRightChild(parentIdx)) {
+                double leftChildPriority = minHeap.get(childIdx).getPriority();
+                double rightChildPriority = minHeap.get(rightChildIdx).getPriority();
+                if (rightChildPriority < leftChildPriority) {
+                    childIdx = rightChildIdx;
                 }
             }
-            double parentPriority = minHeap.get(idx).getPriority();
-            double smallestPriority = minHeap.get(smallest).getPriority();
-            if (parentPriority > smallestPriority) {
-                swap(idx, smallest);
-                idx = smallest;
+
+            // compare parent to smallest child
+            if (minHeap.get(parentIdx).getPriority() > minHeap.get(childIdx).getPriority()) {
+                swap(parentIdx, childIdx);
+                parentIdx = childIdx;
             } else {
                 entryIsPlaced = true;
             }
         }
     }
+
 
 
     /**
@@ -229,6 +176,7 @@ public class MinHeapPQ<T> {
     }
 
 
+
     /**
      * Swaps the elements at the given indices.
      *
@@ -243,6 +191,8 @@ public class MinHeapPQ<T> {
         minHeap.set(a, minHeap.get(b));
         minHeap.set(b, temp);
     }
+
+
 
 
     /**
@@ -287,59 +237,27 @@ public class MinHeapPQ<T> {
     }
 
 
-    /**
-     * Implements an Entry in the min-heap priority queue.
-     */
+
+
     private static class Entry<T> {
-
-        /** The element of this Entry. */
         private final T myElement;
-
-        /** The priority of this Entry. */
         private double myPriority;
 
-
-        /**
-         * Constructs an Entry containing the given element and priority.
-         *
-         * @param theElement The element of this Entry.
-         * @param thePriority The priority of this Entry.
-         */
         private Entry(final T theElement, final double thePriority) {
             myElement = theElement;
             myPriority = thePriority;
         }
 
-
-        /**
-         * Sets the priority of this Entry.
-         *
-         * @param thePriority The value to assign the priority to.
-         */
         private void setPriority(final double thePriority) {
             myPriority = thePriority;
         }
 
-
-        /**
-         * Returns the priority of this Entry.
-         *
-         * @return The priority of this Entry.
-         */
         private double getPriority() {
             return myPriority;
         }
 
-
-        /**
-         * Returns the element of this Entry.
-         *
-         * @return The element of this Entry.
-         */
         private T getElement() {
             return myElement;
         }
-
     }
-
 }

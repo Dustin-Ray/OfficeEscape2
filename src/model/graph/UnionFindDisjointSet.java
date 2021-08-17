@@ -16,39 +16,41 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Implements a disjoint-set data structure with union by size and path compression.
- * Maintains a collection of disjoint sets.
+ * Maintains an efficient collection of disjoint sets with union by size and
+ * path compression.
  *
  * @author Reuben Keller
+ * @version Summer 2021
  */
 public class UnionFindDisjointSet<T> {
 
     /**
-     * A List that stores parent relationships. Each node corresponds to an index i.
-     * If the value at index i is -1, then (1) i corresponds to a root node (i.e., the
-     * representative of the tree) and (2) i is the representative ID for the tree.
+     * A List that stores parent relationships. Each node corresponds to an
+     * index i. If the value at index i is -1, then (1) i corresponds to a
+     * root node (i.e., the representative of the up-tree) and (2) i is the
+     * representative ID for the up-tree.
      */
     private final List<Integer> pointers;
 
-    /**
-     * Maps the type T to Integer indices in pointers.
-     */
+    /** Maps the type T to Integer indices in pointers. */
     private final Map<T, Integer> indices;
 
 
     /**
-     * Constructs a disjoint set data structure.
+     * Constructs a UnionFindDisjointSet for maintaining disjoint sets.
      */
     public UnionFindDisjointSet() {
         pointers = new ArrayList<>();
         indices = new HashMap<>();
     }
 
+
     /**
      * Creates a new disjoint set containing the given element.
      *
      * @param element The element to create a disjoint set with.
-     * @throws IllegalArgumentException if element is already in an existing disjoint set.
+     * @throws IllegalArgumentException if element is already in an existing
+     *     disjoint set.
      */
     public void makeSet(T element) {
         if (indices.containsKey(element)) {
@@ -60,7 +62,8 @@ public class UnionFindDisjointSet<T> {
 
 
     /**
-     * Returns the representative ID of the disjoint set containing the given element.
+     * Returns the representative ID of the disjoint set containing the given
+     * element.
      *
      * @param element The element to find the ID of.
      * @return The representative ID of the set containing element.
@@ -91,18 +94,18 @@ public class UnionFindDisjointSet<T> {
 
 
     /**
-     * Unions two disjoint sets A and B and returns true if the given elements are
-     * members of different sets. Returns false otherwise.
+     * Unions two disjoint sets A and B and returns true if the given elements
+     * are members of different sets. Returns false otherwise.
      *
      * @param elementA The element in set A.
      * @param elementB The element in set B.
-     * @throws IllegalArgumentException if elementA or elementB are not in an existing set.
+     * @throws IllegalArgumentException if elementA or elementB are not in an
+     *     existing set.
      */
     public boolean union(T elementA, T elementB) {
         if (!indices.containsKey(elementA) || !indices.containsKey(elementB)) {
             throw new IllegalArgumentException();
         }
-
         // get representative IDs of given items
         int id1 = findSet(elementA);
         int id2 = findSet(elementB);

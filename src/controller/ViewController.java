@@ -44,6 +44,14 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     /** The pixel height of this frame. */
     public static final int FRAME_HEIGHT = 828;
 
+    private static final String CURRENT_ROOM_SAVE_PATH = "current_room_data";
+
+    private static final String ROOMS_MAP_SAVE_PATH = "rooms_map_data";
+
+    private static final String ROOMS_LIST_SAVE_PATH = "rooms_list_data";
+
+    private static final String OPTIMAL_SOLUTION_SAVE_PATH = "optimal_solution_data";
+
     /** The current room panel which renders the game room to the screen. */
     RoomPanel myCurrentRoomPanel;
 
@@ -276,18 +284,20 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     private void loadSavedGameState() {
         resetContent();
         GameState gs = new GameState();
-        myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
-        myRoomList = (List<Room>) gs.load("rooms_list_data");
-        myCurrentRoom = (Room) gs.load("current_room_data");
+        myRoomsMap = (Map<Room, Set<Room>>) gs.load(ROOMS_MAP_SAVE_PATH);
+        myRoomList = (List<Room>) gs.load(ROOMS_LIST_SAVE_PATH);
+        myCurrentRoom = (Room) gs.load(CURRENT_ROOM_SAVE_PATH);
+        myOptimalSolution = (List<Integer>) gs.load(OPTIMAL_SOLUTION_SAVE_PATH);
         loadRoom(myCurrentRoom);
     }
 
     /** saves a game state to memory. */
     private void saveGame() {
         GameState gs = new GameState();
-        gs.save("rooms_map_data", myRoomsMap);
-        gs.save("rooms_list_data", myRoomList);
-        gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
+        gs.save(ROOMS_MAP_SAVE_PATH, myRoomsMap);
+        gs.save(ROOMS_LIST_SAVE_PATH, myRoomList);
+        gs.save(CURRENT_ROOM_SAVE_PATH, myCurrentRoomPanel.getMyCurrentRoom());
+        gs.save(OPTIMAL_SOLUTION_SAVE_PATH, myOptimalSolution);
     }
 
     /** Removes all visible content, resets game state and starts over at room 0. */

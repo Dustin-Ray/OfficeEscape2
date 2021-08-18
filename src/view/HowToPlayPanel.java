@@ -28,6 +28,7 @@ public class HowToPlayPanel extends JPanel {
         setBackground(Color.BLACK);
         setVisible(true);
         readFiles();
+
         repaint();
     }
 

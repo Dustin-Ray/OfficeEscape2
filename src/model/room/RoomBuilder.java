@@ -10,42 +10,45 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package model.room;
 
-import model.graph.AdjacencyListGraph;
-import model.graph.DijkstraSPFinder;
-import model.graph.Edge;
-import model.graph.KruskalMSTFinder;
+import model.graph.*;
 import model.trivia.TriviaManager;
 
 import java.util.*;
 
+
 /**
- * Uses a graph representation to generate a mapping of each Room to connected
- * Rooms.
+ * A helper class to build and connect Rooms, Doors, and Trivia. Uses a Graph
+ * representation of a 2D array of Rooms to generate a mapping of each Room to
+ * its connected Rooms.
  *
  * @author Reuben Keller
+ * @version Summer 2021
  */
 public class RoomBuilder {
 
-    public static final int SOURCE = 0;
+    /** The integer ID of the starting vertex in the default Graph. */
+    public static final int DEFAULT_SOURCE = 0;
 
-    public static final int TARGET = 15;
+    /** The integer ID of the target vertex in the default Graph. */
+    public static final int DEFAULT_TARGET = 15;
 
-    /** The number of rows in the graph representation. */
-    public static final int ROWS = 4;
+    /** The number of rows in the default Graph. */
+    public static final int DEFAULT_ROWS = 4;
 
-    /** The number of room columns. */
-    public static final int COLS = 4;
-
-    private static final int NUM_ROOMS = ROWS * COLS;
+    /** The number of columns in the default Graph */
+    public static final int DEFAULT_COLS = 4;
 
     /** The Graph representation of rooms to manage. */
     private final AdjacencyListGraph<Integer> myGraph;
 
+    /** The KruskalMSTFinder to use on myGraph. */
+    private final KruskalMSTFinder<Integer> myMSTFinder;
+
+    /** The MST of myGraph. */
+    private Set<Edge<Integer>> myMST;
+
     /** A Random object for generating pseudo-random edge weights. */
     private final Random myRand;
-
-    /** A mapping of each vertex ID to its connected vertex IDs. */
-    private Map<Integer, Set<Integer>> connectedVertices;
 
     /** A mapping of each Room to its connected Rooms. */
     private Map<Room, Set<Room>> rooms;
@@ -53,14 +56,43 @@ public class RoomBuilder {
     /** A helper class to get random trivia. */
     private final TriviaManager myTriviaManager;
 
+    /** An ordered list of Rooms in the optimal path. */
     private final List<Integer> optimalSolution;
+
+    /** The number of rows in the Graph. */
+    private final int myNumRows;
+
+    /** The number of columns in the Graph. */
+    private final int myNumCols;
+
+    /** The source vertex in the Graph. */
+    private final int mySource;
+
+    /** The target vertex in the Graph. */
+    private final int myTarget;
+
+
+    /**
+     * Constructs a RoomBuilder for the Graph representation of a 2D array of
+     * Rooms with the default number of rooms (16), default number of rows (4),
+     * and default number of columns (4).
+     */
+    public RoomBuilder() {
+        this(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_SOURCE, DEFAULT_TARGET);
+    }
 
 
     /**
      * Constructs a RoomManager for a given graph representation of Rooms.
      */
-    public RoomBuilder() {
+    public RoomBuilder(final int theNumRows, final int theNumCols,
+                       final int theSource, final int theTarget) {
+        myNumRows = theNumRows;
+        myNumCols = theNumCols;
+        mySource = theSource;
+        myTarget = theTarget;
         myGraph = new AdjacencyListGraph<>();
+        myMSTFinder = new KruskalMSTFinder<>();
         myTriviaManager = new TriviaManager();
         myRand = new Random();
         optimalSolution = new ArrayList<>();
@@ -70,12 +102,14 @@ public class RoomBuilder {
         extractOptimalSolution();
     }
 
+
     /**
-     * Generates the Graph for this GraphManager. Each vertex is numbered from
-     * left to right, starting with 0, and moving down row by row.
+     * Generates the Graph corresponding to a 2D array of Rooms. Each vertex is
+     * numbered in integer steps of 1 from left to right and row by row,
+     * starting with 0 in the top left corner.
      *
-     * e.g., if myRows = 3 and myCols = 3, then the visual representation of
-     * the generated graph is as follows:
+     * e.g., if myNumRows = 3 and myNumCols = 3, then the visual representation
+     * of the generated graph is as follows:
      *      0---1---2
      *      |   |   |
      *      3---4---5
@@ -83,16 +117,27 @@ public class RoomBuilder {
      *      6---7---8
      */
     private void generateGraph() {
-        for (int j = 0; j < NUM_ROOMS; j++) {
+        for (int j = 0; j < myNumRows * myNumCols; j++) {
             // horizontal edges
-            if ((j + 1) % ROWS != 0) {
+            if ((j + 1) % myNumRows != 0) {
                 myGraph.addUndirectedEdge(j, j + 1, myRand.nextDouble());
             }
             // vertical edges
-            if (j + COLS < NUM_ROOMS) {
-                myGraph.addUndirectedEdge(j, j + COLS, myRand.nextDouble());
+            if (j + myNumCols < myNumRows * myNumCols) {
+                myGraph.addUndirectedEdge(j, j + myNumCols,
+                        myRand.nextDouble());
             }
         }
+    }
+
+
+    /**
+     * Returns the Graph representation of the Rooms.
+     *
+     * @return The Graph representation of the Rooms.
+     */
+    public Graph<Integer> getGraph() {
+        return myGraph;
     }
 
 
@@ -101,78 +146,121 @@ public class RoomBuilder {
      * a mapping of each room to its connected rooms.
      */
     private void generateMST() {
-        KruskalMSTFinder<Integer> mstFinder = new KruskalMSTFinder<>();
-        mstFinder.findMST(myGraph);
-        connectedVertices = mstFinder.getVertexMap();
+        myMST = myMSTFinder.findMST(myGraph);
     }
 
 
     /**
-     * Builds and returns a mapping of each Room to connected Rooms.
-     * Sets valid doors between rooms in the process.
+     * Returns the MST of the Graph representation of Rooms.
+     *
+     * @return The MST of the Graph representation of Rooms.
+     */
+    public Set<Edge<Integer>> getMST() {
+        return myMST;
+    }
+
+
+    /**
+     * Builds and returns a mapping of each Room to connected Rooms. Sets valid
+     * Doors with Trivia between connected Rooms in the process.
      */
     private void extractRoomsMap() {
+        Map<Integer, Set<Integer>> connectedVertices;
+        connectedVertices = myMSTFinder.getVertexMap();
         rooms = new HashMap<>();
         for (Integer currID : connectedVertices.keySet()) {
-            Room currRoom = new Room(currID);
-            Set<Room> s = new HashSet<>();
-            if (rooms.containsKey(currRoom)) {
-                s = rooms.get(currRoom);
+            Room curr = new Room(currID);
+            Set<Room> neighbors = new HashSet<>();
+            if (rooms.containsKey(curr)) {
+                neighbors = rooms.get(curr);
             }
             for (Integer neighborID : connectedVertices.get(currID)) {
-                Room neighborRoom = new Room(neighborID);
-                if (!s.contains(neighborRoom)) {
-                    Door door = new Door(true, false, myTriviaManager.getTrivia());
-                    if (currID - ROWS == neighborID) {
-                        // neighbor is north of curr (north = A)
-                        currRoom.setA(neighborRoom, door);
-                        neighborRoom.setB(currRoom, door);
-                    } else if (currID + ROWS == neighborID) {
-                        // neighbor is south of curr (south = B)
-                        currRoom.setB(neighborRoom, door);
-                        neighborRoom.setA(currRoom, door);
-                    } else if (currID + 1 == neighborID) {
-                        // neighbor is east of curr  (east = C)
-                        currRoom.setC(neighborRoom, door);
-                        neighborRoom.setD(currRoom, door);
-                    } else if (currID - 1 == neighborID) {
-                        // neighbor is west of curr  (west = D)
-                        currRoom.setD(neighborRoom, door);
-                        neighborRoom.setC(currRoom, door);
-                    }
-                    s.add(neighborRoom);
+                Room neighbor = new Room(neighborID);
+                if (!neighbors.contains(neighbor)) {
+                    setupRoom(curr, neighbor);
+                    neighbors.add(neighbor);
                 }
             }
-            rooms.put(currRoom, s);
+            rooms.put(curr, neighbors);
         }
     }
 
-    public void extractOptimalSolution() {
-        DijkstraSPFinder<Integer> d = new DijkstraSPFinder<>();
-        Map<Integer, Edge<Integer>> map = d.shortestPathTree(myGraph, SOURCE, TARGET);
-        List<Edge<Integer>> edges = d.extractShortestPath(map, SOURCE, TARGET);
+
+    /**
+     * Given a Room and one of its Room neighbors, the method sets up the Room
+     * by coupling a Door containing Trivia to both the Room and its neighbor.
+     * In the Graph of the 2D array representation of Rooms, A corresponds to
+     * north, B corresponds to south, C corresponds to east, and D corresponds
+     * to west.
+     *
+     * @param room The Room to setup.
+     * @param neighbor A neighbor of room.
+     */
+    private void setupRoom(final Room room, final Room neighbor) {
+        Door door = new Door(true, false, myTriviaManager.getTrivia());
+        int currID = room.getRoomID();
+        int neighborID = neighbor.getRoomID();
+        if (currID - myNumRows == neighborID) {
+            room.setA(neighbor, door);
+            neighbor.setB(room, door);
+        } else if (currID + myNumRows == neighborID) {
+            room.setB(neighbor, door);
+            neighbor.setA(room, door);
+        } else if (currID + 1 == neighborID) {
+            room.setC(neighbor, door);
+            neighbor.setD(room, door);
+        } else if (currID - 1 == neighborID) {
+            room.setD(neighbor, door);
+            neighbor.setC(room, door);
+        }
+    }
+
+
+    /**
+     * Extracts the optimal (shortest) sequence of rooms to go through to get
+     * from mySource to myTarget.
+     */
+    private void extractOptimalSolution() {
+        Graph<Integer> kruskalGraph = myMSTFinder.getKruskalGraph();
+        DijkstraSPFinder<Integer> spFinder = new DijkstraSPFinder<>();
+
+        Map<Integer, Edge<Integer>> spt;
+        spt = spFinder.shortestPathTree(kruskalGraph, mySource, myTarget);
+
+        List<Edge<Integer>> edges;
+        edges = spFinder.extractShortestPath(spt, mySource, myTarget);
 
         for (Edge<Integer> edge : edges) {
             optimalSolution.add(edge.from());
         }
+
         optimalSolution.add(edges.get(edges.size() - 1).to());
     }
 
+
+    /**
+     * Returns the optimal sequence of Room IDs from the starting Room to the
+     * ending Room as a List.
+     *
+     * @return An ordered List of Room IDs representing the sequence of optimal
+     * Rooms to take.
+     */
     public List<Integer> getOptimalSolution() {
         return optimalSolution;
     }
 
 
     /**
-     * Returns a list of Room objects in increasing order of Room ID.
+     * Returns a list of Room objects in non-decreasing order of Room ID.
      *
-     * @return A list of Room objects in  increasing order of Room ID.
+     * @return A list of Room objects in non-decreasing order of Room ID.
      */
     public List<Room> roomsList() {
         List<Room> list = new ArrayList<>(rooms.keySet());
         list.sort(Comparator.comparingInt(Room::getRoomID));
         return list;
     }
+
 
     /**
      * Returns a mapping of each Room to its connected Rooms.
@@ -186,18 +274,5 @@ public class RoomBuilder {
     public Map<Room, Set<Room>> roomsMap() {
         return rooms;
     }
-
-
-    /**
-     * Returns the Graph used to build Rooms.
-     *
-     * @return The Graph used to build Rooms.
-     */
-    public AdjacencyListGraph<Integer> getGraph() {
-        return myGraph;
-    }
-
-
-
 
 }

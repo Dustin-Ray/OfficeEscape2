@@ -93,7 +93,7 @@ public class GameMap implements Serializable {
         doorBPositions = new ArrayList<>();
         doorCPositions = new ArrayList<>();
         doorDPositions = new ArrayList<>();
-        translateFile(PATH + roomID + "/map_" + roomID + ".csv");
+        translateFile(PATH + roomID + "/map.csv");
     }
 
 

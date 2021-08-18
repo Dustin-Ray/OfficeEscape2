@@ -198,8 +198,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case MAIN -> {
-                this.getContentPane().removeAll();
-                if(myCurrentRoomPanel != null) {resetLoadedRoom();}
+                resetContent();
                 this.getContentPane().add(myMainMenuPanel);
                 myMainMenuPanel.setVisible(true);
                 myMainMenuPanel.requestFocus();
@@ -207,8 +206,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
 
             }
             case NEW -> {
-                this.getContentPane().removeAll();
-                if(myCurrentRoomPanel != null) {resetLoadedRoom();}
+                resetContent();
                 initRoomBuilder();
                 loadRoom(myRoomList.get(0));
                 this.repaint();
@@ -221,8 +219,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             }
             case LOAD -> {
 
-                if (myCurrentRoomPanel != null) {resetLoadedRoom();}
-                this.getContentPane().removeAll();
+                resetContent();
                 GameState gs = new GameState();
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");
@@ -231,16 +228,14 @@ public class ViewController extends JFrame implements PropertyChangeListener {
 
             }
             case ABOUT -> {
-                this.getContentPane().removeAll();
-                this.remove(myConsolePanel);
+                resetContent();
                 this.getContentPane().add(myAboutPanel);
                 myAboutPanel.requestFocus();
                 myAboutPanel.setFocusable(true);
                 myAboutPanel.setVisible(true);
             }
             case HOW -> {
-                this.getContentPane().removeAll();
-                this.remove(myConsolePanel);
+                resetContent();
                 this.getContentPane().add(myHowToPlayPanel);
                 myHowToPlayPanel.requestFocus();
                 myHowToPlayPanel.setFocusable(true);
@@ -264,6 +259,13 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             }
              case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
         }
+    }
+
+    private void resetContent() {
+        if (myCurrentRoomPanel != null) {
+            resetLoadedRoom();
+            this.remove(myConsolePanel);}
+        this.getContentPane().removeAll();
     }
 
     /** Handles interaction between doors. Launches trivia event if one exists.
@@ -304,7 +306,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             resetLoadedRoom();
             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
         }
-        myConsolePanel.setNextRoomText("");
+        myConsolePanel.setNextRoomText(null);
     }
 
 

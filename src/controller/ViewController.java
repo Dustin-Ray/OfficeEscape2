@@ -96,8 +96,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();
-        myAboutPanel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT);
-        myHowToPlayPanel = new HowToPlayPanel(FRAME_WIDTH, FRAME_HEIGHT);
+        myAboutPanel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT, "src/res/assets/about_menu.png");
+        myHowToPlayPanel = new HowToPlayPanel(FRAME_WIDTH, FRAME_HEIGHT, "src/res/assets/howtoplay.png");
 
         setupUI();
         setupFrame();

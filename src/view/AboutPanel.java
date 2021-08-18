@@ -10,12 +10,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package view;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Panel to display how to play information.
@@ -23,56 +18,26 @@ import java.io.IOException;
  * @author Dustin Ray
  * @version Summer 2021
  */
-public class AboutPanel extends JPanel {
+public class AboutPanel extends AbstractInfoPanel {
 
-    /** Width of panel. */
-    private final int myWidth;
-    /** Height of panel. */
-    private final int myHeight;
-    /** Custom font. */
-    private Font myFont;
-    /** Background image for panel. */
-    private final BufferedImage myBackGround;
 
     /**
      * Constructor.
-     * @param theWidth width of panel.
-     * @param theHeight height of panel.
-     * @throws IOException if resource cannot be loaded.
+     *
+     * @param theWidth  width of frame.
+     * @param theHeight height of frame.
+     * @param thePath a string to the background image for the object.
      */
-    public AboutPanel(final int theWidth, final int theHeight) throws IOException {
-
-        myBackGround = ImageIO.read(new File("src/res/assets/about_menu.png"));
-        myWidth = theWidth;
-        myHeight = theHeight;
-        setupPanel();
-        readFiles();
-        setVisible(true);
+    public AboutPanel(int theWidth, int theHeight, String thePath) {
+        super(theWidth, theHeight, thePath);
     }
-
-    /** Sets panel size. */
-    private void setupPanel() {
-        setPreferredSize(new Dimension(myWidth, myHeight));
-        setBackground(Color.BLACK);
-    }
-
-    /**Reads in external assets. */
-    private void readFiles() {
-        try {
-            myFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-            myFont = myFont.deriveFont(Font.PLAIN, 35);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         myFont = myFont.deriveFont(Font.PLAIN, 20);
         g.setFont(myFont);
-        g.drawImage(myBackGround, 0,0,this);
+        g.drawImage(myBackGroundImage, 0,0,this);
         g.setColor(Color.WHITE);
         g.drawString("Office Escape 2: The Sequel", 50, 50);
         g.drawString("TCSS 360 Software Development and Quality Assurance", 50, 150);

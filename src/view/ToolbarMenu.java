@@ -38,16 +38,15 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
             IllegalAccessException, UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         setupUI();
+        myPcs = new PropertyChangeSupport(this);
         myMenuBar = new JMenuBar();
         setupFileMenu();
         setupMusicControls();
         setupHelpMenu();
         myMenuBar.setVisible(true);
-        myPcs = new PropertyChangeSupport(this);
+
 
     }
-
-
 
     /** Returns this menubar object. */
     public JMenuBar getMyMenuBar() {return myMenuBar;}
@@ -65,7 +64,6 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         about.addActionListener(e -> fireAboutPropertyChange());
         howToPlay.addActionListener(e -> fireHowPropertyChange());
         cheat.addActionListener(e -> fireCheatPropertyChange());
-
 
         myMenuBar.add(helpMenu);
     }

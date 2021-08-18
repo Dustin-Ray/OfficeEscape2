@@ -237,12 +237,17 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                     this.remove(myConsolePanel);
                     repaint();
                 }
-                AboutPanel panel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT);
-                this.add(panel);
-                repaint();
+                AboutPanel panel = null;
+                try {
+                    panel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT);
+                    panel.setVisible(true);
+                    this.add(panel);
+                    this.repaint();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
-
-
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}
                 catch (IOException e) {e.printStackTrace();}

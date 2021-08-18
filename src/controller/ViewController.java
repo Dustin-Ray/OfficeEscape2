@@ -216,8 +216,12 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 this.remove(myMainMenuPanel);
                 if (myCurrentRoomPanel != null) {
                     resetLoadedRoom();
+                    this.remove(myAboutPanel);
+                    myAboutPanel.setVisible(false);
                 }
                 loadRoom(myRoomList.get(0));
+                this.add(myConsolePanel);
+                myConsolePanel.setVisible(true);
             }
             case SAVE -> {
                 GameState gs = new GameState();
@@ -234,6 +238,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myCurrentRoom = (Room) gs.load("current_room_data");
                 if (myCurrentRoomPanel != null) {
                     resetLoadedRoom();
+                    this.remove(myAboutPanel);
+                    myAboutPanel.setVisible(false);
                 }
                 loadRoom(myCurrentRoom);
                 this.add(myConsolePanel);

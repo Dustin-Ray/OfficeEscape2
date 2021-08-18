@@ -5,23 +5,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
+/**
+ * Panel to display how to play information.
+ * @author Dustin Ray
+ * @version Summer 2021
+ */
 public class HowToPlayPanel extends JPanel {
 
-    private final int myWidth;
+    /**background image for panel.  */
+    private BufferedImage myBackGroundImage;
 
-    private final int myHeight;
-
-    private BufferedImage image;
-
-    private static final String PATH = "res/assets/howtoplay.png";
-
-
+    /**
+     * Constructor.
+     * @param theWidth width of frame.
+     * @param theHeight height of frame.
+     */
     public HowToPlayPanel(final int theWidth, final int theHeight) {
-        myWidth = theWidth;
-        myHeight = theHeight;
-        setPreferredSize(new Dimension(myWidth, myHeight));
+        setPreferredSize(new Dimension(theWidth, theHeight));
         setBackground(Color.BLACK);
         setVisible(true);
         readFiles();
@@ -34,7 +35,7 @@ public class HowToPlayPanel extends JPanel {
      */
     private void readFiles() {
         try {
-            image = ImageIO.read(new File("src/res/assets/howtoplay.png"));
+            myBackGroundImage = ImageIO.read(new File("src/res/assets/howtoplay.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +45,7 @@ public class HowToPlayPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0,0, null);
+        g.drawImage(myBackGroundImage, 0,0, null);
         repaint();
     }
 

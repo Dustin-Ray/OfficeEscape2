@@ -157,6 +157,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      */
     private void loadRoom(final Room theRoom) {
         //load new room
+        this.getContentPane().removeAll();
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
         this.add(myCurrentRoomPanel);
         myCurrentRoomPanel.setVisible(true);
@@ -178,7 +179,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
         this.remove(myConsolePanel);
-
         repaint();
     }
 
@@ -211,6 +211,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 loadRoom(myRoomList.get(0));
                 this.getContentPane().add(myConsolePanel);
                 myConsolePanel.setVisible(true);
+                this.repaint();
             }
             case SAVE -> {
                 GameState gs = new GameState();
@@ -219,13 +220,13 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
             }
             case LOAD -> {
+                this.getContentPane().removeAll();
                 GameState gs = new GameState();
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");
                 myCurrentRoom = (Room) gs.load("current_room_data");
-                this.getContentPane().removeAll();
                 loadRoom(myCurrentRoom);
-                this.getContentPane().add(myConsolePanel);
+                this.add(myConsolePanel);
                 myConsolePanel.setVisible(true);
             }
             case ABOUT -> {

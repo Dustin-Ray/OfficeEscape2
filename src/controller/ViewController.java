@@ -101,7 +101,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         setupFrame();
         addToolbarPanel();
         addMainMenuPanel();
-//        loadRoom(myRoomList.get(0));
         addConsolePanel();
         this.setVisible(true);
         this.setResizable(false);
@@ -119,7 +118,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * multiples of the default grid square size. */
     private void setupFrame() {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-//        this.setLocation(500, 100);
         this.setLocationRelativeTo(null); // places frame in center of screen
         this.setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,23 +147,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     }
 
 
-    private void addAboutMenuPanel() {
-        if (myMainMenuPanel != null) {
-            this.remove(myMainMenuPanel);
-            myMainMenuPanel.setVisible(false);
-        }
-        if (myCurrentRoomPanel != null) {
-            this.remove(myCurrentRoomPanel);
-            myCurrentRoomPanel.setVisible(false);
-        }
-        if (myConsolePanel != null) {
-            this.remove(myConsolePanel);
-            myConsolePanel.setVisible(false);
-        }
-        this.add(myAboutPanel);
-        repaint();
-    }
-
 
     /**
      * Loads a given room into the room panel. Used for room traversal. Removes
@@ -192,15 +173,12 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * new room, except when starting for first time.*/
     private void resetLoadedRoom() {
         //reset currently loaded room
-            this.remove(myCurrentRoomPanel);
-            myCurrentRoomPanel.resetUserController();
-            myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
-            myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
-            this.remove(myConsolePanel);
+        this.remove(myCurrentRoomPanel);
+        myCurrentRoomPanel.resetUserController();
+        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
+        myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
+        this.remove(myConsolePanel);
 
-//        if (myAboutPanel != null) {
-//            this.remove(myAboutPanel);
-//        }
         repaint();
     }
 
@@ -262,14 +240,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 AboutPanel panel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT);
                 this.add(panel);
                 repaint();
-
-//                addAboutMenuPanel();
             }
-//            case HOW -> {
-//                resetLoadedRoom();;
-//
-//
-//            }
+
 
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}
@@ -304,22 +276,17 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             //start trivia event when user presses e
             myConsolePanel.triviaPrompt();
             Trivia trivia = myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia();
-
-
             if (canLoad) {
                 myConsolePanel.setTrivia(trivia);
                 if (canCheat) {
                     myConsolePanel.setCheatText(trivia.getCorrectAnswer(),
-                            myOptimalSolution.toString());
+                    myOptimalSolution.toString());
                 }
             }
-
-
             //
             if (myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID) != null) {
                 myConsolePanel.setNextRoomText("" + myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
             }
-
             //if answered correctly, load next room and unlock door
             if(myConsolePanel.getCorrectlyAnsweredFlag()) {
                 myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
@@ -333,7 +300,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 (myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
             resetLoadedRoom();
             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
-
         myConsolePanel.setNextRoomText(null);
     }
 

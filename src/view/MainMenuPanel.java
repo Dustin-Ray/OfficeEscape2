@@ -113,7 +113,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
     }
     /** Fires property change to listeners. */
     private void fireNewGamePropertyChange() {
-        myPC.firePropertyChange(PropertyChangeEnabledUserControls.NEW_GAME, null, "new game");
+        myPC.firePropertyChange(PropertyChangeEnabledUserControls.NEW, null, "new game");
 
     }
 

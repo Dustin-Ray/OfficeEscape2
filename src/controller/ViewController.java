@@ -13,8 +13,9 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static controller.PropertyChangeEnabledUserControls.*;
 
@@ -183,8 +184,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     }
 
 
-
-
     /**
      * Handles sprite interaction with doors and file menu changes.
      *
@@ -203,6 +202,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myMainMenuPanel.setVisible(true);
                 myMainMenuPanel.requestFocus();
                 myMainMenuPanel.setFocusable(true);
+                this.repaint();
             }
             case NEW -> {
                 initRoomBuilder();
@@ -230,23 +230,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                     resetLoadedRoom();
                 }
                 loadRoom(myCurrentRoom);
-            }
-            case ABOUT -> {
-                if (myCurrentRoomPanel != null) {
-                    this.remove(myCurrentRoomPanel);
-                    this.remove(myConsolePanel);
-                    repaint();
-                }
-                AboutPanel panel = null;
-                try {
-                    panel = new AboutPanel(FRAME_WIDTH, FRAME_HEIGHT);
-                    panel.setVisible(true);
-                    this.add(panel);
-                    this.repaint();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
             }
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}

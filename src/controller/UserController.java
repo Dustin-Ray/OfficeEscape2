@@ -10,15 +10,15 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 
 package controller;
 
-import model.map.*;
+import model.map.Direction;
+import model.map.GameMap;
+import model.map.MapEntity;
+import model.map.Player;
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.IOException;
-import java.util.*;
-
-import static model.map.Terrain.*;
+import java.util.List;
 
 /**
  * Controls attributes for player character. Communicates with RoomPanel via key listener.

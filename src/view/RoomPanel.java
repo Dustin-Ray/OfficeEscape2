@@ -1,10 +1,8 @@
 package view;
 
 import controller.UserController;
-import model.map.Direction;
 import model.map.Player;
 import model.room.Room;
-import model.map.Terrain;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

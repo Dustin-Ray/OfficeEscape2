@@ -197,81 +197,24 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case MAIN -> {
-                resetContent();
-                this.getContentPane().add(myMainMenuPanel);
-                myMainMenuPanel.setVisible(true);
-                myMainMenuPanel.requestFocus();
-                myMainMenuPanel.setFocusable(true);
-
-            }
-            case NEW -> {
-                resetContent();
-                initRoomBuilder();
-                loadRoom(myRoomList.get(0));
-                this.repaint();
-            }
-            case SAVE -> {
-                GameState gs = new GameState();
-                gs.save("rooms_map_data", myRoomsMap);
-                gs.save("rooms_list_data", myRoomList);
-                gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
-            }
-            case LOAD -> {
-
-                resetContent();
-                GameState gs = new GameState();
-                myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
-                myRoomList = (List<Room>) gs.load("rooms_list_data");
-                myCurrentRoom = (Room) gs.load("current_room_data");
-                loadRoom(myCurrentRoom);
-
-            }
-            case ABOUT -> {
-                resetContent();
-                this.getContentPane().add(myAboutPanel);
-                myAboutPanel.requestFocus();
-                myAboutPanel.setFocusable(true);
-                myAboutPanel.setVisible(true);
-            }
-            case HOW -> {
-                resetContent();
-                this.getContentPane().add(myHowToPlayPanel);
-                myHowToPlayPanel.requestFocus();
-                myHowToPlayPanel.setFocusable(true);
-                myHowToPlayPanel.setVisible(true);
-            }
-            case PROPERTY_PROXIMITY_DOOR_A -> {
-                try {doorInteraction("A");}
-                catch (IOException e) {e.printStackTrace();}
-            }
-            case PROPERTY_PROXIMITY_DOOR_B -> {
-                try {doorInteraction("B");}
-                catch (IOException e) {e.printStackTrace();}
-            }
-            case PROPERTY_PROXIMITY_DOOR_C -> {
-                try {doorInteraction("C");}
-                catch (IOException e) {e.printStackTrace();}
-            }
-            case PROPERTY_PROXIMITY_DOOR_D -> {
-                try {doorInteraction("D");}
-                catch (IOException e) {e.printStackTrace();}
-            }
-             case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
+            case MAIN -> displayMainMenu();
+            case NEW -> newGame();
+            case SAVE -> saveGame();
+            case LOAD -> loadSavedGameState();
+            case ABOUT -> displayAboutMenu();
+            case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
+            case HOW -> displayHowToPlayMenu();
+            case PROPERTY_PROXIMITY_DOOR_A -> doorInteraction("A");
+            case PROPERTY_PROXIMITY_DOOR_B -> doorInteraction("B");
+            case PROPERTY_PROXIMITY_DOOR_C -> doorInteraction("C");
+            case PROPERTY_PROXIMITY_DOOR_D -> doorInteraction("D");
         }
     }
 
-    private void resetContent() {
-        if (myCurrentRoomPanel != null) {
-            resetLoadedRoom();
-            this.remove(myConsolePanel);}
-        this.getContentPane().removeAll();
-    }
 
     /** Handles interaction between doors. Launches trivia event if one exists.
-     * @param theID theID of the resource to seek, can be a door or a room.
-     * @throws  IOException if any resource cannot be loaded. */
-    public void doorInteraction(final String theID) throws IOException {
+     * @param theID theID of the resource to seek, can be a door or a room. */
+    public void doorInteraction(final String theID)  {
         //is e pressed on keyboard?
         boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
         boolean canCheat = myCurrentRoomPanel.getMyUserControls().getCheatFlag();
@@ -309,6 +252,66 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myConsolePanel.setNextRoomText(null);
     }
 
+    /** Removes all visible content and displays main menu panel. */
+    private void displayHowToPlayMenu() {
+        resetContent();
+        this.getContentPane().add(myHowToPlayPanel);
+        myHowToPlayPanel.requestFocus();
+        myHowToPlayPanel.setFocusable(true);
+        myHowToPlayPanel.setVisible(true);
+    }
+
+    /** Removes all visible content and displays about menu panel. */
+    private void displayAboutMenu() {
+        resetContent();
+        this.getContentPane().add(myAboutPanel);
+        myAboutPanel.requestFocus();
+        myAboutPanel.setFocusable(true);
+        myAboutPanel.setVisible(true);
+    }
+
+    /** loads a game state that was saved to memory. */
+    private void loadSavedGameState() {
+        resetContent();
+        GameState gs = new GameState();
+        myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
+        myRoomList = (List<Room>) gs.load("rooms_list_data");
+        myCurrentRoom = (Room) gs.load("current_room_data");
+        loadRoom(myCurrentRoom);
+    }
+
+    /** saves a game state to memory. */
+    private void saveGame() {
+        GameState gs = new GameState();
+        gs.save("rooms_map_data", myRoomsMap);
+        gs.save("rooms_list_data", myRoomList);
+        gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
+    }
+
+    /** Removes all visible content, resets game state and starts over at room 0. */
+    private void newGame() {
+        resetContent();
+        initRoomBuilder();
+        loadRoom(myRoomList.get(0));
+        this.repaint();
+    }
+
+    /** Removes all visible content and displays main menu panel. */
+    private void displayMainMenu() {
+        resetContent();
+        this.getContentPane().add(myMainMenuPanel);
+        myMainMenuPanel.setVisible(true);
+        myMainMenuPanel.requestFocus();
+        myMainMenuPanel.setFocusable(true);
+    }
+
+    /** removes visible components from frame before loading new components. */
+    private void resetContent() {
+        if (myCurrentRoomPanel != null) {
+            resetLoadedRoom();
+            this.remove(myConsolePanel);}
+        this.getContentPane().removeAll();
+    }
 
     /**
      * Attempts to set look and feel to system defaults. Reverts to

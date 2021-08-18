@@ -43,12 +43,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** A value used to determine if the player wants to enter the next room. */
     private boolean myLoadGameFlag;
 
-    /** Used for debugging, fires to console panel so sprite position can be determined. */
-    private String myPositions;
-
-    /**String representation of neighbors surrounding the player sprite.  */
-    private String myNeighbors;
-
     /** The GameMap the Player is in. */
     private final GameMap myGM;
 

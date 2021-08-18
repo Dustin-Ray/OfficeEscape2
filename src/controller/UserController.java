@@ -158,7 +158,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * Checks the proximity of the Player sprite for any Doors.
      */
     private void checkDoorProximity() {
-        generateNeighbors();
         if (collisionWith(myGM.doorAPositions())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
             myNextToDoor = true;
@@ -175,43 +174,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
             myNextToDoor = false;
             fireXYPositionChange();
             fireNeighborChange();
-        }
-    }
-
-
-    /**
-     * Generates a map of the current Terrain surrounding the Player.
-     */
-    private void generateNeighbors() {
-        int arrPosX = myPlayer.tileX() - 1;
-        int arrPosY = myPlayer.tileY() - 1;
-        if (arrPosY - 1 < 0) {
-            arrPosY += 1;
-        }
-        if (arrPosX - 1 < 0) {
-            arrPosX += 1;
-        }
-        Terrain[][] grid = myGM.getTerrainGrid();
-        final Map<Direction, Terrain> result = new HashMap<>();
-        for (int i = 0; i < Direction.values().length; i++) {
-            result.put(Direction.NORTH, grid[arrPosY - 1][arrPosX]);
-            result.put(Direction.SOUTH, grid[arrPosY + 1][arrPosX]);
-            result.put(Direction.EAST, grid[arrPosY][arrPosX - 1]);
-            result.put(Direction.WEST, grid[arrPosY][arrPosX + 1]);
-            myPositions = "Y pos: " + myPlayer.tileY() + "\t"
-                    + "X pos: " + myPlayer.tileX();
-        }
-
-        //helper code to fire debug info to console
-        myNeighbors = "Surrounding terrain: \n";
-        for (int j = 0; j < result.size(); j++) {
-            Set<Direction> s = result.keySet();
-            Object[] sArr = s.toArray();
-            myNeighbors = myNeighbors +
-                    sArr[j].toString() +
-                    ":    "
-                    + result.get(sArr[j])
-                    + "\n";
         }
     }
 
@@ -247,13 +209,13 @@ public class UserController implements PropertyChangeEnabledUserControls {
 
     /** Fires a property change when the player sprite position changes. */
     private void fireXYPositionChange() {
-        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, myPositions);
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, "");
     }
 
 
     /** Fires a property change when the terrain surrounding the sprite changes. */
     private void fireNeighborChange() {
-        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, myNeighbors);
+        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, "");
     }
 
 

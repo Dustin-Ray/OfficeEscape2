@@ -223,7 +223,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
 
                 if (myCurrentRoomPanel != null) {resetLoadedRoom();}
                 this.getContentPane().removeAll();
-                resetLoadedRoom();
                 GameState gs = new GameState();
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");

@@ -11,10 +11,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 package model.trivia;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Class to represents Trivia objects.

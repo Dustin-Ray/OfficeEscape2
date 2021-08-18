@@ -13,9 +13,8 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static controller.PropertyChangeEnabledUserControls.*;
 
@@ -184,6 +183,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     }
 
 
+    private void resetMainMenu() {
+
+    }
+
     /**
      * Handles sprite interaction with doors and file menu changes.
      *
@@ -197,7 +200,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             case MAIN -> {
                 if (myCurrentRoomPanel != null) {
                     resetLoadedRoom();
+                    this.remove(myConsolePanel);
                 }
+                this.remove(myAboutPanel);
+                myConsolePanel.setVisible(false);
                 this.add(myMainMenuPanel);
                 myMainMenuPanel.setVisible(true);
                 myMainMenuPanel.requestFocus();
@@ -230,6 +236,22 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                     resetLoadedRoom();
                 }
                 loadRoom(myCurrentRoom);
+                this.add(myConsolePanel);
+                myConsolePanel.setVisible(true);
+            }
+            case ABOUT -> {
+                if (myCurrentRoomPanel != null) {
+                    resetLoadedRoom();
+                    this.remove(myConsolePanel);
+                    myConsolePanel.setVisible(false);
+                }
+                this.remove(myMainMenuPanel);
+                myMainMenuPanel.setVisible(false);
+                this.add(myAboutPanel);
+                myAboutPanel.requestFocus();
+                myAboutPanel.setFocusable(true);
+                myAboutPanel.setVisible(true);
+                this.repaint();
             }
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}

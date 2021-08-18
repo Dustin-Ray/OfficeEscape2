@@ -66,7 +66,7 @@ public class AboutPanel extends JPanel {
         g.drawString("Instructor: Tom Capaul", 50, 240);
         g.drawString("Academic Quarter: Summer 2021", 50, 300);
         g.drawString("Assignment: Trivia Maze", 50, 360);
-        g.drawString("GUI made using Java's Swing", 50, 420);
+        g.drawString("GUI made using Java Swing framework. ", 50, 420);
         g.drawString("Created by: ", 50, 480);
         g.drawString("          Raz Consta                         Reuben Keller                          Dustin Ray", 50, 525);
         repaint();

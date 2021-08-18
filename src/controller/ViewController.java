@@ -198,29 +198,18 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case MAIN -> {
-                if (myCurrentRoomPanel != null) {
-                    resetLoadedRoom();
-                    this.remove(myConsolePanel);
-                }
-                this.remove(myAboutPanel);
-                myConsolePanel.setVisible(false);
-                this.add(myMainMenuPanel);
+                this.getContentPane().removeAll();
+                this.getContentPane().add(myMainMenuPanel);
                 myMainMenuPanel.setVisible(true);
                 myMainMenuPanel.requestFocus();
                 myMainMenuPanel.setFocusable(true);
                 this.repaint();
             }
             case NEW -> {
+                this.getContentPane().removeAll();
                 initRoomBuilder();
-                myMainMenuPanel.setVisible(false);
-                this.remove(myMainMenuPanel);
-                if (myCurrentRoomPanel != null) {
-                    resetLoadedRoom();
-                    this.remove(myAboutPanel);
-                    myAboutPanel.setVisible(false);
-                }
                 loadRoom(myRoomList.get(0));
-                this.add(myConsolePanel);
+                this.getContentPane().add(myConsolePanel);
                 myConsolePanel.setVisible(true);
             }
             case SAVE -> {
@@ -230,31 +219,18 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 gs.save("current_room_data", myCurrentRoomPanel.getMyCurrentRoom());
             }
             case LOAD -> {
-                myMainMenuPanel.setVisible(false);
-                this.remove(myMainMenuPanel);
                 GameState gs = new GameState();
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");
                 myCurrentRoom = (Room) gs.load("current_room_data");
-                if (myCurrentRoomPanel != null) {
-                    resetLoadedRoom();
-                    this.remove(myAboutPanel);
-                    myAboutPanel.setVisible(false);
-                }
+                this.getContentPane().removeAll();
                 loadRoom(myCurrentRoom);
-                this.add(myConsolePanel);
+                this.getContentPane().add(myConsolePanel);
                 myConsolePanel.setVisible(true);
             }
             case ABOUT -> {
-                if (myCurrentRoomPanel != null) {
-                    resetLoadedRoom();
-
-                }
-                this.remove(myConsolePanel);
-                myConsolePanel.setVisible(false);
-                this.remove(myMainMenuPanel);
-                myMainMenuPanel.setVisible(false);
-                this.add(myAboutPanel);
+                this.getContentPane().removeAll();
+                this.getContentPane().add(myAboutPanel);
                 myAboutPanel.requestFocus();
                 myAboutPanel.setFocusable(true);
                 myAboutPanel.setVisible(true);

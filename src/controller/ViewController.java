@@ -248,9 +248,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             case ABOUT -> {
                 if (myCurrentRoomPanel != null) {
                     resetLoadedRoom();
-                    this.remove(myConsolePanel);
-                    myConsolePanel.setVisible(false);
+
                 }
+                this.remove(myConsolePanel);
+                myConsolePanel.setVisible(false);
                 this.remove(myMainMenuPanel);
                 myMainMenuPanel.setVisible(false);
                 this.add(myAboutPanel);

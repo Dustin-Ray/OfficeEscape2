@@ -102,12 +102,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Increments a counter to keep track of incorrectly answered questions. */
     public void setBad() {myIncorrectlyAnswered.setText("Bad: " + "\n" + myIncorrect++);}
 
-    /** Increments a counter to keep track of correctly answered questions. */
-    public void setNextRoomText(final String nextRoomID) {
-        if (nextRoomID != null) {
-            myNextRoomText.setText("Next Room ID: " + "\n\n" + nextRoomID);
-        }
-    }
 
 
 
@@ -136,7 +130,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         switch (theEvent.getPropertyName()) {
             case XY_POSITION -> {
                 myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
-                myNextRoomText.setText("");
             }
             case NEIGHBOR_CHANGE -> {
                 myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
@@ -164,7 +157,19 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
             }
         }
         else if(theTrivia.getType() == 3) {setupShortAnswer();}
+    }
 
+
+    /** Increments a counter to keep track of correctly answered questions. */
+    public void setNextRoomText(final String nextRoomID) {
+        if (nextRoomID != null) {
+            myNextRoomText.setText("Next Room ID: " + "\n\n" + nextRoomID);
+        }
+    }
+
+
+    public void setCheatText(final String answer, final String route) {
+        myConsoleScreenTextArea2.setText("Answer: " + answer + "\nOptimal path: " + route);
     }
 
 

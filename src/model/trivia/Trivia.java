@@ -139,7 +139,6 @@ public class Trivia implements Serializable {
          */
         ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
-        System.out.println(myCorrectAnswer);
         answerList.addAll(myIncorrectAnswers);
         return answerList;
     }

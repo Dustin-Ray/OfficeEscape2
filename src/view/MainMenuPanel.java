@@ -96,10 +96,8 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         theLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (text.equals("new game")) {
-                    System.out.println("new game clicked");
                     fireNewGamePropertyChange();
                 } else {
-                    System.out.println("load game clicked");
                     fireLoadPropertyChange();
                 }
             }

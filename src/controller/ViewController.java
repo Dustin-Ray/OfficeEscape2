@@ -3,6 +3,7 @@ package controller;
 import model.GameState;
 import model.room.Room;
 import model.room.RoomBuilder;
+import model.trivia.Trivia;
 import view.*;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -111,10 +112,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myRoomsMap = rb.roomsMap();
         myRoomList = rb.roomsList();
         myOptimalSolution = rb.getOptimalSolution();
-
-        System.out.println("my rooms map: " + myRoomsMap);
-        System.out.println("optimal solution: " + myOptimalSolution);
-
     }
 
 
@@ -300,20 +297,28 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     public void doorInteraction(final String theID) throws IOException {
         //is e pressed on keyboard?
         boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
+        boolean canCheat = myCurrentRoomPanel.getMyUserControls().getCheatFlag();
         //check to see if door is valid and locked
         if (myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
                 !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
             //start trivia event when user presses e
             myConsolePanel.triviaPrompt();
+            Trivia trivia = myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia();
+
+
             if (canLoad) {
-                myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());
+                myConsolePanel.setTrivia(trivia);
+                if (canCheat) {
+                    myConsolePanel.setCheatText(trivia.getCorrectAnswer(),
+                            myOptimalSolution.toString());
+                }
             }
+
 
             //
             if (myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID) != null) {
                 myConsolePanel.setNextRoomText("" + myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
             }
-            //
 
             //if answered correctly, load next room and unlock door
             if(myConsolePanel.getCorrectlyAnsweredFlag()) {

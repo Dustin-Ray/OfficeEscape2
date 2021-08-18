@@ -46,6 +46,8 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** The GameMap the Player is in. */
     private final GameMap myGM;
 
+    private boolean myCheatFlag;
+
 
     public UserController(final Player thePlayer, final GameMap theGM) {
         myPcs = new PropertyChangeSupport(this);
@@ -85,6 +87,9 @@ public class UserController implements PropertyChangeEnabledUserControls {
         if (key == KeyEvent.VK_E) {
             myLoadGameFlag = true;
         }
+        if (key == KeyEvent.VK_Q) {
+            myCheatFlag = true;
+        }
     }
 
 
@@ -111,6 +116,9 @@ public class UserController implements PropertyChangeEnabledUserControls {
         }
         if (key == KeyEvent.VK_E) {
             myLoadGameFlag = false;
+        }
+        if (key == KeyEvent.VK_Q) {
+            myCheatFlag = false;
         }
     }
 
@@ -189,6 +197,10 @@ public class UserController implements PropertyChangeEnabledUserControls {
      */
     public boolean getMyLoadGameFlag() {
         return myLoadGameFlag;
+    }
+
+    public boolean getCheatFlag() {
+        return myCheatFlag;
     }
 
 

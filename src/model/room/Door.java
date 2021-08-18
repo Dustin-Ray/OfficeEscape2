@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Represents a a Door in the game. A Door is valid if it can be used to pass
+ * Represents a Door in the game. A Door is valid if it can be used to pass
  * between two Rooms after being unlocked. A Door is unlocked if a user
  * answers a Trivia question correctly.
  *

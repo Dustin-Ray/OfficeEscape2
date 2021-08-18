@@ -18,11 +18,8 @@ public enum Terrain {
     DOOR_CLOSED_D('D'),
     DOOR_OPEN('O');
 
-
-
     /** The character corresponding to a particular value of the enumeration. */
     private final char myLetter;
-
 
     /**
      * Constructs a new Terrain with the specified letter.

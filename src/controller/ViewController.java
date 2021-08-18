@@ -109,6 +109,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
 
     }
 
+    /** Builds the room list for implementation. */
     private void initRoomBuilder() {
         RoomBuilder rb = new RoomBuilder();
         myRoomsMap = rb.roomsMap();

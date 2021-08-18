@@ -25,6 +25,7 @@ import java.util.List;
  *
  * @author Dustin Ray
  * @author Reuben Keller
+ * @version Summer 2021
  */
 public class UserController implements PropertyChangeEnabledUserControls {
 
@@ -46,16 +47,20 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /** The GameMap the Player is in. */
     private final GameMap myGM;
 
+    /** A flag to tell listeners if the user is pressing q on the keyboard. */
     private boolean myCheatFlag;
 
-
+    /**
+     * Constructor.
+     * @param thePlayer is the player object which tracks the sprite image and x y positions.
+     * @param theGM is the game map which contains information about terrain and collision.
+     */
     public UserController(final Player thePlayer, final GameMap theGM) {
         myPcs = new PropertyChangeSupport(this);
         myNextToDoor = false;
         myGM = theGM;
         myPlayer = thePlayer;
     }
-
 
     /**
      * Handles key-pressed events.
@@ -199,10 +204,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
         return myLoadGameFlag;
     }
 
-    public boolean getCheatFlag() {
-        return myCheatFlag;
-    }
-
+    /**
+     * Checks to see if user is pressing q on the keyboard.
+     * @return boolean if q is pressed.
+     */
+    public boolean getCheatFlag() {return myCheatFlag;}
 
     /**
      * Fires a property change when the player sprite is in proximity to a door.
@@ -212,18 +218,15 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPcs.firePropertyChange(thePropertyChange, null, myNextToDoor);
     }
 
-
     /** Fires a property change when the player sprite position changes. */
     private void fireXYPositionChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.XY_POSITION, null, "");
     }
 
-
     /** Fires a property change when the terrain surrounding the sprite changes. */
     private void fireNeighborChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEIGHBOR_CHANGE, null, "");
     }
-
 
     /**
      * Adds a property change listener.
@@ -233,7 +236,6 @@ public class UserController implements PropertyChangeEnabledUserControls {
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
     }
-
 
     /**
      * Removes a property change listener.

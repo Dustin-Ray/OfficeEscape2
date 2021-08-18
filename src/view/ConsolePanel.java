@@ -227,8 +227,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** Sets up text elements in panel.*/
     private void setupTextArea() {
 
-
-
         myConsoleScreenTextArea1 = new JTextArea();
         initializeTextArea(myConsoleScreenTextArea1, 18,  830, 50, 350, 18);
 
@@ -237,7 +235,6 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         initializeTextArea(myRoomID, 12,830, 235, 80, 50);
-
 
         myNextRoomText = new JTextArea("""
                 Next Room ID:\s

@@ -72,9 +72,7 @@ public class RoomPanel extends JPanel implements ActionListener {
 
     /** Returns the current ID value of the room loaded into this panel.
      * @return int value of currently loaded room ID. */
-    public int getCurrentRoomID() {
-        return myRoomID;
-    }
+    public int getCurrentRoomID() {return myRoomID;}
 
 
     /** Overrides swing paintComponent to draw GUI elements. Can be called manually with repaint() */
@@ -117,26 +115,19 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
     /** Resets user controller to initial state. */
-    public void resetUserController() {
-        this.myUserControls.getMyPlayer().reset();
-    }
+    public void resetUserController() {this.myUserControls.getMyPlayer().reset();}
 
     /**
      * Gets the current room loaded into this frame.
      * @return the current room loaded into this frame.
      */
-    public Room getMyCurrentRoom() {
-        return myCurrentRoom;
-    }
-
+    public Room getMyCurrentRoom() {return myCurrentRoom;}
 
     /**
      * Gets the current user controls object loaded into this frame.
      * @return the current user controller loaded into this frame.
      */
-    public UserController getMyUserControls() {
-        return myUserControls;
-    }
+    public UserController getMyUserControls() {return myUserControls;}
 
 }
 

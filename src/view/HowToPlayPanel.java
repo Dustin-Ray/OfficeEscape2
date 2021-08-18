@@ -1,49 +1,24 @@
 package view;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * Panel to display how to play information.
  * @author Dustin Ray
  * @version Summer 2021
  */
-public class HowToPlayPanel extends JPanel {
-
-    /**background image for panel.  */
-    private BufferedImage myBackGroundImage;
-    /** Custom font. */
-    private Font myFont;
+public class HowToPlayPanel extends AbstractInfoPanel {
 
     /**
      * Constructor.
-     * @param theWidth width of frame.
+     *
+     * @param theWidth  width of frame.
      * @param theHeight height of frame.
+     * @param thePath a path to the background image file.
      */
-    public HowToPlayPanel(final int theWidth, final int theHeight) {
-        setPreferredSize(new Dimension(theWidth, theHeight));
-        setBackground(Color.BLACK);
-        setVisible(true);
-        readFiles();
-
-        repaint();
+    public HowToPlayPanel(int theWidth, int theHeight, String thePath) {
+        super(theWidth, theHeight, thePath);
     }
-
-
-    /** Reads in the image files to display in this Panel.*/
-    private void readFiles() {
-        try {
-            myBackGroundImage = ImageIO.read(new File("src/res/assets/howtoplay.png"));
-            myFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));
-            myFont = myFont.deriveFont(Font.PLAIN, 35);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void paintComponent(Graphics g) {

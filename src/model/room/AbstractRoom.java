@@ -16,7 +16,8 @@ import java.io.Serializable;
 
 /**
  * Implements behavior common to all Rooms. Each Room has 4 possible Doors and
- * 4 possible neighboring Rooms.
+ * 4 possible Rooms: A, B, C, and D. The neighboring Rooms connected to the
+ * current Room by the Doors are labeled with the same letter as the Doors.
  *
  * @author Reuben Keller
  * @version Summer 2021
@@ -51,7 +52,7 @@ public abstract class AbstractRoom implements Serializable {
     private final int myID;
 
     /** The GameMap of this Room. */
-    private GameMap gm;
+    private final GameMap gm;
 
 
     /**
@@ -66,9 +67,9 @@ public abstract class AbstractRoom implements Serializable {
 
 
     /**
-     * Returns the GameMap for this Room.
+     * Returns the GameMap of this Room.
      *
-     * @return The GameMap for this Room.
+     * @return The GameMap of this Room.
      */
     public GameMap getMap() {
         return gm;
@@ -76,9 +77,9 @@ public abstract class AbstractRoom implements Serializable {
 
 
     /**
-     * Returns the integer ID of for this Room.
+     * Returns the integer ID of of this Room.
      *
-     * @return The integer ID for this Room.
+     * @return The integer ID of this Room.
      */
     public int getRoomID() {
         return myID;
@@ -89,7 +90,8 @@ public abstract class AbstractRoom implements Serializable {
      * Returns the Door specified by the given letter ID.
      *
      * @param letterID The letter representing the Door to return.
-     * @return The Door specified by letterID.
+     * @return The Door specified by letterID or null if letterID is not
+     *     A, B, C, or D.
      */
     public Door getDoor(final String letterID) {
         return switch (letterID) {
@@ -105,8 +107,9 @@ public abstract class AbstractRoom implements Serializable {
     /**
      * Returns the room specified by the given letter ID.
      *
-     * @param letterID A letter representing the Room to return.
-     * @return the Room specified by letterID.
+     * @param letterID The letter representing the Room to return.
+     * @return the Room specified by letterID or null if letterID is not
+     *     A, B, C, or D.
      */
     public Room getRoom(final String letterID) {
         return switch (letterID) {
@@ -122,11 +125,12 @@ public abstract class AbstractRoom implements Serializable {
     /**
      * Checks to see if the specified room exists.
      *
-     * @param theRoomName the room to check.
-     * @return true if room exists, false otherwise.
+     * @param letterID The letter ID of the Room to check.
+     * @return true if a room corresponding to letterID is not null and false
+     *     otherwise.
      */
-    public boolean hasRoom(final String theRoomName) {
-        return switch (theRoomName) {
+    public boolean hasRoom(final String letterID) {
+        return switch (letterID) {
             case "A" -> roomA != null;
             case "B" -> roomB != null;
             case "C" -> roomC != null;
@@ -152,7 +156,7 @@ public abstract class AbstractRoom implements Serializable {
      * Sets Room B and Door B to the given Room and Door.
      *
      * @param room Room B of this Room.
-     * @param door Door B separating this Room and the Room B.
+     * @param door Door B separating this Room and Room B.
      */
     public void setB(final Room room, final Door door) {
         roomB = room;
@@ -164,7 +168,7 @@ public abstract class AbstractRoom implements Serializable {
      * Sets Room C and Door C to the given Room and Door.
      *
      * @param room Room C of this Room.
-     * @param door Door C separating this Room and the Room C.
+     * @param door Door C separating this Room and Room C.
      */
     public void setC(final Room room, final Door door) {
         roomC = room;

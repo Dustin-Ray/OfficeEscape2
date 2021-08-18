@@ -56,7 +56,6 @@ public class Door implements Serializable {
         myTrivia = theTrivia;
         isValid = valid;
         isUnlocked = unlocked;
-
     }
 
 

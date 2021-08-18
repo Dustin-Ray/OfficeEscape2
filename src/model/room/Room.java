@@ -14,7 +14,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Represents a Room.
+ * Represents a Room. Extends AbstractRoom so it can be made into a unique type
+ * of AbstractRoom in the future. (e.g., We could potentially have a MagicRoom,
+ * ZombieRoom, etc., with extended behavior.)
  *
  * @author Reuben Keller
  * @version Summer 2021
@@ -52,4 +54,5 @@ public class Room extends AbstractRoom implements Serializable {
     public String toString() {
         return "Room " + getRoomID();
     }
+
 }

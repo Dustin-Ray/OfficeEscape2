@@ -16,7 +16,7 @@ public class Player extends MapEntity {
 
 
     /** The file path for the Player sprite images. */
-    public static final String PATH = "src/res/assets/chair/testing/";
+    public static final String PATH = "src/res/assets/chair/";
 
     /** The default x position of this PLayer. */
     private static final int DEFAULT_X = 384;
@@ -72,12 +72,12 @@ public class Player extends MapEntity {
      */
     private void readFiles() {
         try {
-            setSprite(ImageIO.read(new File(PATH + "chair_up_testing.png")));
-            chairDown = ImageIO.read(new File(PATH + "chair_down_testing.png"));
-            chairUp = ImageIO.read(new File(PATH + "chair_up_testing.png"));
-            chairUpQuestion = ImageIO.read(new File(PATH + "chair_up_testing_question.png"));
-            chairLeft = ImageIO.read(new File(PATH + "chair_left_testing.png"));
-            chairRight = ImageIO.read(new File(PATH + "chair_right_testing.png"));
+            setSprite(ImageIO.read(new File(PATH + "chair_up.png")));
+            chairDown = ImageIO.read(new File(PATH + "chair_down.png"));
+            chairUp = ImageIO.read(new File(PATH + "chair_up.png"));
+            chairUpQuestion = ImageIO.read(new File(PATH + "chair_up_question.png"));
+            chairLeft = ImageIO.read(new File(PATH + "chair_left.png"));
+            chairRight = ImageIO.read(new File(PATH + "chair_right.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }

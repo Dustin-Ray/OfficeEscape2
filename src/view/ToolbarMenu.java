@@ -41,8 +41,8 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         myMenuBar = new JMenuBar();
         setupFileMenu();
         setupMusicControls();
-        setupHighScoresMenu();
-        setupAboutMenu();
+//        setupHighScoresMenu();
+        setupHelpMenu();
         myMenuBar.setVisible(true);
         myPcs = new PropertyChangeSupport(this);
 
@@ -60,11 +60,21 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
     }
 
     /** Initializes about menu and adds to menu bar */
-    private void setupAboutMenu() {
-        final JMenu aboutMenu = new JMenu("About");
-        final JMenuItem howToPlay = new JMenuItem("How To Play");
-        aboutMenu.add(howToPlay);
-        myMenuBar.add(aboutMenu);
+    private void setupHelpMenu() {
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem about  = new JMenuItem("About");
+        JMenuItem howToPlay = new JMenuItem("How To Play");
+        JMenuItem cheat = new JMenuItem("Cheats");
+        helpMenu.add(about);
+        helpMenu.add(howToPlay);
+        helpMenu.add(cheat);
+
+        about.addActionListener(e -> fireAboutPropertyChange(ABOUT));
+        howToPlay.addActionListener(e -> fireHowPropertyChange(HOW));
+        cheat.addActionListener(e -> fireCheatPropertyChange(CHEAT));
+
+
+        myMenuBar.add(helpMenu);
     }
 
     /** Initializes file menu and adds to menu bar */
@@ -82,15 +92,27 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         fileMenu.add(saveGame);
         fileMenu.add(closeGame);
 
-        newGame.addActionListener(e -> {});
-        //
         saveGame.addActionListener(e -> fireSavePropertyChange(SAVE));
         loadGame.addActionListener(e -> fireLoadPropertyChange(LOAD));
-        newGame.addActionListener(e -> fireNewGamePropertyChange(NEW_GAME));
-        mainMenu.addActionListener(e -> fireMainMenuPropertyChange(MAIN_MENU));
-        //
+        newGame.addActionListener(e -> fireNewGamePropertyChange(NEW));
+        mainMenu.addActionListener(e -> fireMainMenuPropertyChange(MAIN));
         closeGame.addActionListener(e -> System.exit(0));
+
         myMenuBar.add(fileMenu);
+    }
+
+
+    private void fireCheatPropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "cheat menu");
+    }
+
+
+    private void fireHowPropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "how to play menu");
+    }
+
+    private void fireAboutPropertyChange(String theProperty) {
+        myPcs.firePropertyChange(theProperty, null, "about menu");
     }
 
     private void fireSavePropertyChange(String theProperty) {

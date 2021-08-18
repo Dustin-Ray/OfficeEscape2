@@ -28,9 +28,15 @@ public interface PropertyChangeEnabledUserControls {
 
     String LOAD = "load";
 
-    String NEW_GAME = "new game";
+    String NEW = "new game";
 
-    String MAIN_MENU = "main menu";
+    String MAIN = "main menu";
+
+    String ABOUT = "about menu";
+
+    String HOW = "how to play menu";
+
+    String CHEAT = "cheat menu";
 
 
     /**

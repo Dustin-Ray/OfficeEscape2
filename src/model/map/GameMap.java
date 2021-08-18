@@ -11,6 +11,7 @@ Team members: Dustin Ray, Raz Consta, Reuben Keller
 package model.map;
 
 import java.io.File;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,9 @@ public class GameMap implements Serializable {
 
     /** The String representing an obstacle in the csv file. */
     private static final String OBSTACLE = "-1";
+
+    @Serial
+    private static final long serialVersionUID = 3840283924276090102L;
 
     /** A 2D array containing Terrain values for each of the tiles. */
     private final Terrain[][] grid;

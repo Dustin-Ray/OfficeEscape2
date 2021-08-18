@@ -1,5 +1,7 @@
 package model.map;
 
+import java.io.Serial;
+
 /**
  * Represents an Obstacle the Player can collide with.
  *
@@ -7,6 +9,9 @@ package model.map;
  * @version Summer 2021
  */
 public class Obstacle extends MapEntity {
+
+    @Serial
+    private static final long serialVersionUID = 2781244165356964611L;
 
     /**
      * Constructs an Obstacle at the given pixel (x, y) location.

@@ -12,6 +12,7 @@ package model.room;
 
 import model.trivia.Trivia;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -24,6 +25,9 @@ import java.util.Objects;
  * @version Summer 2021
  */
 public class Door implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1307947468830319514L;
 
     /** A boolean variable to track whether this Door is valid or invalid. */
     private boolean isValid;

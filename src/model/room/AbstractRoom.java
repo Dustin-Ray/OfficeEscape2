@@ -12,6 +12,7 @@ package model.room;
 
 import model.map.GameMap;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,9 @@ import java.io.Serializable;
  * @version Summer 2021
  */
 public abstract class AbstractRoom implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 500430890537751612L;
 
     /** Door A of this Room. */
     private Door doorA;

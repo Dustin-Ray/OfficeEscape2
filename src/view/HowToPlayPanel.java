@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class HowToPlayPanel extends JPanel {
 
@@ -20,16 +21,11 @@ public class HowToPlayPanel extends JPanel {
     public HowToPlayPanel(final int theWidth, final int theHeight) {
         myWidth = theWidth;
         myHeight = theHeight;
-        setupPanel();
-        readFiles();
-    }
-
-    private void setupPanel() {
         setPreferredSize(new Dimension(myWidth, myHeight));
         setBackground(Color.BLACK);
         setVisible(true);
+        readFiles();
     }
-
 
 
     /**
@@ -37,24 +33,19 @@ public class HowToPlayPanel extends JPanel {
      */
     private void readFiles() {
         try {
-            image = ImageIO.read(new File(PATH));
+            image = ImageIO.read(new File("src/res/assets/howtoplay.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g.drawImage(image, myWidth, myHeight, null);
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        draw(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(image, 0,0, null);
+        repaint();
     }
-
-
 
 }

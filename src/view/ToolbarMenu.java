@@ -21,7 +21,7 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
     private final JMenuBar myMenuBar;
     /** Game soundtrack audio file. */
     private Clip myAudioClip;
-
+    /** Property change support object for this class. */
     private final PropertyChangeSupport myPcs;
 
     /**
@@ -44,8 +44,6 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         setupMusicControls();
         setupHelpMenu();
         myMenuBar.setVisible(true);
-
-
     }
 
     /** Returns this menubar object. */
@@ -56,15 +54,10 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         JMenu helpMenu = new JMenu("Help");
         JMenuItem about  = new JMenuItem("About");
         JMenuItem howToPlay = new JMenuItem("How To Play");
-        JMenuItem cheat = new JMenuItem("Cheats");
         helpMenu.add(about);
         helpMenu.add(howToPlay);
-        helpMenu.add(cheat);
-
         about.addActionListener(e -> fireAboutPropertyChange());
         howToPlay.addActionListener(e -> fireHowPropertyChange());
-        cheat.addActionListener(e -> fireCheatPropertyChange());
-
         myMenuBar.add(helpMenu);
     }
 
@@ -92,31 +85,33 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         myMenuBar.add(fileMenu);
     }
 
-
-    private void fireCheatPropertyChange() {
-        myPcs.firePropertyChange(PropertyChangeEnabledUserControls.CHEAT, null, "cheat menu");
-    }
-
+    /**Loads how to play option.  */
     private void fireHowPropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.HOW, null, "how to play menu");
     }
 
+    /** loads about menu.  */
     private void fireAboutPropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.ABOUT, null, "about menu");
     }
 
+
+    /** fires save sequence.  */
     private void fireSavePropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.SAVE, null, "save");
     }
 
+    /** fires load event. */
     private void fireLoadPropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.LOAD, null, "load");
     }
 
+    /** fires new game event. */
     private void fireNewGamePropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.NEW, null, "new game");
-
     }
+
+    /** fires new game menu event. */
     private void fireMainMenuPropertyChange() {
         myPcs.firePropertyChange(PropertyChangeEnabledUserControls.MAIN, null, "main menu");
     }
@@ -130,7 +125,6 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         myPcs.addPropertyChangeListener(theListener);
     }
 
-
     /**
      * Removes a property change listener.
      * @param theListener the listen to remove.
@@ -139,7 +133,6 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
-
 
     /** Initializes music controls menu and adds to menu bar */
     private void setupMusicControls() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -174,11 +167,7 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
     private void playSound() {myAudioClip.start();}
 
     /** Stops the current sound playback. */
-    private void stopSound() {myAudioClip.stop();
-    }
-
-
-
+    private void stopSound() {myAudioClip.stop();}
 
     /**
      * Sets up the UI for the toolbar.

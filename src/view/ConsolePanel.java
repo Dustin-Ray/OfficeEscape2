@@ -133,7 +133,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
 
     /** Increments a counter to keep track of correctly answered questions. */
     public void setNextRoomText(final String nextRoomID) {
-        if (nextRoomID != null) {myNextRoomText.setText("Next Room ID: " + "\n\n" + nextRoomID);}
+        if (nextRoomID != null) {myNextRoomText.setText("Next Room ID: " + "\n" + nextRoomID);}
     }
 
     /** Displays cheat info to the screen. */
@@ -160,7 +160,9 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**Called by neighbor change to set next room id to be visible.  */
     public void setNextRoomVisible() {myNextRoomText.setVisible(true);}
+
     /** Resets answer entry area if sprite moves away from a trivia event. */
     public void resetAnswerVisibility() {
         for (JLabel answerLabel : myAnswerLabelList) {

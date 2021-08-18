@@ -57,8 +57,7 @@ public class AboutPanel extends JPanel {
         super.paintComponent(g);
         f = f.deriveFont(Font.PLAIN, 20);
         g.setFont(f);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(myBackGround, 0,0,this);
+        g.drawImage(myBackGround, 0,0,this);
         g.setColor(Color.WHITE);
         g.drawString("Office Escape 2: The Sequel", 50, 50);
         g.drawString("TCSS 360 Software Development and Quality Assurance", 50, 150);
@@ -70,6 +69,7 @@ public class AboutPanel extends JPanel {
         g.drawString("Created by: ", 50, 480);
         g.drawString("          Raz Consta                         Reuben Keller                          Dustin Ray", 50, 525);
         repaint();
+
     }
 
 }

@@ -77,10 +77,9 @@ public class RoomPanel extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(myFloorMap, 0,0, this);
+        g.drawImage(myFloorMap, 0,0, this);
         Player player = myUserControls.getMyPlayer();
-        g2d.drawImage(player.getPlayerSprite(), player.getX(),
+        g.drawImage(player.getPlayerSprite(), player.getX(),
                 player.getY(), this);
     }
 

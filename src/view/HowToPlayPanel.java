@@ -25,6 +25,7 @@ public class HowToPlayPanel extends JPanel {
         setBackground(Color.BLACK);
         setVisible(true);
         readFiles();
+        repaint();
     }
 
 
@@ -44,7 +45,7 @@ public class HowToPlayPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0,0, null);
-
+        repaint();
     }
 
 }

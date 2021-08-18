@@ -142,8 +142,8 @@ public class ToolbarMenu extends JMenuBar implements PropertyChangeEnabledUserCo
         musicControls.add(stopMusic);
         musicControls.add(startMusic);
         loadSound();
-        stopMusic.addActionListener(e -> {stopSound();});
-        startMusic.addActionListener(e -> {playSound();});
+        stopMusic.addActionListener(e -> stopSound());
+        startMusic.addActionListener(e -> playSound());
         myMenuBar.add(musicControls);
     }
 

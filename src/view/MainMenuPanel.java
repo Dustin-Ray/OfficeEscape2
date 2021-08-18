@@ -80,9 +80,6 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         this.add(loadGame);
         this.setFocusable(true);
 
-
-
-
     }
 
     /**
@@ -95,12 +92,8 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         String text = theLabel.getText();
         theLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (text.equals("new game")) {
-                    fireNewGamePropertyChange();
-                } else {
-                    fireLoadPropertyChange();
-                }
-            }
+                if (text.equals("new game")) {fireNewGamePropertyChange();}
+                else {fireLoadPropertyChange();}}
         });
     }
 
@@ -115,7 +108,6 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
 
     }
 
-
     /**
      * Adds a property change listener.
      * @param theListener the listen to add.
@@ -126,7 +118,6 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         myPC.addPropertyChangeListener(theListener);
     }
 
-
     /**
      * Removes a property change listener.
      * @param theListener the listener to remove.
@@ -136,7 +127,6 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         myPC.removePropertyChangeListener(theListener);
     }
 
-
     /** Paints components to screen. */
     @Override
     public void paintComponent(Graphics g) {
@@ -144,9 +134,7 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         Graphics2D mainBackground = (Graphics2D) g;
         mainBackground.drawImage(myBackground2, x, y, null);
         mainBackground.drawImage(myBackground1, 0, 0, null);
-
     }
-
 
     /** Sets X position*/
     public void setX(int x) {this.x = x;}
@@ -182,41 +170,21 @@ public class MainMenuPanel extends JPanel implements PropertyChangeEnabledUserCo
         }
     }
 
-
-
-
     /**Handles key presses.  */
     private class InputHandler extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                speedKeyX = -10; //when move is, called change the speed
-            }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                speedKeyX = 10;
-            }
-
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                speedKeyY = -10; //when move is, called change the speed
-            }
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                speedKeyY = 10;
-            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {speedKeyX = -10;}
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {speedKeyX = 10;}
+            if (e.getKeyCode() == KeyEvent.VK_UP) {speedKeyY = -10;}
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {speedKeyY = 10;}
         }
 
         /** Handles key releases. */
         public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                speedKeyX = 0;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                speedKeyX = 0;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                speedKeyY = 0;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                speedKeyY = 0;
-            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {speedKeyX = 0;}
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {speedKeyX = 0;}
+            if (e.getKeyCode() == KeyEvent.VK_UP) {speedKeyY = 0;}
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {speedKeyY = 0;}
         }
     }
 }

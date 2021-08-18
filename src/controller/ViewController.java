@@ -68,10 +68,11 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     /** The mappings of all rooms to their connected rooms. */
     Map<Room, Set<Room>> myRoomsMap;
 
+    /**Currently loaded room displayed in room panel. */
     Room myCurrentRoom;
 
+    /** The fastest route to the victory room. */
     List<Integer> myOptimalSolution;
-
 
     /**
      * Constructor for class. Sets up all panels in the order in which they should appear.
@@ -91,9 +92,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
 
         super("Office Escape 9: The Story Continues");
-
         initRoomBuilder();
-
         myCurrentToolbarMenu = new ToolbarMenu();
         myMainMenuPanel = new MainMenuPanel();
         myConsolePanel = new ConsolePanel();
@@ -202,12 +201,12 @@ public class ViewController extends JFrame implements PropertyChangeListener {
             case SAVE -> saveGame();
             case LOAD -> loadSavedGameState();
             case ABOUT -> displayAboutMenu();
-            case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
             case HOW -> displayHowToPlayMenu();
             case PROPERTY_PROXIMITY_DOOR_A -> doorInteraction("A");
             case PROPERTY_PROXIMITY_DOOR_B -> doorInteraction("B");
             case PROPERTY_PROXIMITY_DOOR_C -> doorInteraction("C");
             case PROPERTY_PROXIMITY_DOOR_D -> doorInteraction("D");
+            case NEIGHBOR_CHANGE -> myConsolePanel.resetAnswerVisibility();
         }
     }
 
@@ -218,9 +217,11 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         //is e pressed on keyboard?
         boolean canLoad = myCurrentRoomPanel.getMyUserControls().getMyLoadGameFlag();
         boolean canCheat = myCurrentRoomPanel.getMyUserControls().getCheatFlag();
+
         //check to see if door is valid and locked
         if (myCurrentRoomPanel.getMyCurrentRoom().hasRoom(theID) &&
                 !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
+            myConsolePanel.setNextRoomVisible();
             //start trivia event when user presses e
             myConsolePanel.triviaPrompt();
             Trivia trivia = myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia();

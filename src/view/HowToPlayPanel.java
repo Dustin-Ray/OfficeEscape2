@@ -33,9 +33,7 @@ public class HowToPlayPanel extends JPanel {
     }
 
 
-    /**
-     * Reads in the image files to display in this Panel.
-     */
+    /** Reads in the image files to display in this Panel.*/
     private void readFiles() {
         try {
             myBackGroundImage = ImageIO.read(new File("src/res/assets/howtoplay.png"));

@@ -56,7 +56,7 @@ public class AboutPanel extends JPanel {
         setBackground(Color.BLACK);
     }
 
-
+    /**Reads in external assets. */
     private void readFiles() {
         try {
             myFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/res/fonts/Expansiva.otf"));

@@ -13,13 +13,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-
+/**
+ * A class to display the game state.
+ * @author Dustin Ray
+ * @author Reuben Keller
+ * @version Summer 2021
+ */
 public class RoomPanel extends JPanel implements ActionListener {
 
+    /** Frame delay constant. */
     public static final int DELAY = 1000 / 60;
 
+    /** File path constant. */
     public static final String PATH = "src/res/maps/map_";
 
     /** Controller object that uses keyboard input to manipulate player sprite.  */
@@ -39,7 +45,6 @@ public class RoomPanel extends JPanel implements ActionListener {
      * Constructor for class.
      *
      * @param theRoom Current room to load into the panel.
-     * @throws IOException if any resource used by this class cannot be loaded.
      */
     public RoomPanel(final Room theRoom) {
         super();
@@ -72,7 +77,6 @@ public class RoomPanel extends JPanel implements ActionListener {
     }
 
 
-
     /** Overrides swing paintComponent to draw GUI elements. Can be called manually with repaint() */
     @Override
     public void paintComponent(Graphics g) {
@@ -91,7 +95,6 @@ public class RoomPanel extends JPanel implements ActionListener {
         repaint();
     }
 
-
     /** Private inner class to handle keyboard input. */
     private class TAdapter extends KeyAdapter {
         /**
@@ -103,7 +106,6 @@ public class RoomPanel extends JPanel implements ActionListener {
             myUserControls.keyReleased(e);
             repaint();}
 
-
         /**
          * Handles key releases.
          * @param e is the key release event.
@@ -114,12 +116,10 @@ public class RoomPanel extends JPanel implements ActionListener {
             repaint();}
     }
 
-
     /** Resets user controller to initial state. */
     public void resetUserController() {
         this.myUserControls.getMyPlayer().reset();
     }
-
 
     /**
      * Gets the current room loaded into this frame.

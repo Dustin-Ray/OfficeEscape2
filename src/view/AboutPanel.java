@@ -26,7 +26,7 @@ public class AboutPanel extends JPanel {
 
     public AboutPanel(final int theWidth, final int theHeight) throws IOException {
 
-        myBackGround = ImageIO.read(new File("/home/dustinr/Documents/School Related/TCSS/TCSS 360/OfficeEscape2/src/res/assets/about_menu.png"));
+        myBackGround = ImageIO.read(new File("src/res/assets/about_menu.png"));
 
         myWidth = theWidth;
         myHeight = theHeight;

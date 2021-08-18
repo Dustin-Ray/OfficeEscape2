@@ -28,7 +28,7 @@ public interface Graph<V> {
      * @param from The vertex a in directed edge (a, b).
      * @param to The vertex b in directed edge (a, b).
      */
-    void addUndirectedEdge(final V from, final V to);
+    void addUndirectedEdge(final V from, final V to, final double weight);
 
 
     /**
@@ -37,7 +37,7 @@ public interface Graph<V> {
      * @param from The vertex a in directed edge (a, b).
      * @param to The vertex b in directed edge (a, b).
      */
-    void addDirectedEdge(final V from, final V to);
+    void addDirectedEdge(final V from, final V to, final double weight);
 
 
     /**

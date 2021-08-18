@@ -133,7 +133,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     /** Adds a main menu panel to the frame. */
     private void addMainMenuPanel() {
         myMainMenuPanel.setFocusable(true);
-        this.add(myMainMenuPanel);
+        this.getContentPane().add(myMainMenuPanel);
         myMainMenuPanel.addPropertyChangeListener(this);
         myMainMenuPanel.setBounds(0, 0, FRAME_WIDTH, ROOM_HEIGHT);
     }
@@ -159,14 +159,14 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         //load new room
         this.getContentPane().removeAll();
         myCurrentRoomPanel = new RoomPanel(myRoomList.get(theRoom.getRoomID()));
-        this.add(myCurrentRoomPanel);
+        this.getContentPane().add(myCurrentRoomPanel);
         myCurrentRoomPanel.setVisible(true);
         myCurrentRoomPanel.setBounds(0, 0, ROOM_WIDTH, ROOM_HEIGHT);
         myCurrentRoomPanel.requestFocusInWindow();
         myConsolePanel.setRoomID(myCurrentRoomPanel.getCurrentRoomID());
         myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.getMyUserControls().addPropertyChangeListener(this);
-        this.add(myConsolePanel);
+        this.getContentPane().add(myConsolePanel);
         repaint();
     }
 
@@ -174,6 +174,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
      * new room, except when starting for first time.*/
     private void resetLoadedRoom() {
         //reset currently loaded room
+        this.getContentPane().removeAll();
         this.remove(myCurrentRoomPanel);
         myCurrentRoomPanel.resetUserController();
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
@@ -203,7 +204,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myMainMenuPanel.setVisible(true);
                 myMainMenuPanel.requestFocus();
                 myMainMenuPanel.setFocusable(true);
-                this.repaint();
+
             }
             case NEW -> {
                 this.getContentPane().removeAll();
@@ -225,8 +226,9 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myRoomsMap = (Map<Room, Set<Room>>) gs.load("rooms_map_data");
                 myRoomList = (List<Room>) gs.load("rooms_list_data");
                 myCurrentRoom = (Room) gs.load("current_room_data");
+                resetLoadedRoom();
                 loadRoom(myCurrentRoom);
-                this.add(myConsolePanel);
+                this.getContentPane().add(myConsolePanel);
                 myConsolePanel.setVisible(true);
             }
             case ABOUT -> {
@@ -235,7 +237,7 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 myAboutPanel.requestFocus();
                 myAboutPanel.setFocusable(true);
                 myAboutPanel.setVisible(true);
-                this.repaint();
+
             }
             case PROPERTY_PROXIMITY_DOOR_A -> {
                 try {doorInteraction("A");}

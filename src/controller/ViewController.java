@@ -67,6 +67,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
 
     Room myCurrentRoom;
 
+    List<Integer> myOptimalSolution;
+
 
     /**
      * Constructor for class. Sets up all panels in the order in which they should appear.
@@ -108,6 +110,11 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         RoomBuilder rb = new RoomBuilder();
         myRoomsMap = rb.roomsMap();
         myRoomList = rb.roomsList();
+        myOptimalSolution = rb.getOptimalSolution();
+
+        System.out.println("my rooms map: " + myRoomsMap);
+        System.out.println("optimal solution: " + myOptimalSolution);
+
     }
 
 
@@ -143,7 +150,6 @@ public class ViewController extends JFrame implements PropertyChangeListener {
         myCurrentToolbarMenu.addPropertyChangeListener(this);
         myCurrentToolbarMenu.setVisible(true);
     }
-
 
 
     private void addAboutMenuPanel() {
@@ -299,14 +305,22 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 !(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
             //start trivia event when user presses e
             myConsolePanel.triviaPrompt();
-            if (canLoad) {myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());}
+            if (canLoad) {
+                myConsolePanel.setTrivia(myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).getTrivia());
+            }
+
+            //
+            if (myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID) != null) {
+                myConsolePanel.setNextRoomText("" + myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
+            }
+            //
+
             //if answered correctly, load next room and unlock door
             if(myConsolePanel.getCorrectlyAnsweredFlag()) {
                 myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).unlockDoor();
                 resetLoadedRoom();
                 loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));
                 myConsolePanel.setCorrectlyAnsweredFlag(false);
-                myConsolePanel.setGood();
             }
         }
         //if approached unlocked door, press e to load next room without answering trivia
@@ -314,6 +328,8 @@ public class ViewController extends JFrame implements PropertyChangeListener {
                 (myCurrentRoomPanel.getMyCurrentRoom().getDoor(theID).isUnlocked())) {
             resetLoadedRoom();
             loadRoom(myCurrentRoomPanel.getMyCurrentRoom().getRoom(theID));}
+
+        myConsolePanel.setNextRoomText(null);
     }
 
 

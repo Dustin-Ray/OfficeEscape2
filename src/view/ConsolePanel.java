@@ -59,10 +59,12 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     /** A flag to tell observing classes to load the next room if trivia is correctly answered. */
     private boolean myCorrectlyAnsweredFlag;
     /** A counter to keep track of correctly answered questions. */
-    private JTextArea myCorrectlyAnswered;
+    private JTextArea myNextRoomText;
     private JTextArea myIncorrectlyAnswered;
     private int myIncorrect;
     private int myCorrect;
+
+    private String myNextRoom;
 
     /**
      * Constructor for class.
@@ -101,7 +103,15 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     public void setBad() {myIncorrectlyAnswered.setText("Bad: " + "\n" + myIncorrect++);}
 
     /** Increments a counter to keep track of correctly answered questions. */
-    public void setGood() {myCorrectlyAnswered.setText("Good: " + "\n" + myCorrect++);}
+    public void setNextRoomText(final String nextRoomID) {
+        if (nextRoomID != null) {
+            myNextRoomText.setText("Next Room ID: " + "\n\n" + nextRoomID);
+        }
+    }
+
+
+
+
 
 
 
@@ -124,8 +134,13 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         switch (theEvent.getPropertyName()) {
-            case XY_POSITION -> myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
-            case NEIGHBOR_CHANGE -> myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
+            case XY_POSITION -> {
+                myConsoleScreenTextArea1.setText(theEvent.getNewValue().toString());
+                myNextRoomText.setText("");
+            }
+            case NEIGHBOR_CHANGE -> {
+                myConsoleScreenTextArea2.setText(theEvent.getNewValue().toString());
+            }
         }
     }
 
@@ -151,6 +166,7 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         else if(theTrivia.getType() == 3) {setupShortAnswer();}
 
     }
+
 
 
     /** Adds clickable answer labels to info console area. */
@@ -246,11 +262,11 @@ public class ConsolePanel extends JPanel implements PropertyChangeListener {
         myRoomID = new JTextArea("Room ID: " + "\n" + "0");
         initializeTextArea(myRoomID, 12,830, 235, 80, 50);
 
-        myCorrectlyAnswered = new JTextArea("Good: " + "\n" + myCorrect);
-        initializeTextArea(myCorrectlyAnswered, 12,920, 235, 70, 50);
-
-        myIncorrectlyAnswered = new JTextArea("Bad: " + "\n" + "0");
-        initializeTextArea(myIncorrectlyAnswered, 12,990, 235, 80, 50);
+        myNextRoomText = new JTextArea("Next Room ID: " + "\n\n");
+        initializeTextArea(myNextRoomText, 12,920, 235, 200, 50);
+//
+//        myIncorrectlyAnswered = new JTextArea("Bad: " + "\n" + "0");
+//        initializeTextArea(myIncorrectlyAnswered, 12,990, 235, 80, 50);
 
 
     }

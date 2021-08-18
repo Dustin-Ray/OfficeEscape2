@@ -174,10 +174,10 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     private void resetLoadedRoom() {
         //reset currently loaded room
         this.remove(myCurrentRoomPanel);
+        this.remove(myConsolePanel);
         myCurrentRoomPanel.resetUserController();
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(myConsolePanel);
         myCurrentRoomPanel.getMyUserControls().removePropertyChangeListener(this);
-        this.remove(myConsolePanel);
 
         repaint();
     }

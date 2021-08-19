@@ -52,11 +52,11 @@ public class ViewController extends JFrame implements PropertyChangeListener {
     /** The pixel height of this frame. */
     public static final int FRAME_HEIGHT = 828;
 
-    private static final String CURRENT_ROOM_SAVE_PATH = "src/res/saves/current_room_data";
+    private static final String CURRENT_ROOM_SAVE_PATH = "current_room_data";
 
-    private static final String ROOMS_LIST_SAVE_PATH = "src/res/saves/rooms_list_data";
+    private static final String ROOMS_LIST_SAVE_PATH = "rooms_list_data";
 
-    private static final String OPTIMAL_SOLUTION_SAVE_PATH = "src/res/saves/optimal_solution_data";
+    private static final String OPTIMAL_SOLUTION_SAVE_PATH = "optimal_solution_data";
 
     /** The current room panel which renders the game room to the screen. */
     RoomPanel myCurrentRoomPanel;

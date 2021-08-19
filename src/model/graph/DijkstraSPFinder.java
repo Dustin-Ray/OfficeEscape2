@@ -1,3 +1,13 @@
+/*
+University of Washington, Tacoma
+TCSS 360 Software Development and Quality Assurance Techniques
+
+Instructor: Tom Capaul
+Academic Quarter: Summer 2021
+Assignment: Group Project
+Team members: Raz Consta, Reuben Keller, Dustin Ray
+ */
+
 package model.graph;
 
 import java.util.*;
@@ -124,6 +134,30 @@ public class DijkstraSPFinder<V> {
             }
         }
         return list;
+    }
+
+
+    /**
+     * Returns a mapping of each vertex to its SP distance from the source
+     * vertex or null if no SPT or partial SPT has been generated.
+     *
+     * @return A mapping of each vertex to its SP distance from the source
+     *     vertex or null if no SPT or partial SPT has been generated.
+     */
+    public Map<V, Double> getDistToV() {
+        return distToV;
+    }
+
+
+    /**
+     * Returns a mapping of vertices in the SPT  or partial SPT to their
+     * predecessors or null if no SPT or partial SPT has been generated.
+     *
+     * @return A mapping of vertices in the SPT or partial SPT to their
+     *     predecessors or null if no SPT or partial SPT has been generated.
+     */
+    public Map<V, Edge<V>> getEdgeToV() {
+        return edgeToV;
     }
 
 }

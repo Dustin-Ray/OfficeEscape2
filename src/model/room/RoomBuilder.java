@@ -5,7 +5,7 @@ TCSS 360 Software Development and Quality Assurance Techniques
 Instructor: Tom Capaul
 Academic Quarter: Summer 2021
 Assignment: Group Project
-Team members: Dustin Ray, Raz Consta, Reuben Keller
+Team members: Raz Consta, Reuben Keller, Dustin Ray
  */
 
 package model.room;
@@ -71,6 +71,8 @@ public class RoomBuilder {
     /** The target vertex in the Graph. */
     private final int myTarget;
 
+    private List<Room> myRoomsList;
+
 
     /**
      * Constructs a RoomBuilder for the Graph representation of a 2D array of
@@ -83,10 +85,24 @@ public class RoomBuilder {
 
 
     /**
-     * Constructs a RoomManager for a given graph representation of Rooms.
+     * Constructs a RoomBuilder for given row and column dimensions, a source
+     * vertex, and a target vertex.
+     *
+     * @param theNumRows The number of Room rows.
+     * @param theNumCols The number of Room columns.
+     * @param theSource The ID of the source (starting) vertex.
+     * @param theTarget The ID of the target vertex.
+     * @throws IllegalArgumentException if any of the given parameters are
+     *     negative.
      */
     public RoomBuilder(final int theNumRows, final int theNumCols,
                        final int theSource, final int theTarget) {
+        if (theNumRows < 0 || theNumCols < 0 || theSource < 0
+                || theTarget < 0) {
+            throw new IllegalArgumentException(
+                    "theNumRows and theNumCols" + " are negative"
+            );
+        }
         myNumRows = theNumRows;
         myNumCols = theNumCols;
         mySource = theSource;
@@ -96,10 +112,51 @@ public class RoomBuilder {
         myTriviaManager = new TriviaManager();
         myRand = new Random();
         optimalSolution = new ArrayList<>();
-        generateGraph();
+        buildGraph();
         generateMST();
         extractRoomsMap();
+        buildRoomsList();
         extractOptimalSolution();
+    }
+
+
+    /**
+     * Returns the number of rows for this RoomBuilder.
+     *
+     * @return The number of rows for this RoomBuilder.
+     */
+    public int getNumRows() {
+        return myNumRows;
+    }
+
+
+    /**
+     * Returns the number of columns for this RoomBuilder.
+     *
+     * @return Returns the number of columns for this RoomBuilder.
+     */
+    public int getNumCols() {
+        return myNumCols;
+    }
+
+
+    /**
+     * Returns the ID of the source for this RoomBuilder.
+     *
+     * @return The ID of the source for this RoomBuilder.
+     */
+    public int getSource() {
+        return mySource;
+    }
+
+
+    /**
+     * Returns the ID of the target for this RoomBuilder.
+     *
+     * @return The ID of the target for this RoomBuilder.
+     */
+    public int getTarget() {
+        return myTarget;
     }
 
 
@@ -116,7 +173,7 @@ public class RoomBuilder {
      *      |   |   |
      *      6---7---8
      */
-    private void generateGraph() {
+    private void buildGraph() {
         for (int j = 0; j < myNumRows * myNumCols; j++) {
             // horizontal edges
             if ((j + 1) % myNumRows != 0) {
@@ -124,8 +181,7 @@ public class RoomBuilder {
             }
             // vertical edges
             if (j + myNumCols < myNumRows * myNumCols) {
-                myGraph.addUndirectedEdge(j, j + myNumCols,
-                        myRand.nextDouble());
+                myGraph.addUndirectedEdge(j, j + myNumCols, myRand.nextDouble());
             }
         }
     }
@@ -197,9 +253,9 @@ public class RoomBuilder {
      * @param neighbor A neighbor of room.
      */
     private void setupRoom(final Room room, final Room neighbor) {
-        Door door = new Door(true, false, myTriviaManager.getTrivia());
         int currID = room.getRoomID();
         int neighborID = neighbor.getRoomID();
+        Door door = new Door(true, false, myTriviaManager.getTrivia());
         if (currID - myNumRows == neighborID) {
             room.setA(neighbor, door);
             neighbor.setB(room, door);
@@ -251,28 +307,21 @@ public class RoomBuilder {
 
 
     /**
-     * Returns a list of Room objects in non-decreasing order of Room ID.
-     *
-     * @return A list of Room objects in non-decreasing order of Room ID.
+     * Builds a sorted list of Room objects.
      */
-    public List<Room> roomsList() {
-        List<Room> list = new ArrayList<>(rooms.keySet());
-        list.sort(Comparator.comparingInt(Room::getRoomID));
-        return list;
+    private void buildRoomsList() {
+        myRoomsList = new ArrayList<>(rooms.keySet());
+        myRoomsList.sort(Comparator.comparingInt(Room::getRoomID));
     }
 
 
     /**
-     * Returns a mapping of each Room to its connected Rooms.
+     * Returns a list of Room objects in non-decreasing order of Room ID.
      *
-     * e.g., if the Room 0 with room ID 0 is mapped to Rooms 1 and 3, with room
-     * IDs 1 and 3, respectively, then Room 0 is connected to both Rooms 1 and
-     * 3.
-     *
-     * @return A mapping of each Room to its connected Rooms.
+     * @return A list of Room objects in non-decreasing order of Room ID.
      */
-    public Map<Room, Set<Room>> roomsMap() {
-        return rooms;
+    public List<Room> getRoomsList() {
+        return myRoomsList;
     }
 
 }

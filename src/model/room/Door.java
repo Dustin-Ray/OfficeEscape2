@@ -5,7 +5,7 @@ TCSS 360 Software Development and Quality Assurance Techniques
 Instructor: Tom Capaul
 Academic Quarter: Summer 2021
 Assignment: Group Project
-Team members: Dustin Ray, Raz Consta, Reuben Keller
+Team members: Raz Consta, Reuben Keller, Dustin Ray
  */
 
 package model.room;
@@ -70,7 +70,7 @@ public class Door implements Serializable {
      * @param theValue true to make this Door valid and false to make this Door
      *     invalid.
      */
-    public void setDoor(final boolean theValue) {
+    public void setDoorValidity(final boolean theValue) {
         isValid = theValue;
     }
 
@@ -102,6 +102,17 @@ public class Door implements Serializable {
 
 
     /**
+     * Sets this Doors Trivia to the given Trivia.
+     *
+     * @param trivia The Trivia to assign to this Door.
+     */
+    public void setTrivia(final Trivia trivia) {
+        myTrivia = trivia;
+    }
+
+
+
+    /**
      * Checks if this door is valid.
      *
      * @return true if this Door is valid and false otherwise.
@@ -126,9 +137,9 @@ public class Door implements Serializable {
         boolean result = false;
         if ((other != null) && (other.getClass().equals(this.getClass()))) {
             Door o = (Door) other;
-            result = getTrivia().equals(o.getTrivia())
-                    && isUnlocked() == o.isUnlocked()
-                    && isValid() == o.isValid();
+            result = Objects.equals(this.myTrivia, o.myTrivia)
+                    && this.isUnlocked == o.isUnlocked
+                    && this.isValid == o.isValid;
         }
         return result;
     }

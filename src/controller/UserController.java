@@ -5,14 +5,13 @@ TCSS 360 Software Development and Quality Assurance Techniques
 Instructor: Tom Capaul
 Academic Quarter: Summer 2021
 Assignment: Group Project
-Team members: Dustin Ray, Raz Consta, Reuben Keller
+Team members: Raz Consta, Reuben Keller, Dustin Ray
  */
 
 package controller;
 
-import model.map.Direction;
+import model.map.AbstractMapEntity;
 import model.map.GameMap;
-import model.map.MapEntity;
 import model.map.Player;
 
 import java.awt.event.KeyEvent;
@@ -71,23 +70,19 @@ public class UserController implements PropertyChangeEnabledUserControls {
         int key = event.getKeyCode();
         if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_KP_LEFT) {
             myPlayer.setVelX(-MOVEMENT_SPEED);
-            myPlayer.setDirection(Direction.WEST);
-            myPlayer.setSprite(myPlayer.chairLeft);
+            myPlayer.setSprite('L');
         }
         if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_KP_RIGHT) {
             myPlayer.setVelX(MOVEMENT_SPEED);
-            myPlayer.setDirection(Direction.EAST);
-            myPlayer.setSprite(myPlayer.chairRight);
+            myPlayer.setSprite('R');
         }
         if (key == KeyEvent.VK_DOWN|| key == KeyEvent.VK_KP_DOWN) {
             myPlayer.setVelY(MOVEMENT_SPEED);
-            myPlayer.setDirection(Direction.SOUTH);
-            myPlayer.setSprite(myPlayer.chairDown);
+            myPlayer.setSprite('D');
         }
         if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
             myPlayer.setVelY(-MOVEMENT_SPEED);
-            myPlayer.setDirection(Direction.NORTH);
-            myPlayer.setSprite(myPlayer.chairUp);
+            myPlayer.setSprite('U');
         }
         if (key == KeyEvent.VK_E) {
             myLoadGameFlag = true;
@@ -130,11 +125,11 @@ public class UserController implements PropertyChangeEnabledUserControls {
     /**
      * Checks if the Player collides with any Obstacles in the Map.
      *
-     * @return true if the Player collides with an Obstacle and false otherwise
+     * @return true if the Player collides with an MapEntity and false otherwise
      */
-    private boolean collisionWith(List<MapEntity> obstacles) {
-        for (MapEntity obstacle : obstacles) {
-            if (myPlayer.collidesWith(obstacle)) {
+    private boolean collisionWith(List<AbstractMapEntity> mapEntity) {
+        for (AbstractMapEntity entity : mapEntity) {
+            if (myPlayer.collidesWith(entity)) {
                 return true;
             }
         }
@@ -151,7 +146,7 @@ public class UserController implements PropertyChangeEnabledUserControls {
         myPlayer.update();
         int newX = myPlayer.getX();
         int newY = myPlayer.getY();
-        if (collisionWith(myGM.getObstacles()) || myPlayer.outOfBounds()) {
+        if (collisionWith(myGM.obstacleEntities()) || myPlayer.outOfBounds()) {
             newX = oldX;
             newY = oldY;
         }
@@ -165,16 +160,16 @@ public class UserController implements PropertyChangeEnabledUserControls {
      * Checks the proximity of the Player sprite for any Doors.
      */
     private void checkDoorProximity() {
-        if (collisionWith(myGM.doorAPositions())) {
+        if (collisionWith(myGM.doorAEntities())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_A);
             myNextToDoor = true;
-        } else if (collisionWith(myGM.doorBPositions())) {
+        } else if (collisionWith(myGM.doorBEntities())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_B);
             myNextToDoor = true;
-        } else if (collisionWith(myGM.doorCPositions())) {
+        } else if (collisionWith(myGM.doorCEntities())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_C);
             myNextToDoor = true;
-        } else if (collisionWith(myGM.doorDPositions())) {
+        } else if (collisionWith(myGM.doorDEntities())) {
             fireProximityChangeDoor(PROPERTY_PROXIMITY_DOOR_D);
             myNextToDoor = true;
         } else {

@@ -5,16 +5,16 @@ TCSS 360 Software Development and Quality Assurance Techniques
 Instructor: Tom Capaul
 Academic Quarter: Summer 2021
 Assignment: Group Project
-Team members: Dustin Ray, Raz Consta, Reuben Keller
+Team members: Raz Consta, Reuben Keller, Dustin Ray
  */
 
 package model.trivia;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Random;
+
 
 /**
  * Class to represents Trivia objects.
@@ -22,8 +22,12 @@ import java.util.Random;
  * or short answer.
  *
  * @author Raz Consta
+ * @version Summer 2021
  */
 public class Trivia implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8471019687092293378L;
 
     /** ID of the question. */
     private final int myID;
@@ -71,7 +75,7 @@ public class Trivia implements Serializable {
         myCorrectAnswer = theCorrectAnswer;
         ArrayList<String> incorrect = new ArrayList<>();
 
-        if (theType == 1) {
+        if (theType == TF) {
             if (theCorrectAnswer.equals("True")) {
                 incorrect.add("False");
             }
@@ -79,7 +83,7 @@ public class Trivia implements Serializable {
                 incorrect.add("True");
             }
         }
-        else if (theType == 2) {
+        else if (theType == MC) {
             int i = 0, j;
             for (j = 0; j < theIncorrectAnswers.length(); j++) {
                 if (theIncorrectAnswers.charAt(j) == ';') {
@@ -140,44 +144,10 @@ public class Trivia implements Serializable {
          In case of MC, there are 3.
          In case of SA, there is 1.
          */
-        ArrayList<String> wrongAnswers = getIncorrectAnswers();
+//        ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
         return answerList;
-    }
-
-    /**
-     * Returns a shuffled ArrayList with answers changed as part of using the
-     * hint system.
-     *
-     * @return shuffled ArrayList of correct and incorrect answers
-     */
-    public ArrayList<String> getHints() {
-        ArrayList<String> hintsList = new ArrayList<>();
-
-        if (getType() == TF) {
-            hintsList.add("Maybe " + myCorrectAnswer);
-            hintsList.add("Maybe " + myIncorrectAnswers.get(0));
-        } else if (getType() == MC) {
-            hintsList.add(myCorrectAnswer);
-            hintsList.add(myIncorrectAnswers.get(new Random().nextInt(3)));
-        } else if (getType() == SA) {
-            StringBuilder saHint = new StringBuilder();
-            for (int i = 0; i < myCorrectAnswer.length(); i++) {
-                if (Math.random() < 0.5) {
-                    saHint.append(myCorrectAnswer.charAt(i));
-                } else {
-                    if (myCorrectAnswer.charAt(i) != ' ') {
-                        saHint.append('_');
-                    } else {
-                        saHint.append(' ');
-                    }
-                }
-            }
-            hintsList.add(saHint.toString());
-        }
-        Collections.shuffle(hintsList);
-        return hintsList;
     }
 
 

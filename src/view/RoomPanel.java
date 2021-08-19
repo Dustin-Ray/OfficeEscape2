@@ -81,7 +81,7 @@ public class RoomPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.drawImage(myFloorMap, 0,0, this);
         Player player = myUserControls.getMyPlayer();
-        g.drawImage(player.getPlayerSprite(), player.getX(),
+        g.drawImage(player.getSprite(), player.getX(),
                 player.getY(), this);
     }
 

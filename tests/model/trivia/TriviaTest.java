@@ -27,29 +27,67 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class TriviaTest {
 
+    /** An ID for the short-answer test question. */
     private static final int SHORT_ID = 1;
+
+    /** The short-answer question. */
     private static final String SHORT_QUESTION = "Hello, World?";
+
+    /** The short-answer answer. */
     private static final String SHORT_ANSWER = "hi";
+
+    /** The short-answer incorrect answers. */
     private static final String SHORT_INCORRECT_ANSWERS = "";
+
+    /** The short-answer type. */
     private static final int SHORT_TYPE = 3;
 
+
+    /** An ID for the multiple-choice test question. */
     private static final int MULTIPLE_ID = 3;
+
+    /** The multiple-choice question. */
     private static final String MULTIPLE_QUESTION = SHORT_QUESTION;
+
+    /** The multiple-choice answer. */
     private static final String MULTIPLE_ANSWER = SHORT_ANSWER;
+
+    /** The multiple-choice incorrect answers. */
     private static final String MULTIPLE_INCORRECT_ANSWERS = "Bye;Cya;Nah";
+
+    /** The multiple-choice type. */
     private static final int MULTIPLE_TYPE = 2;
 
+
+    /** An ID for the true-false test question. */
     private static final int TRUE_FALSE_ID = 4;
+
+    /** The true-false question. */
     private static final String TRUE_FALSE_QUESTION = SHORT_QUESTION;
+
+    /** The true-false answer. */
     private static final String TRUE_FALSE_ANSWER = "True";
+
+    /** The true-false incorrect answers. */
     private static final String TRUE_FALSE_INCORRECT_ANSWERS = "False";
+
+    /** The true-false type. */
     private static final int TRUE_FALSE_TYPE = 1;
 
 
+    /** The short-answer Trivia */
     private final Trivia shortAnswerTrivia;
+
+    /** The multiple-choice Trivia. */
     private final Trivia multipleChoiceTrivia;
+
+    /** The true-false Trivia. */
     private final Trivia trueFalseTrivia;
 
+
+    /**
+     * Constructs the Trivia objects used in testing.
+     */
     public TriviaTest() {
         shortAnswerTrivia = new Trivia(
                 SHORT_ID,
@@ -74,9 +112,6 @@ public class TriviaTest {
                 TRUE_FALSE_INCORRECT_ANSWERS,
                 TRUE_FALSE_TYPE
         );
-
-
-
     }
 
 
@@ -90,6 +125,7 @@ public class TriviaTest {
                 "getQuestion() for true/false does not return" +
                         " correct question");
     }
+
 
     /**
      * Checks that getCorrectAnswer() returns the correct answer for a
@@ -148,12 +184,6 @@ public class TriviaTest {
     }
 
 
-    @Test
-    void getCorrectAnswer_forShortAnswer_ignoresCase() {
-
-    }
-
-
     /**
      * Checks that getType() returns the correct type of Trivia.
      */
@@ -187,6 +217,7 @@ public class TriviaTest {
                 "getIncorrectAnswers() on multiple choice does not" +
                         " return incorrect answers");
     }
+
 
     /**
      * Checks that getIncorrectAnswers() for true/false returns the incorrect
@@ -247,6 +278,7 @@ public class TriviaTest {
         assertEquals(multipleChoiceTrivia.hashCode(), other.hashCode(),
                 "equal objects should have same hashCode()");
     }
+
 
     /**
      * Checks that toString() returns the correct String.

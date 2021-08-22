@@ -218,7 +218,7 @@ public class EdgeTest {
     @Test
     void equals_onEqualUnweightedEdges_returnsTrue() {
         String msg = "equals() on equal unweighted Edges returns false";
-        assertEquals(unweightedEdge, new Edge<>(FROM, TO));
+        assertEquals(unweightedEdge, new Edge<>(FROM, TO), msg);
     }
 
 

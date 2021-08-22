@@ -44,18 +44,6 @@ public class Trivia implements Serializable {
     /** Integer storing the question type. */
     private final int myType;
 
-    /** Constant representing a true false question type. */
-    private final int TF = 1;
-
-    /** Constant representing a multiple choice question type. */
-    private final int MC = 2;
-    /**
-     * Constant representing a short answer question type.
-     */
-    private final int SA = 3;
-
-
-
     /**
      * Constructs a Trivia object.
      *
@@ -65,17 +53,17 @@ public class Trivia implements Serializable {
      * @param theIncorrectAnswers ArrayList storing the incorrect answers
      * @param theType integer representing the type of the question
      */
-    public Trivia(int theID,
-                  String theQuestion,
-                  String theCorrectAnswer,
-                  String theIncorrectAnswers,
-                  int theType) {
+    public Trivia(final int theID,
+                  final String theQuestion,
+                  final String theCorrectAnswer,
+                  final String theIncorrectAnswers,
+                  final int theType) {
         myID = theID;
         myQuestion = theQuestion;
         myCorrectAnswer = theCorrectAnswer;
         ArrayList<String> incorrect = new ArrayList<>();
 
-        if (theType == TF) {
+        if (theType == 1) {
             if (theCorrectAnswer.equals("True")) {
                 incorrect.add("False");
             }
@@ -83,7 +71,7 @@ public class Trivia implements Serializable {
                 incorrect.add("True");
             }
         }
-        else if (theType == MC) {
+        else if (theType == 2) {
             int i = 0, j;
             for (j = 0; j < theIncorrectAnswers.length(); j++) {
                 if (theIncorrectAnswers.charAt(j) == ';') {
@@ -117,8 +105,6 @@ public class Trivia implements Serializable {
         return myCorrectAnswer;
     }
 
-
-
     /**
      * Returns the ArrayList of incorrect answers for the Trivia question.
      * In the case of TF and SA type of questions, the ArrayList is empty.
@@ -141,15 +127,14 @@ public class Trivia implements Serializable {
         answerList.add(getCorrectAnswer());
         /*
          Store the wrong answers.
-         In case of MC, there are 3.
+         In case of TF, there is 1.
          In case of SA, there is 1.
          */
-//        ArrayList<String> wrongAnswers = getIncorrectAnswers();
+        // ArrayList<String> wrongAnswers = getIncorrectAnswers();
         // Add the wrong answers to the answerList.
         answerList.addAll(myIncorrectAnswers);
         return answerList;
     }
-
 
     /**
      * Returns an integer that indicates the type of the Trivia question.
@@ -159,7 +144,6 @@ public class Trivia implements Serializable {
     public int getType() {
         return myType;
     }
-
 
     @Override
     public boolean equals(final Object other) {
@@ -174,17 +158,15 @@ public class Trivia implements Serializable {
         return result;
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(myQuestion, myCorrectAnswer, myID, myType);
     }
 
-
     /**
      * Returns a String representation of the Trivia object.
      *
-     * @return String that shows the questions and correct answer.
+     * @return String that shows the question and correct answer.
      */
     public String toString() {
         return "Q: " + myQuestion + " A: " + myCorrectAnswer;

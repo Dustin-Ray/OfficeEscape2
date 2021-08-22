@@ -25,25 +25,21 @@ import java.util.Random;
  */
 public class TriviaManager {
 
-    /**
-     * The ArrayList that stores all of the Trivia objects.
-     */
+    /** The ArrayList that stores all of the Trivia objects. */
     private final ArrayList<Trivia> myTriviaList;
 
-    /**
-     * Constructs a TriviaManager that stores all of the Trivia objects from
-     * a database.
-     */
+    /** Constructs a TriviaManager that stores all of the
+     * Trivia objects from a database. */
     public TriviaManager() {
-
         myTriviaList = new ArrayList<>();
         Connection c;
         Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:src/res/database/questions-answers.db");
+            c = DriverManager.getConnection
+                    ("jdbc:sqlite:src/res/database/questions-answers.db");
             c.setAutoCommit(false);
-//            System.out.println("Opened database successfully");
+            // System.out.println("Opened database successfully");
             stmt = c.createStatement();
             ResultSet rst = stmt.executeQuery( "SELECT * FROM trivia;" );
             while ( rst.next() ) {
@@ -61,23 +57,6 @@ public class TriviaManager {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-
-        // Testing code below:
-
-//        System.out.println("Testing if the questions have been loaded from database to ArrayList.");
-//        for (Trivia t: myTriviaList) {
-//            System.out.println(t);
-//        }
-
-//        Trivia mc = myTriviaList.get(1);
-//        System.out.println(mc.getAnswers());
-
-        // Testing hint system
-
-//        for (Trivia t: myTriviaList) {
-//            System.out.println(t.getAnswers());
-//            System.out.println(t.getHints() + "\n");
-//        }
     }
 
     /**
@@ -88,6 +67,4 @@ public class TriviaManager {
         Random rnd = new Random();
         return myTriviaList.remove(Math.abs(rnd.nextInt(myTriviaList.size())));
     }
-
-
 }

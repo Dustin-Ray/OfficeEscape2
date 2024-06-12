@@ -1,10 +1,17 @@
-# Overview
+# Overview of Office Escape 2
 
-Java-based trivia/exploration video game completed as part of T CSS 360 (Software Development and Quality Assurance Techniques) at University of Washington Tacoma.
+Office Escape 2 is a desktop Java trivia/exploration video game completed as part of T CSS 360 (Software Development and Quality Assurance Techniques) at University of Washington, Tacoma. The GUI was implemented using Java's Swing.
 
-Team: <a href="https://github.com/drcapybara">Dustin</a>
-<a href="https://github.com/RazConsta">Raz</a>
-<a href="https://github.com/reuben-keller">Reuben</a>
+Contributors: <a href="https://github.com/drcapybara">Dustin Ray</a>, 
+<a href="https://github.com/RazConsta">Raz Consta</a>,
+<a href="https://github.com/reuben-keller">Reuben Keller</a>
+
+### Languages
+- Java
+- SQLite
+
+### License
+- [MIT Open Source License](/LICENSE)
 
 ### Main Menu
 ![image](https://github.com/drcapybara/OfficeEscape2/assets/66283215/87b4278b-e5c8-4a21-b03c-d08a56d88228)
